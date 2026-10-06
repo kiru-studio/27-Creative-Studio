@@ -51,6 +51,16 @@ const NAV_ITEM_HREFS: Record<string, string> = {
   Contact: "#contact",
 };
 
+const MOBILE_NAV_ITEMS = [
+  { num: "01", name: "WORK", tag: "REELS", href: "#work" },
+  { num: "02", name: "FILMS", tag: "CINEMATIC", href: "#films" },
+  { num: "03", name: "PROCESS", tag: "4 STEPS", href: "#process" },
+  { num: "04", name: "CASES", tag: "4 CLIENTS", href: "#cases" },
+  { num: "05", name: "PACKAGES", tag: "WAYS TO WORK", href: "#packages" },
+  { num: "06", name: "ABOUT", tag: "DIRECTORS", href: "#about" },
+  { num: "07", name: "CONTACT", tag: "GET IN TOUCH", href: "#contact" },
+];
+
 function CornerBrackets() {
   return (
     <span className="corner-brackets" aria-hidden="true">
@@ -365,13 +375,18 @@ export default function Page() {
   }, []);
   useEffect(() => {
     if (!menuOpen) return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key !== "Escape") return;
       setMenuOpen(false);
       menuToggleRef.current?.focus();
     };
     document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      document.removeEventListener("keydown", onKeyDown);
+    };
   }, [menuOpen]);
   useEffect(() => {
     const start = Date.now();
@@ -605,7 +620,6 @@ export default function Page() {
         <button
           className="menu-toggle pointer-events-auto !ml-auto"
           style={{ marginLeft: "auto" }}
-          ref={menuToggleRef}
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label={
             menuOpen ? siteContent.ui.menuOpen : siteContent.ui.menuClosed
@@ -616,6 +630,105 @@ export default function Page() {
           {menuOpen ? <X /> : <Menu />}
         </button>
       </header>
+
+      {/* Mobile Cinematic HUD Navigation Trigger */}
+      <button
+        className="mobile-nav-trigger pointer-events-auto"
+        ref={menuToggleRef}
+        onClick={() => setMenuOpen(!menuOpen)}
+        aria-label={
+          menuOpen ? siteContent.ui.menuOpen : siteContent.ui.menuClosed
+        }
+        aria-expanded={menuOpen}
+        aria-controls="mobile-navigation"
+      >
+        <span className="mobile-nav-trigger-label">
+          {menuOpen ? "CLOSE" : "MENU"}
+        </span>
+        {menuOpen ? (
+          <span className="mobile-nav-close-icon" aria-hidden="true">✕</span>
+        ) : (
+          <div className="mobile-nav-ticks" aria-hidden="true">
+            <span className="mobile-nav-tick-1" />
+            <span className="mobile-nav-tick-2" />
+            <span className="mobile-nav-tick-3" />
+          </div>
+        )}
+      </button>
+
+      {/* Mobile Full-Screen Director's Slate Drawer */}
+      {menuOpen && (
+        <div
+          id="mobile-navigation"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Director site navigation"
+          className="mobile-nav-drawer"
+        >
+          {/* Viewfinder Corner Brackets */}
+          <div className="mobile-drawer-brackets" aria-hidden="true">
+            <span className="mobile-drawer-bracket-tl" />
+            <span className="mobile-drawer-bracket-tr" />
+            <span className="mobile-drawer-bracket-bl" />
+            <span className="mobile-drawer-bracket-br" />
+          </div>
+
+          {/* Top HUD Header */}
+          <div className="mobile-drawer-header">
+            <div className="mobile-drawer-rec">
+              <span className="mobile-drawer-rec-dot" aria-hidden="true" />
+              <span>DIRECTORY // 27·STUDIO</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="mobile-drawer-timecode">{timecode}</span>
+              <button
+                className="mobile-drawer-close"
+                onClick={() => setMenuOpen(false)}
+                aria-label="Close navigation"
+              >
+                <span>CLOSE</span>
+                <span aria-hidden="true">✕</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Nav List with Big Shoulders typography & Scene tags */}
+          <nav className="mobile-drawer-nav">
+            {MOBILE_NAV_ITEMS.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className="mobile-drawer-item group"
+                onClick={() => setMenuOpen(false)}
+              >
+                <div className="flex items-baseline">
+                  <span className="mobile-drawer-num">{item.num} //</span>
+                  <span className="mobile-drawer-title">{item.name}</span>
+                </div>
+                <div className="mobile-drawer-tag">
+                  <span>{item.tag}</span>
+                  <span className="text-[var(--industry)]">↗</span>
+                </div>
+              </a>
+            ))}
+          </nav>
+
+          {/* Bottom HUD Footer Bar */}
+          <div className="mobile-drawer-footer">
+            <div className="flex flex-col">
+              <span className="mobile-drawer-loc-label">LOCATION</span>
+              <span className="mobile-drawer-loc-val">THOOTHUKUDI, TN</span>
+            </div>
+            <a
+              href="#contact"
+              onClick={() => setMenuOpen(false)}
+              className="mobile-drawer-cta"
+            >
+              GROW YOUR BRAND ↗
+            </a>
+          </div>
+        </div>
+      )}
       <Hero />
       <ReelsSection
         onOpenViewer={(index, opener) => {
@@ -637,7 +750,12 @@ export default function Page() {
         href={whatsappHref}
         aria-label={siteContent.ui.whatsappAriaLabel}
       >
-        {siteContent.contact.whatsappLabel} <ArrowUpRight size={15} />
+        <span className="hidden sm:inline">{siteContent.contact.whatsappLabel}</span>
+        <span className="sm:hidden font-mono font-bold text-xs flex items-center gap-1.5">
+          <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" aria-hidden="true" />
+          WHATSAPP
+        </span>
+        <ArrowUpRight size={15} />
       </a>
       {lightboxOpen && (
         <ReelViewer

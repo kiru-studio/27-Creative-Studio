@@ -21,6 +21,7 @@ export function PackagesSection({
   className = "",
 }: PackagesSectionProps) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [activeMobileIndex, setActiveMobileIndex] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-10% 0px" });
   const shouldReduceMotion = Boolean(useReducedMotion());
@@ -85,6 +86,27 @@ export function PackagesSection({
           </h2>
         </div>
 
+        {/* Mobile Segmented Package Switcher (Visible only on mobile) */}
+        <div className="md:hidden flex items-center justify-between gap-1.5 p-1 rounded-lg border border-[var(--line)] bg-[var(--panel)] mb-6 select-none font-mono">
+          {packageList.map((pkg, idx) => {
+            const isSelected = activeMobileIndex === idx;
+            return (
+              <button
+                key={pkg.id}
+                type="button"
+                onClick={() => setActiveMobileIndex(idx)}
+                className={`flex-1 py-2 px-1 text-center rounded text-[11px] tracking-wider uppercase transition-all ${
+                  isSelected
+                    ? "bg-[var(--industry)] !text-[#0B0B0F] font-black shadow-sm"
+                    : "text-[var(--muted)] hover:text-[var(--paper)]"
+                }`}
+              >
+                0{idx + 1} // {pkg.name.split(" ")[0]}
+              </button>
+            );
+          })}
+        </div>
+
         {/* ------------------------------------------ */}
         {/* 3-CARD CINEMATIC ENGAGEMENT GRID (Full screen) */}
         {/* ------------------------------------------ */}
@@ -102,7 +124,9 @@ export function PackagesSection({
                 key={pkg.id}
                 role="article"
                 aria-label={pkg.name}
-                className="relative flex flex-col justify-between p-7 sm:p-8 lg:p-9 rounded-[var(--radius-panel)] border border-[var(--line)] bg-[var(--panel)]/50 backdrop-blur-xs transition-colors duration-300 hover:border-[var(--industry)] group min-h-[360px]"
+                className={`relative flex-col justify-between p-7 sm:p-8 lg:p-9 rounded-[var(--radius-panel)] border border-[var(--line)] bg-[var(--panel)]/50 backdrop-blur-xs transition-colors duration-300 hover:border-[var(--industry)] group min-h-[360px] ${
+                  activeMobileIndex === index ? "flex" : "hidden md:flex"
+                }`}
                 style={{
                   opacity: isOtherHovered && !shouldReduceMotion ? 0.6 : 1,
                 }}
@@ -161,11 +185,13 @@ export function PackagesSection({
                 <div className="mt-8 pt-2">
                   <a
                     href={siteConfig.contactAnchor || "#contact"}
-                    className="w-full text-center py-3 px-5 text-xs font-mono font-bold uppercase tracking-wider rounded-[var(--radius-control)] bg-[var(--industry)] text-[var(--ink)] inline-flex items-center justify-center gap-2 hover:brightness-110 transition-all group/cta focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--industry)]"
+                    style={{ color: "#0B0B0F" }}
+                    className="w-full text-center py-3 px-5 text-xs font-mono font-bold uppercase tracking-wider rounded-[var(--radius-control)] bg-[var(--industry)] !text-[#0B0B0F] inline-flex items-center justify-center gap-2 hover:brightness-110 transition-all group/cta focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--industry)]"
                   >
-                    <span>{pkg.cta || "Talk to us"}</span>
+                    <span className="!text-[#0B0B0F]" style={{ color: "#0B0B0F" }}>{pkg.cta || "Talk to us"}</span>
                     <span
-                      className="inline-block transition-transform duration-250 group-hover/cta:translate-x-1.5"
+                      className="inline-block transition-transform duration-250 group-hover/cta:translate-x-1.5 !text-[#0B0B0F]"
+                      style={{ color: "#0B0B0F" }}
                       aria-hidden="true"
                     >
                       →

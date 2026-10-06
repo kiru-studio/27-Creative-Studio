@@ -732,11 +732,48 @@ export function CaseRow({
 // 5. MAIN CASES SECTION COMPONENT
 // ==========================================
 
+// Studio KPI Stats Data Array for Results at a Glance
+const KPI_STATS = [
+  {
+    id: "clients",
+    label: "CLIENTS",
+    value: "4",
+    defaultSub: "Local businesses",
+    hoverSub: "4 Thoothukudi brands",
+    accent: false,
+  },
+  {
+    id: "accounts",
+    label: "ACCOUNTS",
+    value: "5",
+    defaultSub: "Instagram profiles",
+    hoverSub: "Main & branch accounts",
+    accent: false,
+  },
+  {
+    id: "followers",
+    label: "NEW FOLLOWERS",
+    value: "6,300+",
+    defaultSub: "Organic audience",
+    hoverSub: "100% organic · zero ads",
+    accent: true,
+  },
+  {
+    id: "multiplier",
+    label: "PEAK MULTIPLIER",
+    value: "6.1x",
+    defaultSub: "MM Cars (299 → 1.8K)",
+    hoverSub: "6.1x top follower reach",
+    accent: false,
+  },
+];
+
 export function CasesSection() {
   const [openId, setOpenId] = useState<string | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [hoveredClosedCase, setHoveredClosedCase] =
     useState<CaseStudyItem | null>(null);
+  const [hoveredKpiIndex, setHoveredKpiIndex] = useState<number | null>(null);
 
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-10% 0px" });
@@ -856,39 +893,87 @@ export function CasesSection() {
           </h2>
         </div>
 
-        {/* Results at a Glance Summary (from PDF Page 2) */}
+        {/* Results at a Glance — Studio KPI Metrics Strip */}
         <motion.div
           initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
           transition={{ duration: 0.5, delay: 0.25 }}
-          className="mb-8 p-4 sm:p-5 rounded-lg border border-[var(--industry)]/30 bg-[var(--panel-raised)] relative overflow-hidden"
+          className="mb-10 sm:mb-12 py-6 sm:py-7 border-y border-[var(--line,#2A2A30)] bg-[var(--panel,#141419)]/30 relative"
+          onMouseLeave={() => setHoveredKpiIndex(null)}
         >
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 font-mono">
-            <div>
-              <span className="text-[10px] uppercase tracking-widest text-[var(--industry)] font-bold block mb-1">
-                RESULTS AT A GLANCE · THOOTHUKUDI
-              </span>
-              <p className="m-0 text-base sm:text-lg font-bold text-[var(--paper)]">
-                4 clients. 5 Instagram accounts. <span className="text-[var(--industry)]">6,300+ new followers.</span>
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center gap-2 text-xs">
-              <span className="px-2.5 py-1 rounded bg-[var(--ink)] border border-[var(--line)] text-[var(--paper)]">
-                Thamira <strong className="text-[var(--industry)]">5.8x</strong> (399 → 2.3K)
-              </span>
-              <span className="px-2.5 py-1 rounded bg-[var(--ink)] border border-[var(--line)] text-[var(--paper)]">
-                MM Cars <strong className="text-[var(--industry)]">6.1x</strong> (299 → 1.8K)
-              </span>
-              <span className="px-2.5 py-1 rounded bg-[var(--ink)] border border-[var(--line)] text-[var(--paper)]">
-                Surya Mobiles <strong className="text-[var(--industry)]">3.4x</strong>
-              </span>
-              <span className="px-2.5 py-1 rounded bg-[var(--ink)] border border-[var(--line)] text-[var(--paper)]">
-                ThoorigAI <strong className="text-[var(--industry)]">1.6x</strong> (+58%)
-              </span>
-              <span className="px-2.5 py-1 rounded bg-[var(--industry)]/10 border border-[var(--industry)]/40 text-[var(--industry)] font-semibold">
-                Surya 2nd ID: 0 → 1,059 (1 mo)
-              </span>
-            </div>
+          {/* Top metadata rule */}
+          <div className="flex items-center justify-between pb-4 mb-5 border-b border-[var(--line,#2A2A30)]/60 text-[11px] uppercase tracking-widest text-[var(--muted,#A9A7A0)] font-mono">
+            <span className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--industry,#C6FF3D)] animate-pulse" aria-hidden="true" />
+              <strong className="font-bold text-[var(--paper,#F4F1EA)]">RESULTS AT A GLANCE</strong>
+              <span className="text-[var(--line,#2A2A30)]" aria-hidden="true">/</span>
+              <span>THOOTHUKUDI CAMPAIGNS</span>
+            </span>
+            <span className="hidden sm:inline-block text-[10px] text-[var(--muted,#A9A7A0)]/60 tracking-widest">
+              PORTFOLIO TRACK RECORD
+            </span>
+          </div>
+
+          {/* 4-column KPI stats grid with focus-pull hover interaction */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 font-mono">
+            {KPI_STATS.map((kpi, idx) => {
+              const isHovered = hoveredKpiIndex === idx;
+              const isOtherHovered = hoveredKpiIndex !== null && !isHovered;
+
+              return (
+                <div
+                  key={kpi.id}
+                  tabIndex={0}
+                  onClick={() => setHoveredKpiIndex(hoveredKpiIndex === idx ? null : idx)}
+                  onMouseEnter={() => setHoveredKpiIndex(idx)}
+                  onFocus={() => setHoveredKpiIndex(idx)}
+                  onBlur={() => setHoveredKpiIndex(null)}
+                  className={`group relative min-w-0 pl-4 sm:pl-5 py-2 border-l outline-none cursor-default select-none transition-colors duration-200 ${
+                    isHovered
+                      ? "border-[var(--industry,#C6FF3D)]"
+                      : kpi.accent
+                      ? "border-[var(--industry,#C6FF3D)]/50"
+                      : "border-[var(--line,#2A2A30)]"
+                  }`}
+                  style={{
+                    opacity: isOtherHovered ? 0.38 : 1,
+                    transition: "opacity 250ms ease, border-color 200ms ease",
+                  }}
+                >
+                  <span
+                    className={`text-[11px] uppercase tracking-widest block transition-colors duration-200 ${
+                      isHovered || kpi.accent
+                        ? "text-[var(--industry,#C6FF3D)] font-bold"
+                        : "text-[var(--muted,#A9A7A0)] group-hover:text-[var(--paper,#F4F1EA)]"
+                    }`}
+                  >
+                    {kpi.label}
+                  </span>
+                  <span
+                    className={`text-3xl sm:text-4xl lg:text-5xl font-black font-display block mt-1 transition-colors duration-200 ${
+                      kpi.accent
+                        ? "text-[var(--industry,#C6FF3D)]"
+                        : isHovered
+                        ? "text-white"
+                        : "text-[var(--paper,#F4F1EA)]"
+                    }`}
+                  >
+                    {kpi.value}
+                  </span>
+                  <div className="h-5 mt-1 overflow-hidden">
+                    <span
+                      className={`text-xs block truncate transition-colors duration-200 ${
+                        isHovered
+                          ? "text-[var(--paper,#F4F1EA)] font-medium"
+                          : "text-[var(--muted,#A9A7A0)]/75"
+                      }`}
+                    >
+                      {isHovered ? kpi.hoverSub : kpi.defaultSub}
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </motion.div>
 

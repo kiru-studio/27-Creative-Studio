@@ -226,6 +226,26 @@ export function ContactSection({
 
               {/* Right Column: Interactive Contact Form or SuccessWrap State */}
               <div className="lg:col-span-7">
+                {/* Mobile Quick Direct Contact Actions */}
+                <div className="md:hidden flex items-center gap-2 mb-5 font-mono select-none">
+                  <a
+                    href="tel:8300478244"
+                    className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg border border-[#2A2A30] bg-[#141419] text-xs text-[#F4F1EA] hover:border-[#C6FF3D] font-bold active:scale-95 transition-all"
+                  >
+                    <span>📞</span>
+                    <span>CALL DIRECT</span>
+                  </a>
+                  <a
+                    href={`https://wa.me/${siteConfig.whatsappNumber}?text=Hi%2027%20Creative%20Studio%2C%20I%20would%20like%20to%20grow%20my%20brand.`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg border border-[#C6FF3D] bg-[#C6FF3D] text-xs !text-[#0B0B0F] font-black active:scale-95 transition-all shadow-sm"
+                  >
+                    <span>💬</span>
+                    <span>WHATSAPP</span>
+                  </a>
+                </div>
+
                 <AnimatePresence mode="wait">
                   {isSubmitted ? (
                     <SuccessWrap

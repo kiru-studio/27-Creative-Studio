@@ -91,9 +91,21 @@ export function Shutter({ stepIndex, lensConfig, reducedMotion }: ShutterProps) 
                 : bladeScale,
             }}
             transition={{
-              type: "spring",
-              stiffness: 120,
-              damping: 20,
+              rotate: {
+                type: "spring",
+                stiffness: 120,
+                damping: 20,
+              },
+              scale: triggerFlash
+                ? {
+                    duration: 0.24,
+                    ease: "easeInOut",
+                  }
+                : {
+                    type: "spring",
+                    stiffness: 120,
+                    damping: 20,
+                  },
             }}
           />
         ))}

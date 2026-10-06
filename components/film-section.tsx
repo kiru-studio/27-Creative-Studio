@@ -497,6 +497,27 @@ export function FilmSection() {
               delay: 0.25,
             }}
           >
+            {/* Mobile Quick-Switch Film Chips (Visible only on mobile) */}
+            <div className="md:hidden flex items-center gap-2 overflow-x-auto pb-3 mb-2 scrollbar-none select-none">
+              {filmsData.map((film, idx) => {
+                const isSelected = film.id === activeItem.id;
+                return (
+                  <button
+                    key={film.id}
+                    type="button"
+                    onClick={() => handleSelect(film)}
+                    className={`shrink-0 px-3 py-1.5 rounded text-[11px] font-mono tracking-wider uppercase transition-all ${
+                      isSelected
+                        ? "bg-[#C6FF3D] text-[#0B0B0F] font-bold border border-[#C6FF3D]"
+                        : "bg-[#141419] text-[#A9A7A0] border border-[#2A2A30]"
+                    }`}
+                  >
+                    0{idx + 1} // {film.client}
+                  </button>
+                );
+              })}
+            </div>
+
             {/* Shared Layout Card Container */}
             <motion.div
               layoutId={`film-card-${activeItem.id}`}

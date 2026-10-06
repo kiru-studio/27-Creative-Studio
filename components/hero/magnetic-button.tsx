@@ -67,18 +67,20 @@ export function MagneticPrimaryButton({
       style={{
         x: canHover && !shouldReduceMotion ? springX : 0,
         y: canHover && !shouldReduceMotion ? springY : 0,
+        color: "#0B0B0F",
       }}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => {
         onMouseEnter?.();
       }}
       onMouseLeave={handleMouseLeave}
-      className={`group relative inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-2.5 rounded-[var(--radius-control,4px)] bg-[var(--industry)] text-[var(--ink,#0B0B0F)] font-mono text-xs font-bold uppercase tracking-wider transition-all duration-200 hover:shadow-[0_0_24px_rgba(198,255,61,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--industry)] ${className}`}
+      className={`group relative inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-2.5 rounded-[var(--radius-control,4px)] bg-[var(--industry)] !text-[#0B0B0F] font-mono text-xs font-bold uppercase tracking-wider transition-all duration-200 hover:shadow-[0_0_24px_rgba(198,255,61,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--industry)] ${className}`}
     >
-      <span>{text}</span>
+      <span className="!text-[#0B0B0F]" style={{ color: "#0B0B0F" }}>{text}</span>
       <ArrowUpRight
         size={16}
-        className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+        className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 !text-[#0B0B0F]"
+        style={{ color: "#0B0B0F", stroke: "#0B0B0F" }}
         aria-hidden="true"
       />
     </motion.a>

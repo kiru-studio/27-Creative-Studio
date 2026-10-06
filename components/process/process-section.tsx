@@ -2,7 +2,6 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useMotionValueEvent, useReducedMotion } from "framer-motion";
-import { VolumeX, Volume2 } from "lucide-react";
 import { processSteps } from "@/data/process";
 import { CameraSvg } from "./camera-svg";
 import { StepTabs } from "./step-tabs";
@@ -19,7 +18,6 @@ export function ProcessSection({
 }: ProcessSectionProps) {
   const containerRef = useRef<HTMLElement>(null);
   const [activeStepIndex, setActiveStepIndex] = useState(0);
-  const [isSoundOn, setIsSoundOn] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const prefersReduced = useReducedMotion();
   const shouldReduceMotion = prefersReduced || false;
@@ -121,25 +119,9 @@ export function ProcessSection({
               </h2>
             </div>
 
-            {/* Sound toggle & HUD scene timecode indicator */}
+            {/* HUD scene timecode indicator */}
             <div className="flex items-center gap-4 text-xs font-mono text-[#A9A7A0]">
-              <button
-                type="button"
-                onClick={() => setIsSoundOn((prev) => !prev)}
-                aria-label={isSoundOn ? "Turn sound off" : "Turn sound on"}
-                className="flex items-center gap-1.5 px-2.5 py-1 rounded border border-[#2A2A30] hover:border-[#C6FF3D] hover:text-[#C6FF3D] transition-colors"
-              >
-                {isSoundOn ? (
-                  <Volume2 size={13} className="text-[#C6FF3D]" aria-hidden="true" />
-                ) : (
-                  <VolumeX size={13} aria-hidden="true" />
-                )}
-                <span className="uppercase text-[11px] tracking-wider">
-                  {isSoundOn ? "sound on" : "sound off"}
-                </span>
-              </button>
-
-              <span className="hidden sm:inline-block tracking-widest text-[11px] text-[#A9A7A0]/60">
+              <span className="tracking-widest text-[11px] text-[#A9A7A0]/60">
                 SCENE 0{activeStepIndex + 1} // 0{totalSteps}
               </span>
             </div>
