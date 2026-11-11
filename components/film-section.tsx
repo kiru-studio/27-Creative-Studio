@@ -505,7 +505,7 @@ export function FilmSection() {
                   <button
                     key={film.id}
                     type="button"
-                    onClick={() => handleSelect(film)}
+                    onClick={() => handleSwap(film.id)}
                     className={`shrink-0 px-3 py-1.5 rounded text-[11px] font-mono tracking-wider uppercase transition-all ${
                       isSelected
                         ? "bg-[#C6FF3D] text-[#0B0B0F] font-bold border border-[#C6FF3D]"

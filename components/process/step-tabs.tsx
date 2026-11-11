@@ -95,7 +95,6 @@ export function StepTabs({
             >
               <Icon
                 size={16}
-                style={{ color: isActive ? "#0B0B0F" : undefined, stroke: isActive ? "#0B0B0F" : undefined }}
                 className={`transition-colors duration-200 ${
                   isActive ? "!text-[#0B0B0F]" : "text-[#A9A7A0] group-hover:text-[#C6FF3D]"
                 }`}
@@ -116,4 +115,3 @@ export function StepTabs({
     </div>
   );
 }
-
