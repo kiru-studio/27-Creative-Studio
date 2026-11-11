@@ -93,34 +93,64 @@ export function VideoWindow({
         }
       }}
     >
-      {/* Outer Container with Floating Transparent Logo */}
+      {/* Outer Slanted Container */}
       <div
-        className="hero-logo-window relative w-full h-full overflow-hidden transition-all duration-300 hover:scale-[1.02] cursor-pointer group bg-transparent flex items-center justify-center"
+        className="relative w-full h-full overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-[1.01] cursor-pointer group"
+        style={{
+          clipPath: clipPathStyle,
+          WebkitClipPath: clipPathStyle,
+        }}
       >
-        {/* 27 Creative Studio Transparent Logo */}
-        <div className="relative w-full h-full flex items-center justify-center p-4 sm:p-6 md:p-8">
-          <img
-            src={heroConfig.logoSrc || "/images/27-logo.png"}
-            alt="27 Creative Studio"
-            className="w-full h-full object-contain max-w-[90%] max-h-[90%] drop-shadow-[0_15px_35px_rgba(0,0,0,0.95)] transition-transform duration-500 group-hover:scale-105 select-none"
-            loading="eager"
+        {/* Video Element or Animated Gradient Fallback */}
+        {heroConfig.videoSrc ? (
+          <video
+            ref={videoRef}
+            src={heroConfig.videoSrc}
+            poster={heroConfig.posterSrc || undefined}
+            autoPlay
+            loop
+            muted={isMuted}
+            playsInline
+            preload="metadata"
+            className="w-full h-full object-cover"
           />
-
-        </div>
-
-        {/* Hover Cue: Viewfinder Play Showreel Badge */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-200 pointer-events-none bg-black/20 backdrop-blur-[2px] rounded-2xl">
-          <div className="px-4 py-2 rounded-full bg-[var(--ink,#0B0B0F)]/90 border border-[var(--industry,#C6FF3D)] text-[var(--industry,#C6FF3D)] font-mono text-xs uppercase tracking-wider flex items-center gap-2 shadow-[0_0_24px_rgba(198,255,61,0.35)]">
-            <span className="size-2 rounded-full bg-[var(--rec,#FF3B30)] animate-pulse" />
-            <span className="font-bold">WATCH SHOWREEL</span>
+        ) : (
+          <div className="w-full h-full relative overflow-hidden bg-gradient-to-br from-[var(--industry)] via-[#9bc628] to-[var(--ink)]">
+            {/* Subtle animated light sweep across lime slab */}
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none"
+              animate={
+                shouldReduceMotion
+                  ? { opacity: 0 }
+                  : { x: ["-100%", "200%"] }
+              }
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { duration: 4, repeat: Infinity, ease: "linear" }
+              }
+            />
           </div>
-        </div>
+        )}
 
-        {/* Bottom studio watermark */}
-        <div className="absolute bottom-0 inset-x-0 flex justify-center pointer-events-none">
-          <span className="font-mono text-[10px] tracking-widest uppercase text-white/40 group-hover:text-[var(--industry,#C6FF3D)]/80 transition-colors">
-            STUDIO 27 // THOOTHUKUDI
-          </span>
+        {/* Lime Duotone / Brand Tint Overlay (~25% opacity) */}
+        <div
+          className="absolute inset-0 bg-[var(--industry)]/25 pointer-events-none mix-blend-color transition-opacity group-hover:opacity-15"
+          aria-hidden="true"
+        />
+
+        {/* Subtle Dark Vignette for Cinematic Look */}
+        <div
+          className="absolute inset-0 bg-radial from-transparent to-black/40 pointer-events-none"
+          aria-hidden="true"
+        />
+
+        {/* Hover Cue: Viewfinder Play Badge */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-200 pointer-events-none">
+          <div className="px-3.5 py-1.5 rounded-full bg-[var(--ink)]/85 border border-[var(--industry)] text-[var(--industry)] font-mono text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-lg backdrop-blur-sm">
+            <span>▶</span>
+            <span>PLAY REEL</span>
+          </div>
         </div>
       </div>
     </motion.div>

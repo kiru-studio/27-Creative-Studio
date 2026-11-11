@@ -50,23 +50,23 @@ export function SendBriefButton({
       style={{
         x: reducedMotion ? 0 : smoothX,
         y: reducedMotion ? 0 : smoothY,
-        backgroundColor: "var(--industry)",
-        color: "var(--industry-ink)",
+        backgroundColor: "var(--industry, #C6FF3D)",
+        color: "var(--ink, #0B0B0F)",
       }}
       className="group relative flex-1 min-h-[48px] px-6 py-3 rounded-lg font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-[0_0_16px_rgba(198,255,61,0.25)] hover:shadow-[0_0_24px_rgba(198,255,61,0.45)] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed select-none"
     >
       {isLoading ? (
         <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-[var(--rec)] animate-pulse" />
-          <span style={{ color: "var(--industry-ink)" }}>Recording...</span>
+          <span className="w-2 h-2 rounded-full bg-[#FF3B30] shadow-[0_0_8px_#FF3B30] animate-pulse" />
+          <span style={{ color: "#0B0B0F" }}>Recording...</span>
         </div>
       ) : (
         <>
-          <span style={{ color: "var(--industry-ink)" }}>Send brief</span>
+          <span style={{ color: "#0B0B0F" }}>Send brief</span>
           <ArrowUpRight
             size={16}
             className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-            style={{ stroke: "var(--industry-ink)" }}
+            style={{ stroke: "#0B0B0F" }}
             aria-hidden="true"
           />
         </>

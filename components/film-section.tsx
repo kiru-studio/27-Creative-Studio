@@ -9,7 +9,6 @@ import {
   useReducedMotion,
 } from "framer-motion";
 import { siteContent } from "@/lib/site-content";
-import { VideoPlayer } from "./video-player";
 
 export type FilmVideoItem = {
   id: string;
@@ -146,23 +145,135 @@ export function MainPlayer({
   muted,
   onToggleMute,
 }: MainPlayerProps) {
+  const playerRef = useRef<HTMLDivElement>(null);
+
   return (
     <div
-      className="film-player-container relative w-full"
+      className="film-player"
+      ref={playerRef}
       role="group"
       aria-label={siteContent.ui.filmPlayerLabel}
     >
-      <VideoPlayer
-        src={item.src}
-        poster={item.posterSrc}
-        title={item.title}
-        subtitle={item.client ? `${item.client} // ${item.duration}` : item.duration}
-        aspectRatio="video"
-        showViewfinder={true}
-        muted={muted}
-        onPlay={onTogglePlay}
-        onPause={onTogglePlay}
-      />
+      <div className="film-poster">
+        {item.src ? (
+          <video
+            className="film-video"
+            src={item.src}
+            poster={item.posterSrc}
+            controls
+            muted={muted}
+            playsInline
+            preload="none"
+            aria-label={item.title}
+          />
+        ) : (
+          <>
+            {/* Viewfinder Lock-on Brackets */}
+            <ViewfinderBrackets
+              isLocked={isLocked}
+              pulseKey={pulseKey}
+              shouldReduceMotion={shouldReduceMotion}
+            />
+
+            {/* Top-left blinking ● REC label (hidden if prefers-reduced-motion) */}
+            {!shouldReduceMotion && (
+              <motion.div
+                className="film-rec-label"
+                initial={{ opacity: 0 }}
+                animate={isLocked ? { opacity: 1 } : { opacity: 0 }}
+                transition={{ duration: 0.4, delay: 0.3 }}
+                aria-hidden="true"
+              >
+                <motion.span
+                  className="film-rec-dot"
+                  animate={{ opacity: [1, 0.2, 1] }}
+                  transition={{
+                    duration: 1.2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+                <span>REC</span>
+              </motion.div>
+            )}
+
+            {item.posterSrc && (
+              <img className="poster-image" src={item.posterSrc} alt="" />
+            )}
+
+            {/* FILM / PLACEHOLDER label: fades in after brackets land + 0.3s */}
+            <motion.span
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
+              animate={isLocked ? { opacity: 1 } : { opacity: 0 }}
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { duration: 0.4, delay: 0.9 }
+              }
+            >
+              {playing
+                ? siteContent.ui.filmPlayingPlaceholder
+                : item.label}
+            </motion.span>
+
+            {/* Timecode: fades in after brackets land + 0.3s */}
+            <motion.b
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
+              animate={isLocked ? { opacity: 1 } : { opacity: 0 }}
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { duration: 0.4, delay: 0.9 }
+              }
+            >
+              {item.duration}
+            </motion.b>
+          </>
+        )}
+      </div>
+
+      {!item.src && (
+        <div className="film-controls">
+          <button
+            type="button"
+            onClick={onTogglePlay}
+            aria-label={
+              playing ? siteContent.ui.pauseFilm : siteContent.ui.playFilm
+            }
+            aria-pressed={playing}
+          >
+            {playing ? "Ⅱ" : "▶"}
+          </button>
+          <input
+            aria-label={siteContent.ui.seekFilm}
+            type="range"
+            min="0"
+            max="100"
+            value={progress}
+            aria-valuetext={`${progress}%`}
+            onChange={(e) => onProgressChange(Number(e.target.value))}
+          />
+          <button
+            type="button"
+            onClick={onToggleMute}
+            aria-label={
+              muted ? siteContent.ui.unmuteFilm : siteContent.ui.muteFilm
+            }
+            aria-pressed={!muted}
+          >
+            {muted
+              ? siteContent.ui.filmMuteLabel
+              : siteContent.ui.filmSoundLabel}
+          </button>
+          <button
+            type="button"
+            aria-label={siteContent.ui.fullscreenFilm}
+            onClick={() => playerRef.current?.requestFullscreen?.()}
+          >
+            {siteContent.ui.filmFullscreenLabel}
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -394,11 +505,11 @@ export function FilmSection() {
                   <button
                     key={film.id}
                     type="button"
-                    onClick={() => handleSwap(film.id)}
+                    onClick={() => handleSelect(film)}
                     className={`shrink-0 px-3 py-1.5 rounded text-[11px] font-mono tracking-wider uppercase transition-all ${
                       isSelected
-                        ? "bg-[var(--industry)] text-[var(--industry-ink)] font-bold border border-[var(--industry)]"
-                        : "bg-[var(--panel)] text-[var(--muted)] border border-[var(--line)]"
+                        ? "bg-[#C6FF3D] text-[#0B0B0F] font-bold border border-[#C6FF3D]"
+                        : "bg-[#141419] text-[#A9A7A0] border border-[#2A2A30]"
                     }`}
                   >
                     0{idx + 1} // {film.client}

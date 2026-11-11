@@ -47,13 +47,11 @@ export type SiteContent = {
   adminCopy: Record<string, string>;
   nav: string[];
   hero: {
-    eyebrow: string;
     title: string;
     body: string;
     cta: string;
     secondary: string;
     posterLabel: string;
-    posterAlt: string;
     posterSrc?: string;
     videoSrc?: string;
   };
@@ -84,7 +82,6 @@ export type SiteContent = {
   faqs: { question: string; answer: string }[];
   ui: Record<string, string>;
   contact: {
-    kicker: string;
     heading: string;
     body: string;
     email: string;
@@ -93,15 +90,6 @@ export type SiteContent = {
     whatsappLabel: string;
     whatsappMessage: string;
     whatsappNumber: string;
-    bookOnWhatsApp: string;
-    sendBrief: string;
-    nameLabel: string;
-    phoneLabel: string;
-    businessTypeLabel: string;
-    needsLabel: string;
-    preferredDateLabel: string;
-    messageLabel: string;
-    honeypotLabel: string;
   };
   footer: {
     line: string;

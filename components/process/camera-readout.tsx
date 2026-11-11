@@ -13,7 +13,7 @@ export function CameraReadout({ lensConfig, reducedMotion }: CameraReadoutProps)
 
   return (
     <div
-      className="relative flex items-center justify-center gap-1.5 px-2.5 py-1 rounded bg-[var(--ink)]/90 border border-[var(--line)] font-mono text-[10px] sm:text-[11px] text-[var(--industry)] tracking-wider select-none shadow-[inset_0_1px_3px_rgba(0,0,0,0.8)] overflow-hidden"
+      className="relative flex items-center justify-center gap-1.5 px-2.5 py-1 rounded bg-[#0B0B0F]/90 border border-[#2A2A30] font-mono text-[10px] sm:text-[11px] text-[#C6FF3D] tracking-wider select-none shadow-[inset_0_1px_3px_rgba(0,0,0,0.8)] overflow-hidden"
       role="status"
       aria-label={`Camera readout: ${aperture}, ${shutterSpeed}, ${iso}`}
     >
@@ -39,7 +39,7 @@ export function CameraReadout({ lensConfig, reducedMotion }: CameraReadoutProps)
         </AnimatePresence>
       </div>
 
-      <span className="text-[var(--muted)]/60 text-[9px] select-none" aria-hidden="true">
+      <span className="text-[#A9A7A0]/60 text-[9px] select-none" aria-hidden="true">
         ·
       </span>
 
@@ -52,14 +52,14 @@ export function CameraReadout({ lensConfig, reducedMotion }: CameraReadoutProps)
             animate={{ y: 0, opacity: 1 }}
             exit={reducedMotion ? undefined : { y: -12, opacity: 0 }}
             transition={{ type: "spring", stiffness: 350, damping: 28 }}
-            className="block whitespace-nowrap text-[var(--paper)]"
+            className="block whitespace-nowrap text-[#F4F1EA]"
           >
             {shutterSpeed}
           </motion.span>
         </AnimatePresence>
       </div>
 
-      <span className="text-[var(--muted)]/60 text-[9px] select-none" aria-hidden="true">
+      <span className="text-[#A9A7A0]/60 text-[9px] select-none" aria-hidden="true">
         ·
       </span>
 
@@ -72,7 +72,7 @@ export function CameraReadout({ lensConfig, reducedMotion }: CameraReadoutProps)
             animate={{ y: 0, opacity: 1 }}
             exit={reducedMotion ? undefined : { y: -12, opacity: 0 }}
             transition={{ type: "spring", stiffness: 350, damping: 28 }}
-            className="block whitespace-nowrap text-[var(--muted)]"
+            className="block whitespace-nowrap text-[#A9A7A0]"
           >
             {iso}
           </motion.span>

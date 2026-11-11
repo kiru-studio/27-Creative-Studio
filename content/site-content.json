@@ -31,17 +31,15 @@
     "uploadHint": "Choose an image or video file. Uploads are stored in Vercel Blob.",
     "sitePreview": "Changes appear on the live site after Vercel finishes its deployment."
   },
-  "nav": ["Work", "Films", "About", "Contact"],
+  "nav": ["Work", "Films", "Process", "Cases", "About", "Q&A", "Contact"],
   "hero": {
-    "eyebrow": "Film & growth studio / Thoothukudi",
-    "title": "A good story\nshould move business.",
-    "body": "A two-person studio making films, reels and local campaigns for businesses across Thoothukudi.",
-    "cta": "Start a project",
-    "secondary": "See selected work",
-    "posterLabel": "Thamira Restaurant / Culinary film",
-    "posterAlt": "Chef preparing a dish in a restaurant kitchen",
-    "posterSrc": "/images/film-thamira.jpg",
-    "videoSrc": "/videos/film-thamira.mp4"
+    "title": "Real Growth. Real Results.",
+    "body": "Instagram growth and local visibility for Thoothukudi businesses, handled end-to-end by 27 Creative Studio.",
+    "cta": "Grow your brand",
+    "secondary": "Watch client reels",
+    "posterLabel": "Thamira Restaurant / 10.1K views / 00:30",
+    "posterSrc": "",
+    "videoSrc": ""
   },
   "industries": [
     { "id": "everything", "label": "Everything", "accent": "lime", "pitch": "One sharp visual language for Thoothukudi businesses." },
@@ -53,19 +51,19 @@
   "proof": ["01 / 4 clients · 5 accounts", "02 / 6,300+ new followers", "03 / local Google visibility"],
   "turnaround": ["Reels / 3–5 days", "Growth sprint / 30 days", "Google setup / 48 hrs"],
   "reels": [
-    { "title": "Chef Fun Reels & Food Close-ups", "type": "Restaurant reel", "label": "REEL / THAMIRA", "meta": "10.1K views", "client": "Thamira Restaurant", "delivered": "150 posts", "industries": ["everything", "restaurants"], "posterSrc": "/images/reel-thamira.jpg", "videoSrc": "/videos/reel-thamira.mp4" },
-    { "title": "Showroom Showcase & Customer Delivery", "type": "Automotive reel", "label": "REEL / MM CARS", "meta": "13.6K views", "client": "MM Cars", "delivered": "96 posts", "industries": ["everything", "showrooms"], "posterSrc": "/images/reel-mmcars.jpg", "videoSrc": "/videos/reel-mmcars.mp4" },
-    { "title": "Festival Offers & Delivery Celebrations", "type": "Retail reel", "label": "REEL / SURYA", "meta": "+1,364 growth", "client": "Surya Mobiles", "delivered": "191 posts", "industries": ["everything", "showrooms"], "posterSrc": "/images/reel-surya.jpg", "videoSrc": "/videos/reel-surya.mp4" },
-    { "title": "AICCI National Startup Summit Stall C16", "type": "Event coverage", "label": "REEL / THOORIGAI", "meta": "9,160 views", "client": "ThoorigAI Infotech", "delivered": "136 posts", "industries": ["everything", "education"], "posterSrc": "/images/film-thoorigai.jpg", "videoSrc": "/videos/film-thoorigai.mp4" },
-    { "title": "Authoor Branch 2nd ID Launch", "type": "Growth sprint", "label": "REEL / SURYA 2ND", "meta": "0 > 1,059 in 1 mo", "client": "Surya Mobiles Authoor", "delivered": "1,059 followers", "industries": ["everything", "showrooms"], "posterSrc": "/images/reel-surya.jpg", "videoSrc": "/videos/reel-surya.mp4" },
-    { "title": "Dining Ambience & Kitchen Experience", "type": "Food reel", "label": "REEL / THAMIRA", "meta": "5.8x growth", "client": "Thamira Restaurant", "delivered": "399 > 2,300", "industries": ["everything", "restaurants"], "posterSrc": "/images/reel-thamira.jpg", "videoSrc": "/videos/reel-thamira.mp4" },
-    { "title": "Owner Branding & Car Verification", "type": "Showcase reel", "label": "REEL / MM CARS", "meta": "6.1x growth", "client": "MM Cars", "delivered": "299 > 1,835", "industries": ["everything", "showrooms"], "posterSrc": "/images/reel-mmcars.jpg", "videoSrc": "/videos/reel-mmcars.mp4" },
-    { "title": "Prompt Engineering & Student Feedback", "type": "Tips series", "label": "REEL / THOORIGAI", "meta": "+58% growth", "client": "ThoorigAI Infotech", "delivered": "800 > 1,269", "industries": ["everything", "education"], "posterSrc": "/images/film-thoorigai.jpg", "videoSrc": "/videos/film-thoorigai.mp4" }
+    { "title": "Chef Fun Reels & Food Close-ups", "type": "Restaurant reel", "label": "REEL / THAMIRA", "meta": "10.1K views", "client": "Thamira Restaurant", "delivered": "150 posts", "industries": ["everything", "restaurants"], "posterSrc": "", "videoSrc": "" },
+    { "title": "Showroom Showcase & Customer Delivery", "type": "Automotive reel", "label": "REEL / MM CARS", "meta": "13.6K views", "client": "MM Cars", "delivered": "96 posts", "industries": ["everything", "showrooms"], "posterSrc": "", "videoSrc": "" },
+    { "title": "Festival Offers & Delivery Celebrations", "type": "Retail reel", "label": "REEL / SURYA", "meta": "+1,364 growth", "client": "Surya Mobiles", "delivered": "191 posts", "industries": ["everything", "showrooms"], "posterSrc": "", "videoSrc": "" },
+    { "title": "AICCI National Startup Summit Stall C16", "type": "Event coverage", "label": "REEL / THOORIGAI", "meta": "9,160 views", "client": "ThoorigAI Infotech", "delivered": "136 posts", "industries": ["everything", "education"], "posterSrc": "", "videoSrc": "" },
+    { "title": "Authoor Branch 2nd ID Launch", "type": "Growth sprint", "label": "REEL / SURYA 2ND", "meta": "0 > 1,059 in 1 mo", "client": "Surya Mobiles Authoor", "delivered": "1,059 followers", "industries": ["everything", "showrooms"], "posterSrc": "", "videoSrc": "" },
+    { "title": "Dining Ambience & Kitchen Experience", "type": "Food reel", "label": "REEL / THAMIRA", "meta": "5.8x growth", "client": "Thamira Restaurant", "delivered": "399 > 2,300", "industries": ["everything", "restaurants"], "posterSrc": "", "videoSrc": "" },
+    { "title": "Owner Branding & Car Verification", "type": "Showcase reel", "label": "REEL / MM CARS", "meta": "6.1x growth", "client": "MM Cars", "delivered": "299 > 1,835", "industries": ["everything", "showrooms"], "posterSrc": "", "videoSrc": "" },
+    { "title": "Prompt Engineering & Student Feedback", "type": "Tips series", "label": "REEL / THOORIGAI", "meta": "+58% growth", "client": "ThoorigAI Infotech", "delivered": "800 > 1,269", "industries": ["everything", "education"], "posterSrc": "", "videoSrc": "" }
   ],
   "films": [
-    { "title": "Taste of Thoothukudi", "type": "Culinary story", "label": "FILM / RESTAURANT", "meta": "00:45", "client": "Thamira Restaurant", "goal": "Turn culinary craft, food close-ups, and ambience into packed tables every weekend.", "format": "16:9 brand story", "industries": ["restaurants", "everything"], "posterSrc": "/images/film-thamira.jpg", "videoSrc": "/videos/film-thamira.mp4" },
-    { "title": "Driven by Trust", "type": "Automotive story", "label": "FILM / AUTOMOTIVE", "meta": "00:50", "client": "MM Cars", "goal": "Showcase verified pre-owned cars and build buyer trust through transparent customer stories.", "format": "16:9 brand film", "industries": ["showrooms", "everything"], "posterSrc": "/images/film-mmcars.jpg", "videoSrc": "/videos/film-mmcars.mp4" },
-    { "title": "The AI Revolution in Tuticorin", "type": "Summit & vision", "label": "FILM / EDUCATION", "meta": "01:05", "client": "ThoorigAI Infotech", "goal": "Full coverage of AICCI National Startup Summit and student career transformations.", "format": "16:9 summit film", "industries": ["education", "everything"], "posterSrc": "/images/film-thoorigai.jpg", "videoSrc": "/videos/film-thoorigai.mp4" }
+    { "title": "Taste of Thoothukudi", "type": "Culinary story", "label": "FILM / RESTAURANT", "meta": "00:45", "client": "Thamira Restaurant", "goal": "Turn culinary craft, food close-ups, and ambience into packed tables every weekend.", "format": "16:9 brand story", "industries": ["restaurants", "everything"], "posterSrc": "", "videoSrc": "" },
+    { "title": "Driven by Trust", "type": "Automotive story", "label": "FILM / AUTOMOTIVE", "meta": "00:50", "client": "MM Cars", "goal": "Showcase verified pre-owned cars and build buyer trust through transparent customer stories.", "format": "16:9 brand film", "industries": ["showrooms", "everything"], "posterSrc": "", "videoSrc": "" },
+    { "title": "The AI Revolution in Tuticorin", "type": "Summit & vision", "label": "FILM / EDUCATION", "meta": "01:05", "client": "ThoorigAI Infotech", "goal": "Full coverage of AICCI National Startup Summit and student career transformations.", "format": "16:9 summit film", "industries": ["education", "everything"], "posterSrc": "", "videoSrc": "" }
   ],
   "speed": [
     { "title": "Brief", "body": "Find the hook. We analyze your local market in Thoothukudi and find the angle that stops the scroll.", "meta": "Day 01" },
@@ -94,8 +92,8 @@
       "shot": "Chef fun reels, food close-ups, ambience tours, customer dining videos, and complete Google Business Profile setup.",
       "result": "5.8x follower growth (399 to 2,300, +1,901 new followers), 10.1K top reel views, 150 posts, and a 4.5/5 Google rating across 150 reviews.",
       "industries": ["restaurants", "everything"],
-      "posterSrc": "/images/film-thamira.jpg",
-      "videoSrc": "/videos/film-thamira.mp4"
+      "posterSrc": "",
+      "videoSrc": ""
     },
     {
       "title": "MM Cars",
@@ -117,8 +115,8 @@
       "shot": "Owner branding reels, car inventory showcase, vehicle walkarounds, customer delivery handovers, and Google Business Profile.",
       "result": "6.1x follower growth (299 to 1,835, +1,536 new followers), 13.6K top reel views, 96 posts, and a 4.0/5 Google rating driving consistent walk-ins.",
       "industries": ["showrooms", "everything"],
-      "posterSrc": "/images/film-mmcars.jpg",
-      "videoSrc": "/videos/film-mmcars.mp4"
+      "posterSrc": "",
+      "videoSrc": ""
     },
     {
       "title": "Surya Mobiles & Appliances",
@@ -140,8 +138,8 @@
       "shot": "Happy customer delivery celebrations, showroom reels, festive offers, and launched a dedicated second Instagram ID (@suryamobiles_authoor).",
       "result": "3.4x follower growth (559 to 1,923, +1,364 new followers) on main ID, plus 2nd ID skyrocketed from 0 to 1,059 followers in its very first month.",
       "industries": ["showrooms", "everything"],
-      "posterSrc": "/images/reel-surya.jpg",
-      "videoSrc": "/videos/reel-surya.mp4"
+      "posterSrc": "",
+      "videoSrc": ""
     },
     {
       "title": "ThoorigAI Infotech",
@@ -163,8 +161,8 @@
       "shot": "Student feedback videos, prompt engineering tips series, and full on-ground coverage of AICCI National Startup Summit (Stall C16).",
       "result": "1.6x follower growth (800 to 1,269, +469 new followers, +58% growth), 9,160 top reel views, and 136 published posts.",
       "industries": ["education", "everything"],
-      "posterSrc": "/images/film-thoorigai.jpg",
-      "videoSrc": "/videos/film-thoorigai.mp4"
+      "posterSrc": "",
+      "videoSrc": ""
     }
   ],
   "packages": [
@@ -173,8 +171,8 @@
     { "name": "Full Local Dominance", "description": "Complete growth package across Instagram, multi-accounts, and Google.", "reels": "Custom", "films": "As needed", "shootDays": "Flexible", "detail": "Multi-account scaling · event coverage · Google reviews strategy", "price": "Talk to us" }
   ],
   "people": [
-    { "name": "27 Creative Lead", "role": "Creative Direction & Video Production", "bio": "Directs and shoots high-engagement reels across Thoothukudi. Capturing chef craft, customer handovers, and showroom energy.", "workLabel": "shoots + directs", "photoSrc": "/images/crew-director.jpg" },
-    { "name": "27 Growth Strategist", "role": "Growth Strategy & Local Visibility", "bio": "The mind behind 6,300+ new followers and top Google Business rankings. Optimizing algorithms, posting schedules, and local SEO.", "workLabel": "edits + scales", "photoSrc": "/images/crew-strategist.jpg" }
+    { "name": "27 Creative Lead", "role": "Creative Direction & Video Production", "bio": "Directs and shoots high-engagement reels across Thoothukudi. Capturing chef craft, customer handovers, and showroom energy.", "workLabel": "shoots + directs", "photoSrc": "" },
+    { "name": "27 Growth Strategist", "role": "Growth Strategy & Local Visibility", "bio": "The mind behind 6,300+ new followers and top Google Business rankings. Optimizing algorithms, posting schedules, and local SEO.", "workLabel": "edits + scales", "photoSrc": "" }
   ],
   "testimonials": [
     { "quote": "Sales increased noticeably along with our follower growth. The chef reels and food close-ups brought in families from across Thoothukudi every weekend.", "name": "Thamira Restaurant", "role": "Polpettai, Thoothukudi (5.8x growth · 150 Google reviews)" },
@@ -192,17 +190,10 @@
   ],
   "ui": {
     "skipLink": "Skip to content",
-    "themeToggleLabel": "Color theme",
-    "headerNavigationLabel": "Main navigation",
-    "mediaPlayLabel": "Play featured film",
-    "playWorkLabel": "Play this work",
-    "mobileMenuLabel": "Menu",
-    "switchToLightTheme": "Switch to light theme",
-    "switchToDarkTheme": "Switch to dark theme",
     "workHeading": "Selected work",
     "workEmpty": "More client work is on the way.",
     "reelsKicker": "the short form",
-    "reelsHeading": "Work with a reason to watch.",
+    "reelsHeading": "Reels, made to move.",
     "filmsKicker": "the longer cut",
     "filmsHeading": "Films with room to breathe.",
     "processKicker": "the process",
@@ -290,7 +281,6 @@
     "clapperShutting": "CLAP..."
   },
   "contact": {
-    "kicker": "say hello",
     "heading": "Let's grow your brand.",
     "body": "Your business could be our next success story. Call 83004 78244 or send your brief below.",
     "email": "hello@27creativestudio.com",
@@ -298,16 +288,7 @@
     "serviceArea": "Serving businesses across Thoothukudi, Tirunelveli, and Tamil Nadu.",
     "whatsappLabel": "Call or WhatsApp: 83004 78244",
     "whatsappMessage": "Hi 27 Creative Studio, I want to grow my brand in Thoothukudi.",
-    "whatsappNumber": "918300478244",
-    "bookOnWhatsApp": "Book on WhatsApp",
-    "sendBrief": "Send brief",
-    "nameLabel": "Name",
-    "phoneLabel": "Phone",
-    "businessTypeLabel": "Business type",
-    "needsLabel": "What you need",
-    "preferredDateLabel": "Preferred date",
-    "messageLabel": "Optional message",
-    "honeypotLabel": "Leave this blank"
+    "whatsappNumber": "918300478244"
   },
   "footer": {
     "line": "Real Growth. Real Results.",
@@ -315,7 +296,7 @@
     "socials": [
       { "label": "Call: 83004 78244", "href": "tel:+918300478244" },
       { "label": "WhatsApp", "href": "https://wa.me/918300478244?text=Hi%2027%20Creative%20Studio%2C%20I%20want%20to%20grow%20my%20brand." },
-      { "label": "Instagram", "href": "https://instagram.com/27creativestudio" },
+      { "label": "Instagram", "href": "https://instagram.com/" },
       { "label": "Email", "href": "mailto:hello@27creativestudio.com" }
     ]
   },
@@ -327,11 +308,11 @@
     "locale": "en_IN",
     "ogTitle": "27 Creative Studio — Real Growth. Real Results.",
     "ogDescription": "Instagram growth and local visibility for Thoothukudi businesses. Handled by 27 Creative Studio.",
-    "ogImage": "/images/hero-poster.jpg",
+    "ogImage": "/icon.svg",
     "twitterCard": "summary_large_image",
     "twitterTitle": "27 Creative Studio — Real Growth. Real Results.",
     "twitterDescription": "Instagram growth and local visibility for Thoothukudi businesses. Handled by 27 Creative Studio.",
-    "twitterImage": "/images/hero-poster.jpg",
+    "twitterImage": "/icon.svg",
     "favicon": "/icon.svg",
     "robots": "index,follow",
     "sitemap": "/sitemap.xml",

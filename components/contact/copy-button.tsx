@@ -30,13 +30,13 @@ export function CopyButton({ textToCopy, ariaLabel = "Copy to clipboard" }: Copy
       aria-label={ariaLabel}
       className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono tracking-wider transition-all duration-200 border cursor-pointer ${
         copied
-          ? "border-[var(--industry)] bg-[var(--industry)]/15 text-[var(--industry)]"
-          : "border-[var(--line)] bg-[var(--panel)] text-[var(--muted)] hover:border-[var(--industry)]/60 hover:text-[var(--paper)]"
+          ? "border-[#C6FF3D] bg-[#C6FF3D]/15 text-[#C6FF3D]"
+          : "border-[#2A2A30] bg-[#141419] text-[#A9A7A0] hover:border-[#C6FF3D]/60 hover:text-[#F4F1EA]"
       }`}
     >
       {copied ? (
         <>
-          <Check size={11} className="text-[var(--industry)]" aria-hidden="true" />
+          <Check size={11} className="text-[#C6FF3D]" aria-hidden="true" />
           <span className="font-bold">COPIED</span>
         </>
       ) : (

@@ -83,26 +83,26 @@ export function CameraSvg({
           rotateY: reducedMotion ? 0 : rotateY,
           transformStyle: "preserve-3d",
         }}
-        className="relative w-full aspect-[1.38/1] rounded-2xl border-2 border-[var(--line)] bg-[var(--panel)] p-4 sm:p-5 shadow-[0_24px_48px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.06)]"
+        className="relative w-full aspect-[1.38/1] rounded-2xl border-2 border-[#2A2A30] bg-[#141419] p-4 sm:p-5 shadow-[0_24px_48px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.06)]"
       >
         {/* Top Hotshoe bump */}
         <div
-          className="absolute -top-3 left-[22%] -translate-x-1/2 w-16 h-3 rounded-t-sm border border-[var(--line)] border-b-0 bg-[var(--panel-raised)] shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] flex items-center justify-center"
+          className="absolute -top-3 left-[22%] -translate-x-1/2 w-16 h-3 rounded-t-sm border border-[#2A2A30] border-b-0 bg-[#1B1B21] shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] flex items-center justify-center"
           aria-hidden="true"
         >
-          <div className="w-8 h-1 bg-[var(--ink)] rounded-xs" />
+          <div className="w-8 h-1 bg-[#0B0B0F] rounded-xs" />
         </div>
 
         {/* Top Shutter Button (glowing on shoot) */}
         <div
-          className="absolute -top-4 left-[10%] w-7 h-4 rounded-t-md border border-[var(--line)] border-b-0 bg-[var(--panel-raised)] flex flex-col items-center justify-start pt-0.5 shadow-md"
+          className="absolute -top-4 left-[10%] w-7 h-4 rounded-t-md border border-[#2A2A30] border-b-0 bg-[#22222A] flex flex-col items-center justify-start pt-0.5 shadow-md"
           aria-hidden="true"
         >
           <motion.div
             className={`w-5 h-1.5 rounded-full transition-all duration-300 ${
               isShooting
-                ? "bg-[var(--industry)] shadow-[0_0_10px_var(--industry)]"
-                : "bg-[var(--track)]"
+                ? "bg-[#C6FF3D] shadow-[0_0_10px_#C6FF3D]"
+                : "bg-[#3A3A41]"
             }`}
             animate={
               isShooting && !reducedMotion
@@ -115,21 +115,21 @@ export function CameraSvg({
 
         {/* Top Dial */}
         <div
-          className="absolute -top-2 left-[36%] w-10 h-2 rounded-t-xs border border-[var(--line)] bg-[var(--panel)] flex items-center justify-evenly px-1"
+          className="absolute -top-2 left-[36%] w-10 h-2 rounded-t-xs border border-[#2A2A30] bg-[#1E1E26] flex items-center justify-evenly px-1"
           aria-hidden="true"
         >
-          <span className="w-0.5 h-1 bg-[var(--muted)]/40" />
-          <span className="w-0.5 h-1 bg-[var(--muted)]/40" />
-          <span className="w-0.5 h-1 bg-[var(--muted)]/40" />
+          <span className="w-0.5 h-1 bg-[#A9A7A0]/40" />
+          <span className="w-0.5 h-1 bg-[#A9A7A0]/40" />
+          <span className="w-0.5 h-1 bg-[#A9A7A0]/40" />
         </div>
 
         {/* Camera Top Plate Bar */}
-        <div className="flex items-center justify-between pb-3 border-b border-[var(--line)]">
+        <div className="flex items-center justify-between pb-3 border-b border-[#2A2A30]">
           {/* Brand & REC Mode indicator */}
           <div className="flex items-center gap-2">
-            <span className="inline-block w-2 h-2 rounded-full bg-[var(--industry)] shadow-[0_0_6px_var(--industry)]" />
-            <span className="font-mono text-[11px] tracking-widest text-[var(--paper)] uppercase font-bold">
-              27·STUDIO <span className="text-[var(--muted)] font-normal">C-400</span>
+            <span className="inline-block w-2 h-2 rounded-full bg-[#C6FF3D] shadow-[0_0_6px_#C6FF3D]" />
+            <span className="font-mono text-[11px] tracking-widest text-[#F4F1EA] uppercase font-bold">
+              27·STUDIO <span className="text-[#A9A7A0] font-normal">C-400</span>
             </span>
           </div>
 
@@ -146,13 +146,13 @@ export function CameraSvg({
         <div className="relative mt-3 flex items-center justify-center">
           {/* Left Grip Texture */}
           <div
-            className="absolute left-0 top-1/2 -translate-y-1/2 w-3.5 h-[65%] rounded-md border border-[var(--line)] bg-[var(--panel-raised)] flex flex-col justify-around py-1.5 px-0.5 opacity-80"
+            className="absolute left-0 top-1/2 -translate-y-1/2 w-3.5 h-[65%] rounded-md border border-[#2A2A30] bg-[#1B1B21] flex flex-col justify-around py-1.5 px-0.5 opacity-80"
             aria-hidden="true"
           >
-            <div className="w-full h-0.5 bg-[var(--ink)]" />
-            <div className="w-full h-0.5 bg-[var(--ink)]" />
-            <div className="w-full h-0.5 bg-[var(--ink)]" />
-            <div className="w-full h-0.5 bg-[var(--ink)]" />
+            <div className="w-full h-0.5 bg-[#0B0B0F]" />
+            <div className="w-full h-0.5 bg-[#0B0B0F]" />
+            <div className="w-full h-0.5 bg-[#0B0B0F]" />
+            <div className="w-full h-0.5 bg-[#0B0B0F]" />
           </div>
 
           {/* Circular Cinema Lens Barrel */}
@@ -172,7 +172,7 @@ export function CameraSvg({
 
             {/* Outer Lens Markings */}
             <div
-              className="absolute bottom-2 font-mono text-[8px] sm:text-[9px] tracking-wider text-[var(--muted)]/50 select-none pointer-events-none"
+              className="absolute bottom-2 font-mono text-[8px] sm:text-[9px] tracking-wider text-[#A9A7A0]/50 select-none pointer-events-none"
               aria-hidden="true"
             >
               35mm T1.5 · CINE
@@ -181,9 +181,9 @@ export function CameraSvg({
         </div>
 
         {/* Camera bottom status bar */}
-        <div className="mt-3 pt-2 flex items-center justify-between border-t border-[var(--line)]/60 font-mono text-[9px] text-[var(--muted)]/60">
+        <div className="mt-3 pt-2 flex items-center justify-between border-t border-[#2A2A30]/60 font-mono text-[9px] text-[#A9A7A0]/60">
           <div className="flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[var(--industry)]/70" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#C6FF3D]/70" />
             <span>4K DCI · 24.00 FPS</span>
           </div>
           <span>LOG·RAW</span>

@@ -1,75 +1,52 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import Image from "next/image";
-import { VideoPlayer } from "./video-player";
-import { siteContent } from "@/lib/site-content";
+import { useEffect, useRef, useState } from 'react'
 
 type MediaSlotProps = {
-  label: string;
-  posterAlt?: string;
-  src?: string;
-  posterSrc?: string;
-  loading?: "eager" | "lazy";
-  loop?: boolean;
-  className?: string;
-  playLabel?: string;
-  onActivate?: (opener: HTMLButtonElement) => void;
+  label: string
+  src?: string
+  posterSrc?: string
+  loop?: boolean
+  className?: string
 }
 
-export function MediaSlot({
-  label,
-  posterAlt = "",
-  src,
-  posterSrc,
-  loading = "lazy",
-  loop = true,
-  className = "",
-  playLabel = siteContent.ui.mediaPlayLabel,
-  onActivate,
-}: MediaSlotProps) {
-  const [started, setStarted] = useState(false);
+export function MediaSlot({ label, src, posterSrc, loop = true, className = '' }: MediaSlotProps) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [started, setStarted] = useState(false)
+
+  useEffect(() => {
+    if (!started || !videoRef.current) return
+    void videoRef.current.play().catch(() => setStarted(false))
+  }, [started])
 
   return (
     <div className={`media-slot ${className}`}>
       {started && src ? (
-        <VideoPlayer
+        <video
+          ref={videoRef}
+          className="media-video"
           src={src}
-          poster={posterSrc}
-          title={label}
+          controls
+          muted
           loop={loop}
-          autoPlay={true}
-          muted={true}
-          className="w-full h-full border-0"
+          playsInline
+          preload="none"
+          aria-label={label}
         />
       ) : (
         <>
           {posterSrc ? (
-            <Image
-              className="media-poster"
-              src={posterSrc}
-              alt={posterAlt}
-              fill
-              sizes="(max-width: 48rem) 100vw, 58vw"
-              loading={loading}
-            />
+            <img className="media-poster" src={posterSrc} alt="" />
           ) : (
             <div className="poster-grid" aria-hidden="true" />
           )}
           <span className="media-label">{label}</span>
-          {(src || onActivate) && (
+          {src && (
             <button
               className="media-play"
               type="button"
-              onClick={(event) => {
-                if (onActivate) {
-                  onActivate(event.currentTarget);
-                  return;
-                }
-                setStarted(true);
-              }}
-              aria-label={`${playLabel}: ${label}`}
-              aria-haspopup={onActivate ? "dialog" : undefined}
+              onClick={() => setStarted(true)}
+              aria-label={label}
             >
               <span aria-hidden="true">▶</span>
             </button>
@@ -77,5 +54,5 @@ export function MediaSlot({
         </>
       )}
     </div>
-  );
+  )
 }
