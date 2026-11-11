@@ -47,13 +47,13 @@ export function LiveTimecode({
 
   return (
     <div
-      className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-[#0B0B0F]/90 border border-[#2A2A30] font-mono text-[11px] tracking-wider text-[#C6FF3D] select-none shadow-[inset_0_1px_2px_rgba(0,0,0,0.8)]"
+      className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-[var(--ink)]/90 border border-[var(--line)] font-mono text-[11px] tracking-wider text-[var(--industry)] select-none shadow-[inset_0_1px_2px_rgba(0,0,0,0.8)]"
       role="timer"
       aria-label={`Recording timecode: ${timecode}`}
     >
       <span
         className={`w-1.5 h-1.5 rounded-full ${
-          isFrozen ? "bg-[#A9A7A0]" : "bg-[#FF3B30] shadow-[0_0_6px_#FF3B30] animate-pulse"
+          isFrozen ? "bg-[var(--muted)]" : "bg-[var(--rec)] animate-pulse"
         }`}
         aria-hidden="true"
       />

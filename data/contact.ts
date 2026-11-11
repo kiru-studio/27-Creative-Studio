@@ -1,4 +1,5 @@
 import { siteConfig } from "./siteConfig";
+import { siteContent } from "@/lib/site-content";
 
 export interface BusinessType {
   id: string;
@@ -71,9 +72,9 @@ export const channels: ContactChannel[] = [
   {
     id: "instagram",
     label: "Instagram",
-    value: "@27creativestudio",
-    href: "https://instagram.com/",
-    copyValue: "@27creativestudio",
+    value: siteContent.contact.instagram,
+    href: `https://instagram.com/${siteContent.contact.instagram.replace(/^@/, "")}`,
+    copyValue: siteContent.contact.instagram,
   },
 ];
 
@@ -134,4 +135,3 @@ export function buildWhatsAppMessage(values: Partial<ContactFormValues>): string
 
   return parts.join("\n\n");
 }
-

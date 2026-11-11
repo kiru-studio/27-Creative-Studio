@@ -62,18 +62,18 @@ export function StepTabs({
             aria-selected={isActive}
             tabIndex={isActive ? 0 : -1}
             onClick={() => onSelectStep(index)}
-            style={{ color: isActive ? "#0B0B0F" : undefined }}
-            className={`group relative flex flex-col items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg border text-xs font-mono tracking-wider transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-[#C6FF3D] overflow-hidden ${
+            style={{ color: isActive ? "var(--industry-ink)" : undefined }}
+            className={`group relative flex flex-col items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg border text-xs font-mono tracking-wider transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-[var(--industry)] overflow-hidden ${
               isActive
-                ? "border-[#C6FF3D] !text-[#0B0B0F] font-bold"
-                : "border-[#2A2A30] bg-[#141419]/90 text-[#A9A7A0] hover:text-[#F4F1EA] hover:border-[#C6FF3D]/50"
+                ? "border-[var(--industry)] !text-[var(--industry-ink)] font-bold"
+                : "border-[var(--line)] bg-[var(--panel)]/90 text-[var(--muted)] hover:text-[var(--paper)] hover:border-[var(--industry)]/50"
             }`}
           >
             {/* Active solid lime fill background */}
             {isActive && (
               <motion.div
                 layoutId="active-step-tab-bg"
-                className="absolute inset-0 bg-[#C6FF3D] z-0"
+                className="absolute inset-0 bg-[var(--industry)] z-0"
                 transition={
                   reducedMotion
                     ? { duration: 0 }
@@ -95,9 +95,8 @@ export function StepTabs({
             >
               <Icon
                 size={16}
-                style={{ color: isActive ? "#0B0B0F" : undefined, stroke: isActive ? "#0B0B0F" : undefined }}
                 className={`transition-colors duration-200 ${
-                  isActive ? "!text-[#0B0B0F]" : "text-[#A9A7A0] group-hover:text-[#C6FF3D]"
+                  isActive ? "!text-[var(--industry-ink)]" : "text-[var(--muted)] group-hover:text-[var(--industry)]"
                 }`}
                 aria-hidden="true"
               />
@@ -105,8 +104,8 @@ export function StepTabs({
 
             {/* Step Title */}
             <span
-              className={`relative z-10 select-none ${isActive ? "!text-[#0B0B0F] font-bold" : ""}`}
-              style={{ color: isActive ? "#0B0B0F" : undefined }}
+              className={`relative z-10 select-none ${isActive ? "!text-[var(--industry-ink)] font-bold" : ""}`}
+              style={{ color: isActive ? "var(--industry-ink)" : undefined }}
             >
               {step.title}
             </span>
@@ -116,4 +115,3 @@ export function StepTabs({
     </div>
   );
 }
-

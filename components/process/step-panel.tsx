@@ -54,11 +54,11 @@ export function StepPanel({
     >
       {/* Left Lime Vertical Progress Bar */}
       <div
-        className="relative w-1 sm:w-1.5 shrink-0 rounded-full bg-[#2A2A30] overflow-hidden"
+        className="relative w-1 sm:w-1.5 shrink-0 rounded-full bg-[var(--line)] overflow-hidden"
         aria-hidden="true"
       >
         <motion.div
-          className="w-full bg-[#C6FF3D] rounded-full origin-top"
+          className="w-full bg-[var(--industry)] rounded-full origin-top"
           animate={{
             scaleY: (activeStepIndex + 1) / totalSteps,
           }}
@@ -84,20 +84,20 @@ export function StepPanel({
           >
             {/* Meta Eyebrow with rolling Day indicator */}
             <motion.div variants={itemVariants} className="flex items-center gap-3">
-              <span className="font-mono text-xs font-bold tracking-widest text-[#C6FF3D] uppercase px-2 py-0.5 rounded bg-[#C6FF3D]/10 border border-[#C6FF3D]/30">
+              <span className="font-mono text-xs font-bold tracking-widest text-[var(--industry)] uppercase px-2 py-0.5 rounded bg-[var(--industry)]/10 border border-[var(--industry)]/30">
                 {currentDay}
               </span>
-              <span className="font-mono text-xs text-[#A9A7A0] tracking-wider uppercase">
+              <span className="font-mono text-xs text-[var(--muted)] tracking-wider uppercase">
                 Step {currentStep.stepNumber} of 0{totalSteps}
               </span>
             </motion.div>
 
             {/* Title & Tagline */}
             <motion.div variants={itemVariants}>
-              <h3 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-[#F4F1EA] font-display">
+              <h3 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-[var(--paper)] font-display">
                 {currentStep.title}
               </h3>
-              <p className="mt-1 font-mono text-sm sm:text-base text-[#C6FF3D] font-medium">
+              <p className="mt-1 font-mono text-sm sm:text-base text-[var(--industry)] font-medium">
                 {currentStep.tagline}
               </p>
             </motion.div>
@@ -105,7 +105,7 @@ export function StepPanel({
             {/* Step Description */}
             <motion.p
               variants={itemVariants}
-              className="text-sm sm:text-base text-[#A9A7A0] leading-relaxed max-w-xl"
+              className="text-sm sm:text-base text-[var(--muted)] leading-relaxed max-w-xl"
             >
               {currentStep.description}
             </motion.p>
@@ -113,17 +113,17 @@ export function StepPanel({
             {/* Happens & Needs Bullet Lists */}
             <motion.div
               variants={itemVariants}
-              className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 mt-2 border-t border-[#2A2A30]"
+              className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 mt-2 border-t border-[var(--line)]"
             >
               {/* What happens */}
               <div className="flex flex-col gap-2">
-                <span className="font-mono text-[11px] font-bold tracking-widest text-[#A9A7A0] uppercase">
+                <span className="font-mono text-[11px] font-bold tracking-widest text-[var(--muted)] uppercase">
                   What happens
                 </span>
-                <ul className="flex flex-col gap-1.5 text-xs text-[#F4F1EA]">
+                <ul className="flex flex-col gap-1.5 text-xs text-[var(--paper)]">
                   {currentStep.happens.map((item, idx) => (
                     <li key={idx} className="flex items-start gap-2">
-                      <span className="text-[#C6FF3D] font-bold select-none" aria-hidden="true">
+                      <span className="text-[var(--industry)] font-bold select-none" aria-hidden="true">
                         /
                       </span>
                       <span>{item}</span>
@@ -134,13 +134,13 @@ export function StepPanel({
 
               {/* What we need */}
               <div className="flex flex-col gap-2">
-                <span className="font-mono text-[11px] font-bold tracking-widest text-[#A9A7A0] uppercase">
+                <span className="font-mono text-[11px] font-bold tracking-widest text-[var(--muted)] uppercase">
                   What we need
                 </span>
-                <ul className="flex flex-col gap-1.5 text-xs text-[#F4F1EA]">
+                <ul className="flex flex-col gap-1.5 text-xs text-[var(--paper)]">
                   {currentStep.needs.map((item, idx) => (
                     <li key={idx} className="flex items-start gap-2">
-                      <span className="text-[#C6FF3D] font-bold select-none" aria-hidden="true">
+                      <span className="text-[var(--industry)] font-bold select-none" aria-hidden="true">
                         /
                       </span>
                       <span>{item}</span>
@@ -155,14 +155,14 @@ export function StepPanel({
               {isLastStep ? (
                 <a
                   href="#contact"
-                  className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-lg !bg-[#C6FF3D] !text-[#0B0B0F] font-mono text-xs font-bold uppercase tracking-wider hover:!bg-[#d4ff66] transition-all duration-200 shadow-[0_0_16px_rgba(198,255,61,0.25)] hover:shadow-[0_0_24px_rgba(198,255,61,0.4)]"
-                  style={{ backgroundColor: "var(--industry, #C6FF3D)", color: "var(--ink, #0B0B0F)" }}
+                  className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-lg !bg-[var(--industry)] !text-[var(--industry-ink)] font-mono text-xs font-bold uppercase tracking-wider hover:!bg-[var(--industry-hover)] transition-all duration-200 shadow-[0_0_16px_rgba(198,255,61,0.25)] hover:shadow-[0_0_24px_rgba(198,255,61,0.4)]"
+                  style={{ backgroundColor: "var(--industry)", color: "var(--industry-ink)" }}
                 >
-                  <span style={{ color: "var(--ink, #0B0B0F)" }}>Book a shoot</span>
+                  <span style={{ color: "var(--industry-ink)" }}>Book a shoot</span>
                   <ArrowUpRight
                     size={16}
                     className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                    style={{ stroke: "var(--ink, #0B0B0F)" }}
+                    style={{ stroke: "var(--industry-ink)" }}
                     aria-hidden="true"
                   />
                 </a>
@@ -170,12 +170,12 @@ export function StepPanel({
                 <button
                   type="button"
                   onClick={onNextStep}
-                  className="group inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-[#2A2A30] bg-[#141419] text-[#F4F1EA] font-mono text-xs font-bold uppercase tracking-wider hover:border-[#C6FF3D] hover:text-[#C6FF3D] transition-all duration-200 cursor-pointer"
+                  className="group inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-[var(--line)] bg-[var(--panel)] text-[var(--paper)] font-mono text-xs font-bold uppercase tracking-wider hover:border-[var(--industry)] hover:text-[var(--industry)] transition-all duration-200 cursor-pointer"
                 >
                   <span>{nextStep?.title ?? "Next"}</span>
                   <ArrowUpRight
                     size={16}
-                    className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-[#C6FF3D]"
+                    className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-[var(--industry)]"
                     aria-hidden="true"
                   />
                 </button>

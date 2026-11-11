@@ -15,7 +15,7 @@ export function ChannelList({ channels, reducedMotion = false }: ChannelListProp
       {channels.map((ch, idx) => (
         <div key={ch.id} className="relative group" role="listitem">
           {/* Hairline Divider above that turns lime on hover */}
-          <div className="w-full h-[1px] bg-[#2A2A30] group-hover:bg-[#C6FF3D] transition-colors duration-300" />
+          <div className="w-full h-[1px] bg-[var(--line)] group-hover:bg-[var(--industry)] transition-colors duration-300" />
 
           {/* Row container with x: 6px shift on hover */}
           <motion.div
@@ -27,19 +27,19 @@ export function ChannelList({ channels, reducedMotion = false }: ChannelListProp
               href={ch.href}
               target={ch.id === "email" ? undefined : "_blank"}
               rel={ch.id === "email" ? undefined : "noreferrer"}
-              className="flex items-center justify-between w-full text-sm text-[#F4F1EA] group-hover:text-[#C6FF3D] transition-colors min-h-[36px]"
+              className="flex items-center justify-between w-full text-sm text-[var(--paper)] group-hover:text-[var(--industry)] transition-colors min-h-[36px]"
             >
               <div className="flex items-center gap-3 sm:gap-4 min-w-0">
-                <span className="font-mono text-[11px] sm:text-xs text-[#A9A7A0] uppercase min-w-[78px] sm:min-w-[84px] shrink-0">
+                <span className="font-mono text-[11px] sm:text-xs text-[var(--muted)] uppercase min-w-[78px] sm:min-w-[84px] shrink-0">
                   {ch.label}
                 </span>
-                <span className="font-mono text-xs sm:text-sm font-medium truncate text-[#F4F1EA] group-hover:text-[#C6FF3D] transition-colors">
+                <span className="font-mono text-xs sm:text-sm font-medium truncate text-[var(--paper)] group-hover:text-[var(--industry)] transition-colors">
                   {ch.value}
                 </span>
               </div>
               <ArrowUpRight
                 size={16}
-                className="shrink-0 opacity-40 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all text-[#C6FF3D]"
+                className="shrink-0 opacity-40 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all text-[var(--industry)]"
                 aria-hidden="true"
               />
             </a>
@@ -47,7 +47,7 @@ export function ChannelList({ channels, reducedMotion = false }: ChannelListProp
         </div>
       ))}
       {/* Bottom closing hairline */}
-      <div className="w-full h-[1px] bg-[#2A2A30]" />
+      <div className="w-full h-[1px] bg-[var(--line)]" />
     </div>
   );
 }

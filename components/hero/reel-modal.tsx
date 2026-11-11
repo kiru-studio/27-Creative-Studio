@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Volume2, VolumeX, X } from "lucide-react";
 import { heroConfig } from "@/data/hero";
-import { HudCorners } from "./hud-corners";
+import { VideoPlayer } from "@/components/video-player";
 
 interface ReelModalProps {
   isOpen: boolean;
@@ -105,81 +105,31 @@ export function ReelModal({
             transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
             className="relative w-full max-w-5xl aspect-video max-h-[85vh] bg-[var(--panel-raised,#111)] border border-[var(--line)] rounded-lg overflow-hidden shadow-2xl flex flex-col items-center justify-center"
           >
-            {/* Viewfinder Corner Brackets around Video */}
-            <HudCorners insetClassName="inset-3 sm:inset-4" />
-
-            {/* Video Container */}
+            {/* Video Player */}
             <div className="relative w-full h-full flex items-center justify-center bg-black">
-              {videoSrc ? (
-                <video
-                  ref={videoRef}
-                  src={videoSrc}
-                  poster={posterSrc || undefined}
-                  autoPlay
-                  playsInline
-                  controls={false}
-                  muted={isMuted}
-                  loop
-                  onClick={togglePlay}
-                  className="w-full h-full object-contain cursor-pointer"
-                />
-              ) : (
-                <div className="text-center p-8">
-                  <p className="font-mono text-xs uppercase tracking-widest text-[var(--industry)] mb-2">
-                    ● REEL PREVIEW
-                  </p>
-                  <p className="font-display text-2xl sm:text-3xl text-[var(--paper)]">
-                    Featured Studio Reel
-                  </p>
-                  <p className="font-mono text-xs text-[var(--muted)] mt-2">
-                    Placeholder reel video (add videoSrc in data/hero.ts)
-                  </p>
-                </div>
-              )}
+              <VideoPlayer
+                src={videoSrc}
+                poster={posterSrc}
+                title="27 CREATIVE STUDIO SHOWREEL"
+                subtitle={heroConfig.reelLabel}
+                autoPlay={true}
+                muted={false}
+                aspectRatio="video"
+                showViewfinder={true}
+                className="w-full h-full border-0 rounded-none"
+              />
             </div>
 
-            {/* Top Bar Controls */}
-            <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-30 pointer-events-none">
-              <div className="flex items-center gap-2 pointer-events-auto">
-                <span className="font-mono text-xs uppercase tracking-wider text-[var(--paper)] bg-black/60 px-2.5 py-1 rounded backdrop-blur border border-[var(--line)]">
-                  <span className="text-[var(--rec,#FF3B30)] mr-1.5">●</span>
-                  27 CREATIVE STUDIO SHOWREEL
-                </span>
-              </div>
-
-              <div className="flex items-center gap-2 pointer-events-auto">
-                {videoSrc && (
-                  <button
-                    type="button"
-                    onClick={() => setIsMuted((prev) => !prev)}
-                    aria-label={isMuted ? "Unmute reel" : "Mute reel"}
-                    className="p-2 rounded bg-black/60 border border-[var(--line)] text-[var(--paper)] hover:text-[var(--industry)] hover:border-[var(--industry)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--industry)]"
-                  >
-                    {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
-                  </button>
-                )}
-
-                <button
-                  ref={closeBtnRef}
-                  type="button"
-                  onClick={onClose}
-                  aria-label="Close reel viewer"
-                  className="p-2 rounded bg-black/60 border border-[var(--line)] text-[var(--paper)] hover:text-[var(--industry)] hover:border-[var(--industry)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--industry)]"
-                >
-                  <X size={16} />
-                </button>
-              </div>
-            </div>
-
-            {/* Bottom Bar Details */}
-            <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between z-30 font-mono text-xs text-[var(--muted)] pointer-events-none">
-              <span id="reel-modal-title" className="text-[var(--paper)] opacity-80">
-                {heroConfig.reelLabel}
-              </span>
-              <span className="hidden sm:inline-block opacity-60">
-                PRESS ESC TO CLOSE
-              </span>
-            </div>
+            {/* Modal Close Button */}
+            <button
+              ref={closeBtnRef}
+              type="button"
+              onClick={onClose}
+              aria-label="Close reel viewer"
+              className="absolute top-4 right-4 z-40 p-2 rounded-lg bg-[var(--ink,#0B0B0F)]/80 border border-[var(--line,#2A2A30)] text-[var(--paper,#F4F1EA)] hover:text-[var(--industry,#C6FF3D)] hover:border-[var(--industry,#C6FF3D)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--industry,#C6FF3D)] backdrop-blur-md shadow-lg"
+            >
+              <X size={18} />
+            </button>
           </motion.div>
         </div>
       )}

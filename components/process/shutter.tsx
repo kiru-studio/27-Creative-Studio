@@ -63,7 +63,7 @@ export function Shutter({ stepIndex, lensConfig, reducedMotion }: ShutterProps) 
   const bladeScale = getBladeScale();
 
   return (
-    <div className="absolute inset-[26%] rounded-full overflow-hidden border border-[#2A2A30] bg-[#0E0E12] shadow-[inset_0_0_20px_rgba(0,0,0,0.95)]">
+    <div className="absolute inset-[26%] rounded-full overflow-hidden border border-[var(--line)] bg-[var(--ink)] shadow-[inset_0_0_20px_rgba(0,0,0,0.95)]">
       {/* 6 Overlapping Iris Shutter Blades */}
       <motion.div
         className="absolute inset-0 pointer-events-none"
@@ -79,7 +79,7 @@ export function Shutter({ stepIndex, lensConfig, reducedMotion }: ShutterProps) 
             style={{
               transformOrigin: "0 0",
               clipPath: "polygon(0 0, 100% 0, 100% 100%, 82% 94%, 64% 74%, 44% 53%, 23% 31%, 0 17%)",
-              background: i % 2 === 0 ? "#1B1B21" : "#24242C",
+              background: i % 2 === 0 ? "var(--panel-raised)" : "var(--panel-raised)",
               boxShadow: "inset 0 0 4px rgba(0,0,0,0.8)",
             }}
             animate={{
@@ -115,13 +115,13 @@ export function Shutter({ stepIndex, lensConfig, reducedMotion }: ShutterProps) 
       {stepIndex === 2 && (
         <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
           {/* Subtle letterbox guide bars */}
-          <div className="absolute top-0 left-0 right-0 h-[22%] bg-black/50 border-b border-[#2A2A30]/50" />
-          <div className="absolute bottom-0 left-0 right-0 h-[22%] bg-black/50 border-t border-[#2A2A30]/50" />
+          <div className="absolute top-0 left-0 right-0 h-[22%] bg-black/50 border-b border-[var(--line)]/50" />
+          <div className="absolute bottom-0 left-0 right-0 h-[22%] bg-black/50 border-t border-[var(--line)]/50" />
           
           {/* Sweeping lime playhead line */}
           {!reducedMotion && (
             <motion.div
-              className="absolute top-[22%] bottom-[22%] w-[2px] bg-[#C6FF3D] shadow-[0_0_8px_#C6FF3D]"
+              className="absolute top-[22%] bottom-[22%] w-[2px] bg-[var(--industry)] shadow-[0_0_8px_var(--industry)]"
               animate={{ left: ["5%", "95%", "5%"] }}
               transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
             />
@@ -170,14 +170,14 @@ export function Shutter({ stepIndex, lensConfig, reducedMotion }: ShutterProps) 
               animate={{ opacity: 1, scale: 1 }}
               exit={reducedMotion ? undefined : { opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.2 }}
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#0B0B0F]/90 border border-[#C6FF3D]/40 shadow-[0_0_12px_rgba(0,0,0,0.8)]"
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[var(--ink)]/90 border border-[var(--industry)]/40 shadow-[0_0_12px_rgba(0,0,0,0.8)]"
             >
               <motion.span
                 animate={reducedMotion ? undefined : { opacity: [1, 0.35, 1] }}
                 transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
-                className="w-1.5 h-1.5 rounded-full bg-[#C6FF3D] shadow-[0_0_6px_#C6FF3D]"
+                className="w-1.5 h-1.5 rounded-full bg-[var(--industry)] shadow-[0_0_6px_var(--industry)]"
               />
-              <span className="font-mono text-[10px] tracking-widest font-bold text-[#C6FF3D] uppercase">
+              <span className="font-mono text-[10px] tracking-widest font-bold text-[var(--industry)] uppercase">
                 rec
               </span>
             </motion.div>
@@ -190,14 +190,14 @@ export function Shutter({ stepIndex, lensConfig, reducedMotion }: ShutterProps) 
               animate={{ opacity: 1, scale: 1 }}
               exit={reducedMotion ? undefined : { opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.2 }}
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#0B0B0F]/90 border border-[#FF3B30]/60 shadow-[0_0_12px_rgba(0,0,0,0.8)]"
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[var(--ink)]/90 border border-[var(--line)] shadow-[0_0_12px_rgba(0,0,0,0.8)]"
             >
               <motion.span
                 animate={reducedMotion ? undefined : { opacity: [1, 0, 1] }}
                 transition={{ duration: 0.35, repeat: Infinity, ease: "linear", times: [0, 0.5, 1] }}
-                className="w-1.5 h-1.5 rounded-full bg-[#FF3B30] shadow-[0_0_8px_#FF3B30]"
+                className="w-1.5 h-1.5 rounded-full bg-[var(--rec)]"
               />
-              <span className="font-mono text-[10px] tracking-widest font-bold text-[#FF3B30] uppercase">
+              <span className="font-mono text-[10px] tracking-widest font-bold text-[var(--industry)] uppercase">
                 rec
               </span>
             </motion.div>
@@ -210,9 +210,9 @@ export function Shutter({ stepIndex, lensConfig, reducedMotion }: ShutterProps) 
               animate={{ opacity: 1, scale: 1 }}
               exit={reducedMotion ? undefined : { opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.2 }}
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#0B0B0F]/90 border border-[#C6FF3D]/40 shadow-[0_0_12px_rgba(0,0,0,0.8)]"
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[var(--ink)]/90 border border-[var(--industry)]/40 shadow-[0_0_12px_rgba(0,0,0,0.8)]"
             >
-              <span className="font-mono text-[10px] tracking-widest font-bold text-[#C6FF3D] uppercase">
+              <span className="font-mono text-[10px] tracking-widest font-bold text-[var(--industry)] uppercase">
                 cut
               </span>
             </motion.div>
@@ -225,17 +225,17 @@ export function Shutter({ stepIndex, lensConfig, reducedMotion }: ShutterProps) 
               animate={{ opacity: 1, scale: 1 }}
               exit={reducedMotion ? undefined : { opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.2 }}
-              className="relative flex items-center justify-center w-7 h-7 rounded-full bg-[#C6FF3D] text-[#0B0B0F] shadow-[0_0_16px_rgba(198,255,61,0.5)]"
+              className="relative flex items-center justify-center w-7 h-7 rounded-full bg-[var(--industry)] text-[var(--industry-ink)] shadow-[0_0_16px_rgba(198,255,61,0.5)]"
             >
               {!reducedMotion && (
                 <motion.div
                   animate={{ scale: [1, 2.3], opacity: [0.85, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
-                  className="absolute inset-0 rounded-full border-2 border-[#C6FF3D] pointer-events-none"
+                  className="absolute inset-0 rounded-full border-2 border-[var(--industry)] pointer-events-none"
                 />
               )}
               <svg
-                className="w-4 h-4 stroke-[3] stroke-[#0B0B0F] fill-none"
+                className="w-4 h-4 stroke-[3] stroke-[var(--industry-ink)] fill-none"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
               >

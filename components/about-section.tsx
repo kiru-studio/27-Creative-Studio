@@ -842,7 +842,7 @@ export function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const triggerTileRef = useRef<HTMLElement | null>(null);
 
-  const isInView = useInView(sectionRef, { once: true, margin: "-8% 0px" });
+  const isInView = useInView(sectionRef, { once: true, margin: "0px 0px -5% 0px" });
   const shouldReduceMotion = Boolean(useReducedMotion());
   const isDesktop = useIsDesktop();
   const isTouch = useIsTouchDevice();
@@ -862,12 +862,12 @@ export function AboutSection() {
   return (
     <section
       className="about-section relative overflow-hidden"
-      id="crew"
+      id="about"
       ref={sectionRef}
       aria-labelledby="about-heading"
     >
+      <div id="crew" className="sr-only" />
       <div id="team" className="sr-only" />
-      <div id="about" className="sr-only" />
       {/* 5. ATMOSPHERE: Hardware-Accelerated Repeating Film-Grain Background (0 CPU overhead) */}
       <div className="about-grain-overlay" aria-hidden="true" />
 

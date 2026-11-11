@@ -31,14 +31,14 @@ export function SlateHeader({
   const displayProd = businessName?.trim() ? businessName.trim() : "27 STUDIO";
 
   return (
-    <div className="clapper-slate-header flex flex-wrap items-center justify-between gap-3 pb-4 mb-6 border-b border-[#2A2A30] font-mono text-xs uppercase tracking-wider">
+    <div className="clapper-slate-header flex flex-wrap items-center justify-between gap-3 pb-4 mb-6 border-b border-[var(--line)] font-mono text-xs uppercase tracking-wider">
       {/* PROD: Displays business name as typed with fallback REC + red dot */}
       <div className="flex items-center gap-2 max-w-[240px] sm:max-w-[320px]">
-        <span className="text-[#A9A7A0] shrink-0">PROD.</span>
+        <span className="text-[var(--muted)] shrink-0">PROD.</span>
         <div className="flex items-center gap-1.5 truncate">
-          <span className="text-[#F4F1EA] font-bold truncate">{displayProd}</span>
+          <span className="text-[var(--paper)] font-bold truncate">{displayProd}</span>
           <span
-            className="w-2 h-2 rounded-full bg-[#FF3B30] shadow-[0_0_8px_#FF3B30] shrink-0 animate-pulse"
+            className="w-2 h-2 rounded-full bg-[var(--rec)] shrink-0 animate-pulse"
             aria-hidden="true"
           />
         </div>
@@ -57,8 +57,8 @@ export function SlateHeader({
       <div className="flex items-center gap-3 sm:gap-4 shrink-0">
         {/* ROLL */}
         <div className="flex items-center gap-1.5" title="Deliverables Roll Code">
-          <span className="text-[#A9A7A0]">ROLL</span>
-          <span className="text-[#F4F1EA] font-bold">{rollCode}</span>
+          <span className="text-[var(--muted)]">ROLL</span>
+          <span className="text-[var(--paper)] font-bold">{rollCode}</span>
         </div>
 
         {/* SCENE */}
@@ -66,13 +66,13 @@ export function SlateHeader({
           className="flex items-center gap-1.5 cursor-help"
           title={businessTypeLabel ? `Business scene: ${businessTypeLabel}` : "Scene category"}
         >
-          <span className="text-[#A9A7A0]">SCENE</span>
-          <span className="text-[#F4F1EA] font-bold">{sceneCode}</span>
+          <span className="text-[var(--muted)]">SCENE</span>
+          <span className="text-[var(--paper)] font-bold">{sceneCode}</span>
         </div>
 
         {/* TAKE: Rolling number */}
         <div className="flex items-center gap-1.5">
-          <span className="text-[#A9A7A0]">TAKE</span>
+          <span className="text-[var(--muted)]">TAKE</span>
           <div className="relative h-4 overflow-hidden inline-flex items-center min-w-[28px]">
             <AnimatePresence mode="popLayout" initial={false}>
               <motion.span
@@ -81,7 +81,7 @@ export function SlateHeader({
                 animate={{ y: 0, opacity: 1 }}
                 exit={reducedMotion ? undefined : { y: -14, opacity: 0 }}
                 transition={{ type: "spring", stiffness: 350, damping: 28 }}
-                className="text-[#C6FF3D] font-bold block"
+                className="text-[var(--industry)] font-bold block"
               >
                 #{String(takeCount).padStart(2, "0")}
               </motion.span>

@@ -88,7 +88,15 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="dark" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{var theme=localStorage.getItem('rec-mode-theme');if(theme==='light'||theme==='dark')document.documentElement.dataset.theme=theme}catch{}",
+          }}
+        />
+      </head>
       <body className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable} antialiased`}>
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}

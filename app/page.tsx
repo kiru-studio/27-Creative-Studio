@@ -10,16 +10,12 @@ import {
 } from "react";
 import {
   ArrowUpRight,
-  Clapperboard,
-  FileText,
-  Menu,
-  Scissors,
-  Send,
-  VolumeX,
+  Moon,
+  Sun,
   X,
 } from "lucide-react";
-import { MediaSlot } from "@/components/media-slot";
-import { Hero, ViewfinderCursor } from "@/components/hero";
+import { VideoPlayer } from "@/components/video-player";
+import { Hero } from "@/components/hero";
 import { FilmSection } from "@/components/film-section";
 import { ProcessSection } from "@/components/process";
 import { AboutSection } from "@/components/about-section";
@@ -34,14 +30,8 @@ import {
   whatsappHref,
 } from "@/lib/site-content";
 
-const NAV_TICK_BASE_TOKENS = {
-  medium: "--nav-tick-medium",
-  long: "--nav-tick-long",
-} as const;
-const NAV_TICK_COUNT = 48;
-const NAV_LINK_TICK_INDEXES = [2, 9, 16, 23, 30, 37, 44];
-
 const NAV_ITEM_HREFS: Record<string, string> = {
+  Home: "#hero",
   Work: "#work",
   Films: "#films",
   Process: "#process",
@@ -51,16 +41,6 @@ const NAV_ITEM_HREFS: Record<string, string> = {
   Contact: "#contact",
 };
 
-const MOBILE_NAV_ITEMS = [
-  { num: "01", name: "WORK", tag: "REELS", href: "#work" },
-  { num: "02", name: "FILMS", tag: "CINEMATIC", href: "#films" },
-  { num: "03", name: "PROCESS", tag: "4 STEPS", href: "#process" },
-  { num: "04", name: "CASES", tag: "4 CLIENTS", href: "#cases" },
-  { num: "05", name: "PACKAGES", tag: "WAYS TO WORK", href: "#packages" },
-  { num: "06", name: "ABOUT", tag: "DIRECTORS", href: "#about" },
-  { num: "07", name: "CONTACT", tag: "GET IN TOUCH", href: "#contact" },
-];
-
 function CornerBrackets() {
   return (
     <span className="corner-brackets" aria-hidden="true">
@@ -69,45 +49,6 @@ function CornerBrackets() {
       <i />
       <i />
     </span>
-  );
-}
-
-function Preloader({ onDone }: { onDone: () => void }) {
-  const [count, setCount] = useState(3);
-  useEffect(() => {
-    let reduced = false;
-    try {
-      reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    } catch {}
-    if (reduced) {
-      onDone();
-      return;
-    }
-    let current = 3;
-    const finish = () => {
-      window.clearInterval(timer);
-      onDone();
-    };
-    const timer = window.setInterval(() => {
-      current -= 1;
-      setCount(current);
-      if (current <= 0) finish();
-    }, 350);
-    return () => window.clearInterval(timer);
-  }, [onDone]);
-  return (
-    <div
-      className="preloader"
-      role="status"
-      aria-label={siteContent.ui.preloaderLabel}
-    >
-      <span className="preloader-count" aria-hidden="true">
-        {count}
-      </span>
-      <button type="button" onClick={onDone}>
-        {siteContent.ui.skipIntro}
-      </button>
-    </div>
   );
 }
 
@@ -224,16 +165,16 @@ function ReelViewer({
         </button>
         <div className={`reel-poster reel-poster-${index % 4}`}>
           {item.videoSrc ? (
-            <video
-              ref={videoRef}
-              className="viewer-video"
+            <VideoPlayer
               src={item.videoSrc}
               poster={item.posterSrc}
-              controls
+              title={item.title}
+              subtitle={item.client}
+              aspectRatio="reel"
+              autoPlay={true}
               muted={!soundOn}
-              playsInline
-              preload="none"
-              aria-label={item.title}
+              compact={true}
+              className="w-full h-full border-0"
             />
           ) : item.posterSrc ? (
             <img className="poster-image" src={item.posterSrc} alt="" />
@@ -339,199 +280,45 @@ function FooterSection() {
 }
 
 export default function Page() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [activeNavIndex, setActiveNavIndex] = useState<number | null>(null);
-  const navRef = useRef<HTMLElement>(null);
-  const navWaveFrameRef = useRef<number | null>(null);
-  const navWavePointerYRef = useRef(0);
-  const navWaveMetricsRef = useRef<{
-    height: number;
-    radius: number;
-    amplitude: number;
-    expandedWidth: number;
-    ticks: { element: HTMLElement; center: number; baseWidth: number }[];
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [themeTransition, setThemeTransition] = useState<{
+    phase: "cover" | "reveal";
+    target: "dark" | "light";
   } | null>(null);
-  const [timecode, setTimecode] = useState("00:00:00:00");
-  const [preloading, setPreloading] = useState(true);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [viewerIndex, setViewerIndex] = useState<number | null>(null);
-  const menuToggleRef = useRef<HTMLButtonElement>(null);
   const viewerOpenerRef = useRef<HTMLElement | null>(null);
-  const finishPreloader = useCallback(() => {
+  const [showFab, setShowFab] = useState(false);
+  const updateTheme = (nextTheme: "dark" | "light") => {
+    document.documentElement.dataset.theme = nextTheme;
+    setTheme(nextTheme);
     try {
-      if (sessionStorage.getItem("rec-mode-preloader-seen")) {
-        setPreloading(false);
-        return;
-      }
-      sessionStorage.setItem("rec-mode-preloader-seen", "1");
-    } catch {}
-    setPreloading(false);
-  }, []);
-  useEffect(() => {
-    try {
-      if (sessionStorage.getItem("rec-mode-preloader-seen"))
-        setPreloading(false);
-    } catch {}
-  }, []);
-  useEffect(() => {
-    if (!menuOpen) return;
-    const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key !== "Escape") return;
-      setMenuOpen(false);
-      menuToggleRef.current?.focus();
-    };
-    document.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.body.style.overflow = originalOverflow;
-      document.removeEventListener("keydown", onKeyDown);
-    };
-  }, [menuOpen]);
-  useEffect(() => {
-    const start = Date.now();
-    const id = window.setInterval(() => {
-      const frames = Math.floor((Date.now() - start) / 40);
-      setTimecode(
-        `00:00:${String(Math.floor(frames / 25) % 60).padStart(2, "0")}:${String(frames % 25).padStart(2, "0")}`,
-      );
-    }, 40);
-    return () => window.clearInterval(id);
-  }, []);
-
-  const updateNavWave = (pointerY: number) => {
-    const nav = navRef.current;
-    if (!nav) return;
-
-    navWavePointerYRef.current = pointerY;
-    if (navWaveFrameRef.current !== null) return;
-
-    const animateWave = () => {
-      navWaveFrameRef.current = null;
-      if (!nav.isConnected) return;
-      const bounds = nav.getBoundingClientRect();
-      let metrics = navWaveMetricsRef.current;
-      if (!metrics || metrics.height !== bounds.height) {
-        const navStyle = getComputedStyle(nav);
-        const rootStyle = getComputedStyle(document.documentElement);
-        const rootFontSize = Number.parseFloat(rootStyle.fontSize);
-        const resolveLength = (value: string) => {
-          const amount = Number.parseFloat(value);
-          return value.trim().endsWith("rem") ? amount * rootFontSize : amount;
-        };
-        metrics = {
-          height: bounds.height,
-          radius: resolveLength(
-            navStyle.getPropertyValue("--nav-wave-radius"),
-          ),
-          amplitude:
-            Number.parseFloat(
-              navStyle.getPropertyValue("--nav-wave-amplitude"),
-            ) / 100,
-          expandedWidth: resolveLength(
-            navStyle.getPropertyValue("--nav-line-expanded"),
-          ),
-          ticks: [...nav.querySelectorAll<HTMLElement>("[data-nav-tick]")]
-            .map((tick) => {
-              const size = tick.dataset.navTickSize;
-              const baseToken =
-                size === "medium"
-                  ? NAV_TICK_BASE_TOKENS.medium
-                  : size === "long"
-                    ? NAV_TICK_BASE_TOKENS.long
-                    : null;
-              if (!baseToken) return null;
-              const rect = tick.getBoundingClientRect();
-              const baseValue = rootStyle.getPropertyValue(baseToken);
-              const baseAmount = Number.parseFloat(baseValue);
-              const baseWidth = baseValue.trim().endsWith("rem")
-                ? baseAmount * rootFontSize
-                : baseAmount;
-              return {
-                element: tick,
-                center: rect.top + rect.height / 2 - bounds.top,
-                baseWidth,
-              };
-            })
-            .filter(
-              (
-                tick,
-              ): tick is {
-                element: HTMLElement;
-                center: number;
-                baseWidth: number;
-              } => tick !== null,
-            ),
-        };
-        navWaveMetricsRef.current = metrics;
-      }
-
-      const targetY = Math.max(
-        0,
-        Math.min(navWavePointerYRef.current, metrics.height),
-      );
-      const waveY = targetY;
-      const shortWaveTriggered = metrics.ticks.some(
-        ({ element, center }) =>
-          element.dataset.navLinkIndex === undefined &&
-          metrics.amplitude *
-            Math.exp(-0.5 * ((center - waveY) / metrics.radius) ** 2) >=
-            0.16,
-      );
-
-      for (const { element, center, baseWidth } of metrics.ticks) {
-        if (element.dataset.navLinkIndex !== undefined) {
-          element.style.setProperty(
-            "--nav-wave-width",
-            `${shortWaveTriggered ? metrics.expandedWidth : baseWidth}px`,
-          );
-          element.style.setProperty("--nav-wave-strength", "0%");
-          continue;
-        }
-        const distance = Math.abs(center - waveY);
-        const falloff =
-          metrics.amplitude *
-          Math.exp(-0.5 * (distance / metrics.radius) ** 2);
-        element.style.setProperty(
-          "--nav-wave-width",
-          `${baseWidth + (metrics.expandedWidth - baseWidth) * falloff}px`,
-        );
-        element.style.setProperty("--nav-wave-strength", `${falloff * 100}%`);
-      }
-
-      const activeLink = metrics.ticks
-        .filter(({ element }) => element.dataset.navLinkIndex !== undefined)
-        .reduce<{ index: number; distance: number } | null>(
-          (nearest, { element, center }) => {
-            const distance = Math.abs(center - waveY);
-            return !nearest || distance < nearest.distance
-              ? { index: Number(element.dataset.navLinkIndex), distance }
-              : nearest;
-          },
-          null,
-        );
-      setActiveNavIndex((currentIndex) =>
-        currentIndex === (activeLink?.index ?? null)
-          ? currentIndex
-          : (activeLink?.index ?? null),
-      );
-    };
-    navWaveFrameRef.current = window.requestAnimationFrame(animateWave);
-  };
-  const resetNavWave = () => {
-    const nav = navRef.current;
-    if (navWaveFrameRef.current !== null) {
-      window.cancelAnimationFrame(navWaveFrameRef.current);
-      navWaveFrameRef.current = null;
+      window.localStorage.setItem("rec-mode-theme", nextTheme);
+    } catch (error) {
+      console.warn("Theme preference could not be saved.", error);
     }
-    navWaveMetricsRef.current?.ticks.forEach(({ element }) => {
-      element.style.removeProperty("--nav-wave-width");
-      element.style.removeProperty("--nav-wave-strength");
-    });
-    navWaveMetricsRef.current = null;
-    setActiveNavIndex(null);
   };
-
+  const finishThemeTransition = () => {
+    if (themeTransition?.phase === "cover") {
+      updateTheme(themeTransition.target);
+      setThemeTransition({ ...themeTransition, phase: "reveal" });
+      return;
+    }
+    delete document.documentElement.dataset.themeTransitionTarget;
+    setThemeTransition(null);
+  };
+  useEffect(() => {
+    setTheme(document.documentElement.dataset.theme === "light" ? "light" : "dark");
+  }, []);
+  useEffect(() => {
+    const handleScroll = () => {
+      // Reveal floating WhatsApp action button after scrolling past hero section
+      setShowFab(window.scrollY > 280);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   return (
     <main id="top">
       <script
@@ -554,181 +341,101 @@ export default function Page() {
           }),
         }}
       />
-      {preloading && <Preloader onDone={finishPreloader} />}
-      <ViewfinderCursor />
       <a className="skip-link" href="#hero-heading">
         {siteContent.ui.skipLink}
       </a>
-      <header className="site-header pointer-events-none flex justify-end">
-        <nav
-          id="main-navigation"
-          ref={navRef}
-          className={`${menuOpen ? "nav-open " : ""}pointer-events-auto`}
-          data-wave-active={activeNavIndex !== null}
-          aria-label="Main navigation"
-          onPointerMove={(event) => {
-            updateNavWave(event.clientY - event.currentTarget.getBoundingClientRect().top);
-          }}
-          onPointerLeave={resetNavWave}
-        >
-          {Array.from({ length: NAV_TICK_COUNT }, (_, tick) => {
-            const navIndex = NAV_LINK_TICK_INDEXES.indexOf(tick);
-            const label = siteContent.nav[navIndex];
-            const href = label ? (NAV_ITEM_HREFS[label] || `#${label.toLowerCase()}`) : undefined;
-            const tickSize = label ? "long" : "medium";
-            const rulerTick = (
-              <span
-                className="nav-stagger-line"
-                data-nav-tick
-                data-nav-tick-size={label ? "long" : tickSize}
-                data-nav-link-index={label ? navIndex : undefined}
-                aria-hidden="true"
-              />
-            );
-
-            if (!label || !href) {
-              return (
-                <span className="nav-ruler-tick" key={`tick-${tick}`}>
-                  {rulerTick}
+      <header className="site-header">
+        <div className="site-header-inner">
+          <a
+            className="wordmark"
+            href="#hero"
+            aria-label={siteContent.ui.homeLabel}
+          >
+            <span>{siteContent.brand.name}</span>
+            <small>{siteContent.brand.descriptor}</small>
+          </a>
+          <div className="site-header-actions">
+            <nav
+              className="site-navigation"
+              aria-label={siteContent.ui.headerNavigationLabel}
+            >
+              {siteContent.nav.map((label) => {
+                const href = NAV_ITEM_HREFS[label];
+                return href ? (
+                  <a key={label} href={href}>
+                    {label}
+                  </a>
+                ) : null;
+              })}
+            </nav>
+            <details className="mobile-navigation">
+              <summary aria-label={siteContent.ui.menuClosed}>
+                <span className="mobile-menu-icon" aria-hidden="true">
+                  <i />
+                  <i />
                 </span>
-              );
-            }
-
-            return (
-              <a
-                key={label}
-                href={href}
-                data-stagger-active={activeNavIndex === navIndex}
-                onFocus={(event) => {
-                  const navBounds = navRef.current?.getBoundingClientRect();
-                  if (navBounds) {
-                    const linkBounds = event.currentTarget.getBoundingClientRect();
-                    updateNavWave(
-                      linkBounds.top + linkBounds.height / 2 - navBounds.top,
-                    );
+                <span>{siteContent.ui.mobileMenuLabel}</span>
+              </summary>
+              <nav
+                aria-label={siteContent.ui.headerNavigationLabel}
+                onClick={(event) => {
+                  if (event.target instanceof HTMLAnchorElement) {
+                    event.currentTarget.closest("details")?.removeAttribute("open");
                   }
                 }}
-                onBlur={resetNavWave}
-                onClick={() => setMenuOpen(false)}
               >
-                {rulerTick}
-                <span className="nav-stagger-label">{label}</span>
-              </a>
-            );
-          })}
-        </nav>
-        <button
-          className="menu-toggle pointer-events-auto !ml-auto"
-          style={{ marginLeft: "auto" }}
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label={
-            menuOpen ? siteContent.ui.menuOpen : siteContent.ui.menuClosed
-          }
-          aria-expanded={menuOpen}
-          aria-controls="main-navigation"
-        >
-          {menuOpen ? <X /> : <Menu />}
-        </button>
-      </header>
-
-      {/* Mobile Cinematic HUD Navigation Trigger */}
-      <button
-        className="mobile-nav-trigger pointer-events-auto"
-        ref={menuToggleRef}
-        onClick={() => setMenuOpen(!menuOpen)}
-        aria-label={
-          menuOpen ? siteContent.ui.menuOpen : siteContent.ui.menuClosed
-        }
-        aria-expanded={menuOpen}
-        aria-controls="mobile-navigation"
-      >
-        <span className="mobile-nav-trigger-label">
-          {menuOpen ? "CLOSE" : "MENU"}
-        </span>
-        {menuOpen ? (
-          <span className="mobile-nav-close-icon" aria-hidden="true">✕</span>
-        ) : (
-          <div className="mobile-nav-ticks" aria-hidden="true">
-            <span className="mobile-nav-tick-1" />
-            <span className="mobile-nav-tick-2" />
-            <span className="mobile-nav-tick-3" />
-          </div>
-        )}
-      </button>
-
-      {/* Mobile Full-Screen Director's Slate Drawer */}
-      {menuOpen && (
-        <div
-          id="mobile-navigation"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Director site navigation"
-          className="mobile-nav-drawer"
-        >
-          {/* Viewfinder Corner Brackets */}
-          <div className="mobile-drawer-brackets" aria-hidden="true">
-            <span className="mobile-drawer-bracket-tl" />
-            <span className="mobile-drawer-bracket-tr" />
-            <span className="mobile-drawer-bracket-bl" />
-            <span className="mobile-drawer-bracket-br" />
-          </div>
-
-          {/* Top HUD Header */}
-          <div className="mobile-drawer-header">
-            <div className="mobile-drawer-rec">
-              <span className="mobile-drawer-rec-dot" aria-hidden="true" />
-              <span>DIRECTORY // 27·STUDIO</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="mobile-drawer-timecode">{timecode}</span>
-              <button
-                className="mobile-drawer-close"
-                onClick={() => setMenuOpen(false)}
-                aria-label="Close navigation"
-              >
-                <span>CLOSE</span>
-                <span aria-hidden="true">✕</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Nav List with Big Shoulders typography & Scene tags */}
-          <nav className="mobile-drawer-nav">
-            {MOBILE_NAV_ITEMS.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="mobile-drawer-item group"
-                onClick={() => setMenuOpen(false)}
-              >
-                <div className="flex items-baseline">
-                  <span className="mobile-drawer-num">{item.num} //</span>
-                  <span className="mobile-drawer-title">{item.name}</span>
-                </div>
-                <div className="mobile-drawer-tag">
-                  <span>{item.tag}</span>
-                  <span className="text-[var(--industry)]">↗</span>
-                </div>
-              </a>
-            ))}
-          </nav>
-
-          {/* Bottom HUD Footer Bar */}
-          <div className="mobile-drawer-footer">
-            <div className="flex flex-col">
-              <span className="mobile-drawer-loc-label">LOCATION</span>
-              <span className="mobile-drawer-loc-val">THOOTHUKUDI, TN</span>
-            </div>
-            <a
-              href="#contact"
-              onClick={() => setMenuOpen(false)}
-              className="mobile-drawer-cta"
-            >
-              GROW YOUR BRAND ↗
+                {siteContent.nav.map((label) => {
+                  const href = NAV_ITEM_HREFS[label];
+                  return href ? (
+                    <a key={label} href={href}>
+                      {label}
+                    </a>
+                  ) : null;
+                })}
+                <a className="header-cta" href={whatsappHref}>
+                  {siteContent.contact.bookOnWhatsApp}
+                </a>
+              </nav>
+            </details>
+            <a className="header-cta" href={whatsappHref}>
+              {siteContent.contact.bookOnWhatsApp}
             </a>
+            <button
+              type="button"
+              className="theme-toggle"
+              disabled={themeTransition !== null}
+              aria-label={
+                theme === "dark"
+                  ? siteContent.ui.switchToLightTheme
+                  : siteContent.ui.switchToDarkTheme
+              }
+              aria-pressed={theme === "light"}
+              onClick={() => {
+                const nextTheme = theme === "dark" ? "light" : "dark";
+                const reduceMotion = window.matchMedia(
+                  "(prefers-reduced-motion: reduce)",
+                ).matches;
+                if (reduceMotion) {
+                  updateTheme(nextTheme);
+                } else {
+                  document.documentElement.dataset.themeTransitionTarget =
+                    nextTheme;
+                  setThemeTransition({ phase: "cover", target: nextTheme });
+                }
+              }}
+            >
+              {theme === "dark" ? (
+                <Sun size={18} aria-hidden="true" />
+              ) : (
+                <Moon size={18} aria-hidden="true" />
+              )}
+              <span className="theme-toggle-label">
+                {siteContent.ui.themeToggleLabel}
+              </span>
+            </button>
           </div>
         </div>
-      )}
+      </header>
       <Hero />
       <ReelsSection
         onOpenViewer={(index, opener) => {
@@ -745,18 +452,20 @@ export default function Page() {
       <FaqSection />
       <ContactSection />
       <FooterSection />
-      <a
-        className="whatsapp-fab"
-        href={whatsappHref}
-        aria-label={siteContent.ui.whatsappAriaLabel}
-      >
-        <span className="hidden sm:inline">{siteContent.contact.whatsappLabel}</span>
-        <span className="sm:hidden font-mono font-bold text-xs flex items-center gap-1.5">
-          <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" aria-hidden="true" />
-          WHATSAPP
-        </span>
-        <ArrowUpRight size={15} />
-      </a>
+      {showFab && (
+        <a
+          className="whatsapp-fab"
+          href={whatsappHref}
+          aria-label={siteContent.ui.whatsappAriaLabel}
+        >
+          <span className="hidden sm:inline">{siteContent.contact.whatsappLabel}</span>
+          <span className="sm:hidden font-mono font-bold text-xs flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" aria-hidden="true" />
+            WHATSAPP
+          </span>
+          <ArrowUpRight size={15} />
+        </a>
+      )}
       {lightboxOpen && (
         <ReelViewer
           items={siteContent.reels}
@@ -771,6 +480,14 @@ export default function Page() {
           initialIndex={viewerIndex}
           onClose={() => setViewerIndex(null)}
           returnFocusTo={viewerOpenerRef.current}
+        />
+      )}
+      {themeTransition && (
+        <div
+          className="theme-aperture-transition"
+          data-phase={themeTransition.phase}
+          aria-hidden="true"
+          onAnimationEnd={finishThemeTransition}
         />
       )}
     </main>

@@ -45,11 +45,11 @@ export function FieldWithBrackets({
     >
       {/* Label and Character Count */}
       <div className="flex items-center justify-between">
-        <label htmlFor={id} className="text-xs text-[#F4F1EA] font-medium flex items-center gap-1.5">
+        <label htmlFor={id} className="text-xs text-[var(--paper)] font-medium flex items-center gap-1.5">
           {slateTag && (
             <span
               className={`font-mono transition-colors duration-200 ${
-                isFocused ? "text-[#C6FF3D] font-bold" : "text-[#C6FF3D]/70"
+                isFocused ? "text-[var(--industry)] font-bold" : "text-[var(--industry)]/70"
               }`}
             >
               {slateTag}
@@ -59,7 +59,7 @@ export function FieldWithBrackets({
         </label>
 
         {maxChars !== undefined && (
-          <span className="font-mono text-[10px] text-[#A9A7A0] tracking-wider">
+          <span className="font-mono text-[10px] text-[var(--muted)] tracking-wider">
             {charCount ?? 0}/{maxChars}
           </span>
         )}
@@ -79,13 +79,13 @@ export function FieldWithBrackets({
               aria-hidden="true"
             >
               {/* Top-Left */}
-              <div className="absolute -top-1 -left-1 w-2.5 h-2.5 border-t-2 border-l-2 border-[#C6FF3D]" />
+              <div className="absolute -top-1 -left-1 w-2.5 h-2.5 border-t-2 border-l-2 border-[var(--industry)]" />
               {/* Top-Right */}
-              <div className="absolute -top-1 -right-1 w-2.5 h-2.5 border-t-2 border-r-2 border-[#C6FF3D]" />
+              <div className="absolute -top-1 -right-1 w-2.5 h-2.5 border-t-2 border-r-2 border-[var(--industry)]" />
               {/* Bottom-Left */}
-              <div className="absolute -bottom-1 -left-1 w-2.5 h-2.5 border-b-2 border-l-2 border-[#C6FF3D]" />
+              <div className="absolute -bottom-1 -left-1 w-2.5 h-2.5 border-b-2 border-l-2 border-[var(--industry)]" />
               {/* Bottom-Right */}
-              <div className="absolute -bottom-1 -right-1 w-2.5 h-2.5 border-b-2 border-r-2 border-[#C6FF3D]" />
+              <div className="absolute -bottom-1 -right-1 w-2.5 h-2.5 border-b-2 border-r-2 border-[var(--industry)]" />
             </motion.div>
           )}
         </AnimatePresence>
@@ -100,7 +100,7 @@ export function FieldWithBrackets({
 
         {/* Lime Underline Wipe */}
         <motion.div
-          className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#C6FF3D] origin-left pointer-events-none z-10"
+          className="absolute bottom-0 left-0 right-0 h-[2px] bg-[var(--industry)] origin-left pointer-events-none z-10"
           animate={{ scaleX: isFocused ? 1 : 0 }}
           transition={
             reducedMotion
@@ -121,7 +121,7 @@ export function FieldWithBrackets({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
             transition={{ duration: 0.2 }}
-            className="font-mono text-[11px] text-[#FF5A3D] tracking-wide mt-0.5"
+            className="font-mono text-[11px] text-[var(--danger)] tracking-wide mt-0.5"
           >
             {error}
           </motion.p>

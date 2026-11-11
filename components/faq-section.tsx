@@ -58,7 +58,7 @@ export function CategoryTabs({
               onClick={() => onSelect(cat)}
               className={`px-3.5 py-1.5 rounded-full font-mono text-xs uppercase tracking-wider transition-all whitespace-nowrap snap-start shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--industry)] ${
                 isActive
-                  ? "bg-[var(--industry)] !text-black font-black shadow-sm"
+                  ? "bg-[var(--industry)] !text-[var(--industry-ink)] font-black shadow-sm"
                   : "border border-[var(--line)] text-[var(--muted)] hover:text-[var(--paper)] hover:border-[var(--muted)] bg-transparent"
               }`}
               style={{

@@ -93,7 +93,7 @@ export function ProcessSection({
       id="process"
       aria-labelledby="speed-heading"
       style={containerStyle}
-      className="relative w-full bg-[#0B0B0F] text-[#F4F1EA]"
+      className="relative w-full bg-[var(--ink)] text-[var(--paper)]"
     >
       {/* Sticky Inner Wrapper for Desktop Storytelling */}
       <div
@@ -105,23 +105,23 @@ export function ProcessSection({
       >
         {/* Top Content: Eyebrow, Heading, and HUD status */}
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-[#2A2A30]">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-[var(--line)]">
             <div>
-              <p className="font-mono text-xs text-[#C6FF3D] uppercase tracking-widest flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#C6FF3D]" />
+              <p className="font-mono text-xs text-[var(--industry)] uppercase tracking-widest flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-[var(--industry)]" />
                 {kicker}
               </p>
               <h2
                 id="speed-heading"
-                className="mt-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#F4F1EA] font-display"
+                className="mt-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[var(--paper)] font-display"
               >
                 {heading}
               </h2>
             </div>
 
             {/* HUD scene timecode indicator */}
-            <div className="flex items-center gap-4 text-xs font-mono text-[#A9A7A0]">
-              <span className="tracking-widest text-[11px] text-[#A9A7A0]/60">
+            <div className="flex items-center gap-4 text-xs font-mono text-[var(--muted)]">
+              <span className="tracking-widest text-[11px] text-[var(--muted)]/60">
                 SCENE 0{activeStepIndex + 1} // 0{totalSteps}
               </span>
             </div>

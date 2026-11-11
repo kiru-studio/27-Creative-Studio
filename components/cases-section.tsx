@@ -17,6 +17,7 @@ import {
   type MotionValue,
 } from "framer-motion";
 import { siteContent } from "@/lib/site-content";
+import { VideoPlayer } from "./video-player";
 
 // ==========================================
 // 0. TYPES & DATA ARRAY
@@ -429,15 +430,14 @@ export function CasePanel({
 
         {/* Video, poster or film placeholder */}
         {item.videoSrc ? (
-          <video
-            className="case-video-media"
+          <VideoPlayer
             src={item.videoSrc}
             poster={item.posterSrc}
-            controls
-            muted
-            playsInline
-            preload="none"
-            aria-label={item.title}
+            title={item.title}
+            subtitle={item.category || item.location}
+            compact={true}
+            aspectRatio="auto"
+            className="w-full h-full min-h-[220px]"
           />
         ) : item.posterSrc ? (
           <img className="case-video-image" src={item.posterSrc} alt="" />
@@ -492,7 +492,7 @@ export function CasePanel({
           {item.googleRating && (
             <div className="p-3 rounded bg-[var(--panel-raised)] border border-[var(--line)]">
               <span className="block text-[9px] sm:text-[10px] uppercase tracking-wider text-[var(--muted)]">Google Rating</span>
-              <span className="block text-lg sm:text-xl font-bold text-[#FFD700] mt-0.5">★ {item.googleRating}</span>
+              <span className="block text-lg sm:text-xl font-bold text-[var(--rating)] mt-0.5">★ {item.googleRating}</span>
               {item.googleReviews && <span className="block text-[10px] text-[var(--muted)]">{item.googleReviews}</span>}
             </div>
           )}
@@ -776,7 +776,7 @@ export function CasesSection() {
   const [hoveredKpiIndex, setHoveredKpiIndex] = useState<number | null>(null);
 
   const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-10% 0px" });
+  const isInView = useInView(sectionRef, { once: true, margin: "0px 0px -5% 0px" });
   const shouldReduceMotion = Boolean(useReducedMotion());
   const isTouch = useIsTouchDevice();
 

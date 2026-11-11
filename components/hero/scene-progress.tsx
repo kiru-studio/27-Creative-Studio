@@ -19,7 +19,7 @@ export function SceneProgress({
   className = "",
 }: SceneProgressProps) {
   const [activeScene, setActiveScene] = useState<SceneMarker>(
-    heroConfig.scenes[0] || { id: "hero", number: "01", label: "intro" }
+    heroConfig.scenes[0] || { id: "hero", number: "01", label: "home" }
   );
 
   // Track active scene using IntersectionObserver

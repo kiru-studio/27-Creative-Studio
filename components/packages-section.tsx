@@ -97,7 +97,7 @@ export function PackagesSection({
                 onClick={() => setActiveMobileIndex(idx)}
                 className={`flex-1 py-2 px-1 text-center rounded text-[11px] tracking-wider uppercase transition-all ${
                   isSelected
-                    ? "bg-[var(--industry)] !text-[#0B0B0F] font-black shadow-sm"
+                    ? "bg-[var(--industry)] !text-[var(--industry-ink)] font-black shadow-sm"
                     : "text-[var(--muted)] hover:text-[var(--paper)]"
                 }`}
               >
@@ -186,11 +186,11 @@ export function PackagesSection({
                   <a
                     href={siteConfig.contactAnchor || "#contact"}
                     style={{ color: "#0B0B0F" }}
-                    className="w-full text-center py-3 px-5 text-xs font-mono font-bold uppercase tracking-wider rounded-[var(--radius-control)] bg-[var(--industry)] !text-[#0B0B0F] inline-flex items-center justify-center gap-2 hover:brightness-110 transition-all group/cta focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--industry)]"
+                    className="w-full text-center py-3 px-5 text-xs font-mono font-bold uppercase tracking-wider rounded-[var(--radius-control)] bg-[var(--industry)] !text-[var(--industry-ink)] inline-flex items-center justify-center gap-2 hover:brightness-110 transition-all group/cta focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--industry)]"
                   >
-                    <span className="!text-[#0B0B0F]" style={{ color: "#0B0B0F" }}>{pkg.cta || "Talk to us"}</span>
+                    <span className="!text-[var(--industry-ink)]" style={{ color: "var(--industry-ink)" }}>{pkg.cta || "Talk to us"}</span>
                     <span
-                      className="inline-block transition-transform duration-250 group-hover/cta:translate-x-1.5 !text-[#0B0B0F]"
+                      className="inline-block transition-transform duration-250 group-hover/cta:translate-x-1.5 !text-[var(--industry-ink)]"
                       style={{ color: "#0B0B0F" }}
                       aria-hidden="true"
                     >

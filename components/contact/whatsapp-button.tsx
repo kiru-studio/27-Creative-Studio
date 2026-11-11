@@ -55,16 +55,16 @@ export function WhatsAppButton({
           x: reducedMotion ? 0 : smoothX,
           y: reducedMotion ? 0 : smoothY,
         }}
-        className="group relative w-full min-h-[48px] px-6 py-3 rounded-lg border border-[#2A2A30] bg-[#141419] font-mono text-xs font-bold uppercase tracking-wider text-[#F4F1EA] hover:border-[#C6FF3D] hover:text-[#C6FF3D] flex items-center justify-center gap-2 cursor-pointer transition-colors duration-200 select-none"
+        className="group relative w-full min-h-[48px] px-6 py-3 rounded-lg border border-[var(--line)] bg-[var(--panel)] font-mono text-xs font-bold uppercase tracking-wider text-[var(--paper)] hover:border-[var(--industry)] hover:text-[var(--industry)] flex items-center justify-center gap-2 cursor-pointer transition-colors duration-200 select-none"
       >
         <MessageSquareShare
           size={16}
-          className="transition-transform duration-200 group-hover:scale-110 text-[#C6FF3D]"
+          className="transition-transform duration-200 group-hover:scale-110 text-[var(--industry)]"
           aria-hidden="true"
         />
         <span>Book on WhatsApp</span>
       </motion.a>
-      <span className="font-mono text-[10px] text-[#A9A7A0]/70 mt-1 select-none">
+      <span className="font-mono text-[10px] text-[var(--muted)]/70 mt-1 select-none">
         opens WhatsApp with your details
       </span>
     </div>

@@ -2,6 +2,8 @@
 // HERO CONFIGURATION & SINGLE SOURCE OF TRUTH
 // ==========================================
 
+import { siteContent } from "@/lib/site-content";
+
 export interface CameraReadout {
   resolution: string; // e.g. "4K"
   fps: string;        // e.g. "24fps"
@@ -20,6 +22,7 @@ export interface HeroConfig {
   posterSrc: string;         // Poster image fallback
   reelVideoSrc: string;      // Video played in "Watch the reel" modal
   reelPosterSrc: string;     // Poster for "Watch the reel" modal
+  logoSrc?: string;          // Brand logo showcase
   cameraReadout: CameraReadout;
   scenes: SceneMarker[];
   clipPath: string;          // Parallelogram polygon
@@ -35,11 +38,12 @@ export interface HeroConfig {
 
 export const heroConfig: HeroConfig = {
   // Video source: can be set to any local/remote video path (e.g. "/videos/hero-showreel.mp4")
-  videoSrc: "",
-  posterSrc: "",
+  videoSrc: siteContent.hero.videoSrc ?? "",
+  posterSrc: siteContent.hero.posterSrc ?? "",
   // Video for the fullscreen "Watch the reel" modal
-  reelVideoSrc: "",
-  reelPosterSrc: "",
+  reelVideoSrc: "/videos/hero-showreel.mp4",
+  reelPosterSrc: "/images/hero-poster.jpg",
+  logoSrc: "/images/27-logo.png",
   cameraReadout: {
     resolution: "4K",
     fps: "24fps",
@@ -48,7 +52,7 @@ export const heroConfig: HeroConfig = {
   },
   // Section IDs for live scene tracking
   scenes: [
-    { id: "hero", number: "01", label: "intro" },
+    { id: "hero", number: "01", label: "home" },
     { id: "work", number: "02", label: "reels" },
     { id: "films", number: "03", label: "films" },
     { id: "process", number: "04", label: "process" },
@@ -59,12 +63,12 @@ export const heroConfig: HeroConfig = {
   ],
   // Slanted parallelogram shape matching design
   clipPath: "polygon(14% 0%, 100% 0%, 86% 100%, 0% 100%)",
-  eyebrow: "27 creative studio / thoothukudi",
-  titleLines: ["Real Growth.", "Real Results."],
-  body: "Instagram growth and local visibility for Thoothukudi businesses, handled end-to-end by 27 Creative Studio.",
-  ctaText: "Grow your brand",
+  eyebrow: siteContent.hero.eyebrow,
+  titleLines: siteContent.hero.title.split("\n"),
+  body: siteContent.hero.body,
+  ctaText: siteContent.hero.cta,
   ctaHref: "#contact",
-  secondaryCtaText: "Watch client reels",
-  reelLabel: "Thamira Restaurant / 10.1K views / 00:30",
-  brandTag: "27 creative studio",
+  secondaryCtaText: siteContent.hero.secondary,
+  reelLabel: siteContent.hero.posterLabel,
+  brandTag: `${siteContent.brand.name} ${siteContent.brand.descriptor}`,
 };

@@ -56,8 +56,8 @@ async function run() {
     path: path.join(SCREENSHOT_DIR, "02-side-wave-hover.png"),
   });
 
-  // Check all 7 nav labels are present
-  const expectedLabels = ["WORK", "FILMS", "PROCESS", "CASES", "ABOUT", "Q&A", "CONTACT"];
+  // Check all 8 nav labels are present
+  const expectedLabels = ["HOME", "WORK", "FILMS", "PROCESS", "CASES", "ABOUT", "Q&A", "CONTACT"];
   for (const label of expectedLabels) {
     const labelEl = navEl.locator(`.nav-stagger-label:has-text("${label}")`);
     const count = await labelEl.count();
@@ -68,7 +68,7 @@ async function run() {
   }
 
   // 4. Test clicking nav links and scrolling
-  for (const label of ["WORK", "FILMS", "PROCESS", "CASES", "ABOUT", "Q&A", "CONTACT"]) {
+  for (const label of ["HOME", "WORK", "FILMS", "PROCESS", "CASES", "ABOUT", "Q&A", "CONTACT"]) {
     const link = navEl.locator(`a:has(.nav-stagger-label:has-text("${label}"))`);
     const href = await link.getAttribute("href");
     console.log(`Nav link ${label} -> ${href}`);
@@ -80,17 +80,18 @@ async function run() {
   await page.waitForTimeout(500);
 
   // Open mobile menu
-  const menuToggle = page.locator("button.menu-toggle");
+  const menuToggle = page.locator("button.mobile-nav-trigger");
   await menuToggle.click();
   await page.waitForTimeout(500);
 
-  console.log("Capturing mobile menu open with 7 nav items...");
+  console.log("Capturing mobile menu open with 8 nav items...");
   await page.screenshot({
     path: path.join(SCREENSHOT_DIR, "03-mobile-nav-open.png"),
   });
 
-  for (const label of expectedLabels) {
-    const mobileLink = navEl.locator(`a:has-text("${label}")`);
+  const mobileNav = page.locator(".mobile-drawer-nav");
+  for (const label of ["HOME", "WORK", "FILMS", "PROCESS", "CASES", "ABOUT", "CONTACT"]) {
+    const mobileLink = mobileNav.locator(`a:has-text("${label}")`);
     const count = await mobileLink.count();
     console.log(`Mobile nav link "${label}" count: ${count} (expected: >= 1)`);
     if (count === 0) {
