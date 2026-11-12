@@ -77,10 +77,18 @@ export async function PUT(request: Request) {
     console.warn("Could not write to local content file:", fsErr);
   }
 
-  const owner = process.env.GITHUB_OWNER;
-  const repo = process.env.GITHUB_REPO;
-  const branch = process.env.GITHUB_BRANCH || "main";
-  const token = process.env.GITHUB_CONTENT_TOKEN;
+  const owner = process.env.GITHUB_OWNER?.trim();
+  const repo = process.env.GITHUB_REPO?.trim();
+  const branch = (process.env.GITHUB_BRANCH || "main").trim();
+  let token = process.env.GITHUB_CONTENT_TOKEN?.trim();
+
+  // Defensive sanitization: if token was accidentally pasted with key name or duplicate trailing char
+  if (token && token.startsWith("GITHUB_CONTENT_TOKEN")) {
+    token = token.replace(/^GITHUB_CONTENT_TOKEN\s*=?\s*/, "").trim();
+  }
+  if (token && token.startsWith("ghp_") && token.length === 41 && token.endsWith("v")) {
+    token = token.slice(0, 40);
+  }
 
   // If GitHub publishing is not configured or dummy, return local save status
   if (!owner || !repo || !token || token.includes("replace") || owner.includes("your-")) {
@@ -110,6 +118,7 @@ export async function PUT(request: Request) {
   const headers = {
     Accept: "application/vnd.github+json",
     Authorization: `Bearer ${token}`,
+    "User-Agent": "27-creative-studio-admin",
     "X-GitHub-Api-Version": "2022-11-28",
   };
 
@@ -119,14 +128,16 @@ export async function PUT(request: Request) {
       cache: "no-store",
     });
     if (!currentResponse.ok) {
+      const errText = await currentResponse.text().catch(() => "");
+      console.error("GitHub fetch master file failed:", currentResponse.status, errText);
       if (savedLocally) {
         return NextResponse.json({
           saved: true,
-          message: "Saved to local master file. (GitHub repo could not be reached).",
+          message: `Saved to local master file. (GitHub responded: ${currentResponse.status}).`,
         });
       }
       return NextResponse.json(
-        { error: "Could not read the master file from GitHub." },
+        { error: `Could not read master file from GitHub (${currentResponse.status}: ${errText.slice(0, 100)})` },
         { status: 502 },
       );
     }
@@ -150,14 +161,16 @@ export async function PUT(request: Request) {
       );
     }
     if (!commitResponse.ok) {
+      const errText = await commitResponse.text().catch(() => "");
+      console.error("GitHub commit failed:", commitResponse.status, errText);
       if (savedLocally) {
         return NextResponse.json({
           saved: true,
-          message: "Saved locally. GitHub commit returned an error.",
+          message: `Saved locally. (GitHub commit failed: ${commitResponse.status}).`,
         });
       }
       return NextResponse.json(
-        { error: "GitHub could not publish the content update." },
+        { error: `GitHub commit failed (${commitResponse.status}: ${errText.slice(0, 100)})` },
         { status: 502 },
       );
     }
@@ -168,6 +181,7 @@ export async function PUT(request: Request) {
       message: "Saved to master file and committed to GitHub! Vercel will deploy changes shortly.",
     });
   } catch (err) {
+    console.error("GitHub publish error:", err);
     if (savedLocally) {
       return NextResponse.json({
         saved: true,
