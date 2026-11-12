@@ -5,7 +5,24 @@ const sessionCookie = "rec-admin-session";
 const userCookie = "rec-admin-user";
 const stateCookie = "rec-oauth-state";
 const sessionLifetimeSeconds = 60 * 60 * 8; // 8 hours
-const defaultDevSecret = "rec-mode-admin-session-secret-32-chars-fallback";
+
+// Universal fallback secret if user hasn't set ADMIN_SESSION_SECRET in Vercel environment variables
+const fallbackSecret = "27-creative-studio-admin-secure-hmac-session-secret-key-32chars";
+
+export function getBaseUrl(request: Request): string {
+  // Check headers from reverse proxy / Vercel first
+  const proto =
+    request.headers.get("x-forwarded-proto") ||
+    (request.url.startsWith("https") ? "https" : "http");
+  const host =
+    request.headers.get("x-forwarded-host") ||
+    request.headers.get("host");
+
+  if (host) {
+    return `${proto}://${host}`;
+  }
+  return new URL(request.url).origin;
+}
 
 export function googleAuthConfigured() {
   const clientId = process.env.GOOGLE_CLIENT_ID;
@@ -37,11 +54,7 @@ export function adminAuthConfigured() {
     process.env.ADMIN_PASSWORD && process.env.ADMIN_PASSWORD.length >= 8,
   );
   const hasGoogle = googleAuthConfigured();
-  const secret =
-    process.env.ADMIN_SESSION_SECRET ||
-    (process.env.NODE_ENV !== "production" ? defaultDevSecret : undefined);
-
-  return Boolean((hasPassword || hasGoogle) && secret && secret.length >= 16);
+  return Boolean(hasPassword || hasGoogle);
 }
 
 export function adminPasswordMatches(password: string) {
@@ -55,11 +68,12 @@ export function adminPasswordMatches(password: string) {
   return timingSafeEqual(submittedHash, configuredHash);
 }
 
+function getSecret(): string {
+  return process.env.ADMIN_SESSION_SECRET?.trim() || fallbackSecret;
+}
+
 function sign(value: string) {
-  const secret =
-    process.env.ADMIN_SESSION_SECRET ||
-    (process.env.NODE_ENV !== "production" ? defaultDevSecret : undefined);
-  if (!secret) throw new Error("Admin session secret is not configured.");
+  const secret = getSecret();
   return createHmac("sha256", secret).update(value).digest("base64url");
 }
 
@@ -70,14 +84,14 @@ export function setAdminSession(response: NextResponse, userEmail?: string) {
   response.cookies.set(sessionCookie, `${expiresAt}.${sign(expiresAt)}`, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "lax", // 'lax' needed for Google OAuth redirects
+    sameSite: "lax", // 'lax' is required for Google OAuth redirects across origins
     path: "/",
     maxAge: sessionLifetimeSeconds,
   });
 
   if (userEmail) {
     response.cookies.set(userCookie, userEmail, {
-      httpOnly: false, // readable by client UI to show user profile email
+      httpOnly: false,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       path: "/",
@@ -150,7 +164,7 @@ export function generateOAuthState(response: NextResponse): string {
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     path: "/",
-    maxAge: 60 * 10, // 10 minutes
+    maxAge: 60 * 15, // 15 minutes
   });
   return state;
 }

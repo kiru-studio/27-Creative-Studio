@@ -77,9 +77,14 @@ export default function AdminPage() {
         } else if (oauthErr === "invalid_oauth_state") {
           setError("OAuth security verification failed. Please try signing in again.");
         } else if (oauthErr === "google_token_failed") {
-          setError("Google rejected the token exchange. Please verify GOOGLE_CLIENT_SECRET in .env.");
+          const details = params.get("details");
+          setError(`Google rejected token exchange: ${details || "Verify GOOGLE_CLIENT_SECRET and redirect URIs."}`);
+        } else if (oauthErr === "auth_internal_error") {
+          const details = params.get("details");
+          setError(`Authentication error: ${details || "Failed to establish session"}.`);
         } else {
-          setError(`Google Sign-In returned: ${oauthErr}`);
+          const details = params.get("details");
+          setError(`Google Sign-In returned: ${oauthErr}${details ? ` (${details})` : ""}`);
         }
       }
     } catch {}

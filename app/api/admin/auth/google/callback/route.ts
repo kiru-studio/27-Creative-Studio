@@ -4,36 +4,39 @@ import {
   verifyOAuthState,
   isAllowedGoogleEmail,
   setAdminSession,
+  getBaseUrl,
 } from "@/lib/admin-auth";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
+  const baseUrl = getBaseUrl(request);
   const url = new URL(request.url);
-  const origin = url.origin;
   const code = url.searchParams.get("code");
   const state = url.searchParams.get("state");
   const oauthError = url.searchParams.get("error");
 
   if (oauthError) {
-    return NextResponse.redirect(`${origin}/admin?error=${encodeURIComponent(oauthError)}`);
+    return NextResponse.redirect(
+      `${baseUrl}/admin?error=${encodeURIComponent(oauthError)}`
+    );
   }
 
   if (!code || !state) {
-    return NextResponse.redirect(`${origin}/admin?error=missing_oauth_params`);
+    return NextResponse.redirect(`${baseUrl}/admin?error=missing_oauth_params`);
   }
 
   if (!verifyOAuthState(request, state)) {
-    return NextResponse.redirect(`${origin}/admin?error=invalid_oauth_state`);
+    return NextResponse.redirect(`${baseUrl}/admin?error=invalid_oauth_state`);
   }
 
   if (!googleAuthConfigured()) {
-    return NextResponse.redirect(`${origin}/admin?error=google_not_configured`);
+    return NextResponse.redirect(`${baseUrl}/admin?error=google_not_configured`);
   }
 
-  const clientId = process.env.GOOGLE_CLIENT_ID!;
-  const clientSecret = process.env.GOOGLE_CLIENT_SECRET!;
-  const redirectUri = `${origin}/api/admin/auth/google/callback`;
+  const clientId = process.env.GOOGLE_CLIENT_ID!.trim();
+  const clientSecret = process.env.GOOGLE_CLIENT_SECRET!.trim();
+  const redirectUri = `${baseUrl}/api/admin/auth/google/callback`;
 
   try {
     // 1. Exchange authorization code for Google access token
@@ -52,12 +55,16 @@ export async function GET(request: Request) {
     if (!tokenResponse.ok) {
       const errBody = await tokenResponse.text();
       console.error("Google token exchange error:", errBody);
-      return NextResponse.redirect(`${origin}/admin?error=google_token_failed`);
+      return NextResponse.redirect(
+        `${baseUrl}/admin?error=google_token_failed&details=${encodeURIComponent(
+          errBody.slice(0, 150)
+        )}`
+      );
     }
 
     const tokens = (await tokenResponse.json()) as { access_token?: string };
     if (!tokens.access_token) {
-      return NextResponse.redirect(`${origin}/admin?error=missing_access_token`);
+      return NextResponse.redirect(`${baseUrl}/admin?error=missing_access_token`);
     }
 
     // 2. Fetch authenticated Google profile
@@ -66,7 +73,13 @@ export async function GET(request: Request) {
     });
 
     if (!userResponse.ok) {
-      return NextResponse.redirect(`${origin}/admin?error=google_profile_failed`);
+      const profileErr = await userResponse.text();
+      console.error("Google userinfo error:", profileErr);
+      return NextResponse.redirect(
+        `${baseUrl}/admin?error=google_profile_failed&details=${encodeURIComponent(
+          profileErr.slice(0, 150)
+        )}`
+      );
     }
 
     const profile = (await userResponse.json()) as {
@@ -76,23 +89,30 @@ export async function GET(request: Request) {
     };
 
     if (!profile.email) {
-      return NextResponse.redirect(`${origin}/admin?error=no_email_provided`);
+      return NextResponse.redirect(`${baseUrl}/admin?error=no_email_provided`);
     }
 
     // 3. Verify email against allowed admin whitelist
     if (!isAllowedGoogleEmail(profile.email)) {
       console.warn(`Unauthorized Google login attempt: ${profile.email}`);
       return NextResponse.redirect(
-        `${origin}/admin?error=unauthorized_email&email=${encodeURIComponent(profile.email)}`
+        `${baseUrl}/admin?error=unauthorized_email&email=${encodeURIComponent(
+          profile.email
+        )}`
       );
     }
 
     // 4. Authorized! Set session cookie and redirect to admin workspace
-    const successRedirect = NextResponse.redirect(`${origin}/admin`);
+    const successRedirect = NextResponse.redirect(`${baseUrl}/admin`);
     setAdminSession(successRedirect, profile.email);
     return successRedirect;
   } catch (err) {
+    const errorMsg = err instanceof Error ? err.message : String(err);
     console.error("Google authentication error:", err);
-    return NextResponse.redirect(`${origin}/admin?error=auth_internal_error`);
+    return NextResponse.redirect(
+      `${baseUrl}/admin?error=auth_internal_error&details=${encodeURIComponent(
+        errorMsg
+      )}`
+    );
   }
 }
