@@ -746,11 +746,12 @@ const BadgeFaces = React.memo(function BadgeFaces({
             {item.featuredWork && (
               <a
                 href={item.featuredWork}
-                className="flex items-center justify-between px-2.5 py-1.5 rounded-[4px] bg-[#C6FF3D] text-[#0B0B0F] hover:brightness-110 transition-all font-mono text-[0.68em] font-black tracking-wider"
+                style={{ color: "#0B0B0F" }}
+                className="flex items-center justify-between px-2.5 py-1.5 rounded-[4px] bg-[#C6FF3D] !text-[#0B0B0F] hover:brightness-110 transition-all font-mono text-[0.68em] font-black tracking-wider"
                 onClick={(e) => e.stopPropagation()}
               >
-                <span>VIEW WORK</span>
-                <span>→</span>
+                <span style={{ color: "#0B0B0F" }}>VIEW WORK</span>
+                <span style={{ color: "#0B0B0F" }}>→</span>
               </a>
             )}
             {links.map((link) => (

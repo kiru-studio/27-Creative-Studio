@@ -510,9 +510,10 @@ export function FilmSection() {
                     key={film.id}
                     type="button"
                     onClick={() => handleSwap(film.id)}
+                    style={{ color: isSelected ? "#0B0B0F" : undefined }}
                     className={`shrink-0 px-3 py-1.5 rounded text-[11px] font-mono tracking-wider uppercase transition-all ${
                       isSelected
-                        ? "bg-[#C6FF3D] text-[#0B0B0F] font-bold border border-[#C6FF3D]"
+                        ? "bg-[#C6FF3D] !text-[#0B0B0F] font-bold border border-[#C6FF3D]"
                         : "bg-[#141419] text-[#A9A7A0] border border-[#2A2A30]"
                     }`}
                   >

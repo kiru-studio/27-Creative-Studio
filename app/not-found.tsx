@@ -53,10 +53,11 @@ export default function NotFound() {
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 font-mono text-xs">
             <Link
               href="/"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[#C6FF3D] text-[#0B0B0F] font-bold hover:bg-[#d4ff66] transition-colors"
+              style={{ color: "#0B0B0F" }}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[#C6FF3D] !text-[#0B0B0F] font-bold hover:bg-[#d4ff66] transition-colors"
             >
-              <ArrowLeft size={16} />
-              <span>RETURN TO MAIN STAGE</span>
+              <ArrowLeft size={16} style={{ color: "#0B0B0F" }} />
+              <span style={{ color: "#0B0B0F" }}>RETURN TO MAIN STAGE</span>
             </Link>
 
             <a

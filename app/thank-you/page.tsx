@@ -96,10 +96,11 @@ export default function ThankYouPage() {
               href={whatsappHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#C6FF3D] text-[#0B0B0F] font-black shrink-0 hover:bg-[#d4ff66] transition-colors"
+              style={{ color: "#0B0B0F" }}
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#C6FF3D] !text-[#0B0B0F] font-black shrink-0 hover:bg-[#d4ff66] transition-colors"
             >
-              <span>OPEN WHATSAPP</span>
-              <ArrowUpRight size={14} />
+              <span style={{ color: "#0B0B0F" }}>OPEN WHATSAPP</span>
+              <ArrowUpRight size={14} style={{ color: "#0B0B0F" }} />
             </a>
           </div>
 
