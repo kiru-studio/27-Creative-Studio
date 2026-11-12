@@ -116,7 +116,7 @@ export const metadata: Metadata = {
     shortcut: '/favicon.ico',
   },
   verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || 'google45f4cf06452d5046',
   },
 }
 
