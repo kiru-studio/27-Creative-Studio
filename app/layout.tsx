@@ -2,6 +2,8 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Big_Shoulders, Figtree, Martian_Mono } from 'next/font/google'
 import { siteContent } from '@/lib/site-content'
+import { CookieBanner } from '@/components/ui/cookie-banner'
+import { AnalyticsTracker } from '@/components/analytics-tracker'
 import './globals.css'
 
 const displayFont = Big_Shoulders({
@@ -25,10 +27,14 @@ const monoFont = Martian_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteContent.seo.url),
-  title: siteContent.seo.title,
+  title: {
+    default: siteContent.seo.title,
+    template: '%s | 27 Creative Studio',
+  },
   description: siteContent.seo.description,
   generator: 'Next.js',
   applicationName: siteContent.seo.siteName,
+  manifest: '/manifest.webmanifest',
   alternates: {
     canonical: siteContent.seo.url,
   },
@@ -39,7 +45,15 @@ export const metadata: Metadata = {
     siteName: siteContent.seo.siteName,
     locale: siteContent.seo.locale,
     type: 'website',
-    images: [{ url: siteContent.seo.ogImage, width: 768, height: 768, alt: siteContent.seo.ogTitle }],
+    images: [
+      {
+        url: siteContent.seo.ogImage,
+        width: 1200,
+        height: 630,
+        alt: siteContent.seo.ogTitle,
+        type: 'image/png',
+      },
+    ],
   },
   twitter: {
     card: siteContent.seo.twitterCard,
@@ -61,6 +75,10 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
+        url: '/favicon.ico',
+        sizes: '32x32',
+      },
+      {
         url: '/icon-light-32x32.png',
         media: '(prefers-color-scheme: light)',
       },
@@ -70,7 +88,7 @@ export const metadata: Metadata = {
       },
     ],
     apple: '/apple-icon.png',
-    shortcut: siteContent.seo.favicon,
+    shortcut: '/favicon.ico',
   },
 }
 
@@ -87,6 +105,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable} antialiased`}>
         {children}
+        <CookieBanner />
+        <AnalyticsTracker />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

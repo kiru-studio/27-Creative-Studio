@@ -1,14 +1,28 @@
-import type { MetadataRoute } from 'next'
+import type { MetadataRoute } from 'next';
+import { siteContent } from '@/lib/site-content';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://recmode.example'
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || siteContent.seo.url || 'https://27creativestudio.com';
+  const now = new Date();
 
   return [
     {
       url: `${baseUrl}/`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: 'weekly',
-      priority: 1,
+      priority: 1.0,
     },
-  ]
+    {
+      url: `${baseUrl}/privacy`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/terms`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.3,
+    },
+  ];
 }

@@ -198,7 +198,11 @@ export function MainPlayer({
             )}
 
             {item.posterSrc && (
-              <img className="poster-image" src={item.posterSrc} alt="" />
+              <img
+                className="poster-image"
+                src={item.posterSrc}
+                alt={`${item.client || "Cinematic Film"} — ${item.title}`}
+              />
             )}
 
             {/* FILM / PLACEHOLDER label: fades in after brackets land + 0.3s */}
@@ -347,7 +351,7 @@ export function VideoCard({
           <img
             className="poster-image"
             src={item.posterSrc}
-            alt=""
+            alt={`${item.client || "Film"} thumbnail — ${item.title}`}
             loading="lazy"
           />
         ) : null}

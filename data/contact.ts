@@ -62,6 +62,13 @@ export const channels: ContactChannel[] = [
     copyValue: "+91 83004 78244",
   },
   {
+    id: "studio",
+    label: "Studio",
+    value: "Polpettai / Ettayapuram Road, Thoothukudi 628002",
+    href: "https://maps.google.com/?q=Polpettai,+Thoothukudi,+Tamil+Nadu+628002",
+    copyValue: "Polpettai / Ettayapuram Road, Thoothukudi, Tamil Nadu 628002",
+  },
+  {
     id: "email",
     label: "Email",
     value: siteConfig.recipientEmail || siteConfig.contactEmail,

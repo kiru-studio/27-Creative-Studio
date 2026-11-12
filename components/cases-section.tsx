@@ -322,7 +322,7 @@ export function CursorPreview({ item, x, y }: CursorPreviewProps) {
         {item.posterSrc ? (
           <img
             src={item.posterSrc}
-            alt=""
+            alt={`${item.client || "Case study"} — ${item.title}`}
             className="absolute inset-0 w-full h-full object-cover opacity-60"
           />
         ) : (
@@ -440,7 +440,11 @@ export function CasePanel({
             aria-label={item.title}
           />
         ) : item.posterSrc ? (
-          <img className="case-video-image" src={item.posterSrc} alt="" />
+          <img
+            className="case-video-image"
+            src={item.posterSrc}
+            alt={`${item.client || "Case study"} media — ${item.title}`}
+          />
         ) : (
           <div className="w-full h-full min-h-[140px] flex items-end justify-start font-mono text-[var(--text-xs)] text-[var(--muted)] select-none">
             <span className="relative z-10">

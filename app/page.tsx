@@ -30,6 +30,7 @@ import { PackagesSection } from "@/components/packages-section";
 import { FaqSection } from "@/components/faq-section";
 import { ReelsSection } from "@/components/reels-section";
 import { ContactSection as ContactSectionComponent } from "@/components/contact";
+import { StickyMobileCta } from "@/components/ui/sticky-mobile-cta";
 import {
   siteContent,
   whatsappHref,
@@ -237,7 +238,11 @@ function ReelViewer({
               aria-label={item.title}
             />
           ) : item.posterSrc ? (
-            <img className="poster-image" src={item.posterSrc} alt="" />
+            <img
+              className="poster-image"
+              src={item.posterSrc}
+              alt={`${item.client || "Client"} — ${item.title}`}
+            />
           ) : null}
           {!item.videoSrc && <span className="poster-play">{item.label}</span>}
         </div>
@@ -301,12 +306,27 @@ function ContactSection() {
 }
 
 function FooterSection() {
+  const currentYear = new Date().getFullYear();
   return (
     <footer className="footer" aria-label={siteContent.ui.footerLabel}>
       <div className="footer-top">
         <div>
           <p className="footer-line">{siteContent.footer.line}</p>
           <BrandLockup href="#top" className="footer-brand" />
+          <address className="not-italic mt-3 text-xs font-mono text-[var(--muted)] max-w-sm leading-relaxed">
+            <span className="text-[var(--paper)] font-bold">Studio:</span>{" "}
+            Polpettai / Ettayapuram Road, Thoothukudi, Tamil Nadu 628002
+            <br />
+            <a
+              href="https://maps.google.com/?q=Polpettai,+Thoothukudi,+Tamil+Nadu+628002"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[var(--industry)] hover:underline inline-flex items-center gap-1 mt-1"
+            >
+              <span>View on Google Maps</span>
+              <span>↗</span>
+            </a>
+          </address>
         </div>
         <nav className="footer-nav" aria-label={siteContent.ui.footerNavigationLabel}>
           {siteContent.footer.nav.map((item) => (
@@ -314,8 +334,11 @@ function FooterSection() {
               {item}
             </a>
           ))}
+          <a href="/privacy">Privacy</a>
+          <a href="/terms">Terms</a>
         </nav>
       </div>
+
       <div className="footer-socials">
         {siteContent.footer.socials.map((item) => (
           <a
@@ -327,6 +350,15 @@ function FooterSection() {
             {item.label}
           </a>
         ))}
+      </div>
+
+      <div className="mt-8 pt-6 border-t border-[var(--line)] flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-[var(--muted)] gap-3">
+        <p>© {currentYear} 27 Creative Studio. All rights reserved.</p>
+        <p className="flex items-center gap-2">
+          <span>Thoothukudi · Tamil Nadu</span>
+          <span className="text-[var(--industry)]">●</span>
+          <span>4K · 24fps Production</span>
+        </p>
       </div>
     </footer>
   );
@@ -741,17 +773,14 @@ export default function Page() {
       <ContactSection />
       <FooterSection />
       <a
-        className="whatsapp-fab"
+        className="whatsapp-fab hidden sm:flex"
         href={whatsappHref}
         aria-label={siteContent.ui.whatsappAriaLabel}
       >
-        <span className="hidden sm:inline">{siteContent.contact.whatsappLabel}</span>
-        <span className="sm:hidden font-mono font-bold text-xs flex items-center gap-1.5">
-          <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" aria-hidden="true" />
-          WHATSAPP
-        </span>
+        <span>{siteContent.contact.whatsappLabel}</span>
         <ArrowUpRight size={15} />
       </a>
+      <StickyMobileCta />
       {lightboxOpen && (
         <ReelViewer
           items={siteContent.reels}

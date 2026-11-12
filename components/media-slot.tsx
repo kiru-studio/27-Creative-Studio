@@ -50,7 +50,7 @@ export function MediaSlot({
             <img
               className="media-poster"
               src={posterSrc}
-              alt=""
+              alt={label || "27 Studio production media"}
               loading="lazy"
               decoding="async"
             />

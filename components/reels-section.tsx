@@ -79,7 +79,7 @@ export function ReelsSection({
                   <img
                     className="reel-card-image"
                     src={item.posterSrc}
-                    alt=""
+                    alt={`${item.client || "Client"} — ${item.title}`}
                     loading="lazy"
                   />
                 ) : (
