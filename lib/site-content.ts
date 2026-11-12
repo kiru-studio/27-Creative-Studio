@@ -96,6 +96,7 @@ export type SiteContent = {
     bio: string;
     workLabel: string;
     photoSrc?: string;
+    tagline?: string;
     gear?: string;
     focalLength?: string;
     passId?: string;
@@ -157,6 +158,19 @@ export type SiteContent = {
 };
 
 export const siteContent = masterContent as SiteContent;
+
+export function getSiteBaseUrl(): string {
+  if (process.env.NEXT_PUBLIC_SITE_URL) {
+    return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
+  }
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+  }
+  if (siteContent.seo.url && !siteContent.seo.url.includes("localhost") && !siteContent.seo.url.includes("27creativestudio.com")) {
+    return siteContent.seo.url.replace(/\/$/, "");
+  }
+  return "https://27-creative-studio.vercel.app";
+}
 
 export const whatsappHref = `https://wa.me/${siteContent.contact.whatsappNumber}?text=${encodeURIComponent(siteContent.contact.whatsappMessage)}`;
 

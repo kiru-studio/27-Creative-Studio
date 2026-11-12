@@ -6,6 +6,9 @@ import { BrandLockup } from '@/components/brand-lockup';
 export const metadata: Metadata = {
   title: 'Privacy Policy',
   description: 'Privacy Policy of 27 Creative Studio, Thoothukudi. How we handle client inquiries, communications, and media.',
+  alternates: {
+    canonical: '/privacy',
+  },
 };
 
 export default function PrivacyPolicyPage() {

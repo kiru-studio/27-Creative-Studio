@@ -34,6 +34,7 @@ import { StickyMobileCta } from "@/components/ui/sticky-mobile-cta";
 import {
   siteContent,
   whatsappHref,
+  getSiteBaseUrl,
 } from "@/lib/site-content";
 
 const NAV_TICK_BASE_TOKENS = {
@@ -558,26 +559,100 @@ export default function Page() {
     setActiveNavIndex(null);
   };
 
+  const resolvedSiteUrl = getSiteBaseUrl();
+  const structuredDataGraph = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": `${resolvedSiteUrl}/#website`,
+        url: resolvedSiteUrl,
+        name: siteContent.seo.siteName,
+        description: siteContent.seo.description,
+        publisher: {
+          "@id": `${resolvedSiteUrl}/#organization`,
+        },
+        inLanguage: "en-IN",
+      },
+      {
+        "@type": ["LocalBusiness", "ProfessionalService"],
+        "@id": `${resolvedSiteUrl}/#organization`,
+        name: siteContent.seo.business.name,
+        alternateName: ["27 Studio", "27 Creative Studio Thoothukudi"],
+        url: resolvedSiteUrl,
+        logo: `${resolvedSiteUrl}/images/27-studio-symbol.png`,
+        image: `${resolvedSiteUrl}/images/og-preview.png`,
+        description: siteContent.seo.business.description,
+        telephone: siteContent.seo.business.telephone,
+        email: siteContent.seo.business.email,
+        priceRange: "₹₹",
+        currenciesAccepted: "INR",
+        paymentAccepted: "Cash, UPI, Bank Transfer",
+        address: {
+          "@type": "PostalAddress",
+          ...siteContent.seo.business.address,
+        },
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: 8.7642,
+          longitude: 78.1348,
+        },
+        openingHoursSpecification: [
+          {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            opens: "09:00",
+            closes: "20:00",
+          },
+        ],
+        areaServed: siteContent.seo.business.areaServed.map((area) => ({
+          "@type": "City",
+          name: area,
+        })),
+        sameAs: siteContent.seo.business.sameAs,
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: "Video Production & Instagram Growth Services",
+          itemListElement: [
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Short-Form Vertical Reels (9:16)",
+                description:
+                  "High-velocity vertical video production tailored for Instagram algorithm distribution and local business conversion in Thoothukudi.",
+              },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Cinematic Brand Films (16:9)",
+                description:
+                  "Commercial ad films, showroom walkthroughs, hotel cinematic showcases, and documentary brand stories.",
+              },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "End-to-End Instagram Growth Management",
+                description:
+                  "Content calendar planning, shoot-to-publish execution, analytics tracking, and community engagement.",
+              },
+            },
+          ],
+        },
+      },
+    ],
+  };
+
   return (
     <main id="top">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ProfessionalService",
-            name: siteContent.seo.business.name,
-            description: siteContent.seo.business.description,
-            url: siteContent.seo.url,
-            email: siteContent.seo.business.email,
-            telephone: siteContent.seo.business.telephone,
-            areaServed: siteContent.seo.business.areaServed,
-            address: {
-              "@type": "PostalAddress",
-              ...siteContent.seo.business.address,
-            },
-            sameAs: siteContent.seo.business.sameAs,
-          }),
+          __html: JSON.stringify(structuredDataGraph),
         }}
       />
       {preloading && <Preloader onDone={finishPreloader} />}

@@ -1,8 +1,8 @@
 import type { MetadataRoute } from 'next';
-import { siteContent } from '@/lib/site-content';
+import { getSiteBaseUrl } from '@/lib/site-content';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || siteContent.seo.url || 'https://27creativestudio.com';
+  const baseUrl = getSiteBaseUrl();
   const now = new Date();
 
   return [

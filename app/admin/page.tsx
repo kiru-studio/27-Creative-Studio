@@ -1882,6 +1882,29 @@ export default function AdminPage() {
               <div className="p-5 rounded-lg border border-[#232326] bg-[#121217] space-y-4">
                 <h3 className="font-mono text-xs uppercase text-[#C6FF3D] font-bold">SEO &amp; OpenGraph Sharing</h3>
                 <div>
+                  <label className="font-mono text-[11px] text-[#A9A7A0] uppercase">Site Canonical URL</label>
+                  <input
+                    type="url"
+                    value={content.seo?.url || "https://27-creative-studio.vercel.app"}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      update((p) => ({
+                        ...p,
+                        seo: {
+                          ...p.seo,
+                          url: val,
+                          business: { ...p.seo.business, url: val },
+                        },
+                      }));
+                    }}
+                    placeholder="https://27-creative-studio.vercel.app"
+                    className="w-full bg-[#18181F] border border-[#2A2A30] rounded px-3 py-1.5 text-xs font-mono text-[#F4F1EA]"
+                  />
+                  <p className="font-mono text-[10px] text-[#707078] mt-1">
+                    Canonical domain used by Googlebot, XML sitemaps, and social share cards.
+                  </p>
+                </div>
+                <div>
                   <label className="font-mono text-[11px] text-[#A9A7A0] uppercase">Meta Title</label>
                   <input
                     type="text"

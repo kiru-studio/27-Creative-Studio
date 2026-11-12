@@ -6,6 +6,9 @@ import { BrandLockup } from '@/components/brand-lockup';
 export const metadata: Metadata = {
   title: 'Terms of Service',
   description: 'Terms of Service & Video Production Agreement for 27 Creative Studio, Thoothukudi.',
+  alternates: {
+    canonical: '/terms',
+  },
 };
 
 export default function TermsOfServicePage() {

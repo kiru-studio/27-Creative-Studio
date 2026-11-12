@@ -1,7 +1,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Big_Shoulders, Figtree, Martian_Mono } from 'next/font/google'
-import { siteContent } from '@/lib/site-content'
+import { siteContent, getSiteBaseUrl } from '@/lib/site-content'
 import { CookieBanner } from '@/components/ui/cookie-banner'
 import { AnalyticsTracker } from '@/components/analytics-tracker'
 import './globals.css'
@@ -25,29 +25,54 @@ const monoFont = Martian_Mono({
   variable: '--font-next-mono',
 })
 
+const siteUrl = getSiteBaseUrl()
+
 export const metadata: Metadata = {
-  metadataBase: new URL(siteContent.seo.url),
+  metadataBase: new URL(siteUrl),
   title: {
     default: siteContent.seo.title,
     template: '%s | 27 Creative Studio',
   },
   description: siteContent.seo.description,
+  keywords: [
+    '27 Creative Studio',
+    'Video Production Thoothukudi',
+    'Instagram Reels Agency Tuticorin',
+    'Commercial Ad Films Tamil Nadu',
+    'Social Media Marketing Thoothukudi',
+    'Brand Growth Studio Tirunelveli',
+    'Creative Agency Thoothukudi',
+    'Local Business Visibility Tamil Nadu',
+    'Digital Marketing Thoothukudi',
+    'Reels Shoot Thoothukudi',
+    'Commercial Videography Tamil Nadu',
+    'Short Form Video Agency India',
+  ],
+  authors: [{ name: '27 Creative Studio', url: siteUrl }],
+  creator: '27 Creative Studio',
+  publisher: '27 Creative Studio',
+  category: 'Video Production & Digital Marketing',
+  formatDetection: {
+    email: true,
+    address: true,
+    telephone: true,
+  },
   generator: 'Next.js',
   applicationName: siteContent.seo.siteName,
   manifest: '/manifest.webmanifest',
   alternates: {
-    canonical: siteContent.seo.url,
+    canonical: '/',
   },
   openGraph: {
     title: siteContent.seo.ogTitle,
     description: siteContent.seo.ogDescription,
-    url: siteContent.seo.url,
+    url: siteUrl,
     siteName: siteContent.seo.siteName,
     locale: siteContent.seo.locale,
     type: 'website',
     images: [
       {
-        url: siteContent.seo.ogImage,
+        url: '/images/og-preview.png',
         width: 1200,
         height: 630,
         alt: siteContent.seo.ogTitle,
@@ -59,7 +84,7 @@ export const metadata: Metadata = {
     card: siteContent.seo.twitterCard,
     title: siteContent.seo.twitterTitle,
     description: siteContent.seo.twitterDescription,
-    images: [siteContent.seo.twitterImage],
+    images: ['/images/og-preview.png'],
   },
   robots: {
     index: true,
@@ -89,6 +114,9 @@ export const metadata: Metadata = {
     ],
     apple: '/apple-icon.png',
     shortcut: '/favicon.ico',
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
   },
 }
 
