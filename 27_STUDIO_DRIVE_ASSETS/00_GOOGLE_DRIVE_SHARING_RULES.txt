@@ -1,0 +1,34 @@
+========================================================================
+27 CREATIVE STUDIO — GOOGLE DRIVE ASSET HUB & RESOLUTION MASTER GUIDE
+========================================================================
+
+Welcome to the 27 Creative Studio Google Drive storage structure!
+You can upload this entire "27_STUDIO_DRIVE_ASSETS" folder directly to your Google Drive.
+
+------------------------------------------------------------------------
+HOW TO SHARE FILES SO THEY PLAY ON YOUR WEBSITE:
+------------------------------------------------------------------------
+Whenever you upload a video or image to Google Drive and want to use it
+in your Admin panel (https://27-creative-studio.vercel.app/admin):
+
+1. Right-click the file in Google Drive.
+2. Click "Share" -> "Share".
+3. Under "General access", change from "Restricted" to:
+   --> "Anyone with the link" <-- (Role: Viewer)
+4. Click "Copy link".
+5. Paste that link directly into the Admin CMS field!
+   (The Admin automatically converts your link into a direct stream URL).
+
+------------------------------------------------------------------------
+DIRECTORY OVERVIEW:
+------------------------------------------------------------------------
+01_HERO_MEDIA/                -> Skewed video loop & poster for homepage hero
+02_REELS_SHORTFORM_9x16/      -> Vertical Instagram reels & video thumbnails
+03_BRAND_FILMS_16x9/          -> Cinematic documentary brand films (16:9)
+04_CREW_PORTRAITS_3x4/        -> Hanging physical lanyard crew pass portraits
+05_CASE_STUDIES/              -> Client proof videos, stats & result screenshots
+06_BRAND_LOGOS_ICONS/         -> 27 Studio logos & client transparent PNGs
+07_SOCIAL_SHARE_CARDS_OG/     -> 1200x630 social preview banners (WhatsApp/Meta)
+
+Read the "GUIDE_RESOLUTION.txt" inside each folder for exact pixel dimensions!
+========================================================================

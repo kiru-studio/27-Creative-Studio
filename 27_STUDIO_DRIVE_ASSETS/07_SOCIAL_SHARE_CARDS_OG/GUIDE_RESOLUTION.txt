@@ -1,0 +1,28 @@
+========================================================================
+07_SOCIAL_SHARE_CARDS_OG — RESOLUTION & METADATA GUIDE
+========================================================================
+
+WHERE THIS IS USED:
+- WhatsApp link previews when you text your website link.
+- Twitter / X cards.
+- Facebook & LinkedIn link share thumbnails.
+- Google search preview rich snippets.
+
+------------------------------------------------------------------------
+OPEN GRAPH (OG) PREVIEW BANNER:
+------------------------------------------------------------------------
+- Aspect Ratio:       1.91 : 1 (Exact social card standard)
+- Resolution:         1200 x 630 px (EXACT)
+- Format:             .PNG (sharpest) or .JPG (under 500 KB)
+- Composition:        "27 CREATIVE STUDIO" headline, "Real Growth. Real Results.",
+                      neon green accent viewfinder brackets, and Thoothukudi production camera aesthetic.
+                      Keep all critical text inside the central 1000 x 500 px safe area.
+
+------------------------------------------------------------------------
+FAVICON & APP ICON:
+------------------------------------------------------------------------
+- Aspect Ratio:       1:1 (Square)
+- Resolution:         512 x 512 px
+- Format:             .PNG or .ICO
+- Content:            Clean bold "27" symbol on dark background.
+========================================================================

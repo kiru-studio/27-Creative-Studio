@@ -1,0 +1,21 @@
+========================================================================
+03_BRAND_FILMS_16x9 / POSTERS — RESOLUTION GUIDE
+========================================================================
+
+WHERE THIS IS USED ON THE SITE:
+- The cover thumbnail for brand films before video starts playback.
+
+------------------------------------------------------------------------
+BRAND FILM POSTER SPECIFICATIONS:
+------------------------------------------------------------------------
+- Aspect Ratio:       16:9 (Landscape)
+- Resolution:         1920 x 1080 px
+- Format:             .WebP or .JPG
+- Target File Size:   Under 250 KB
+- Visual Style:       Filmic color grade, cinema aspect ratio letterbox (optional),
+                      moody lighting on client restaurant, car showroom, or founder portrait.
+
+------------------------------------------------------------------------
+ADMIN FIELD:
+Go to Admin -> "Brand Films" -> Click Film -> "16:9 Poster Image".
+========================================================================

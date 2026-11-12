@@ -1,0 +1,25 @@
+========================================================================
+04_CREW_PORTRAITS_3x4 — RESOLUTION & COMPOSITION GUIDE
+========================================================================
+
+WHERE THIS IS USED ON THE SITE:
+- The "Behind the Camera / Small crew. Big attention." interactive section.
+- Displayed directly inside the physical hanging lanyard badges on the rail.
+
+------------------------------------------------------------------------
+CREW PORTRAIT SPECIFICATIONS:
+------------------------------------------------------------------------
+- Aspect Ratio:       3:4 (Vertical Badge Ratio)
+- Resolution:         900 x 1200 px (or 1200 x 1600 px high-res)
+- Format:             .WebP (Recommended for sharpness & speed) or .JPG
+- Target File Size:   Under 150 KB
+- Composition:        Waist-up or chest-up portrait.
+                      Subject holding cinema gear (e.g. Sony FX3, DJI gimbal, headphones).
+                      Dark moody studio lighting or cinematic production environment.
+                      Center framing so head and shoulders align inside the badge window.
+
+------------------------------------------------------------------------
+ADMIN FIELD:
+Go to Admin -> "Crew Passes" -> Click Member -> "Portrait Photo".
+(Adding a member here automatically adds a physical hanging lanyard badge on the homepage!)
+========================================================================

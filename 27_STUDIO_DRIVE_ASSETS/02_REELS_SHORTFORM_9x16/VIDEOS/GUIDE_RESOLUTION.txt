@@ -1,0 +1,30 @@
+========================================================================
+02_REELS_SHORTFORM_9x16 / VIDEOS — RESOLUTION & ENCODING GUIDE
+========================================================================
+
+WHERE THIS IS USED ON THE SITE:
+- The interactive "Selected Work / Reels" vertical gallery.
+- Opens in the full-screen cinematic mobile reel viewer.
+
+------------------------------------------------------------------------
+VERTICAL REEL VIDEO SPECIFICATIONS:
+------------------------------------------------------------------------
+- Aspect Ratio:       9:16 (Vertical Portrait)
+- Resolution:         1080 x 1920 px (Standard Vertical Full HD)
+- Format:             .MP4
+- Video Codec:        H.264 (AVC)
+- Audio Codec:        AAC Stereo (48kHz, 192 kbps)
+- Frame Rate:         24 FPS or 30 FPS (or 60 FPS for ultra-smooth slomo)
+- Target Bitrate:     4,000 to 6,000 kbps
+- Target File Size:   Under 25 MB per reel for instant smooth playback
+- Target Duration:    15 seconds to 45 seconds
+
+PRO-TIP FOR GOOGLE DRIVE:
+Google Drive plays videos best when exported with "Fast Start" (MOOV atom at the
+beginning of the MP4 file). In Premiere/DaVinci, enable "Web Optimized" or
+"Fast Start" in your MP4 export settings.
+
+------------------------------------------------------------------------
+ADMIN FIELD:
+Go to Admin -> "Reels & Shortform" -> Click Reel -> "Video URL".
+========================================================================

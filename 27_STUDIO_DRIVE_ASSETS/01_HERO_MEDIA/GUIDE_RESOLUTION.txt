@@ -1,0 +1,36 @@
+========================================================================
+01_HERO_MEDIA — RESOLUTION & ENCODING GUIDE
+========================================================================
+
+WHERE THIS IS USED ON THE SITE:
+- The skewed parallelogram video window right above the fold on the homepage.
+- The "Watch client reels" modal player.
+
+------------------------------------------------------------------------
+1. HERO BACKGROUND LOOP VIDEO:
+------------------------------------------------------------------------
+- Aspect Ratio:       16:9 (Landscape)
+- Resolution:         1920 x 1080 px (Full HD)  [or 1280 x 720 px for fast load]
+- Format:             .MP4
+- Video Codec:        H.264 (AVC) - High Profile (Maximum compatibility)
+- Audio:              Muted / No audio required (website autoplays muted)
+- Frame Rate:         24 FPS (Cinematic standard)
+- Bitrate:            3,000 to 5,000 kbps (keep file size under 15 MB)
+- Duration:           5 to 15 seconds seamless loop
+
+PRO-TIP: Export a short, high-energy teaser loop showing fast cuts of
+food sizzle, car delivery, and camera gimbal movements.
+
+------------------------------------------------------------------------
+2. HERO POSTER FALLBACK IMAGE:
+------------------------------------------------------------------------
+- Aspect Ratio:       16:9 (Landscape)
+- Resolution:         1920 x 1080 px
+- Format:             .WebP or .JPG (optimized)
+- Target File Size:   Under 250 KB
+- Purpose:            Instantly displays while the video loop buffers.
+
+------------------------------------------------------------------------
+ADMIN FIELD:
+Go to Admin -> "Studio & General" -> "Hero Video Loop" & "Hero Video Poster".
+========================================================================

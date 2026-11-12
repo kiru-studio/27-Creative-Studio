@@ -1,0 +1,32 @@
+========================================================================
+06_BRAND_LOGOS_ICONS — RESOLUTION & TRANSPARENCY GUIDE
+========================================================================
+
+WHERE THIS IS USED ON THE SITE:
+- Top navigation bar lockup
+- Footer brand credits
+- Testimonial filmstrip frames
+- Clapperboard branding
+
+------------------------------------------------------------------------
+1. STUDIO SYMBOL / LOGOMARK:
+------------------------------------------------------------------------
+- Aspect Ratio:       1:1 (Square)
+- Resolution:         512 x 512 px
+- Format:             Transparent .PNG or .WebP (or .SVG)
+- Content:            The bold "27" numeral lockup symbol.
+
+------------------------------------------------------------------------
+2. FULL BRAND LOGO:
+------------------------------------------------------------------------
+- Aspect Ratio:       1:1 or 16:9
+- Resolution:         1080 x 1080 px or 1920 x 1080 px
+- Format:             .PNG, .JPG, or .WebP
+- Content:            Full typography: "27 CREATIVE STUDIO".
+
+------------------------------------------------------------------------
+3. CLIENT LOGOS (Optional):
+------------------------------------------------------------------------
+- Resolution:         400 x 200 px (Horizontal) or 300 x 300 px
+- Format:             Transparent .PNG (Monochrome or clean contrast on dark background).
+========================================================================

@@ -1,0 +1,24 @@
+========================================================================
+02_REELS_SHORTFORM_9x16 / POSTERS_COVERS — RESOLUTION GUIDE
+========================================================================
+
+WHERE THIS IS USED ON THE SITE:
+- The cover thumbnail for each vertical reel card before the user presses play.
+
+------------------------------------------------------------------------
+REEL COVER POSTER SPECIFICATIONS:
+------------------------------------------------------------------------
+- Aspect Ratio:       9:16 (Vertical Portrait)
+- Resolution:         1080 x 1920 px (or 720 x 1280 px)
+- Format:             .WebP (Recommended for best quality/size) or .JPG
+- Target File Size:   Under 200 KB
+- Composition:        High-contrast first frame, chef food close-up, or car delivery.
+                      Ensure the central 80% is the visual focus.
+
+PRO-TIP: If using Cloudinary for videos, you don't even need to upload
+a poster separately! Just click "Auto-Generate Poster (.jpg)" in the Admin.
+
+------------------------------------------------------------------------
+ADMIN FIELD:
+Go to Admin -> "Reels & Shortform" -> Click Reel -> "Poster Thumbnail".
+========================================================================
