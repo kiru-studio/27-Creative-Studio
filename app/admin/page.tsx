@@ -57,7 +57,33 @@ export default function AdminPage() {
   const [error, setError] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
   const [isGuideOpen, setIsGuideOpen] = useState(false);
+  const [showGoogleHelp, setShowGoogleHelp] = useState(false);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [googleConfigured, setGoogleConfigured] = useState(false);
   const [timecode, setTimecode] = useState("00:00:00:00");
+
+  // Read URL search params for OAuth errors on mount
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const oauthErr = params.get("error");
+      if (oauthErr) {
+        if (oauthErr === "unauthorized_email") {
+          const attemptEmail = params.get("email") || "this account";
+          setError(`Access Denied: ${attemptEmail} is not in the authorized admin list. Add it to ADMIN_ALLOWED_EMAILS in .env to grant access.`);
+        } else if (oauthErr === "google_not_configured") {
+          setError("Google Sign-In is not yet configured. Add GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET to .env.");
+          setShowGoogleHelp(true);
+        } else if (oauthErr === "invalid_oauth_state") {
+          setError("OAuth security verification failed. Please try signing in again.");
+        } else if (oauthErr === "google_token_failed") {
+          setError("Google rejected the token exchange. Please verify GOOGLE_CLIENT_SECRET in .env.");
+        } else {
+          setError(`Google Sign-In returned: ${oauthErr}`);
+        }
+      }
+    } catch {}
+  }, []);
 
   // 24fps Ticker in header
   useEffect(() => {
@@ -105,6 +131,8 @@ export default function AdminPage() {
       .then(async (res) => {
         const session = await res.json();
         if (!active) return;
+        setGoogleConfigured(Boolean(session.googleConfigured));
+        if (session.user) setUserEmail(session.user);
         if (session.authenticated) {
           await loadContent();
         }
@@ -211,6 +239,70 @@ export default function AdminPage() {
             Manage client reels, brand films, hanging crew passes, pricing SD cards, and studio settings.
           </p>
 
+          {/* 1. Google OAuth Sign-In (Recommended High-Security Method) */}
+          <div className="w-full space-y-2 mb-2">
+            <a
+              href="/api/admin/auth/google"
+              className="w-full py-2.5 px-4 rounded bg-[#FFFFFF] hover:bg-[#F2F2F2] text-[#1F1F1F] font-mono text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 border border-[#E0E0E0] shadow-sm hover:shadow cursor-pointer"
+              style={{ color: "#1F1F1F" }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" className="shrink-0">
+                <path
+                  fill="#4285F4"
+                  d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.66v3.05h3.9c2.28-2.1 3.645-5.2 3.645-9.15z"
+                />
+                <path
+                  fill="#34A853"
+                  d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.9-3.05c-1.08.72-2.45 1.16-4.03 1.16-3.1 0-5.73-2.1-6.67-4.94H1.28v3.15C3.26 21.33 7.33 24 12 24z"
+                />
+                <path
+                  fill="#FBBC05"
+                  d="M5.33 14.26c-.24-.72-.38-1.49-.38-2.26s.14-1.54.38-2.26V6.59H1.28C.46 8.22 0 10.05 0 12s.46 3.78 1.28 5.41l4.05-3.15z"
+                />
+                <path
+                  fill="#EA4335"
+                  d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.67 1.28 6.59l4.05 3.15c.94-2.84 3.57-4.99 6.67-4.99z"
+                />
+              </svg>
+              <span style={{ color: "#1F1F1F" }}>SIGN IN WITH GOOGLE</span>
+            </a>
+
+            {!googleConfigured && (
+              <div className="flex items-center justify-between text-[11px] font-mono pt-1">
+                <span className="text-[#C6FF3D]/80">★ High Security 2FA</span>
+                <button
+                  type="button"
+                  onClick={() => setShowGoogleHelp(!showGoogleHelp)}
+                  className="text-[#A9A7A0] hover:text-[#C6FF3D] underline cursor-pointer"
+                >
+                  {showGoogleHelp ? "Hide guide" : "Setup instructions"}
+                </button>
+              </div>
+            )}
+
+            {showGoogleHelp && (
+              <div className="p-3 rounded border border-[#2A2A30] bg-[#0E0E14] text-[11px] font-mono text-left space-y-2 text-[#A9A7A0]">
+                <p className="text-[#FFF] font-semibold text-xs">How to connect Google Sign-In:</p>
+                <ol className="list-decimal list-inside space-y-1 text-[#888]">
+                  <li>Create a free project at <a href="https://console.cloud.google.com/" target="_blank" rel="noreferrer" className="text-[#C6FF3D] underline">console.cloud.google.com</a>.</li>
+                  <li>Go to <strong>APIs &amp; Services &gt; Credentials</strong> &gt; Create <strong>OAuth Client ID</strong> (Web app).</li>
+                  <li>Add Redirect URI: <code className="text-[#FFF] bg-[#18181F] px-1 py-0.5 rounded">http://localhost:3000/api/admin/auth/google/callback</code>.</li>
+                  <li>Add <code className="text-[#FFF]">GOOGLE_CLIENT_ID</code>, <code className="text-[#FFF]">GOOGLE_CLIENT_SECRET</code>, and <code className="text-[#FFF]">ADMIN_ALLOWED_EMAILS</code> to <code className="text-[#FFF]">.env</code>.</li>
+                </ol>
+              </div>
+            )}
+          </div>
+
+          {/* Divider */}
+          <div className="relative my-4 flex items-center justify-center w-full">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-[#232326]" />
+            </div>
+            <span className="relative bg-[#121217] px-3 font-mono text-[10px] text-[#666] uppercase tracking-wider">
+              or use studio password
+            </span>
+          </div>
+
           <form onSubmit={handleSignIn} className="w-full flex flex-col gap-4">
             <div className="flex flex-col text-left gap-1.5">
               <label htmlFor="admin-pass" className="font-mono text-xs text-[#A9A7A0] uppercase flex items-center gap-1.5">
@@ -277,10 +369,19 @@ export default function AdminPage() {
         </div>
 
         {/* Center Timecode Readout */}
-        <div className="hidden sm:flex items-center gap-2 font-mono text-xs text-[#A9A7A0]">
-          <span className="w-2 h-2 rounded-full bg-[#C6FF3D] animate-pulse" />
-          <span className="text-[#C6FF3D] tracking-wider">{timecode}</span>
-          <span className="text-[#555]">/ 24FPS</span>
+        <div className="hidden sm:flex items-center gap-3 font-mono text-xs text-[#A9A7A0]">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[#C6FF3D] animate-pulse" />
+            <span className="text-[#C6FF3D] tracking-wider">{timecode}</span>
+            <span className="text-[#555]">/ 24FPS</span>
+          </div>
+
+          {userEmail && (
+            <div className="hidden xl:flex items-center gap-1.5 font-mono text-[11px] bg-[#1A1A22] text-[#C6FF3D] px-2 py-0.5 rounded border border-[#C6FF3D]/30">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C6FF3D]" />
+              <span>{userEmail}</span>
+            </div>
+          )}
         </div>
 
         {/* Action Controls */}
