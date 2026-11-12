@@ -6,20 +6,20 @@ import './globals.css'
 
 const displayFont = Big_Shoulders({
   subsets: ['latin'],
-  weight: ['700', '800'],
+  display: 'swap',
   adjustFontFallback: false,
   variable: '--font-next-display',
 })
 
 const bodyFont = Figtree({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  display: 'swap',
   variable: '--font-next-body',
 })
 
 const monoFont = Martian_Mono({
   subsets: ['latin'],
-  weight: ['400'],
+  display: 'swap',
   variable: '--font-next-mono',
 })
 
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     siteName: siteContent.seo.siteName,
     locale: siteContent.seo.locale,
     type: 'website',
-    images: [{ url: siteContent.seo.ogImage, width: 1200, height: 630, alt: siteContent.seo.ogTitle }],
+    images: [{ url: siteContent.seo.ogImage, width: 768, height: 768, alt: siteContent.seo.ogTitle }],
   },
   twitter: {
     card: siteContent.seo.twitterCard,
@@ -67,10 +67,6 @@ export const metadata: Metadata = {
       {
         url: '/icon-dark-32x32.png',
         media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: siteContent.seo.favicon,
-        type: 'image/svg+xml',
       },
     ],
     apple: '/apple-icon.png',

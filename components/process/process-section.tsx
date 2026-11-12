@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useMotionValueEvent, useReducedMotion } from "framer-motion";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 import { processSteps } from "@/data/process";
 import { CameraSvg } from "./camera-svg";
 import { StepTabs } from "./step-tabs";
@@ -19,8 +20,8 @@ export function ProcessSection({
   const containerRef = useRef<HTMLElement>(null);
   const [activeStepIndex, setActiveStepIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const prefersReduced = useReducedMotion();
-  const shouldReduceMotion = prefersReduced || false;
+  const prefersReduced = useHydratedReducedMotion();
+  const shouldReduceMotion = prefersReduced;
 
   // Track responsive screen size for unpinned mobile mode
   useEffect(() => {

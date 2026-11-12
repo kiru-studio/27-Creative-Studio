@@ -87,7 +87,7 @@ export function Shutter({ stepIndex, lensConfig, reducedMotion }: ShutterProps) 
               scale: reducedMotion
                 ? bladeScale
                 : triggerFlash
-                ? [bladeScale, 1.05, bladeScale]
+                ? bladeScale * 1.08
                 : bladeScale,
             }}
             transition={{
@@ -98,6 +98,7 @@ export function Shutter({ stepIndex, lensConfig, reducedMotion }: ShutterProps) 
               },
               scale: triggerFlash
                 ? {
+                    type: "tween",
                     duration: 0.24,
                     ease: "easeInOut",
                   }

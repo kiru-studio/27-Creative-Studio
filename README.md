@@ -1,8 +1,9 @@
 # 27 Creative Studio
 
-A footage-led marketing site for 27 Creative Studio, a two-person video and
-local-growth studio based in Thoothukudi, Tamil Nadu. Visitors can explore
-selected work and contact the studio through WhatsApp or the project brief form.
+A footage-led marketing site for 27 Creative Studio (27 Studio), a two-person
+video and local-growth studio based in Thoothukudi, Tamil Nadu. Visitors can
+explore selected work and contact the studio through WhatsApp or the project
+brief form.
 
 ## Stack
 
@@ -40,6 +41,8 @@ folder.
 
 - Edit site copy, links, project details, and media paths in
   `content/site-content.json`.
+- The shared `27 / Creative Studio` lockup uses the supplied mark in
+  `public/images/` and the brand values in that file.
 - The content shape is typed in `lib/site-content.ts`.
 - Store bundled photos and posters in `public/images/`, and videos in
   `public/videos/`. Reference them with root-relative paths such as

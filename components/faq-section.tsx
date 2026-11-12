@@ -12,8 +12,8 @@ import {
   AnimatePresence,
   motion,
   useInView,
-  useReducedMotion,
 } from "framer-motion";
+import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 import { FaqItem as FaqItemType, faqItems, resolveTokens } from "@/data/faq";
 import { packages } from "@/data/packages";
 import { siteConfig } from "@/data/siteConfig";
@@ -208,7 +208,7 @@ export function FaqSection() {
 
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-10% 0px" });
-  const shouldReduceMotion = Boolean(useReducedMotion());
+  const shouldReduceMotion = useHydratedReducedMotion();
 
   const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
 

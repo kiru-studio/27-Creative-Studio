@@ -43,7 +43,12 @@ export type WorkItem = {
 };
 
 export type SiteContent = {
-  brand: { name: string; descriptor: string };
+  brand: {
+    name: string;
+    descriptor: string;
+    logoMark: string;
+    logoFull: string;
+  };
   adminCopy: Record<string, string>;
   nav: string[];
   hero: {
@@ -76,6 +81,11 @@ export type SiteContent = {
     bio: string;
     workLabel: string;
     photoSrc?: string;
+    gear?: string;
+    focalLength?: string;
+    passId?: string;
+    access?: string;
+    stats?: string;
   }[];
   turnaround: string[];
   testimonials: { quote: string; name: string; role: string }[];

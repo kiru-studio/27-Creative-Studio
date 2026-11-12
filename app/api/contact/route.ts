@@ -90,7 +90,7 @@ export async function POST(req: NextRequest) {
         ? data.customBusinessType || "Other"
         : data.businessType;
 
-    const emailSubject = `[REC MODE BRIEF] ${data.name}${resolvedBusiness ? ` - ${resolvedBusiness}` : ""}`;
+    const emailSubject = `[27 STUDIO BRIEF] ${data.name}${resolvedBusiness ? ` - ${resolvedBusiness}` : ""}`;
     const emailBody = [
       `New brief received from ${data.name}:`,
       ``,
@@ -116,7 +116,7 @@ export async function POST(req: NextRequest) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            from: "REC MODE STUDIO <briefs@recmodestudio.com>",
+            from: "27 Creative Studio <briefs@recmodestudio.com>",
             to: [recipient],
             subject: emailSubject,
             text: emailBody,

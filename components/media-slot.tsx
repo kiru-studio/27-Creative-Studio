@@ -8,9 +8,17 @@ type MediaSlotProps = {
   posterSrc?: string
   loop?: boolean
   className?: string
+  hideLabel?: boolean
 }
 
-export function MediaSlot({ label, src, posterSrc, loop = true, className = '' }: MediaSlotProps) {
+export function MediaSlot({
+  label,
+  src,
+  posterSrc,
+  loop = true,
+  className = '',
+  hideLabel = false,
+}: MediaSlotProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [started, setStarted] = useState(false)
 
@@ -20,7 +28,10 @@ export function MediaSlot({ label, src, posterSrc, loop = true, className = '' }
   }, [started])
 
   return (
-    <div className={`media-slot ${className}`}>
+    <div
+      className={`media-slot ${className}`}
+      aria-hidden={hideLabel ? true : undefined}
+    >
       {started && src ? (
         <video
           ref={videoRef}
@@ -36,11 +47,17 @@ export function MediaSlot({ label, src, posterSrc, loop = true, className = '' }
       ) : (
         <>
           {posterSrc ? (
-            <img className="media-poster" src={posterSrc} alt="" />
+            <img
+              className="media-poster"
+              src={posterSrc}
+              alt=""
+              loading="lazy"
+              decoding="async"
+            />
           ) : (
             <div className="poster-grid" aria-hidden="true" />
           )}
-          <span className="media-label">{label}</span>
+          {!hideLabel && <span className="media-label">{label}</span>}
           {src && (
             <button
               className="media-play"

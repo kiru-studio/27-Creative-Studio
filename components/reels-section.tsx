@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 import { siteContent, type WorkItem } from "@/lib/site-content";
 
 interface ReelsSectionProps {
@@ -20,7 +21,7 @@ export function ReelsSection({
   const [activeReelIndex, setActiveReelIndex] = useState(0);
   const containerRef = useRef<HTMLElement>(null);
   const isInView = useInView(containerRef, { once: true, amount: 0.15 });
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydratedReducedMotion();
 
   const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
     if (e.key === "ArrowRight" || e.key === "ArrowDown") {

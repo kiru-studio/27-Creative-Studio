@@ -29,20 +29,20 @@ export function Clapper({
   };
 
   // Determine arm angle
-  // Resting: -8.5deg
+  // Keep the lid within the contact section at every responsive width.
   // Shut / Submitting / Snapping: 0deg
-  // Hover: -13deg
-  // Pre-scroll: -22deg
-  let targetRotation = -8.5;
+  // Hover: -3.5deg
+  // Pre-scroll: -4deg
+  let targetRotation = -4;
 
   if (reducedMotion) {
-    targetRotation = isShut ? 0 : -8.5;
+    targetRotation = isShut ? 0 : -4;
   } else if (isShut || isSnapping) {
     targetRotation = 0;
   } else if (isHovered) {
-    targetRotation = -13;
+    targetRotation = -3.5;
   } else if (!isInView) {
-    targetRotation = -22;
+    targetRotation = -4;
   }
 
   return (

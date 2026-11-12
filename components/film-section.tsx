@@ -6,8 +6,8 @@ import {
   LayoutGroup,
   motion,
   useInView,
-  useReducedMotion,
 } from "framer-motion";
+import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 import { siteContent } from "@/lib/site-content";
 
 export type FilmVideoItem = {
@@ -395,7 +395,7 @@ export function FilmSection() {
 
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-12% 0px" });
-  const shouldReduceMotion = Boolean(useReducedMotion());
+  const shouldReduceMotion = useHydratedReducedMotion();
 
   const activeItem = videos.find((v) => v.id === activeId) ?? videos[0];
   const sideItems = videos.filter((v) => v.id !== activeId);

@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 import { Package, packages as defaultPackages, getStatsKeys } from "@/data/packages";
 import { siteConfig } from "@/data/siteConfig";
 
@@ -20,7 +21,7 @@ export function PackagesTable({
   className = "",
 }: PackagesTableProps) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
-  const shouldReduceMotion = Boolean(useReducedMotion());
+  const shouldReduceMotion = useHydratedReducedMotion();
 
   const statsKeys = getStatsKeys(packageList);
   const hasStats = statsKeys.length > 0;
@@ -112,7 +113,7 @@ export function PackagesTable({
                   <span className="text-[var(--muted)] block text-[10px] uppercase tracking-wider mb-1 select-none">
                     Scope
                   </span>
-                  {pkg.includes}
+                  {pkg.includes || pkg.deliverables?.join(" • ")}
                 </div>
               </div>
 

@@ -1,5 +1,10 @@
 {
-  "brand": { "name": "27", "descriptor": "creative studio" },
+  "brand": {
+    "name": "27",
+    "descriptor": "creative studio",
+    "logoMark": "/images/27-studio-symbol.png",
+    "logoFull": "/images/27-studio-logo.jpg"
+  },
   "adminCopy": {
     "title": "Site editor",
     "intro": "Edit your site content, add media, then publish the changes.",
@@ -171,8 +176,42 @@
     { "name": "Full Local Dominance", "description": "Complete growth package across Instagram, multi-accounts, and Google.", "reels": "Custom", "films": "As needed", "shootDays": "Flexible", "detail": "Multi-account scaling · event coverage · Google reviews strategy", "price": "Talk to us" }
   ],
   "people": [
-    { "name": "27 Creative Lead", "role": "Creative Direction & Video Production", "bio": "Directs and shoots high-engagement reels across Thoothukudi. Capturing chef craft, customer handovers, and showroom energy.", "workLabel": "shoots + directs", "photoSrc": "" },
-    { "name": "27 Growth Strategist", "role": "Growth Strategy & Local Visibility", "bio": "The mind behind 6,300+ new followers and top Google Business rankings. Optimizing algorithms, posting schedules, and local SEO.", "workLabel": "edits + scales", "photoSrc": "" }
+    {
+      "name": "27 Creative Lead",
+      "role": "Direction & Cinematography",
+      "bio": "Directs and shoots high-engagement reels across Thoothukudi. Capturing chef craft, customer handovers, and showroom energy on prime cinema glass.",
+      "workLabel": "shoots + directs",
+      "photoSrc": "/images/team/crew-lead.jpg",
+      "gear": "Sony FX3 · 24-70 GM · DJI RS3 Pro",
+      "focalLength": "35mm T1.5 Cine Prime",
+      "passId": "27-DIR-01",
+      "access": "ALL ACCESS // VIP",
+      "stats": "5.8x Peak Client Growth"
+    },
+    {
+      "name": "27 Growth Strategist",
+      "role": "Growth Strategy & Local SEO",
+      "bio": "The mind behind 6,300+ new followers and top Google Business rankings. Optimizing algorithms, posting schedules, and local Thoothukudi conversion funnels.",
+      "workLabel": "scales + optimizes",
+      "photoSrc": "/images/team/crew-strategist.jpg",
+      "gear": "Meta Suite · Rank Grid · Analytics Studio",
+      "focalLength": "Viral Hook Architecture",
+      "passId": "27-STR-02",
+      "access": "ALL ACCESS // VIP",
+      "stats": "6,300+ New Followers"
+    },
+    {
+      "name": "27 Post & Motion Lead",
+      "role": "Editing, Sound Design & Color",
+      "bio": "Sculpting pacing, sound fx, and filmic color grades. Every cut synced to the beat with fast delivery under 48 hours for immediate brand momentum.",
+      "workLabel": "edits + sound",
+      "photoSrc": "/images/team/crew-editor.jpg",
+      "gear": "DaVinci Resolve Studio · Soundly · Premiere",
+      "focalLength": "Film Print Emulation (2383)",
+      "passId": "27-EDT-03",
+      "access": "ALL ACCESS // VIP",
+      "stats": "48h Fast Cut Turnaround"
+    }
   ],
   "testimonials": [
     { "quote": "Sales increased noticeably along with our follower growth. The chef reels and food close-ups brought in families from across Thoothukudi every weekend.", "name": "Thamira Restaurant", "role": "Polpettai, Thoothukudi (5.8x growth · 150 Google reviews)" },
@@ -206,6 +245,10 @@
     "aboutHeading": "Small crew. Big attention.",
     "testimonialsKicker": "client results",
     "testimonialsHeading": "Words from our clients.",
+    "testimonialsCarouselLabel": "Client testimonials",
+    "filmExposurePrefix": "EXP #",
+    "filmIsoLabel": "ISO 400 / 24 FPS",
+    "filmRateLabel": "24 FPS",
     "faqKicker": "questions, answered",
     "faqHeading": "Before we press record.",
     "contactKicker": "say hello",
@@ -253,8 +296,13 @@
     "packageShootDaysLabel": "Shoot days",
     "packageManagementLabel": "Posting / management",
     "aboutIntro": "We turn local Thoothukudi businesses into brands worth watching, driving real followers, views, and footfall.",
+    "teamRailCaption": "Select a badge to see what each of us does.",
+    "teamRailLabel": "Studio team",
+    "teamRailRoleDescription": "Interactive studio team badges",
+    "teamRailFlipHint": "Select to see more",
+    "teamRailBackHint": "Select again to turn it back",
+    "teamRailShowLabel": "Show",
     "photoPlaceholder": "27 / CREATIVE",
-    "btsPrefix": "BTS",
     "gearLine": "27 Creative Studio · high-velocity reels · fast glass · local storytelling · zero filler frames",
     "nameLabel": "Name",
     "phoneLabel": "Phone",
@@ -308,12 +356,12 @@
     "locale": "en_IN",
     "ogTitle": "27 Creative Studio — Real Growth. Real Results.",
     "ogDescription": "Instagram growth and local visibility for Thoothukudi businesses. Handled by 27 Creative Studio.",
-    "ogImage": "/icon.svg",
+    "ogImage": "/images/27-studio-logo.jpg",
     "twitterCard": "summary_large_image",
     "twitterTitle": "27 Creative Studio — Real Growth. Real Results.",
     "twitterDescription": "Instagram growth and local visibility for Thoothukudi businesses. Handled by 27 Creative Studio.",
-    "twitterImage": "/icon.svg",
-    "favicon": "/icon.svg",
+    "twitterImage": "/images/27-studio-logo.jpg",
+    "favicon": "/icon-dark-32x32.png",
     "robots": "index,follow",
     "sitemap": "/sitemap.xml",
     "business": {

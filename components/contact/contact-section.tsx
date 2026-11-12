@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useRef, useCallback } from "react";
-import { motion, AnimatePresence, useInView, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
+import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 import { siteConfig } from "@/data/siteConfig";
 import {
   businessTypes,
@@ -30,7 +31,7 @@ export function ContactSection({
 }: ContactSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.15 });
-  const prefersReduced = useReducedMotion();
+  const prefersReduced = useHydratedReducedMotion();
   const reducedMotion = prefersReduced || false;
 
   // Clapper & Slate State

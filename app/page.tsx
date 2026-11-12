@@ -19,12 +19,13 @@ import {
   X,
 } from "lucide-react";
 import { MediaSlot } from "@/components/media-slot";
+import { BrandLockup } from "@/components/brand-lockup";
 import { Hero, ViewfinderCursor } from "@/components/hero";
 import { FilmSection } from "@/components/film-section";
 import { ProcessSection } from "@/components/process";
 import { AboutSection } from "@/components/about-section";
 import { CasesSection } from "@/components/cases-section";
-import { TestimonialsSection } from "@/components/testimonials-section";
+import { FilmStripStaggerTestimonials as TestimonialsSection } from "@/components/FilmStripStaggerTestimonials";
 import { PackagesSection } from "@/components/packages-section";
 import { FaqSection } from "@/components/faq-section";
 import { ReelsSection } from "@/components/reels-section";
@@ -305,14 +306,7 @@ function FooterSection() {
       <div className="footer-top">
         <div>
           <p className="footer-line">{siteContent.footer.line}</p>
-          <div className="footer-brand font-mono uppercase mt-2 select-none">
-            <span className="text-3xl sm:text-4xl font-black italic tracking-tighter text-[var(--paper)] block leading-none">
-              {siteContent.brand.name}
-            </span>
-            <span className="text-[10px] tracking-[0.25em] text-[var(--muted)] font-semibold block mt-1">
-              {siteContent.brand.descriptor}
-            </span>
-          </div>
+          <BrandLockup href="#top" className="footer-brand" />
         </div>
         <nav className="footer-nav" aria-label={siteContent.ui.footerNavigationLabel}>
           {siteContent.footer.nav.map((item) => (
@@ -675,10 +669,11 @@ export default function Page() {
 
           {/* Top HUD Header */}
           <div className="mobile-drawer-header">
-            <div className="mobile-drawer-rec">
-              <span className="mobile-drawer-rec-dot" aria-hidden="true" />
-              <span>DIRECTORY // 27·STUDIO</span>
-            </div>
+            <BrandLockup
+              href="#top"
+              className="mobile-drawer-brand"
+              onClick={() => setMenuOpen(false)}
+            />
             <div className="flex items-center gap-3">
               <span className="mobile-drawer-timecode">{timecode}</span>
               <button

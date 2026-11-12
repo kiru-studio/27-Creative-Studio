@@ -12,10 +12,10 @@ import {
   motion,
   useInView,
   useMotionValue,
-  useReducedMotion,
   useSpring,
   type MotionValue,
 } from "framer-motion";
+import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 import { siteContent } from "@/lib/site-content";
 
 // ==========================================
@@ -777,7 +777,7 @@ export function CasesSection() {
 
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-10% 0px" });
-  const shouldReduceMotion = Boolean(useReducedMotion());
+  const shouldReduceMotion = useHydratedReducedMotion();
   const isTouch = useIsTouchDevice();
 
   // Floating cursor spring motion values (offset to right and above pointer)

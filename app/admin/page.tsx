@@ -4,6 +4,7 @@ import { upload } from "@vercel/blob/client";
 import { ArrowDown, ArrowUp, Eye, LogOut, Plus, Save, Trash2, Upload } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { siteContent } from "@/lib/site-content";
+import { BrandLockup } from "@/components/brand-lockup";
 
 type EditableValue =
   | string
@@ -384,7 +385,7 @@ export default function AdminPage() {
     return (
       <main className="admin-page">
         <div className="admin-login">
-          <a className="admin-brand" href="/">rec <span>mode</span></a>
+          <BrandLockup href="/" className="admin-brand" />
           <p className="kicker">{siteContent.brand.name} / {siteContent.brand.descriptor}</p>
           <h1>{adminCopy.loginTitle}</h1>
           <form onSubmit={signIn}>
@@ -417,7 +418,7 @@ export default function AdminPage() {
     <main className="admin-page">
       <header className="admin-header">
         <div>
-          <a className="admin-brand" href="/">rec <span>mode</span></a>
+          <BrandLockup href="/" className="admin-brand" />
           <p>{adminCopy.title}</p>
         </div>
         <div className="admin-header-actions">

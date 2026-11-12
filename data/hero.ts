@@ -30,7 +30,6 @@ export interface HeroConfig {
   ctaHref: string;
   secondaryCtaText: string;
   reelLabel: string;
-  brandTag: string;
 }
 
 export const heroConfig: HeroConfig = {
@@ -66,5 +65,4 @@ export const heroConfig: HeroConfig = {
   ctaHref: "#contact",
   secondaryCtaText: "Watch client reels",
   reelLabel: "Thamira Restaurant / 10.1K views / 00:30",
-  brandTag: "27 creative studio",
 };

@@ -1,7 +1,8 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 import { heroConfig } from "@/data/hero";
 import { HudCorners } from "./hud-corners";
 import { LiveTimecode } from "./live-timecode";
@@ -12,6 +13,7 @@ import { ReelModal } from "./reel-modal";
 import { SceneProgress } from "./scene-progress";
 import { MagneticPrimaryButton, OutlinedWatchButton } from "./magnetic-button";
 import { ViewfinderCursor } from "./viewfinder-cursor";
+import { BrandLockup } from "@/components/brand-lockup";
 
 interface HeroProps {
   enableViewfinderCursor?: boolean;
@@ -25,7 +27,7 @@ export function Hero({ enableViewfinderCursor = false }: HeroProps) {
   const [isReelModalOpen, setIsReelModalOpen] = useState(false);
   const [isOverCta, setIsOverCta] = useState(false);
 
-  const shouldReduceMotion = Boolean(useReducedMotion());
+  const shouldReduceMotion = useHydratedReducedMotion();
 
   const {
     titleLines,
@@ -34,7 +36,6 @@ export function Hero({ enableViewfinderCursor = false }: HeroProps) {
     ctaText,
     ctaHref,
     secondaryCtaText,
-    brandTag,
   } = heroConfig;
 
   return (
@@ -66,20 +67,12 @@ export function Hero({ enableViewfinderCursor = false }: HeroProps) {
         {/* TOP HUD: Unified Grid Container                          */}
         {/* ======================================================== */}
         <div className="relative z-30 w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-14 flex items-center justify-between gap-2 sm:gap-4">
-          {/* Left: Brand Tag (hidden < 640px) & REC indicator (always visible) */}
+          {/* Studio mark and recording indicator */}
           <div className="flex items-center gap-2 sm:gap-4 shrink-0">
-            <a
-              href="#top"
-              className="hidden sm:inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-[var(--paper)] hover:text-[var(--industry)] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--industry)] rounded px-1 -mx-1"
-            >
-              <span className="text-[var(--industry)]">●</span>
-              <span>{brandTag}</span>
-            </a>
-
+            <BrandLockup href="#top" />
             <span className="hidden sm:inline-block text-[var(--line,#333)] font-mono text-xs" aria-hidden="true">
               /
             </span>
-
             <RecIndicator shouldReduceMotion={shouldReduceMotion} />
           </div>
 
