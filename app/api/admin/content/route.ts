@@ -77,10 +77,14 @@ export async function PUT(request: Request) {
     console.warn("Could not write to local content file:", fsErr);
   }
 
-  const owner = process.env.GITHUB_OWNER?.trim();
-  const repo = process.env.GITHUB_REPO?.trim();
+  const owner = process.env.GITHUB_OWNER?.trim() || "kiru-studio";
+  const repo = process.env.GITHUB_REPO?.trim() || "27-Creative-Studio";
   const branch = (process.env.GITHUB_BRANCH || "main").trim();
-  let token = process.env.GITHUB_CONTENT_TOKEN?.trim();
+  let token = (
+    process.env.GITHUB_CONTENT_TOKEN ||
+    process.env.GITHUB_TOKEN ||
+    process.env.GH_TOKEN
+  )?.trim();
 
   // Defensive sanitization: if token was accidentally pasted with key name or duplicate trailing char
   if (token && token.startsWith("GITHUB_CONTENT_TOKEN")) {
@@ -90,8 +94,13 @@ export async function PUT(request: Request) {
     token = token.slice(0, 40);
   }
 
-  // If GitHub publishing is not configured or dummy, return local save status
-  if (!owner || !repo || !token || token.includes("replace") || owner.includes("your-")) {
+  // Diagnostic check: check what is actually missing on the server
+  const missingVars: string[] = [];
+  if (!owner || owner.includes("your-")) missingVars.push("GITHUB_OWNER");
+  if (!repo || repo.includes("your-")) missingVars.push("GITHUB_REPO");
+  if (!token || token.includes("replace")) missingVars.push("GITHUB_CONTENT_TOKEN");
+
+  if (missingVars.length > 0) {
     if (savedLocally) {
       return NextResponse.json({
         saved: true,
@@ -99,7 +108,9 @@ export async function PUT(request: Request) {
       });
     }
     return NextResponse.json(
-      { error: "GitHub publishing is not configured and local disk is not writable." },
+      {
+        error: `GitHub publishing not configured on Vercel. Missing environment variable(s): ${missingVars.join(", ")}. Please ensure it is added to Vercel Settings -> Environment Variables (for Production environment) and click Redeploy.`,
+      },
       { status: 503 },
     );
   }
