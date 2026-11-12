@@ -73,9 +73,10 @@ export function CookieBanner() {
               <button
                 type="button"
                 onClick={() => handleChoice("accepted")}
-                className="flex-1 py-1.5 px-3 rounded-lg bg-[#C6FF3D] text-[#0B0B0F] font-black hover:bg-[#d4ff66] transition-colors"
+                className="flex-1 py-1.5 px-3 rounded-lg bg-[#C6FF3D] !text-[#0B0B0F] font-black hover:bg-[#d4ff66] transition-colors"
+                style={{ color: "#0B0B0F" }}
               >
-                ACCEPT ALL
+                <span style={{ color: "#0B0B0F" }}>ACCEPT ALL</span>
               </button>
               <button
                 type="button"

@@ -1,4 +1,5 @@
 import { siteConfig } from "./siteConfig";
+import { siteContent } from "@/lib/site-content";
 
 export interface BusinessType {
   id: string;
@@ -46,41 +47,48 @@ export const dateShortcuts = [
 
 export type DateShortcut = (typeof dateShortcuts)[number];
 
+const phoneNum = siteContent.contact?.whatsappNumber ? siteContent.contact.whatsappNumber.replace(/^91/, "") : "83004 78244";
+const waNumber = siteContent.contact?.whatsappNumber || siteConfig.whatsappNumber;
+const contactEmail = siteContent.contact?.email || siteConfig.recipientEmail;
+const studioAddress = siteContent.seo?.business?.address?.streetAddress 
+  ? `${siteContent.seo.business.address.streetAddress}, ${siteContent.seo.business.address.addressLocality} ${siteContent.seo.business.address.postalCode}`
+  : "Polpettai / Ettayapuram Road, Thoothukudi 628002";
+
 export const channels: ContactChannel[] = [
   {
     id: "phone",
     label: "Call",
-    value: "83004 78244",
-    href: "tel:+918300478244",
-    copyValue: "8300478244",
+    value: phoneNum.length === 10 ? `${phoneNum.slice(0, 5)} ${phoneNum.slice(5)}` : phoneNum,
+    href: `tel:+91${phoneNum.replace(/\s+/g, "")}`,
+    copyValue: phoneNum.replace(/\s+/g, ""),
   },
   {
     id: "whatsapp",
     label: "WhatsApp",
-    value: `+91 ${siteConfig.whatsappNumber.slice(2)}`,
-    href: `https://wa.me/${siteConfig.whatsappNumber}?text=Hi%2027%20Creative%20Studio%2C%20I%20want%20to%20grow%20my%20business%20in%20Thoothukudi.`,
-    copyValue: "+91 83004 78244",
+    value: `+91 ${waNumber.slice(2)}`,
+    href: `https://wa.me/${waNumber}?text=${encodeURIComponent(siteContent.contact?.whatsappMessage || "Hi 27 Creative Studio, I want to grow my business in Thoothukudi.")}`,
+    copyValue: `+91 ${waNumber.slice(2)}`,
   },
   {
     id: "studio",
     label: "Studio",
-    value: "Polpettai / Ettayapuram Road, Thoothukudi 628002",
-    href: "https://maps.google.com/?q=Polpettai,+Thoothukudi,+Tamil+Nadu+628002",
-    copyValue: "Polpettai / Ettayapuram Road, Thoothukudi, Tamil Nadu 628002",
+    value: studioAddress,
+    href: `https://maps.google.com/?q=${encodeURIComponent(studioAddress)}`,
+    copyValue: studioAddress,
   },
   {
     id: "email",
     label: "Email",
-    value: siteConfig.recipientEmail || siteConfig.contactEmail,
-    href: `mailto:${siteConfig.recipientEmail || siteConfig.contactEmail}`,
-    copyValue: siteConfig.recipientEmail || siteConfig.contactEmail,
+    value: contactEmail,
+    href: `mailto:${contactEmail}`,
+    copyValue: contactEmail,
   },
   {
     id: "instagram",
     label: "Instagram",
-    value: "@27creativestudio",
-    href: "https://instagram.com/",
-    copyValue: "@27creativestudio",
+    value: siteContent.contact?.instagram || "@27creativestudio",
+    href: `https://instagram.com/${(siteContent.contact?.instagram || "@27creativestudio").replace(/^@/, "")}`,
+    copyValue: siteContent.contact?.instagram || "@27creativestudio",
   },
 ];
 

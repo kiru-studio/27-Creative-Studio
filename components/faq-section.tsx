@@ -212,19 +212,32 @@ export function FaqSection() {
 
   const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
+  // Active raw FAQ list from siteContent with fallback to defaults
+  const rawFaqItems = useMemo(() => {
+    if (siteContent.faqs && siteContent.faqs.length > 0) {
+      return siteContent.faqs.map((f, i) => ({
+        id: (f as any).id || `faq-${i}`,
+        category: (f as any).category || "General",
+        question: f.question,
+        answer: f.answer,
+      }));
+    }
+    return faqItems;
+  }, []);
+
   // 1. Categories derived dynamically from data
   const categories = useMemo(() => {
-    const unique = Array.from(new Set(faqItems.map((item) => item.category)));
+    const unique = Array.from(new Set(rawFaqItems.map((item) => item.category)));
     return ["All", ...unique];
-  }, []);
+  }, [rawFaqItems]);
 
   // 2. Pre-resolve tokens in all FAQ items for quick filtering and rendering
   const resolvedFaqList = useMemo(() => {
-    return faqItems.map((item) => ({
+    return rawFaqItems.map((item) => ({
       ...item,
       resolvedAnswer: resolveTokens(item.answer, packages, siteConfig),
     }));
-  }, []);
+  }, [rawFaqItems]);
 
   // 3. Filter items by active category
   const filteredItems = useMemo(() => {

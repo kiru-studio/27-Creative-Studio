@@ -59,6 +59,13 @@ export type SiteContent = {
     posterLabel: string;
     posterSrc?: string;
     videoSrc?: string;
+    eyebrow?: string;
+    cameraReadout?: {
+      resolution: string;
+      fps: string;
+      aperture: string;
+      iso: string;
+    };
   };
   industries: Industry[];
   proof: string[];
@@ -67,13 +74,21 @@ export type SiteContent = {
   speed: { title: string; body: string; meta?: string }[];
   caseStudies: WorkItem[];
   packages: {
+    id?: string;
+    tierNumber?: string;
+    tierLabel?: string;
     name: string;
-    description: string;
-    reels: string;
-    films: string;
-    shootDays: string;
-    detail: string;
-    price: string;
+    tagline?: string;
+    description?: string;
+    deliverables?: string[];
+    reels?: string;
+    films?: string;
+    shootDays?: string;
+    detail?: string;
+    price?: string;
+    cta?: string;
+    serial?: string;
+    popular?: boolean;
   }[];
   people: {
     name: string;
@@ -89,7 +104,7 @@ export type SiteContent = {
   }[];
   turnaround: string[];
   testimonials: { quote: string; name: string; role: string }[];
-  faqs: { question: string; answer: string }[];
+  faqs: { id?: string; category?: string; question: string; answer: string }[];
   ui: Record<string, string>;
   contact: {
     heading: string;

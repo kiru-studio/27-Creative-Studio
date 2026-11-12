@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import masterContent from "@/content/site-content.json";
+import fs from "node:fs";
+import path from "node:path";
 import {
   isAdminRequest,
   isSameOriginRequest,
@@ -7,35 +9,34 @@ import {
 
 export const dynamic = "force-dynamic";
 
-function matchesShape(template: unknown, value: unknown): boolean {
-  if (Array.isArray(template)) {
-    return (
-      Array.isArray(value) &&
-      value.length <= 100 &&
-      (template.length === 0 || value.every((item) => matchesShape(template[0], item)))
-    );
-  }
-  if (template && typeof template === "object") {
-    if (!value || typeof value !== "object" || Array.isArray(value)) return false;
-    const templateKeys = Object.keys(template);
-    const valueKeys = Object.keys(value);
-    return (
-      templateKeys.length === valueKeys.length &&
-      templateKeys.every(
-        (key) => key in value && matchesShape(template[key as keyof typeof template], value[key as keyof typeof value]),
-      )
-    );
-  }
-  if (typeof template === "string") return typeof value === "string" && value.length <= 100_000;
-  if (typeof template === "number") return typeof value === "number" && Number.isFinite(value);
-  if (typeof template === "boolean") return typeof value === "boolean";
-  return template === value;
+function isObject(val: unknown): val is Record<string, unknown> {
+  return typeof val === "object" && val !== null && !Array.isArray(val);
+}
+
+function isValidContent(content: unknown): boolean {
+  if (!isObject(content)) return false;
+  // Core sections that must be present
+  const requiredKeys = ["hero", "reels", "films", "packages", "people", "contact"];
+  return requiredKeys.every((key) => key in content);
 }
 
 export async function GET(request: Request) {
   if (!isAdminRequest(request)) {
     return NextResponse.json({ error: "Sign in to continue." }, { status: 401 });
   }
+
+  try {
+    const filePath = path.join(process.cwd(), "content", "site-content.json");
+    if (fs.existsSync(filePath)) {
+      const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+      return NextResponse.json(data, {
+        headers: { "Cache-Control": "private, no-store" },
+      });
+    }
+  } catch {
+    // fallback
+  }
+
   return NextResponse.json(masterContent, {
     headers: { "Cache-Control": "private, no-store" },
   });
@@ -49,32 +50,59 @@ export async function PUT(request: Request) {
   let content: unknown;
   try {
     const body = await request.text();
-    if (body.length > 1_000_000) {
-      return NextResponse.json({ error: "The content file is too large." }, { status: 413 });
+    if (body.length > 2_000_000) {
+      return NextResponse.json({ error: "The content payload is too large." }, { status: 413 });
     }
     content = JSON.parse(body);
   } catch {
     return NextResponse.json({ error: "The content could not be read." }, { status: 400 });
   }
 
-  if (!matchesShape(masterContent, content)) {
+  if (!isValidContent(content)) {
     return NextResponse.json(
-      { error: "Some content fields are missing or have the wrong type." },
+      { error: "Content is missing core sections (hero, reels, films, packages, people, or contact)." },
       { status: 400 },
     );
+  }
+
+  const serialized = `${JSON.stringify(content, null, 2)}\n`;
+
+  // Always write locally to disk if in local environment or disk is accessible
+  let savedLocally = false;
+  try {
+    const filePath = path.join(process.cwd(), "content", "site-content.json");
+    fs.writeFileSync(filePath, serialized, "utf-8");
+    savedLocally = true;
+  } catch (fsErr) {
+    console.warn("Could not write to local content file:", fsErr);
   }
 
   const owner = process.env.GITHUB_OWNER;
   const repo = process.env.GITHUB_REPO;
   const branch = process.env.GITHUB_BRANCH || "main";
   const token = process.env.GITHUB_CONTENT_TOKEN;
-  if (!owner || !repo || !token) {
+
+  // If GitHub publishing is not configured or dummy, return local save status
+  if (!owner || !repo || !token || token.includes("replace") || owner.includes("your-")) {
+    if (savedLocally) {
+      return NextResponse.json({
+        saved: true,
+        message: "Saved to content/site-content.json. Changes are live in your workspace.",
+      });
+    }
     return NextResponse.json(
-      { error: "GitHub publishing is not configured." },
+      { error: "GitHub publishing is not configured and local disk is not writable." },
       { status: 503 },
     );
   }
+
   if (!/^[\w.-]+$/.test(owner) || !/^[\w.-]+$/.test(repo) || !/^[\w./-]+$/.test(branch)) {
+    if (savedLocally) {
+      return NextResponse.json({
+        saved: true,
+        message: "Saved to local content file. GitHub settings appear invalid.",
+      });
+    }
     return NextResponse.json({ error: "GitHub publishing settings are invalid." }, { status: 503 });
   }
 
@@ -91,13 +119,19 @@ export async function PUT(request: Request) {
       cache: "no-store",
     });
     if (!currentResponse.ok) {
+      if (savedLocally) {
+        return NextResponse.json({
+          saved: true,
+          message: "Saved to local master file. (GitHub repo could not be reached).",
+        });
+      }
       return NextResponse.json(
         { error: "Could not read the master file from GitHub." },
         { status: 502 },
       );
     }
     const current = (await currentResponse.json()) as { sha: string };
-    const serialized = `${JSON.stringify(content, null, 2)}\n`;
+
     const commitResponse = await fetch(endpoint, {
       method: "PUT",
       headers: { ...headers, "Content-Type": "application/json" },
@@ -116,6 +150,12 @@ export async function PUT(request: Request) {
       );
     }
     if (!commitResponse.ok) {
+      if (savedLocally) {
+        return NextResponse.json({
+          saved: true,
+          message: "Saved locally. GitHub commit returned an error.",
+        });
+      }
       return NextResponse.json(
         { error: "GitHub could not publish the content update." },
         { status: 502 },
@@ -125,9 +165,15 @@ export async function PUT(request: Request) {
     return NextResponse.json({
       saved: true,
       commitUrl: result.commit?.html_url,
-      message: "Saved to the master file. Vercel will publish it after the deployment finishes.",
+      message: "Saved to master file and committed to GitHub! Vercel will deploy changes shortly.",
     });
-  } catch {
+  } catch (err) {
+    if (savedLocally) {
+      return NextResponse.json({
+        saved: true,
+        message: "Saved to local content file. (GitHub API unreachable).",
+      });
+    }
     return NextResponse.json(
       { error: "Could not reach GitHub. Check the connection and try again." },
       { status: 502 },

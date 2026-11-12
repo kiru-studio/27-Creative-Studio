@@ -15,7 +15,7 @@ interface ReelsSectionProps {
 export function ReelsSection({
   kicker = siteContent.ui.reelsKicker,
   heading = siteContent.ui.reelsHeading,
-  items = siteContent.reels.slice(0, 6),
+  items = siteContent.reels,
   onOpenViewer,
 }: ReelsSectionProps) {
   const [activeReelIndex, setActiveReelIndex] = useState(0);

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useMemo } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Check, Minus, SlidersHorizontal, ArrowRight } from "lucide-react";
 import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
@@ -22,9 +22,27 @@ export interface PackagesSectionProps {
 }
 
 export function PackagesSection({
-  packageList = defaultPackages,
+  packageList,
   className = "",
 }: PackagesSectionProps) {
+  const activePackages: Package[] = useMemo(() => {
+    if (packageList && packageList.length > 0) return packageList;
+    if (siteContent.packages && siteContent.packages.length > 0) {
+      return siteContent.packages.map((pkg, idx) => ({
+        id: pkg.id || `package-${idx + 1}`,
+        tierNumber: pkg.tierNumber || `WAY / 0${idx + 1}`,
+        tierLabel: pkg.tierLabel || "",
+        name: pkg.name,
+        tagline: pkg.tagline || pkg.description || "",
+        deliverables: pkg.deliverables || (pkg.detail ? pkg.detail.split(" · ") : ["Full production"]),
+        cta: pkg.cta || "TALK TO US",
+        serial: pkg.serial || `BM0${idx + 1}04650090G`,
+        popular: Boolean(pkg.popular),
+      }));
+    }
+    return defaultPackages;
+  }, [packageList]);
+
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [showComparison, setShowComparison] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
@@ -119,7 +137,7 @@ export function PackagesSection({
           aria-label="Ways of working"
           className="flex flex-col gap-8 md:grid md:grid-cols-3 md:gap-7 lg:gap-8 items-stretch pt-2"
         >
-          {packageList.map((pkg, index) => {
+          {activePackages.map((pkg, index) => {
             const isHovered = hoveredId === pkg.id;
             const isOtherHovered = hoveredId !== null && !isHovered;
 

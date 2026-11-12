@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 import { heroConfig } from "@/data/hero";
+import { siteContent } from "@/lib/site-content";
 import { HudCorners } from "./hud-corners";
 import { LiveTimecode } from "./live-timecode";
 import { RecIndicator } from "./rec-indicator";
@@ -29,14 +30,16 @@ export function Hero({ enableViewfinderCursor = false }: HeroProps) {
 
   const shouldReduceMotion = useHydratedReducedMotion();
 
-  const {
-    titleLines,
-    eyebrow,
-    body,
-    ctaText,
-    ctaHref,
-    secondaryCtaText,
-  } = heroConfig;
+  const eyebrow = siteContent.hero?.eyebrow || heroConfig.eyebrow;
+  const titleLines = siteContent.hero?.title
+    ? (siteContent.hero.title.includes(".")
+        ? siteContent.hero.title.split(/(?<=\.)\s+/).filter(Boolean)
+        : [siteContent.hero.title])
+    : heroConfig.titleLines;
+  const body = siteContent.hero?.body || heroConfig.body;
+  const ctaText = siteContent.hero?.cta || heroConfig.ctaText;
+  const ctaHref = heroConfig.ctaHref;
+  const secondaryCtaText = siteContent.hero?.secondary || heroConfig.secondaryCtaText;
 
   return (
     <>

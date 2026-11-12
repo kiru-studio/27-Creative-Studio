@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { heroConfig } from "@/data/hero";
+import { siteContent } from "@/lib/site-content";
 
 interface VideoWindowProps {
   isMuted?: boolean;
@@ -102,11 +103,11 @@ export function VideoWindow({
         }}
       >
         {/* Video Element or Animated Gradient Fallback */}
-        {heroConfig.videoSrc ? (
+        {siteContent.hero?.videoSrc || heroConfig.videoSrc ? (
           <video
             ref={videoRef}
-            src={heroConfig.videoSrc}
-            poster={heroConfig.posterSrc || undefined}
+            src={siteContent.hero?.videoSrc || heroConfig.videoSrc}
+            poster={siteContent.hero?.posterSrc || heroConfig.posterSrc || undefined}
             autoPlay
             loop
             muted={isMuted}

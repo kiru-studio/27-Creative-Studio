@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useMemo } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 import { processSteps } from "@/data/process";
+import { siteContent } from "@/lib/site-content";
 import { CameraSvg } from "./camera-svg";
 import { StepTabs } from "./step-tabs";
 import { StepPanel } from "./step-panel";
@@ -14,14 +15,31 @@ interface ProcessSectionProps {
 }
 
 export function ProcessSection({
-  kicker = "the process",
-  heading = "Speed without the scramble.",
+  kicker = siteContent.ui?.processKicker || "the process",
+  heading = siteContent.ui?.processHeading || "Speed without the scramble.",
 }: ProcessSectionProps) {
   const containerRef = useRef<HTMLElement>(null);
   const [activeStepIndex, setActiveStepIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const prefersReduced = useHydratedReducedMotion();
   const shouldReduceMotion = prefersReduced;
+
+  const activeSteps = useMemo(() => {
+    if (siteContent.speed && siteContent.speed.length > 0) {
+      return processSteps.map((step, idx) => {
+        const speedItem = siteContent.speed[idx];
+        if (!speedItem) return step;
+        return {
+          ...step,
+          title: speedItem.title || step.title,
+          description: speedItem.body || step.description,
+          tagline: speedItem.body || step.tagline,
+          stepNumber: speedItem.meta || step.stepNumber,
+        };
+      });
+    }
+    return processSteps;
+  }, []);
 
   // Track responsive screen size for unpinned mobile mode
   useEffect(() => {
@@ -33,11 +51,11 @@ export function ProcessSection({
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const totalSteps = processSteps.length;
-  const currentStep = processSteps[activeStepIndex] ?? processSteps[0];
+  const totalSteps = activeSteps.length;
+  const currentStep = activeSteps[activeStepIndex] ?? activeSteps[0];
   const nextStep =
     activeStepIndex < totalSteps - 1
-      ? processSteps[activeStepIndex + 1]
+      ? activeSteps[activeStepIndex + 1]
       : undefined;
 
   // Track scroll progress through the container for desktop pinned mode
@@ -143,7 +161,7 @@ export function ProcessSection({
               />
 
               <StepTabs
-                steps={processSteps}
+                steps={activeSteps}
                 activeStepIndex={activeStepIndex}
                 onSelectStep={scrollToStep}
                 reducedMotion={shouldReduceMotion}

@@ -3,13 +3,16 @@ import type { NextResponse } from "next/server";
 
 const sessionCookie = "rec-admin-session";
 const sessionLifetimeSeconds = 60 * 60 * 8;
+const defaultDevSecret = "rec-mode-admin-session-secret-32-chars-fallback";
 
 export function adminAuthConfigured() {
+  const pwd = process.env.ADMIN_PASSWORD;
+  const secret = process.env.ADMIN_SESSION_SECRET || (process.env.NODE_ENV !== "production" ? defaultDevSecret : undefined);
   return Boolean(
-    process.env.ADMIN_PASSWORD &&
-      process.env.ADMIN_PASSWORD.length >= 16 &&
-      process.env.ADMIN_SESSION_SECRET &&
-      process.env.ADMIN_SESSION_SECRET.length >= 32,
+    pwd &&
+      pwd.length >= 8 &&
+      secret &&
+      secret.length >= 16,
   );
 }
 
@@ -25,7 +28,7 @@ export function adminPasswordMatches(password: string) {
 }
 
 function sign(expiresAt: string) {
-  const secret = process.env.ADMIN_SESSION_SECRET;
+  const secret = process.env.ADMIN_SESSION_SECRET || (process.env.NODE_ENV !== "production" ? defaultDevSecret : undefined);
   if (!secret) throw new Error("Admin session secret is not configured.");
   return createHmac("sha256", secret).update(expiresAt).digest("base64url");
 }
