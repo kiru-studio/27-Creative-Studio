@@ -908,7 +908,6 @@ export function CasesSection() {
           {/* Top metadata rule */}
           <div className="flex items-center justify-between pb-4 mb-5 border-b border-[var(--line,#2A2A30)]/60 text-[11px] uppercase tracking-widest text-[var(--muted,#A9A7A0)] font-mono">
             <span className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[var(--industry,#C6FF3D)] animate-pulse" aria-hidden="true" />
               <strong className="font-bold text-[var(--paper,#F4F1EA)]">RESULTS AT A GLANCE</strong>
               <span className="text-[var(--line,#2A2A30)]" aria-hidden="true">/</span>
               <span>THOOTHUKUDI CAMPAIGNS</span>

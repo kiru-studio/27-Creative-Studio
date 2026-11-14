@@ -217,7 +217,7 @@ export function FaqSection() {
     if (siteContent.faqs && siteContent.faqs.length > 0) {
       return siteContent.faqs.map((f, i) => ({
         id: (f as any).id || `faq-${i}`,
-        category: (f as any).category || "General",
+        category: (f as any).category || "Packages",
         question: f.question,
         answer: f.answer,
       }));
@@ -225,10 +225,25 @@ export function FaqSection() {
     return faqItems;
   }, []);
 
-  // 1. Categories derived dynamically from data
+  // 1. Categories derived dynamically from data with clean logical ordering
   const categories = useMemo(() => {
+    const preferredOrder = [
+      "All",
+      "Packages",
+      "Process",
+      "Pricing",
+      "Shoot day",
+      "Delivery",
+      "Rights",
+      "Posting",
+      "Working together",
+    ];
     const unique = Array.from(new Set(rawFaqItems.map((item) => item.category)));
-    return ["All", ...unique];
+    const sorted = [
+      ...preferredOrder.filter((cat) => cat === "All" || unique.includes(cat)),
+      ...unique.filter((cat) => !preferredOrder.includes(cat)),
+    ];
+    return sorted;
   }, [rawFaqItems]);
 
   // 2. Pre-resolve tokens in all FAQ items for quick filtering and rendering
@@ -308,6 +323,7 @@ export function FaqSection() {
         id="faq"
         aria-labelledby="faq-heading"
       >
+        <div id="questions" className="sr-only" />
         <div id="q&a" className="sr-only" />
         <div id="qa" className="sr-only" />
         {/* Atmosphere: 4% subtle film-grain overlay */}

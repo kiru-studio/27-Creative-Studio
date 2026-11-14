@@ -125,11 +125,15 @@ export function CameraSvg({
 
         {/* Camera Top Plate Bar */}
         <div className="flex items-center justify-between pb-3 border-b border-[#2A2A30]">
-          {/* Brand & REC Mode indicator */}
+          {/* Brand & Studio Logo */}
           <div className="flex items-center gap-2">
-            <span className="inline-block w-2 h-2 rounded-full bg-[#C6FF3D] shadow-[0_0_6px_#C6FF3D]" />
+            <img
+              src="/images/27-studio-symbol.png"
+              alt="27"
+              className="h-3.5 sm:h-4 w-auto object-contain brightness-125 select-none pointer-events-none"
+            />
             <span className="font-mono text-[11px] tracking-widest text-[#F4F1EA] uppercase font-bold">
-              27·STUDIO <span className="text-[#A9A7A0] font-normal">C-400</span>
+              STUDIO <span className="text-[#A9A7A0] font-normal">C-400</span>
             </span>
           </div>
 
@@ -170,13 +174,36 @@ export function CameraSvg({
               reducedMotion={reducedMotion}
             />
 
-            {/* Outer Lens Markings */}
-            <div
-              className="absolute bottom-2 font-mono text-[8px] sm:text-[9px] tracking-wider text-[#A9A7A0]/50 select-none pointer-events-none"
+            {/* Rotating 35mm Cinema Lens Ring */}
+            <motion.div
+              className="absolute inset-0 rounded-full pointer-events-none select-none flex items-center justify-center overflow-visible"
+              animate={reducedMotion ? {} : { rotate: 360 }}
+              transition={{
+                repeat: Infinity,
+                duration: 20,
+                ease: "linear",
+              }}
               aria-hidden="true"
             >
-              35mm T1.5 · CINE
-            </div>
+              <svg
+                className="w-full h-full overflow-visible"
+                viewBox="0 0 200 200"
+              >
+                <defs>
+                  <path
+                    id="lensRotatingCircle"
+                    d="M 100, 100 m -84, 0 a 84,84 0 1,1 168,0 a 84,84 0 1,1 -168,0"
+                  />
+                </defs>
+                <text
+                  className="font-mono text-[7.5px] sm:text-[8px] tracking-[0.24em] fill-[#A9A7A0]/75 uppercase font-semibold select-none"
+                >
+                  <textPath href="#lensRotatingCircle" startOffset="0%">
+                    35mm T1.5 · CINE • 27 CREATIVE STUDIO • 35mm T1.5 · CINE • SONY 4K DCI •
+                  </textPath>
+                </text>
+              </svg>
+            </motion.div>
           </div>
         </div>
 

@@ -201,8 +201,7 @@ export function ContactSection({
               <div className="lg:col-span-5 flex flex-col gap-6 lg:sticky lg:top-[15vh]">
 
                 <div>
-                  <p className="font-mono text-xs text-[#C6FF3D] uppercase tracking-widest flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#C6FF3D]" />
+                  <p className="font-mono text-xs text-[#C6FF3D] uppercase tracking-widest">
                     {kicker}
                   </p>
                   <h2

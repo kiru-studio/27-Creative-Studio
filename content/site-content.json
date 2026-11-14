@@ -546,28 +546,172 @@
   ],
   "faqs": [
     {
+      "id": "pkg-services",
+      "category": "Packages",
       "question": "What services does 27 Creative Studio provide?",
       "answer": "We specialize in end-to-end Instagram growth and local visibility for Thoothukudi businesses: Instagram page handling, viral reels and video content, festival and offer creatives, event coverage, Google Business Profile setup, and growth strategy."
     },
     {
+      "id": "pkg-right-package",
+      "category": "Packages",
+      "question": "Which option is right for my business?",
+      "answer": "Look at our 3 ways of working above: steady monthly growth suits 'Instagram page handling', targeted campaign assets suit 'Reels & video sprint', and total local dominance across multiple accounts and Google Maps becomes 'Full local growth'. We tailor every scope to what drives footfall and sales in Thoothukudi."
+    },
+    {
+      "id": "pkg-fixed-numbers",
+      "category": "Packages",
+      "question": "Why don't you offer rigid, one-size-fits-all quotas?",
+      "answer": "Every business in Thoothukudi has different dynamics—a restaurant needs mouthwatering food close-ups and ambience, while a car showroom needs customer delivery trust and vehicle walkarounds. Forcing a rigid formula creates filler content. We shape every shoot to move real business metrics."
+    },
+    {
+      "id": "pkg-reel-vs-film",
+      "category": "Packages",
+      "question": "What counts as a reel and a film?",
+      "answer": "A reel is a punchy vertical piece (9:16) made for high-velocity social attention and trending audio. A film is a cinematic brand cut (16:9) that anchors your business story, website, and showroom displays."
+    },
+    {
+      "id": "pkg-customise",
+      "category": "Packages",
+      "question": "Can I customize an option with event coverage or a 2nd ID?",
+      "answer": "Yes! Like we did for Surya Mobiles (launching a 2nd ID to scale from 0 to 1,059 followers in 30 days) and ThoorigAI Infotech (full AICCI National Startup Summit stall coverage), we customize every project to your expansion goals."
+    },
+    {
+      "id": "pkg-industries",
+      "category": "Packages",
+      "question": "Which industries in Thoothukudi do you work with?",
+      "answer": "We actively work with restaurants & cafés (like Thamira Restaurant), automobile showrooms (like MM Cars), retail electronics & mobile stores (like Surya Mobiles), training institutes & colleges (like ThoorigAI Infotech), and other ambitious local brands."
+    },
+    {
+      "id": "proc-start-to-finish",
+      "category": "Process",
+      "question": "How does the growth process work from start to finish?",
+      "answer": "We begin with a brief and local market audit, followed by concept planning, on-location shooting, rapid video editing with viral hooks and Tamil/English captions, and scheduled posting paired with Google Business Profile optimization."
+    },
+    {
+      "id": "proc-what-needed",
+      "category": "Process",
+      "question": "What do you need from me before we start shooting?",
+      "answer": "Access to your location (kitchen, showroom, or classroom), your key promotions/products, and one point of contact. We handle the creative directing, camera gear, lighting, and script hooks."
+    },
+    {
+      "id": "proc-lead-time",
+      "category": "Process",
+      "question": "How far ahead should I book a shoot?",
+      "answer": "1 to 2 weeks ahead is ideal. If you have an upcoming festival, sale, or store launch in Thoothukudi, tell us early so we can plan the content runway."
+    },
+    {
+      "id": "proc-concept-script",
+      "category": "Process",
+      "question": "Do you help with hooks, scripts, and trending concepts?",
+      "answer": "Yes. Creative ideation, trend research, and script hooks are included in every engagement."
+    },
+    {
+      "id": "price-cost",
+      "category": "Pricing",
+      "question": "How much does it cost?",
+      "answer": "Growth packages and monthly page management tailored for local businesses. Each project is scoped to your goals. WhatsApp or call us at 83004 78244 for a straightforward quotation."
+    },
+    {
+      "id": "price-payment-terms",
+      "category": "Pricing",
+      "question": "What are your payment terms?",
+      "answer": "50% advance upon onboarding to schedule shoot dates, and 50% upon delivery of monthly assets."
+    },
+    {
+      "id": "price-extra-costs",
+      "category": "Pricing",
+      "question": "Are there any hidden costs?",
+      "answer": "No surprises. Quotes include shoot, edit, revisions, and page management. Third-party commercial music licensing outside our standard catalogue and external talent fees are quoted separately if requested."
+    },
+    {
+      "id": "shoot-how-long",
+      "category": "Shoot day",
+      "question": "How long does a typical shoot take?",
+      "answer": "A focused reel shoot is typically 2 to 4 hours. A full content day or multi-camera brand film is usually 5 to 7 hours."
+    },
+    {
+      "id": "shoot-business-disruption",
+      "category": "Shoot day",
+      "question": "Will the shoot disrupt our daily business operations?",
+      "answer": "No. We work with lean cinema equipment and fast glass, working around your staff, chefs, and customers without obstructing your floor or dining space."
+    },
+    {
+      "id": "shoot-weather-rain",
+      "category": "Shoot day",
+      "question": "What if it rains during outdoor shots?",
+      "answer": "Outdoor shoots reschedule for rain or bad weather at no charge with 24 hours notice."
+    },
+    {
+      "id": "del-how-fast",
+      "category": "Delivery",
+      "question": "How fast will I get the final reels?",
+      "answer": "Our standard video turnaround is 3 to 5 business days from the shoot. For urgent festival creatives or event coverage (like the AICCI National Startup Summit), we provide rapid same-week delivery."
+    },
+    {
+      "id": "del-revisions",
+      "category": "Delivery",
+      "question": "What if I need changes to an edit?",
+      "answer": "Every package includes 1 included review round with timecoded notes so you can request text, pacing, or audio adjustments."
+    },
+    {
+      "id": "del-file-formats",
+      "category": "Delivery",
+      "question": "What formats do you deliver in?",
+      "answer": "Export-ready 4K and 1080p 9:16 vertical reels optimized for Instagram and YouTube Shorts, plus 16:9 master files for website and display usage."
+    },
+    {
+      "id": "rights-usage",
+      "category": "Rights",
+      "question": "Who owns the rights to the videos?",
+      "answer": "Full commercial usage rights across digital, social and web in perpetuity."
+    },
+    {
+      "id": "rights-paid-ads",
+      "category": "Rights",
+      "question": "Can I use the reels as sponsored Instagram ads?",
+      "answer": "Yes. Let us know before the shoot so we design hooks, framing, and clear calls-to-action specifically tuned for high-converting Meta ads."
+    },
+    {
+      "id": "post-posting-service",
+      "category": "Posting",
+      "question": "Do you handle page posting and Instagram management?",
+      "answer": "We handle complete Instagram page management, hashtag optimization, and export-ready files."
+    },
+    {
+      "id": "post-rollout-plan",
+      "category": "Posting",
+      "question": "Do you help with Google Business Profile & Maps visibility?",
+      "answer": "Yes. Beyond Instagram, local visibility on Google is crucial for footfall. We set up, verify, and optimize your Google Business Profile, collect authentic reviews (like 150 reviews at 4.5/5 for Thamira Restaurant), and help local customers find you on Maps."
+    },
+    {
+      "id": "work-results",
+      "category": "Working together",
       "question": "What kind of results can a Thoothukudi business expect?",
       "answer": "Across our active clients (Thamira Restaurant, MM Cars, Surya Mobiles, ThoorigAI Infotech), we generated 6,300+ new followers, up to 6.1x follower growth, and 13.6K+ top reel views, alongside direct increases in customer walk-ins and sales."
     },
     {
-      "question": "Do you also handle Google Business Profiles and Maps?",
-      "answer": "Yes. Beyond Instagram, local visibility on Google is crucial for footfall. We set up, verify, and optimize your Google Business Profile, collect authentic reviews (like 150 reviews at 4.5/5 for Thamira Restaurant), and help local customers find you on Maps."
+      "id": "work-call-first",
+      "category": "Working together",
+      "question": "Can we talk before booking?",
+      "answer": "Definitely. Call or WhatsApp us directly at 83004 78244 for a 15-minute intro call or WhatsApp brief."
     },
     {
-      "question": "How quickly are reels shot and delivered?",
-      "answer": "Our standard video turnaround is 3 to 5 business days from the shoot. For urgent festival creatives or event coverage (like the AICCI National Startup Summit), we provide rapid same-week delivery."
+      "id": "work-location",
+      "category": "Working together",
+      "question": "Where are you based and do you shoot on-location?",
+      "answer": "We are based right here in Thoothukudi (Tuticorin), Tamil Nadu. We shoot on-location at your restaurant, showroom, institute, or event venue with professional cinema gear and lighting across Thoothukudi, Tirunelveli, and surrounding districts."
     },
     {
+      "id": "work-uncertain-needs",
+      "category": "Working together",
+      "question": "What if I'm not sure which social strategy to take?",
+      "answer": "That's exactly what we're here for. We audit your current page and local competitors, then craft a clear, actionable plan to grow your followers and customer walk-ins."
+    },
+    {
+      "id": "work-get-started",
+      "category": "Working together",
       "question": "How do we get started?",
       "answer": "Simply call or WhatsApp us at 83004 78244, or fill out the brief form below. We will review your current online presence and map out a tailored growth strategy for your business."
-    },
-    {
-      "question": "Where are you based and do you shoot on-location?",
-      "answer": "We are based right here in Thoothukudi (Tuticorin), Tamil Nadu. We shoot on-location at your restaurant, showroom, institute, or event venue with professional cinema gear and lighting."
     }
   ],
   "ui": {
@@ -689,6 +833,7 @@
       "Process",
       "Cases",
       "About",
+      "Q&A",
       "Contact"
     ],
     "socials": [

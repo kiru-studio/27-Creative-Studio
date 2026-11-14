@@ -68,7 +68,7 @@ export function PackagesSection({
         <div className="section-intro mb-16 sm:mb-20">
           {/* Tag / Kicker with REC Indicator */}
           <motion.div
-            className="flex items-center gap-2 mb-3 select-none"
+            className="mb-3 select-none"
             initial={shouldReduceMotion ? false : { opacity: 0 }}
             animate={
               isInView
@@ -79,10 +79,6 @@ export function PackagesSection({
             }
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
-            <span
-              className="w-2 h-2 rounded-full bg-[var(--industry)] shadow-[0_0_8px_var(--industry)] animate-pulse"
-              aria-hidden="true"
-            />
             <p className="kicker m-0">{siteContent.ui.packagesKicker}</p>
           </motion.div>
 

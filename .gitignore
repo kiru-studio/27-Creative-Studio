@@ -17,6 +17,8 @@ node_modules
 scratch/
 .playwright-mcp/
 *.tsbuildinfo
+__pycache__/
+*.py[cod]
 # gstack (global install)
 .amazonq/rules/gstack.md
 

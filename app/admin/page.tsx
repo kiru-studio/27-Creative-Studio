@@ -21,6 +21,7 @@ import {
   CheckCircle2,
   AlertTriangle,
   Lock,
+  Activity,
 } from "lucide-react";
 import { BrandLockup } from "@/components/brand-lockup";
 import { SmartMediaInput } from "@/components/admin/smart-media-input";
@@ -247,7 +248,7 @@ export default function AdminPage() {
           {/* 1. Google OAuth Sign-In (Recommended High-Security Method) */}
           <div className="w-full space-y-2 mb-2">
             <a
-              href="/api/admin/auth/google"
+              href="/api/admin/auth/google?returnTo=/admin"
               className="w-full py-2.5 px-4 rounded bg-[#FFFFFF] hover:bg-[#F2F2F2] text-[#1F1F1F] font-mono text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 border border-[#E0E0E0] shadow-sm hover:shadow cursor-pointer"
               style={{ color: "#1F1F1F" }}
             >
@@ -406,6 +407,15 @@ export default function AdminPage() {
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-[#2A2A30] hover:border-[#F4F1EA] text-[#A9A7A0] hover:text-[#F4F1EA] font-mono text-xs transition-colors"
           >
             <Eye size={14} /> <span className="hidden sm:inline">Live Preview</span> ↗
+          </a>
+
+          <a
+            href="/team"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-[#C6FF3D]/40 bg-[#C6FF3D]/10 hover:bg-[#C6FF3D]/20 text-[#C6FF3D] font-mono text-xs font-bold uppercase transition-colors"
+          >
+            <Activity size={13} />
+            <span className="hidden sm:inline">Team Ops &amp; CRM</span>
+            <span>↗</span>
           </a>
 
           <button
@@ -1672,7 +1682,7 @@ export default function AdminPage() {
                     type="button"
                     onClick={() => {
                       const newFaq = {
-                        category: "General",
+                        category: "Packages",
                         question: "New Question Title",
                         answer: "Detailed answer explaining our process or service.",
                       };
@@ -1689,14 +1699,38 @@ export default function AdminPage() {
                 <div className="space-y-4">
                   {content.faqs?.map((faq, index) => (
                     <div key={`faq-${index}`} className="p-4 rounded border border-[#232326] bg-[#121217] space-y-2">
-                      <div className="flex items-center justify-between">
-                        <span className="font-mono text-xs text-[#C6FF3D]">Q #{index + 1}</span>
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="flex items-center gap-3">
+                          <span className="font-mono text-xs text-[#C6FF3D]">Q #{index + 1}</span>
+                          <select
+                            value={faq.category || "Packages"}
+                            onChange={(e) => {
+                              const val = e.target.value;
+                              update((p) => {
+                                const next = [...p.faqs];
+                                next[index] = { ...next[index], category: val };
+                                return { ...p, faqs: next };
+                              });
+                            }}
+                            className="bg-[#18181F] border border-[#2A2A30] rounded px-2 py-0.5 text-xs font-mono text-[#C6FF3D] font-bold focus:outline-none focus:border-[#C6FF3D]"
+                          >
+                            <option value="Packages">Packages</option>
+                            <option value="Process">Process</option>
+                            <option value="Pricing">Pricing</option>
+                            <option value="Shoot day">Shoot day</option>
+                            <option value="Delivery">Delivery</option>
+                            <option value="Rights">Rights</option>
+                            <option value="Posting">Posting</option>
+                            <option value="Working together">Working together</option>
+                            <option value="General">General</option>
+                          </select>
+                        </div>
                         <button
                           type="button"
                           onClick={() => {
                             update((p) => ({ ...p, faqs: p.faqs.filter((_, i) => i !== index) }));
                           }}
-                          className="text-[#FF5C5C] p-1"
+                          className="text-[#FF5C5C] p-1 hover:opacity-80"
                         >
                           <Trash2 size={13} />
                         </button>

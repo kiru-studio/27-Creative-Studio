@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect, useMemo } from "react";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { motion, useScroll, useMotionValueEvent, useInView } from "framer-motion";
 import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 import { processSteps } from "@/data/process";
 import { siteContent } from "@/lib/site-content";
@@ -23,6 +23,7 @@ export function ProcessSection({
   const [isMobile, setIsMobile] = useState(false);
   const prefersReduced = useHydratedReducedMotion();
   const shouldReduceMotion = prefersReduced;
+  const isSectionInView = useInView(containerRef, { once: true, amount: 0.05 });
 
   const activeSteps = useMemo(() => {
     if (siteContent.speed && siteContent.speed.length > 0) {
@@ -126,16 +127,44 @@ export function ProcessSection({
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-[#2A2A30]">
             <div>
-              <p className="font-mono text-xs text-[#C6FF3D] uppercase tracking-widest flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#C6FF3D]" />
-                {kicker}
-              </p>
-              <h2
-                id="speed-heading"
-                className="mt-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#F4F1EA] font-display"
-              >
-                {heading}
-              </h2>
+              <div className="overflow-mask-inline">
+                <motion.p
+                  className="font-mono text-xs text-[#C6FF3D] uppercase tracking-widest block"
+                  initial={
+                    shouldReduceMotion
+                      ? { y: 0, opacity: 1 }
+                      : { y: "100%", opacity: 0 }
+                  }
+                  whileInView={{ y: 0, opacity: 1 }}
+                  animate={isSectionInView ? { y: 0, opacity: 1 } : undefined}
+                  viewport={{ once: true, amount: 0.05 }}
+                  transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  {kicker}
+                </motion.p>
+              </div>
+
+              <div className="overflow-mask mt-2">
+                <motion.h2
+                  id="speed-heading"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#F4F1EA] font-display block"
+                  initial={
+                    shouldReduceMotion
+                      ? { y: 0, opacity: 1 }
+                      : { y: "100%", opacity: 0 }
+                  }
+                  whileInView={{ y: 0, opacity: 1 }}
+                  animate={isSectionInView ? { y: 0, opacity: 1 } : undefined}
+                  viewport={{ once: true, amount: 0.05 }}
+                  transition={{
+                    duration: 0.65,
+                    ease: [0.16, 1, 0.3, 1],
+                    delay: 0.08,
+                  }}
+                >
+                  {heading}
+                </motion.h2>
+              </div>
             </div>
 
             {/* HUD scene timecode indicator */}

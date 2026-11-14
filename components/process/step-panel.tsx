@@ -103,12 +103,14 @@ export function StepPanel({
             </motion.div>
 
             {/* Step Description */}
-            <motion.p
-              variants={itemVariants}
-              className="text-sm sm:text-base text-[#A9A7A0] leading-relaxed max-w-xl"
-            >
-              {currentStep.description}
-            </motion.p>
+            {currentStep.description && currentStep.description !== currentStep.tagline && (
+              <motion.p
+                variants={itemVariants}
+                className="text-sm sm:text-base text-[#A9A7A0] leading-relaxed max-w-xl"
+              >
+                {currentStep.description}
+              </motion.p>
+            )}
 
             {/* Happens & Needs Bullet Lists */}
             <motion.div

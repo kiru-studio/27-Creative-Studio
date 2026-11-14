@@ -76,15 +76,11 @@ export function AboutSection() {
         <div className="section-intro mb-10 sm:mb-14">
           <div className="overflow-mask-inline">
             <motion.div
-              className="flex items-center gap-2 mb-3 select-none"
+              className="mb-3 select-none"
               initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
               animate={isInView ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
-              <span
-                className="w-2 h-2 rounded-full bg-[#C6FF3D] shadow-[0_0_8px_#C6FF3D] animate-pulse"
-                aria-hidden="true"
-              />
               <p className="kicker m-0">{siteContent.ui.aboutKicker}</p>
             </motion.div>
           </div>

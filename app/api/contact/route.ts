@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { siteConfig } from "@/data/siteConfig";
+import { createInquiry } from "@/lib/studio-db";
 
 // In-memory rate limiting: IP -> timestamps
 const rateLimitMap = new Map<string, number[]>();
@@ -104,6 +105,24 @@ export async function POST(req: NextRequest) {
       `THE STORY:`,
       data.story,
     ].join("\n");
+
+    // Save brief directly into Studio OS CRM & Supabase
+    try {
+      await createInquiry({
+        client_name: data.name,
+        contact: data.phone,
+        business_name: data.businessName || resolvedBusiness || "",
+        business_type: resolvedBusiness || "other",
+        deliverables: data.needs,
+        story: data.story,
+        deal_value: 20000,
+        source: "web_brief",
+        notes: `Submitted via website brief form. Timeline preference: ${data.preferredDate || data.dateShortcut || "Flexible"}.`,
+        status: "new",
+      });
+    } catch (dbErr) {
+      console.error("[CRM_AUTO_SAVE_ERROR]", dbErr);
+    }
 
     const resendApiKey = process.env.RESEND_API_KEY;
 

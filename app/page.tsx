@@ -49,8 +49,11 @@ const NAV_ITEM_HREFS: Record<string, string> = {
   Films: "#films",
   Process: "#process",
   Cases: "#cases",
+  Packages: "#packages",
   About: "#about",
   "Q&A": "#faq",
+  Questions: "#faq",
+  FAQ: "#faq",
   Contact: "#contact",
 };
 
@@ -61,7 +64,8 @@ const MOBILE_NAV_ITEMS = [
   { num: "04", name: "CASES", tag: "4 CLIENTS", href: "#cases" },
   { num: "05", name: "PACKAGES", tag: "WAYS TO WORK", href: "#packages" },
   { num: "06", name: "ABOUT", tag: "DIRECTORS", href: "#about" },
-  { num: "07", name: "CONTACT", tag: "GET IN TOUCH", href: "#contact" },
+  { num: "07", name: "QUESTIONS", tag: "Q&A", href: "#faq" },
+  { num: "08", name: "CONTACT", tag: "GET IN TOUCH", href: "#contact" },
 ];
 
 function CornerBrackets() {

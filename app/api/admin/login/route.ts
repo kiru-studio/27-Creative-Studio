@@ -5,6 +5,7 @@ import {
   isSameOriginRequest,
   setAdminSession,
 } from "@/lib/admin-auth";
+import { getTeamMembers } from "@/lib/studio-db";
 
 export async function POST(request: Request) {
   if (!adminAuthConfigured()) {
@@ -33,7 +34,24 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Password not recognised." }, { status: 401 });
   }
 
-  const response = NextResponse.json({ authenticated: true });
-  setAdminSession(response);
+  const memberId =
+    body && typeof body === "object" && "memberId" in body && typeof body.memberId === "string"
+      ? body.memberId
+      : undefined;
+
+  let resolvedMemberId = memberId;
+  let resolvedEmail: string | undefined;
+
+  if (memberId) {
+    const members = await getTeamMembers();
+    const found = members.find((m) => m.id === memberId);
+    if (found) {
+      resolvedEmail = found.email;
+      resolvedMemberId = found.id;
+    }
+  }
+
+  const response = NextResponse.json({ authenticated: true, memberId: resolvedMemberId });
+  setAdminSession(response, resolvedEmail, resolvedMemberId);
   return response;
 }

@@ -25,6 +25,13 @@ export interface FaqItem {
 export const faqItems: FaqItem[] = [
   // Packages
   {
+    id: "pkg-services",
+    category: "Packages",
+    question: "What services does 27 Creative Studio provide?",
+    answer:
+      "We specialize in end-to-end Instagram growth and local visibility for Thoothukudi businesses: Instagram page handling, viral reels and video content, festival and offer creatives, event coverage, Google Business Profile setup, and growth strategy.",
+  },
+  {
     id: "pkg-right-package",
     category: "Packages",
     question: "Which option is right for my business?",
@@ -193,6 +200,13 @@ export const faqItems: FaqItem[] = [
 
   // Working together
   {
+    id: "work-results",
+    category: "Working together",
+    question: "What kind of results can a Thoothukudi business expect?",
+    answer:
+      "Across our active clients (Thamira Restaurant, MM Cars, Surya Mobiles, ThoorigAI Infotech), we generated 6,300+ new followers, up to 6.1x follower growth, and 13.6K+ top reel views, alongside direct increases in customer walk-ins and sales.",
+  },
+  {
     id: "work-call-first",
     category: "Working together",
     question: "Can we talk before booking?",
@@ -212,6 +226,13 @@ export const faqItems: FaqItem[] = [
     question: "What if I'm not sure which social strategy to take?",
     answer:
       "That's exactly what we're here for. We audit your current page and local competitors, then craft a clear, actionable plan to grow your followers and customer walk-ins.",
+  },
+  {
+    id: "work-get-started",
+    category: "Working together",
+    question: "How do we get started?",
+    answer:
+      "Simply call or WhatsApp us at 83004 78244, or fill out the brief form below. We will review your current online presence and map out a tailored growth strategy for your business.",
   },
 ];
 
