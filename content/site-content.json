@@ -390,6 +390,31 @@
       ],
       "posterSrc": "",
       "videoSrc": ""
+    },
+    {
+      "title": "New Client Success Story",
+      "type": "Case study",
+      "label": "CASE / RETAIL",
+      "meta": "READ",
+      "client": "Client Business",
+      "handle": "@client_handle",
+      "location": "Thoothukudi",
+      "growthMultiplier": "3.5x",
+      "followersStart": "500",
+      "followersNow": "2,000",
+      "newFollowers": "+1,500",
+      "topViews": "15.0K",
+      "postsCount": "50",
+      "googleRating": "4.8 / 5",
+      "googleReviews": "50 reviews",
+      "goal": "Increase local footfall and scale follower reach in Thoothukudi.",
+      "shot": "On-location reels, product walkarounds, and Google Maps optimization.",
+      "result": "Tripled follower base and drove consistent weekly walk-ins.",
+      "industries": [
+        "everything"
+      ],
+      "posterSrc": "",
+      "videoSrc": ""
     }
   ],
   "packages": [
