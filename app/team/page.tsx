@@ -155,12 +155,13 @@ export default function TeamOperationsPage() {
     return (
       <main className="min-h-screen bg-[#0B0B0F] text-[#F4F1EA] flex flex-col items-center justify-center p-4 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(198,255,61,0.06),transparent_70%)] pointer-events-none" />
-        <div className="absolute top-6 left-6 font-mono text-xs text-[#A9A7A0] flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-[#C6FF3D] animate-ping" />
-          <span>SYS // 27_TEAM_OPERATIONS</span>
-        </div>
-        <div className="absolute top-6 right-6 font-mono text-xs text-[#C6FF3D]">
-          {timecode}
+        <div className="absolute top-0 left-0 right-0 p-4 sm:p-6 flex items-center justify-between gap-3 font-mono text-xs z-20 pointer-events-none">
+          <span className="text-[#A9A7A0] tracking-widest text-[11px] sm:text-xs truncate">
+            SYS // 27_TEAM_OPERATIONS
+          </span>
+          <span className="text-[#C6FF3D] tracking-widest text-[11px] sm:text-xs shrink-0">
+            {timecode}
+          </span>
         </div>
 
         <div className="relative z-10 w-full max-w-md bg-[#121217] border border-[#232326] p-8 rounded-lg shadow-2xl flex flex-col items-center text-center">

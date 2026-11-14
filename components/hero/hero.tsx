@@ -47,7 +47,7 @@ export function Hero({ enableViewfinderCursor = false }: HeroProps) {
         ref={heroRef}
         id="hero"
         aria-labelledby="hero-heading"
-        className="relative w-full min-h-screen min-h-[100svh] flex flex-col justify-between overflow-hidden bg-[var(--ink,#0B0B0F)] text-[var(--paper,#F3F3F5)] select-none pt-4 pb-4 sm:pt-6 sm:pb-6 lg:pt-8 lg:pb-8"
+        className="relative w-full min-h-screen min-h-[100svh] flex flex-col justify-between overflow-hidden bg-[var(--ink,#0B0B0F)] text-[var(--paper,#F3F3F5)] select-none pt-4 pb-16 sm:pt-6 sm:pb-6 lg:pt-8 lg:pb-8"
       >
         {/* Atmosphere: 4% subtle film-grain overlay */}
         <div className="faq-grain-overlay pointer-events-none" aria-hidden="true" />
@@ -79,8 +79,8 @@ export function Hero({ enableViewfinderCursor = false }: HeroProps) {
             <RecIndicator shouldReduceMotion={shouldReduceMotion} />
           </div>
 
-          {/* Center: Live 24fps Timecode */}
-          <div className="flex items-center justify-center">
+          {/* Center: Live 24fps Timecode (Hidden on compact mobile to give breathing room for mobile menu) */}
+          <div className="hidden sm:flex items-center justify-center">
             <LiveTimecode />
           </div>
 
@@ -88,7 +88,7 @@ export function Hero({ enableViewfinderCursor = false }: HeroProps) {
           <div className="hidden sm:flex items-center justify-end shrink-0">
             <CameraMenu />
           </div>
-          <div className="sm:hidden w-8 shrink-0" aria-hidden="true" />
+          <div className="sm:hidden w-20 shrink-0" aria-hidden="true" />
         </div>
 
         {/* ======================================================== */}

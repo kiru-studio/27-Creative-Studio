@@ -210,7 +210,7 @@ export function PackagesSection({
                     {/* ============================================ */}
                     {/* CARD BODY CONTENT                            */}
                     {/* ============================================ */}
-                    <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between">
+                    <div className="p-5 sm:p-6 md:p-5 lg:p-7 flex-1 flex flex-col justify-between">
                       <div>
                         {/* Header: WAY / 01 with Status Pin Dot */}
                         <div className="flex items-center justify-between mb-3 select-none">
@@ -221,7 +221,7 @@ export function PackagesSection({
                         </div>
 
                         {/* Service Name */}
-                        <h3 className="font-display font-black uppercase text-3xl sm:text-4xl text-[var(--paper)] m-0 leading-[1.08] tracking-tight group-hover:text-[#C6FF3D] transition-colors">
+                        <h3 className="font-display font-black uppercase text-2xl sm:text-3xl md:text-[22px] lg:text-3xl xl:text-4xl text-[var(--paper)] m-0 leading-[1.08] tracking-tight group-hover:text-[#C6FF3D] transition-colors break-words">
                           {pkg.name}
                         </h3>
 
