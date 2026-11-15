@@ -42,6 +42,7 @@ export function ContactSection({
   const [isShaking, setIsShaking] = useState(false);
   const [currentTimecode, setCurrentTimecode] = useState("00:00:00:00");
   const [frozenTimecode, setFrozenTimecode] = useState<string | undefined>(undefined);
+  const [mobileFormOpen, setMobileFormOpen] = useState(false);
 
   // Live Slate Sync from Form
   const [formValues, setFormValues] = useState<Partial<ContactFormValues>>({
@@ -125,8 +126,10 @@ export function ContactSection({
       className="relative w-full py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#0B0B0F] text-[#F4F1EA]"
     >
       <div className="max-w-7xl mx-auto">
-        {/* Unified Clapperboard Wrapper */}
-        <div className="w-full flex flex-col">
+        {/* ======================================================== */}
+        {/* DESKTOP LAYOUT (lg+): Unified Two-Column Clapperboard    */}
+        {/* ======================================================== */}
+        <div className="hidden lg:flex w-full flex-col">
           {/* Top Movable Clapper Arm and Bar */}
           <Clapper
             isShut={isShut}
@@ -145,7 +148,7 @@ export function ContactSection({
                 : { y: 20, opacity: 0 }
             }
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="relative w-full rounded-b-xl border border-[#2A2A30] bg-[#141419] p-5 sm:p-8 md:p-10 shadow-[0_24px_64px_rgba(0,0,0,0.85)] overflow-hidden"
+            className="relative w-full rounded-b-xl border border-[#2A2A30] bg-[#141419] p-8 md:p-10 shadow-[0_24px_64px_rgba(0,0,0,0.85)] overflow-hidden"
           >
             {/* L-shaped Lime Corner Brackets */}
             <motion.div
@@ -161,7 +164,7 @@ export function ContactSection({
               <div className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 border-[#C6FF3D]" />
             </motion.div>
 
-            {/* Subtle SVG Film Grain Overlay (4% opacity) */}
+            {/* Subtle SVG Film Grain Overlay */}
             <div
               className="absolute inset-0 pointer-events-none opacity-[0.04] bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"
               aria-hidden="true"
@@ -196,17 +199,16 @@ export function ContactSection({
             />
 
             {/* Main Slate Two-Column Content */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
-              {/* Left Column: Eyebrow, Heading, and Channels (Sticky on Desktop) */}
-              <div className="lg:col-span-5 flex flex-col gap-6 lg:sticky lg:top-[15vh]">
-
+            <div className="grid grid-cols-12 gap-14 items-start">
+              {/* Left Column: Eyebrow, Heading, and Channels */}
+              <div className="col-span-5 flex flex-col gap-6 sticky top-[15vh]">
                 <div>
                   <p className="font-mono text-xs text-[#C6FF3D] uppercase tracking-widest">
                     {kicker}
                   </p>
                   <h2
                     id="contact-heading"
-                    className="mt-2 text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#F4F1EA] font-display leading-[0.95]"
+                    className="mt-2 text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#F4F1EA] font-display leading-[0.95]"
                   >
                     {heading}
                   </h2>
@@ -215,37 +217,15 @@ export function ContactSection({
                   </p>
                 </div>
 
-                {/* Channels list with hover hairlines and copy buttons */}
                 <ChannelList channels={channels} reducedMotion={reducedMotion} />
 
-                {/* Service Area Note */}
                 <p className="text-xs font-mono text-[#A9A7A0]/60 leading-relaxed mt-2">
                   {serviceAreaNote}
                 </p>
               </div>
 
               {/* Right Column: Interactive Contact Form or SuccessWrap State */}
-              <div className="lg:col-span-7">
-                {/* Mobile Quick Direct Contact Actions */}
-                <div className="md:hidden flex items-center gap-2 mb-5 font-mono select-none">
-                  <a
-                    href="tel:8300478244"
-                    className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg border border-[#2A2A30] bg-[#141419] text-xs text-[#F4F1EA] hover:border-[#C6FF3D] font-bold active:scale-95 transition-all"
-                  >
-                    <span>📞</span>
-                    <span>CALL DIRECT</span>
-                  </a>
-                  <a
-                    href={`https://wa.me/${siteConfig.whatsappNumber}?text=Hi%2027%20Creative%20Studio%2C%20I%20would%20like%20to%20grow%20my%20brand.`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg border border-[#C6FF3D] bg-[#C6FF3D] text-xs !text-[#0B0B0F] font-black active:scale-95 transition-all shadow-sm"
-                  >
-                    <span>💬</span>
-                    <span>WHATSAPP</span>
-                  </a>
-                </div>
-
+              <div className="col-span-7">
                 <AnimatePresence mode="wait">
                   {isSubmitted ? (
                     <SuccessWrap
@@ -274,6 +254,183 @@ export function ContactSection({
               </div>
             </div>
           </motion.div>
+        </div>
+
+        {/* ======================================================== */}
+        {/* MOBILE LAYOUT (< lg): Standalone Clapperboard Card       */}
+        {/* ======================================================== */}
+        <div className="lg:hidden w-full flex flex-col gap-5">
+          {/* 1. Clapperboard Alone (Matches Screenshot 1) */}
+          <div className="w-full flex flex-col">
+            <Clapper
+              isShut={isShut}
+              reducedMotion={reducedMotion}
+              onPlayfulSnap={playClapSound}
+            />
+
+            <motion.div
+              initial={reducedMotion ? false : { y: 20, opacity: 0 }}
+              animate={
+                isInView
+                  ? isShaking && !reducedMotion
+                    ? { y: [0, -2, 2, -1, 1, 0], opacity: 1 }
+                    : { y: 0, opacity: 1 }
+                  : { y: 20, opacity: 0 }
+              }
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="relative w-full rounded-b-xl border border-[#2A2A30] bg-[#141419] p-5 sm:p-7 shadow-[0_24px_64px_rgba(0,0,0,0.85)] overflow-hidden"
+            >
+              {/* L-shaped Lime Corner Brackets */}
+              <div
+                className="absolute inset-0 pointer-events-none select-none z-10"
+                aria-hidden="true"
+              >
+                <div className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 border-[#C6FF3D]" />
+                <div className="absolute top-3 right-3 w-4 h-4 border-t-2 border-r-2 border-[#C6FF3D]" />
+                <div className="absolute bottom-3 left-3 w-4 h-4 border-b-2 border-l-2 border-[#C6FF3D]" />
+                <div className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 border-[#C6FF3D]" />
+              </div>
+
+              {/* Film Grain Overlay */}
+              <div
+                className="absolute inset-0 pointer-events-none opacity-[0.04] bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"
+                aria-hidden="true"
+              />
+
+              {/* White Flash Overlay on Submit */}
+              <AnimatePresence>
+                {isFlashing && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 0.65 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="absolute inset-0 bg-white z-30 pointer-events-none"
+                    aria-hidden="true"
+                  />
+                )}
+              </AnimatePresence>
+
+              {/* Slate Header Row */}
+              <SlateHeader
+                businessName={formValues.businessName}
+                businessTypeLabel={businessTypeLabel}
+                sceneCode={sceneCode}
+                rollCode={rollCode}
+                takeCount={takeCount}
+                isSubmitting={isShut && !isSubmitted}
+                isFrozen={Boolean(frozenTimecode)}
+                frozenTimecode={frozenTimecode}
+                onTimecodeUpdate={setCurrentTimecode}
+                reducedMotion={reducedMotion}
+              />
+
+              {/* Slate Body: Say Hello & Channels */}
+              <div className="flex flex-col gap-4 mt-3">
+                <div>
+                  <p className="font-mono text-xs text-[#C6FF3D] uppercase tracking-widest">
+                    {kicker}
+                  </p>
+                  <h2
+                    id="contact-heading-mobile"
+                    className="mt-1.5 text-3xl font-black uppercase tracking-tight text-[#F4F1EA] font-display leading-[0.95]"
+                  >
+                    {heading}
+                  </h2>
+                  <p className="mt-2 text-xs text-[#A9A7A0] leading-relaxed">
+                    {subline}
+                  </p>
+                </div>
+
+                {/* Channels List */}
+                <ChannelList channels={channels} reducedMotion={reducedMotion} />
+
+                {/* Service Area Note */}
+                <p className="text-[11px] font-mono text-[#A9A7A0]/60 leading-relaxed">
+                  {serviceAreaNote}
+                </p>
+
+                {/* Direct Action Buttons */}
+                <div className="flex items-center gap-2 pt-1 font-mono select-none">
+                  <a
+                    href="tel:8300478244"
+                    className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg border border-[#2A2A30] bg-[#141419] text-xs text-[#F4F1EA] hover:border-[#C6FF3D] font-bold active:scale-95 transition-all"
+                  >
+                    <span>📞</span>
+                    <span>CALL DIRECT</span>
+                  </a>
+                  <a
+                    href={`https://wa.me/${siteConfig.whatsappNumber}?text=Hi%2027%20Creative%20Studio%2C%20I%20would%20like%20to%20grow%20my%20brand.`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg border border-[#C6FF3D] bg-[#C6FF3D] text-xs !text-[#0B0B0F] font-black active:scale-95 transition-all shadow-sm"
+                  >
+                    <span>💬</span>
+                    <span>WHATSAPP</span>
+                  </a>
+                </div>
+
+                {/* Toggle to expand brief form on phone */}
+                <button
+                  type="button"
+                  onClick={() => setMobileFormOpen(!mobileFormOpen)}
+                  className="w-full mt-1 py-3 px-4 rounded-lg border border-dashed border-[#C6FF3D]/40 hover:border-[#C6FF3D] bg-[#C6FF3D]/5 text-xs font-mono font-bold text-[#C6FF3D] flex items-center justify-center gap-2 active:scale-98 transition-all"
+                >
+                  <span>{mobileFormOpen ? "✕ HIDE BRIEF FORM" : "✍️ OR FILL WRITTEN BRIEF"}</span>
+                  <span className="text-[10px] opacity-75">{mobileFormOpen ? "" : "(TAP TO EXPAND)"}</span>
+                </button>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* 2. Mobile Brief Form (Collapsible / Focused card) */}
+          <AnimatePresence>
+            {(mobileFormOpen || isSubmitted) && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                className="overflow-hidden"
+              >
+                <div className="relative rounded-xl border border-[#2A2A30] bg-[#141419] p-5 shadow-xl">
+                  {/* Viewfinder corner brackets for form */}
+                  <div className="absolute top-2.5 left-2.5 w-3 h-3 border-t-2 border-l-2 border-[#C6FF3D]/60 pointer-events-none" />
+                  <div className="absolute top-2.5 right-2.5 w-3 h-3 border-t-2 border-r-2 border-[#C6FF3D]/60 pointer-events-none" />
+                  <div className="absolute bottom-2.5 left-2.5 w-3 h-3 border-b-2 border-l-2 border-[#C6FF3D]/60 pointer-events-none" />
+                  <div className="absolute bottom-2.5 right-2.5 w-3 h-3 border-b-2 border-r-2 border-[#C6FF3D]/60 pointer-events-none" />
+
+                  <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#2A2A30]">
+                    <span className="font-mono text-xs font-bold text-[#C6FF3D] uppercase tracking-widest">
+                      PRODUCTION BRIEF // 27·STUDIO
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setMobileFormOpen(false)}
+                      className="font-mono text-xs text-[#A9A7A0] hover:text-white"
+                    >
+                      CLOSE ✕
+                    </button>
+                  </div>
+
+                  {isSubmitted ? (
+                    <SuccessWrap
+                      confirmationTimecode={frozenTimecode}
+                      onReset={handleResetForm}
+                      reducedMotion={reducedMotion}
+                    />
+                  ) : (
+                    <ContactForm
+                      onFormValuesChange={handleFormValuesChange}
+                      onSubmitSuccess={handleSubmitSuccess}
+                      currentTimecode={currentTimecode}
+                      reducedMotion={reducedMotion}
+                    />
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </section>
