@@ -391,6 +391,7 @@ export default function Page() {
   const [headerVisible, setHeaderVisible] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const [scrolledNavIndex, setScrolledNavIndex] = useState<number>(0);
+  const [isNavHovered, setIsNavHovered] = useState(false);
   const lastScrollY = useRef(0);
 
   useEffect(() => {
@@ -696,17 +697,29 @@ export default function Page() {
       <a className="skip-link" href="#hero-heading">
         {siteContent.ui.skipLink}
       </a>
+      {/* Desktop Screen Dimmer when Sidebar is hovered */}
+      <div
+        className="sidebar-dim-overlay hidden sm:block"
+        data-active={isNavHovered}
+        aria-hidden="true"
+      />
       <header className="site-header pointer-events-none flex justify-end">
         <nav
           id="main-navigation"
           ref={navRef}
           className={`${menuOpen ? "nav-open " : ""}pointer-events-auto`}
           data-wave-active={activeNavIndex !== null}
+          data-nav-hovered={isNavHovered}
           aria-label="Main navigation"
+          onPointerEnter={() => setIsNavHovered(true)}
           onPointerMove={(event) => {
+            if (!isNavHovered) setIsNavHovered(true);
             updateNavWave(event.clientY - event.currentTarget.getBoundingClientRect().top);
           }}
-          onPointerLeave={resetNavWave}
+          onPointerLeave={() => {
+            setIsNavHovered(false);
+            resetNavWave();
+          }}
         >
           {Array.from({ length: NAV_TICK_COUNT }, (_, tick) => {
             const navIndex = NAV_LINK_TICK_INDEXES.indexOf(tick);
