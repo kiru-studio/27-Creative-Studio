@@ -86,9 +86,6 @@ export function StepPanel({
               <span className="font-mono text-xs font-bold tracking-widest text-[#C6FF3D] uppercase px-2 py-0.5 rounded bg-[#C6FF3D]/10 border border-[#C6FF3D]/30">
                 Step {currentStep.stepNumber}
               </span>
-              <span className="font-mono text-xs text-[#A9A7A0] tracking-wider uppercase">
-                {currentStep.stepNumber} of 0{totalSteps}
-              </span>
             </motion.div>
 
             {/* Title & Tagline */}
