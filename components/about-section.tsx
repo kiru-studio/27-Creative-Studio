@@ -6,6 +6,7 @@ import { TeamLanyardRail, type LanyardMember } from "@/components/ui/team-lanyar
 import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 import { siteContent } from "@/lib/site-content";
 
+// TODO(owner): Keep Pravin Kumar (Direction & Cinematography). Provide actual names and photos for Strategist and Editor.
 const lanyardPeople: LanyardMember[] = siteContent.people.map((person, index) => {
   const customTaglines = [
     "Shoots first. Sleeps later.",

@@ -1,6 +1,6 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Big_Shoulders, Figtree, Martian_Mono } from 'next/font/google'
+import { Big_Shoulders, Figtree, Martian_Mono, Anek_Tamil } from 'next/font/google'
 import { siteContent, getSiteBaseUrl } from '@/lib/site-content'
 import { CookieBanner } from '@/components/ui/cookie-banner'
 import { AnalyticsTracker } from '@/components/analytics-tracker'
@@ -23,6 +23,12 @@ const monoFont = Martian_Mono({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-next-mono',
+})
+
+const tamilFont = Anek_Tamil({
+  subsets: ['tamil', 'latin'],
+  display: 'swap',
+  variable: '--font-next-tamil',
 })
 
 const siteUrl = getSiteBaseUrl()
@@ -130,8 +136,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable} antialiased`}>
+    <html lang="en-IN">
+      <body className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable} ${tamilFont.variable} antialiased`}>
         {children}
         <CookieBanner />
         <AnalyticsTracker />

@@ -15,6 +15,8 @@ import { SceneProgress } from "./scene-progress";
 import { MagneticPrimaryButton, OutlinedWatchButton } from "./magnetic-button";
 import { ViewfinderCursor } from "./viewfinder-cursor";
 import { BrandLockup } from "@/components/brand-lockup";
+import { BigOutline27 } from "@/components/graphics/BigOutline27";
+import { Blob } from "@/components/graphics/Blob";
 
 interface HeroProps {
   enableViewfinderCursor?: boolean;
@@ -27,19 +29,33 @@ export function Hero({ enableViewfinderCursor = false }: HeroProps) {
   const [isMuted, setIsMuted] = useState(true);
   const [isReelModalOpen, setIsReelModalOpen] = useState(false);
   const [isOverCta, setIsOverCta] = useState(false);
+  const [lang, setLang] = useState<"en" | "ta">("en");
 
   const shouldReduceMotion = useHydratedReducedMotion();
 
-  const eyebrow = siteContent.hero?.eyebrow || heroConfig.eyebrow;
-  const titleLines = siteContent.hero?.title
+  // Tamil copy // TODO(owner): Native Tamil speaker review of copy
+  const TAMIL_COPY = {
+    eyebrow: "// இன்ஸ்டாகிராம் வளர்ச்சி நிறுவனம் · தூத்துக்குடி",
+    titleLines: ["உண்மையான வளர்ச்சி.", "உண்மையான முடிவுகள்."],
+    body: "தூத்துக்குடி உள்ளூர் வணிகங்களை மக்கள் விரும்பும் பிராண்டுகளாக மாற்றுகிறோம். உண்மையான ஃபாலோயர்கள், பார்வைகள் மற்றும் விற்பனை.",
+    cta: "வாட்ஸ்அப்பில் பேசலாம்",
+    secondary: "ரீல்ஸ் பாருங்கள்",
+  };
+
+  const defaultEyebrow = siteContent.hero?.eyebrow || heroConfig.eyebrow;
+  const eyebrow = lang === "ta" ? TAMIL_COPY.eyebrow : defaultEyebrow;
+
+  const defaultTitleLines = siteContent.hero?.title
     ? (siteContent.hero.title.includes(".")
         ? siteContent.hero.title.split(/(?<=\.)\s+/).filter(Boolean)
         : [siteContent.hero.title])
     : heroConfig.titleLines;
-  const body = siteContent.hero?.body || heroConfig.body;
-  const ctaText = siteContent.hero?.cta || heroConfig.ctaText;
+  const titleLines = lang === "ta" ? TAMIL_COPY.titleLines : defaultTitleLines;
+
+  const body = lang === "ta" ? TAMIL_COPY.body : (siteContent.hero?.body || heroConfig.body);
+  const ctaText = lang === "ta" ? TAMIL_COPY.cta : (siteContent.hero?.cta || heroConfig.ctaText);
   const ctaHref = heroConfig.ctaHref;
-  const secondaryCtaText = siteContent.hero?.secondary || heroConfig.secondaryCtaText;
+  const secondaryCtaText = lang === "ta" ? TAMIL_COPY.secondary : (siteContent.hero?.secondary || heroConfig.secondaryCtaText);
 
   return (
     <>
@@ -51,6 +67,10 @@ export function Hero({ enableViewfinderCursor = false }: HeroProps) {
       >
         {/* Atmosphere: 4% subtle film-grain overlay */}
         <div className="faq-grain-overlay pointer-events-none" aria-hidden="true" />
+
+        {/* Phase 2 Reusable Graphics: Atmospheric Big 27 & Organic Blob */}
+        <BigOutline27 className="right-4 top-24 w-[340px] sm:w-[480px] pointer-events-none" opacity={0.06} />
+        <Blob color="lime" className="w-72 h-72 sm:w-96 sm:h-96 -top-20 -left-20" opacity={0.12} />
 
         {/* 1. L-Shaped Corner Brackets */}
         <HudCorners
@@ -77,6 +97,25 @@ export function Hero({ enableViewfinderCursor = false }: HeroProps) {
               /
             </span>
             <RecIndicator shouldReduceMotion={shouldReduceMotion} />
+            {/* Language Toggle: EN | தமிழ் */}
+            <div className="flex items-center gap-1 bg-[#141419] border border-[#2A2A30] rounded-full p-0.5 text-[11px] font-mono ml-1 sm:ml-2">
+              <button
+                type="button"
+                onClick={() => setLang("en")}
+                className={`px-2 py-0.5 rounded-full transition-colors ${lang === "en" ? "bg-[#D4FF3F] text-[#0B0B0B] font-bold" : "text-[#B9B2A5] hover:text-white"}`}
+                aria-label="Switch to English"
+              >
+                EN
+              </button>
+              <button
+                type="button"
+                onClick={() => setLang("ta")}
+                className={`px-2 py-0.5 rounded-full transition-colors ${lang === "ta" ? "bg-[#D4FF3F] text-[#0B0B0B] font-bold" : "text-[#B9B2A5] hover:text-white"}`}
+                aria-label="Switch to Tamil"
+              >
+                தமிழ்
+              </button>
+            </div>
           </div>
 
           {/* Center: Live 24fps Timecode (Hidden on compact mobile to give breathing room for mobile menu) */}
@@ -114,8 +153,12 @@ export function Hero({ enableViewfinderCursor = false }: HeroProps) {
             {/* 3. FOCUS-PULL INTRO: Masked Headline lines + Lens Focus Blur Pull */}
             <h1
               id="hero-heading"
-              className="m-0 font-extrabold font-display leading-[0.92] tracking-tight uppercase flex flex-col items-start text-[2.25rem] sm:text-5xl md:text-6xl lg:text-[5.25rem] xl:text-[6rem] w-full"
+              className={`m-0 font-extrabold font-display leading-[0.92] tracking-tight uppercase flex flex-col items-start text-[2.25rem] sm:text-5xl md:text-6xl lg:text-[5.25rem] xl:text-[6rem] w-full ${lang === "ta" ? "font-[family-name:var(--font-next-tamil)] tracking-normal" : ""}`}
             >
+              <span className="sr-only">Instagram Reels & Growth Agency in Thoothukudi</span>
+              <span className="text-xs sm:text-sm font-mono tracking-widest text-[#FF2DA8] mb-2 uppercase block">
+                {lang === "ta" ? "இன்ஸ்டாகிராம் ரீல்ஸ் & வளர்ச்சி நிறுவனம் · தூத்துக்குடி" : "Instagram Reels & Growth Agency · Thoothukudi"}
+              </span>
               {titleLines.map((line, idx) => (
                 <span
                   key={idx}
@@ -192,6 +235,33 @@ export function Hero({ enableViewfinderCursor = false }: HeroProps) {
                 onMouseEnter={() => setIsOverCta(true)}
                 onMouseLeave={() => setIsOverCta(false)}
               />
+            </motion.div>
+
+            {/* Proof Strip under CTAs (4 clients, 6,300+ followers, 6.1x peak) */}
+            <motion.div
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.5,
+                delay: shouldReduceMotion ? 0 : 0.8,
+                ease: "easeOut",
+              }}
+              className="mt-8 pt-5 border-t border-[#2A2A30] w-full flex flex-wrap items-center gap-3 sm:gap-6 text-xs sm:text-sm font-mono text-[#EFE6D8]/80 select-none"
+            >
+              <div className="flex items-center gap-2">
+                <span className="inline-block w-2 h-2 rounded-full bg-[#D4FF3F]" aria-hidden="true" />
+                <span><strong className="text-white font-bold">4</strong> clients</span>
+              </div>
+              <span className="text-[#444]" aria-hidden="true">·</span>
+              <div className="flex items-center gap-2">
+                <span className="inline-block w-2 h-2 rounded-full bg-[#FF2DA8]" aria-hidden="true" />
+                <span><strong className="text-white font-bold">6,300+</strong> followers</span>
+              </div>
+              <span className="text-[#444]" aria-hidden="true">·</span>
+              <div className="flex items-center gap-2">
+                <span className="inline-block w-2 h-2 rounded-full bg-[#D4FF3F]" aria-hidden="true" />
+                <span><strong className="text-[#D4FF3F] font-bold">6.1x</strong> peak</span>
+              </div>
             </motion.div>
           </div>
 

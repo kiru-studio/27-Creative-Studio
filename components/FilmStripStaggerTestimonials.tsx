@@ -24,14 +24,15 @@ export interface FilmStripStaggerTestimonialsProps {
   columnTilts?: [string?, string?, string?];
 }
 
+// TODO(owner): Fill in real client owner name, title, and high-res photo for each verified quote
 const filmTestimonials: FilmTestimonial[] = siteContent.testimonials.map(
   (item, index) => ({
     id: item.name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
     frameId: `${siteContent.ui.filmExposurePrefix}${String(index + 1).padStart(2, "0")}`,
     quote: item.quote,
-    author: item.name,
+    author: item.name, // TODO(owner): Verify client owner name
     role: item.role,
-    avatarUrl: "",
+    avatarUrl: "", // TODO(owner): Provide real owner avatar/portrait photo URL
     iso: siteContent.ui.filmIsoLabel,
   }),
 );

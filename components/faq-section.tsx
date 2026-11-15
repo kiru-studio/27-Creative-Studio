@@ -56,10 +56,10 @@ export function CategoryTabs({
               role="tab"
               aria-selected={isActive}
               onClick={() => onSelect(cat)}
-              className={`px-3.5 py-1.5 rounded-full font-mono text-xs uppercase tracking-wider transition-all whitespace-nowrap snap-start shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--industry)] ${
+              className={`px-3.5 py-1.5 rounded-full font-mono text-xs uppercase tracking-wider transition-all whitespace-nowrap snap-start shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF2DA8] ${
                 isActive
-                  ? "bg-[var(--industry)] !text-black font-black shadow-sm"
-                  : "border border-[var(--line)] text-[var(--muted)] hover:text-[var(--paper)] hover:border-[var(--muted)] bg-transparent"
+                  ? "bg-[#0B0B0B] !text-[#D4FF3F] font-bold shadow-sm border border-[#0B0B0B]"
+                  : "border border-[#0B0B0B]/15 text-[#333333] hover:text-[#0B0B0B] hover:border-[#FF2DA8] bg-white"
               }`}
               style={{
                 color: isActive ? "#000000" : undefined,
@@ -185,7 +185,7 @@ export function FaqItem({
                     ? { duration: 0 }
                     : { duration: 0.3, delay: 0.05, ease: "easeOut" }
                 }
-                className="text-sm sm:text-base text-[var(--muted)] leading-relaxed max-w-3xl m-0"
+                className="text-sm sm:text-base text-[#2D2D2D] leading-relaxed max-w-3xl m-0 font-body"
               >
                 {resolvedAnswer}
               </motion.p>

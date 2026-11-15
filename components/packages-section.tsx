@@ -123,7 +123,40 @@ export function PackagesSection({
           >
             Three ways to build your brand, create high-velocity reels, and dominate locally.
           </motion.p>
+          <motion.p
+            className="text-base sm:text-lg font-bold text-[#FF2DA8] mt-3 mb-0"
+            initial={shouldReduceMotion ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.35 }}
+          >
+            Every business is different, so we quote to your goals.
+          </motion.p>
         </div>
+
+        {/* What Shapes Your Quote Row */}
+        <motion.div
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="mb-10 sm:mb-12 p-4 sm:p-5 rounded-xl border border-[#0B0B0B]/12 bg-white/80 shadow-sm"
+        >
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono">
+            <span className="font-bold text-[#FF2DA8] uppercase tracking-wider shrink-0">
+              What shapes your quote:
+            </span>
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-[#2D2D2D]">
+              <span className="bg-[#0B0B0B]/5 px-2.5 py-1 rounded">Reels per month</span>
+              <span className="text-[#0B0B0B]/20 hidden sm:inline">·</span>
+              <span className="bg-[#0B0B0B]/5 px-2.5 py-1 rounded">Shoot days</span>
+              <span className="text-[#0B0B0B]/20 hidden sm:inline">·</span>
+              <span className="bg-[#0B0B0B]/5 px-2.5 py-1 rounded">Event coverage</span>
+              <span className="text-[#0B0B0B]/20 hidden sm:inline">·</span>
+              <span className="bg-[#0B0B0B]/5 px-2.5 py-1 rounded">Second account</span>
+              <span className="text-[#0B0B0B]/20 hidden sm:inline">·</span>
+              <span className="bg-[#0B0B0B]/5 px-2.5 py-1 rounded">Google profile work</span>
+            </div>
+          </div>
+        </motion.div>
 
         {/* ------------------------------------------ */}
         {/* 3-CARD CINEMATIC SD-CARD GRID (Unified)   */}
@@ -212,16 +245,18 @@ export function PackagesSection({
                     {/* ============================================ */}
                     <div className="p-5 sm:p-6 md:p-5 lg:p-7 flex-1 flex flex-col justify-between">
                       <div>
-                        {/* Header: WAY / 01 with Status Pin Dot */}
+                        {/* Custom quote badge + Tier Number */}
                         <div className="flex items-center justify-between mb-3 select-none">
-                          <span className="font-mono text-xs tracking-widest uppercase text-[#8E8D88] group-hover:text-[#C6FF3D] transition-colors">
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[#0B0B0B] text-[#D4FF3F] text-[11px] font-mono font-bold tracking-wider">
+                            Custom quote
+                          </span>
+                          <span className="font-mono text-xs tracking-widest uppercase text-[#8E8D88] group-hover:text-[#D4FF3F] transition-colors">
                             {pkg.tierNumber}
                           </span>
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#3A3A44] group-hover:bg-[#C6FF3D] group-hover:shadow-[0_0_6px_#C6FF3D] transition-all" />
                         </div>
 
                         {/* Service Name */}
-                        <h3 className="font-display font-black uppercase text-2xl sm:text-3xl md:text-[22px] lg:text-3xl xl:text-4xl text-[var(--paper)] m-0 leading-[1.08] tracking-tight group-hover:text-[#C6FF3D] transition-colors break-words">
+                        <h3 className="font-display font-black uppercase text-2xl sm:text-3xl md:text-[22px] lg:text-3xl xl:text-4xl text-[var(--paper)] m-0 leading-[1.08] tracking-tight group-hover:text-[#D4FF3F] transition-colors break-words">
                           {pkg.name}
                         </h3>
 
@@ -231,7 +266,7 @@ export function PackagesSection({
                         </p>
 
                         {/* Hairline Divider */}
-                        <div className="h-px w-full bg-[var(--line)] group-hover:bg-[#C6FF3D]/30 transition-colors my-4" />
+                        <div className="h-px w-full bg-[var(--line)] group-hover:bg-[#D4FF3F]/30 transition-colors my-4" />
 
                         {/* Deliverables Section: SCOPE */}
                         <div className="font-mono text-[10px] uppercase tracking-widest text-[#7E7D78] font-bold mb-3 select-none">
@@ -244,7 +279,7 @@ export function PackagesSection({
                             <React.Fragment key={dIdx}>
                               <span>{item}</span>
                               {dIdx < pkg.deliverables.length - 1 && (
-                                <span className="text-[#C6FF3D] mx-1.5 font-bold select-none">
+                                <span className="text-[#D4FF3F] mx-1.5 font-bold select-none">
                                   •
                                 </span>
                               )}
@@ -253,26 +288,30 @@ export function PackagesSection({
                         </div>
                       </div>
 
-                      {/* Card Action CTA & Laser-Etched Serial */}
+                      {/* Card Action CTA: Get a quote on WhatsApp */}
                       <div className="pt-2">
                         <a
-                          href={siteConfig.contactAnchor || "#contact"}
-                          style={{ color: "#0B0B0F" }}
-                          className="w-full text-center py-3.5 px-6 text-xs font-mono font-black uppercase tracking-wider rounded-md bg-[#C6FF3D] !text-[#0B0B0F] inline-flex items-center justify-center gap-2 hover:brightness-110 hover:scale-[1.01] transition-all group/cta focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C6FF3D]"
+                          href={`https://wa.me/918300478244?text=${encodeURIComponent(
+                            `Hi 27 Creative Studio, I'm interested in ${pkg.name}. Please share a quote.`
+                          )}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{ color: "#0B0B0B" }}
+                          className="w-full text-center py-3.5 px-6 text-xs font-mono font-black uppercase tracking-wider rounded-md bg-[#D4FF3F] !text-[#0B0B0B] inline-flex items-center justify-center gap-2 hover:brightness-105 transition-all group/cta focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4FF3F] shadow-sm"
                         >
-                          <span className="!text-[#0B0B0F]" style={{ color: "#0B0B0F" }}>
-                            {pkg.cta || "TALK TO US"}
+                          <span className="!text-[#0B0B0B]" style={{ color: "#0B0B0B" }}>
+                            Get a quote on WhatsApp
                           </span>
                           <ArrowRight
                             className="w-3.5 h-3.5 transition-transform duration-200 group-hover/cta:translate-x-1.5 !text-[#0B0B0F]"
-                            style={{ color: "#0B0B0F" }}
+                            style={{ color: "#0B0B0B" }}
                             aria-hidden="true"
                           />
                         </a>
 
-                        {/* Laser-Etched Serial Stamp (Matching Reference Image) */}
+                        {/* Laser-Etched Serial Stamp */}
                         <div
-                          className="text-center font-mono text-[9px] tracking-widest uppercase text-[#4A4A58] mt-3.5 select-none"
+                          className="text-center font-mono text-[9px] tracking-widest uppercase text-[#555555] mt-3.5 select-none"
                           aria-hidden="true"
                         >
                           {pkg.serial || `BM0${index + 1}04650090G`} • MADE IN INDIA
@@ -318,7 +357,7 @@ export function PackagesSection({
                 transition={{ duration: 0.4, ease: "easeInOut" }}
                 className="overflow-hidden mt-8 text-left"
               >
-                <div className="rounded-2xl border border-[var(--line)] bg-[#101015] p-5 sm:p-7 lg:p-9 shadow-2xl overflow-x-auto">
+                <div className="rounded-2xl border border-[var(--line)] bg-[#101015] p-5 sm:p-7 lg:p-9 shadow-2xl">
                   <div className="mb-5 pb-3 border-b border-[var(--line)] flex items-center justify-between">
                     <div>
                       <h4 className="font-display font-black text-2xl uppercase tracking-tight text-[var(--paper)] m-0">
@@ -333,110 +372,162 @@ export function PackagesSection({
                     </span>
                   </div>
 
-                  <table className="w-full border-collapse font-body text-xs sm:text-sm text-left">
-                    <thead>
-                      <tr className="border-b border-[var(--line)] text-xs font-mono uppercase tracking-wider text-[var(--muted)]">
-                        <th className="py-3.5 pr-4 font-semibold">Deliverable / Capability</th>
-                        <th className="py-3.5 px-3 font-semibold text-center w-1/4">
-                          01 / Starter
-                        </th>
-                        <th className="py-3.5 px-3 font-semibold text-center w-1/4">
-                          02 / Recommended
-                        </th>
-                        <th className="py-3.5 px-3 font-semibold text-center w-1/4">
-                          03 / Full Growth
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-[var(--line)]/50">
-                      {packageComparisonRows.map((row, rIdx) => (
-                        <tr
-                          key={rIdx}
-                          className="hover:bg-white/[0.02] transition-colors"
+                  {/* Mobile Stacked List (< 640px) */}
+                  <div className="block sm:hidden space-y-5">
+                    {activePackages.map((pkg, pIdx) => (
+                      <div key={pkg.id} className="p-4 rounded-xl border border-[var(--line)] bg-[#141419]">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="font-display font-black text-lg text-white uppercase">{pkg.name}</span>
+                          <span className="text-xs font-mono text-[#D4FF3F] bg-[#D4FF3F]/10 px-2 py-0.5 rounded font-bold">Custom quote</span>
+                        </div>
+                        <ul className="space-y-2 mt-3 text-xs font-body text-[#EFE6D8]/90">
+                          {packageComparisonRows.map((row, rIdx) => {
+                            const val = pIdx === 0 ? row.tier1 : pIdx === 1 ? row.tier2 : row.tier3;
+                            if (!val || val === "false") return null;
+                            return (
+                              <li key={rIdx} className="flex items-start gap-2">
+                                <Check className="w-3.5 h-3.5 text-[#D4FF3F] shrink-0 mt-0.5" />
+                                <span>
+                                  <strong>{row.feature}:</strong>{" "}
+                                  {typeof val === "string" ? val : "Included"}
+                                </span>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                        <a
+                          href={`https://wa.me/918300478244?text=${encodeURIComponent(
+                            `Hi 27 Creative Studio, I'm interested in ${pkg.name}. Please share a quote.`
+                          )}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-4 w-full block text-center py-2.5 px-4 text-xs font-mono font-bold uppercase rounded bg-[#D4FF3F] !text-[#0B0B0B]"
                         >
-                          <td className="py-3.5 pr-4 text-[var(--paper)] font-medium">
-                            {row.feature}
-                          </td>
+                          Get a quote on WhatsApp
+                        </a>
+                      </div>
+                    ))}
+                  </div>
 
-                          {/* Tier 1 */}
-                          <td className="py-3.5 px-3 text-center">
-                            {typeof row.tier1 === "boolean" ? (
-                              row.tier1 ? (
-                                <Check className="w-4 h-4 mx-auto text-[var(--industry)]" />
-                              ) : (
-                                <Minus className="w-4 h-4 mx-auto text-[var(--muted)]/50" />
-                              )
-                            ) : (
-                              <span className="font-mono text-xs text-[var(--paper)]">
-                                {row.tier1}
-                              </span>
-                            )}
-                          </td>
+                  {/* Desktop Table (>= 640px) with Sticky First Column */}
+                  <div className="hidden sm:block overflow-x-auto">
+                    <table className="w-full border-collapse font-body text-xs sm:text-sm text-left">
+                      <thead>
+                        <tr className="border-b border-[var(--line)] text-xs font-mono uppercase tracking-wider text-[var(--muted)]">
+                          <th className="py-3.5 pr-4 font-semibold sticky left-0 bg-[#101015] z-10">Deliverable / Capability</th>
+                          <th className="py-3.5 px-3 font-semibold text-center w-1/4">
+                            01 / Starter
+                          </th>
+                          <th className="py-3.5 px-3 font-semibold text-center w-1/4">
+                            02 / Recommended
+                          </th>
+                          <th className="py-3.5 px-3 font-semibold text-center w-1/4">
+                            03 / Full Growth
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-[var(--line)]/50">
+                        {packageComparisonRows.map((row, rIdx) => (
+                          <tr
+                            key={rIdx}
+                            className="hover:bg-white/[0.02] transition-colors"
+                          >
+                            <td className="py-3.5 pr-4 text-[var(--paper)] font-medium sticky left-0 bg-[#101015] z-10">
+                              {row.feature}
+                            </td>
 
-                          {/* Tier 2 */}
-                          <td className="py-3.5 px-3 text-center">
-                            {typeof row.tier2 === "boolean" ? (
-                              row.tier2 ? (
-                                <Check className="w-4 h-4 mx-auto text-[var(--industry)]" />
+                            {/* Tier 1 */}
+                            <td className="py-3.5 px-3 text-center">
+                              {typeof row.tier1 === "boolean" ? (
+                                row.tier1 ? (
+                                  <Check className="w-4 h-4 mx-auto text-[var(--industry)]" />
+                                ) : (
+                                  <Minus className="w-4 h-4 mx-auto text-[var(--muted)]/50" />
+                                )
                               ) : (
-                                <Minus className="w-4 h-4 mx-auto text-[var(--muted)]/50" />
-                              )
-                            ) : (
-                              <span className="font-mono text-xs text-[var(--paper)]">
-                                {row.tier2}
-                              </span>
-                            )}
-                          </td>
+                                <span className="font-mono text-xs text-[var(--paper)]">
+                                  {row.tier1}
+                                </span>
+                              )}
+                            </td>
 
-                          {/* Tier 3 */}
-                          <td className="py-3.5 px-3 text-center">
-                            {typeof row.tier3 === "boolean" ? (
-                              row.tier3 ? (
-                                <Check className="w-4 h-4 mx-auto text-[var(--industry)]" />
+                            {/* Tier 2 */}
+                            <td className="py-3.5 px-3 text-center">
+                              {typeof row.tier2 === "boolean" ? (
+                                row.tier2 ? (
+                                  <Check className="w-4 h-4 mx-auto text-[var(--industry)]" />
+                                ) : (
+                                  <Minus className="w-4 h-4 mx-auto text-[var(--muted)]/50" />
+                                )
                               ) : (
-                                <Minus className="w-4 h-4 mx-auto text-[var(--muted)]/50" />
-                              )
-                            ) : (
-                              <span className="font-mono text-xs text-[var(--paper)]">
-                                {row.tier3}
-                              </span>
-                            )}
+                                <span className="font-mono text-xs text-[var(--paper)]">
+                                  {row.tier2}
+                                </span>
+                              )}
+                            </td>
+
+                            {/* Tier 3 */}
+                            <td className="py-3.5 px-3 text-center">
+                              {typeof row.tier3 === "boolean" ? (
+                                row.tier3 ? (
+                                  <Check className="w-4 h-4 mx-auto text-[var(--industry)]" />
+                                ) : (
+                                  <Minus className="w-4 h-4 mx-auto text-[var(--muted)]/50" />
+                                )
+                              ) : (
+                                <span className="font-mono text-xs text-[var(--paper)]">
+                                  {row.tier3}
+                                </span>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                      <tfoot>
+                        <tr className="border-t border-[var(--line)] pt-4">
+                          <td className="py-4 pr-4 font-mono text-xs text-[var(--muted)] sticky left-0 bg-[#101015] z-10">
+                            Ready to proceed?
+                          </td>
+                          <td className="py-4 px-3 text-center">
+                            <a
+                              href={`https://wa.me/918300478244?text=${encodeURIComponent(
+                                "Hi 27 Creative Studio, I'm interested in Instagram page handling. Please share a quote."
+                              )}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-block py-2 px-3 text-[11px] font-mono font-bold uppercase tracking-wider rounded bg-[#D4FF3F] !text-[#0B0B0B] hover:brightness-105 transition-colors"
+                            >
+                              Quote Starter
+                            </a>
+                          </td>
+                          <td className="py-4 px-3 text-center">
+                            <a
+                              href={`https://wa.me/918300478244?text=${encodeURIComponent(
+                                "Hi 27 Creative Studio, I'm interested in Reels & video sprint. Please share a quote."
+                              )}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-block py-2 px-3 text-[11px] font-mono font-bold uppercase tracking-wider rounded bg-[#D4FF3F] !text-[#0B0B0B] hover:brightness-105 transition-colors"
+                            >
+                              Quote Recommended
+                            </a>
+                          </td>
+                          <td className="py-4 px-3 text-center">
+                            <a
+                              href={`https://wa.me/918300478244?text=${encodeURIComponent(
+                                "Hi 27 Creative Studio, I'm interested in Full local growth. Please share a quote."
+                              )}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-block py-2 px-3 text-[11px] font-mono font-bold uppercase tracking-wider rounded bg-[#D4FF3F] !text-[#0B0B0B] hover:brightness-105 transition-colors"
+                            >
+                              Quote Full Growth
+                            </a>
                           </td>
                         </tr>
-                      ))}
-                    </tbody>
-                    <tfoot>
-                      <tr className="border-t border-[var(--line)] pt-4">
-                        <td className="py-4 pr-4 font-mono text-xs text-[var(--muted)]">
-                          Ready to proceed?
-                        </td>
-                        <td className="py-4 px-3 text-center">
-                          <a
-                            href={siteConfig.contactAnchor || "#contact"}
-                            className="inline-block py-2 px-3 text-[11px] font-mono font-bold uppercase tracking-wider rounded bg-[var(--panel)] border border-[var(--line)] text-[var(--paper)] hover:border-[var(--industry)] hover:text-[var(--industry)] transition-colors"
-                          >
-                            Select Starter
-                          </a>
-                        </td>
-                        <td className="py-4 px-3 text-center">
-                          <a
-                            href={siteConfig.contactAnchor || "#contact"}
-                            className="inline-block py-2 px-3 text-[11px] font-mono font-bold uppercase tracking-wider rounded bg-[var(--panel)] border border-[var(--line)] text-[var(--paper)] hover:border-[var(--industry)] hover:text-[var(--industry)] transition-colors"
-                          >
-                            Select Recommended
-                          </a>
-                        </td>
-                        <td className="py-4 px-3 text-center">
-                          <a
-                            href={siteConfig.contactAnchor || "#contact"}
-                            className="inline-block py-2 px-3 text-[11px] font-mono font-bold uppercase tracking-wider rounded bg-[var(--panel)] border border-[var(--line)] text-[var(--paper)] hover:border-[var(--industry)] hover:text-[var(--industry)] transition-colors"
-                          >
-                            Select Full Growth
-                          </a>
-                        </td>
-                      </tr>
-                    </tfoot>
-                  </table>
+                      </tfoot>
+                    </table>
+                  </div>
                 </div>
               </motion.div>
             )}

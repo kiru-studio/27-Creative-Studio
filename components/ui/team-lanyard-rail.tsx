@@ -603,18 +603,18 @@ const BadgeFaces = React.memo(function BadgeFaces({
           <h3 className="text-[1.04em] font-extrabold tracking-tight text-[#F4F1EA] leading-tight">
             {item.name}
           </h3>
-          <p className="text-[0.68em] font-mono font-bold text-[#C6FF3D] tracking-wide mt-0.5 leading-snug uppercase">
+          <p className="text-[0.68em] font-mono font-bold text-[#D4FF3F] tracking-wide mt-0.5 leading-snug uppercase">
             {item.role}
           </p>
-          {specialtyText && (
-            <p className="text-[0.6em] font-sans text-white/70 tracking-normal mt-0.5 leading-tight line-clamp-1">
-              {specialtyText}
+          {(item.bio || specialtyText) && (
+            <p className="text-[0.62em] font-sans text-[#EFE6D8]/85 tracking-normal mt-1 leading-snug line-clamp-2 px-1">
+              {item.bio || specialtyText}
             </p>
           )}
-          <div className="flex items-center justify-center gap-1.5 mt-1 text-[0.56em] font-mono text-white/50 tracking-wider">
+          <div className="flex items-center justify-center gap-1.5 mt-auto pb-1 text-[0.56em] font-mono text-white/50 tracking-wider">
             <span>{item.passId ?? "27-CREW-01"}</span>
             <span>·</span>
-            <span className="text-[#C6FF3D]/90 font-semibold">{item.access ?? "ALL ACCESS"}</span>
+            <span className="text-[#D4FF3F]/90 font-semibold">{item.access ?? "ALL ACCESS"}</span>
           </div>
         </div>
 

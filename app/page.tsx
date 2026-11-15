@@ -85,17 +85,30 @@ function CornerBrackets() {
 function Preloader({ onDone }: { onDone: () => void }) {
   const [count, setCount] = useState(3);
   useEffect(() => {
+    try {
+      if (sessionStorage.getItem("rec-mode-preloader-seen")) {
+        onDone();
+        return;
+      }
+    } catch {}
+
     let reduced = false;
     try {
       reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     } catch {}
     if (reduced) {
+      try {
+        sessionStorage.setItem("rec-mode-preloader-seen", "1");
+      } catch {}
       onDone();
       return;
     }
     let current = 3;
     const finish = () => {
       window.clearInterval(timer);
+      try {
+        sessionStorage.setItem("rec-mode-preloader-seen", "1");
+      } catch {}
       onDone();
     };
     const timer = window.setInterval(() => {
@@ -114,7 +127,16 @@ function Preloader({ onDone }: { onDone: () => void }) {
       <span className="preloader-count" aria-hidden="true">
         {count}
       </span>
-      <button type="button" onClick={onDone}>
+      <button
+        type="button"
+        onClick={() => {
+          try {
+            sessionStorage.setItem("rec-mode-preloader-seen", "1");
+          } catch {}
+          onDone();
+        }}
+        className="min-h-[44px] min-w-[44px] px-5 py-2.5 flex items-center justify-center cursor-pointer text-xs font-mono uppercase tracking-wider bg-transparent border border-white/20 hover:border-white text-white rounded transition-colors"
+      >
         {siteContent.ui.skipIntro}
       </button>
     </div>
