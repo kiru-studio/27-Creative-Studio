@@ -390,6 +390,7 @@ export default function Page() {
   const shouldReduceMotion = useHydratedReducedMotion();
   const [headerVisible, setHeaderVisible] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [scrolledNavIndex, setScrolledNavIndex] = useState<number>(0);
   const lastScrollY = useRef(0);
 
   useEffect(() => {
@@ -406,6 +407,17 @@ export default function Page() {
       }
 
       lastScrollY.current = currentScrollY;
+
+      // Track active section for sidebar ruler / scroll spy
+      const sectionIds = ["work", "films", "process", "cases", "about", "faq", "contact"];
+      const scrollPosition = currentScrollY + window.innerHeight * 0.35;
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sectionIds[i]);
+        if (el && el.offsetTop <= scrollPosition) {
+          setScrolledNavIndex(i);
+          break;
+        }
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -535,10 +547,7 @@ export default function Page() {
 
       for (const { element, center, baseWidth } of metrics.ticks) {
         if (element.dataset.navLinkIndex !== undefined) {
-          element.style.setProperty(
-            "--nav-wave-width",
-            `${shortWaveTriggered ? metrics.expandedWidth : baseWidth}px`,
-          );
+          element.style.setProperty("--nav-wave-width", `${baseWidth}px`);
           element.style.setProperty("--nav-wave-strength", "0%");
           continue;
         }
@@ -722,11 +731,16 @@ export default function Page() {
               );
             }
 
+            const isItemActive =
+              activeNavIndex !== null
+                ? activeNavIndex === navIndex
+                : scrolledNavIndex === navIndex;
+
             return (
               <a
                 key={label}
                 href={href}
-                data-stagger-active={activeNavIndex === navIndex}
+                data-stagger-active={isItemActive}
                 onFocus={(event) => {
                   const navBounds = navRef.current?.getBoundingClientRect();
                   if (navBounds) {
@@ -740,7 +754,12 @@ export default function Page() {
                 onClick={() => setMenuOpen(false)}
               >
                 {rulerTick}
-                <span className="nav-stagger-label">{label}</span>
+                <span className="nav-stagger-label">
+                  <span className="nav-stagger-num">
+                    {String(navIndex + 1).padStart(2, "0")} //
+                  </span>
+                  <span className="nav-stagger-text">{label}</span>
+                </span>
               </a>
             );
           })}
