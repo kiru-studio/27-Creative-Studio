@@ -41,8 +41,9 @@
     "Films",
     "Process",
     "Cases",
+    "Packages",
     "About",
-    "Q&A",
+    "FAQ",
     "Contact"
   ],
   "hero": {
@@ -829,11 +830,12 @@
     "line": "Real Growth. Real Results.",
     "nav": [
       "Work",
-      "Packages",
+      "Films",
       "Process",
       "Cases",
+      "Packages",
       "About",
-      "Q&A",
+      "FAQ",
       "Contact"
     ],
     "socials": [
@@ -847,7 +849,7 @@
       },
       {
         "label": "Instagram",
-        "href": "https://instagram.com/"
+        "href": "https://instagram.com/27creativestudio"
       },
       {
         "label": "Email",

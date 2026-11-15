@@ -45,8 +45,18 @@ export type CaseStudyItem = {
   googleReviews?: string;
 };
 
-export const caseStudiesData: CaseStudyItem[] = siteContent.caseStudies.map(
-  (item, index) => {
+export const SHOW_PLACEHOLDER_CASE = false;
+
+export const caseStudiesData: CaseStudyItem[] = siteContent.caseStudies
+  .filter((item) => {
+    if (SHOW_PLACEHOLDER_CASE) return true;
+    const isPlaceholder =
+      item.client === "Client Business" ||
+      item.handle === "@client_handle" ||
+      item.title === "New Client Success Story";
+    return !isPlaceholder;
+  })
+  .map((item, index) => {
     const category =
       item.label.replace(/^CASE\s*\/\s*/i, "").trim() || "CASE";
     return {
@@ -963,9 +973,9 @@ export function CasesSection() {
                   >
                     {kpi.value}
                   </span>
-                  <div className="h-5 mt-1 overflow-hidden">
+                  <div className="min-h-[2.5rem] mt-1 flex items-start">
                     <span
-                      className={`text-xs block truncate transition-colors duration-200 ${
+                      className={`text-xs block whitespace-normal leading-snug break-words transition-colors duration-200 ${
                         isHovered
                           ? "text-[var(--paper,#F4F1EA)] font-medium"
                           : "text-[var(--muted,#A9A7A0)]/75"

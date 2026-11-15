@@ -37,35 +37,37 @@ import {
   getSiteBaseUrl,
 } from "@/lib/site-content";
 
+import { SECTION_IDS } from "@/lib/sections";
+
 const NAV_TICK_BASE_TOKENS = {
   medium: "--nav-tick-medium",
   long: "--nav-tick-long",
 } as const;
 const NAV_TICK_COUNT = 48;
-const NAV_LINK_TICK_INDEXES = [2, 9, 16, 23, 30, 37, 44];
+const NAV_LINK_TICK_INDEXES = [2, 8, 14, 20, 26, 32, 38, 44];
 
 const NAV_ITEM_HREFS: Record<string, string> = {
-  Work: "#work",
-  Films: "#films",
-  Process: "#process",
-  Cases: "#cases",
-  Packages: "#packages",
-  About: "#about",
-  "Q&A": "#faq",
-  Questions: "#faq",
-  FAQ: "#faq",
-  Contact: "#contact",
+  Work: `#${SECTION_IDS.work}`,
+  Films: `#${SECTION_IDS.films}`,
+  Process: `#${SECTION_IDS.process}`,
+  Cases: `#${SECTION_IDS.cases}`,
+  Packages: `#${SECTION_IDS.packages}`,
+  About: `#${SECTION_IDS.about}`,
+  FAQ: `#${SECTION_IDS.faq}`,
+  "Q&A": `#${SECTION_IDS.faq}`,
+  Questions: `#${SECTION_IDS.faq}`,
+  Contact: `#${SECTION_IDS.contact}`,
 };
 
 const MOBILE_NAV_ITEMS = [
-  { num: "01", name: "WORK", tag: "REELS", href: "#work" },
-  { num: "02", name: "FILMS", tag: "CINEMATIC", href: "#films" },
-  { num: "03", name: "PROCESS", tag: "4 STEPS", href: "#process" },
-  { num: "04", name: "CASES", tag: "4 CLIENTS", href: "#cases" },
-  { num: "05", name: "PACKAGES", tag: "WAYS TO WORK", href: "#packages" },
-  { num: "06", name: "ABOUT", tag: "DIRECTORS", href: "#about" },
-  { num: "07", name: "QUESTIONS", tag: "Q&A", href: "#faq" },
-  { num: "08", name: "CONTACT", tag: "GET IN TOUCH", href: "#contact" },
+  { num: "01", name: "WORK", tag: "REELS", href: `#${SECTION_IDS.work}` },
+  { num: "02", name: "FILMS", tag: "CINEMATIC", href: `#${SECTION_IDS.films}` },
+  { num: "03", name: "PROCESS", tag: "4 STEPS", href: `#${SECTION_IDS.process}` },
+  { num: "04", name: "CASES", tag: "4 CLIENTS", href: `#${SECTION_IDS.cases}` },
+  { num: "05", name: "PACKAGES", tag: "WAYS TO WORK", href: `#${SECTION_IDS.packages}` },
+  { num: "06", name: "ABOUT", tag: "DIRECTORS", href: `#${SECTION_IDS.about}` },
+  { num: "07", name: "QUESTIONS", tag: "Q&A", href: `#${SECTION_IDS.faq}` },
+  { num: "08", name: "CONTACT", tag: "GET IN TOUCH", href: `#${SECTION_IDS.contact}` },
 ];
 
 function CornerBrackets() {
