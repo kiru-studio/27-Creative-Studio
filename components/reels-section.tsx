@@ -131,9 +131,11 @@ export function ReelsSection({
                 {/* 2. Darkness Shade Overlay */}
                 <span className="reel-card-shade" aria-hidden="true" />
 
-                {/* 3. L-shaped Lime Viewfinder Brackets (All cards highlighted with cinema viewfinder framing) */}
+                {/* 3. L-shaped Lime Viewfinder Brackets (All cards on phone, active only on desktop/PC) */}
                 <span
-                  className="pointer-events-none absolute inset-0 z-10 p-2 opacity-100"
+                  className={`pointer-events-none absolute inset-0 z-10 p-2 transition-opacity duration-300 opacity-100 ${
+                    isActive ? "sm:opacity-100" : "sm:opacity-0"
+                  }`}
                   aria-hidden="true"
                 >
                   <span className="absolute top-2 left-2 w-2.5 h-2.5 border-t-2 border-l-2 border-[var(--industry,#C6FF3D)]" />

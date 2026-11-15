@@ -302,9 +302,8 @@ button { min-height: var(--control-height); }
 .reels-grid { display: flex; flex-direction: row; width: 100%; height: var(--reel-grid-height); gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
 .reels-grid > li { min-width: 0; min-height: 0; overflow: hidden; flex: 1 1 0px; transition: flex 500ms cubic-bezier(0.16, 1, 0.3, 1), width 500ms cubic-bezier(0.16, 1, 0.3, 1); }
 .reels-grid > li[data-active='true'] { flex: 0 0 calc(var(--reel-grid-height) * var(--reel-portrait-width-ratio)); width: calc(var(--reel-grid-height) * var(--reel-portrait-width-ratio)); }
-.reel-card { position: relative; display: flex; width: 100%; height: 100%; min-width: 0; overflow: hidden; align-items: flex-end; border: var(--border-width) solid color-mix(in srgb, var(--industry) 60%, var(--line)); padding: var(--space-4); background: var(--panel); color: var(--paper); text-align: left; isolation: isolate; transition: border-color 300ms ease, box-shadow 300ms ease; }
-.reels-grid .reel-card { border-color: color-mix(in srgb, var(--industry) 60%, var(--line)); }
-.reels-grid > li[data-active='true'] .reel-card, .reels-grid .reel-card:hover { border-color: var(--industry); box-shadow: 0 0 16px color-mix(in srgb, var(--industry) 25%, transparent); }
+.reel-card { position: relative; display: flex; width: 100%; height: 100%; min-width: 0; overflow: hidden; align-items: flex-end; border: var(--border-width) solid var(--line); padding: var(--space-4); background: var(--panel); color: var(--paper); text-align: left; isolation: isolate; transition: border-color 300ms ease, box-shadow 300ms ease; }
+.reels-grid > li[data-active='true'] .reel-card, .reels-grid .reel-card:hover { border-color: color-mix(in srgb, var(--industry) 60%, var(--line)); box-shadow: 0 0 16px color-mix(in srgb, var(--industry) 25%, transparent); }
 .reel-card-image, .reel-card-art { position: absolute; z-index: -2; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.08); filter: grayscale(1); transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1), filter 450ms ease; }
 .reel-card-art { background: var(--panel-raised); }
 .reel-card-art::before, .reel-card-art::after { position: absolute; background: var(--industry); content: ''; }
