@@ -671,6 +671,10 @@ button { min-height: var(--control-height); }
   background-color: var(--lime) !important;
   color: var(--ink) !important;
 }
+.calm-section :focus-visible {
+  outline: 2px solid var(--pink) !important;
+  outline-offset: 2px !important;
+}
 @media (min-width: 48rem) {
   .filmstrip-stage { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .filmstrip-column:nth-child(2) { display: block; }

@@ -130,6 +130,33 @@ export const viewport: Viewport = {
   colorScheme: 'dark',
 }
 
+const localBusinessJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: '27 Creative Studio',
+  image: `${siteUrl}/images/27-studio-logo.jpg`,
+  telephone: '+91 83004 78244',
+  email: 'hello@27creativestudio.com',
+  url: siteUrl,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Polpettai / Ettayapuram Road',
+    addressLocality: 'Thoothukudi',
+    addressRegion: 'Tamil Nadu',
+    postalCode: '628002',
+    addressCountry: 'IN',
+  },
+  areaServed: [
+    { '@type': 'City', name: 'Thoothukudi' },
+    { '@type': 'City', name: 'Tirunelveli' },
+    { '@type': 'State', name: 'Tamil Nadu' },
+  ],
+  sameAs: [
+    'https://instagram.com/27creativestudio',
+    'https://wa.me/918300478244',
+  ],
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -138,6 +165,10 @@ export default function RootLayout({
   return (
     <html lang="en-IN">
       <body className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable} ${tamilFont.variable} antialiased`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+        />
         {children}
         <CookieBanner />
         <AnalyticsTracker />
