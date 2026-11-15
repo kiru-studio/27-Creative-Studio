@@ -15,6 +15,7 @@ import { SlateHeader } from "./slate-header";
 import { ChannelList } from "./channel-list";
 import { ContactForm } from "./contact-form";
 import { SuccessWrap } from "./success-wrap";
+import { MobileBriefSheet } from "./mobile-brief-sheet";
 
 interface ContactSectionProps {
   kicker?: string;
@@ -325,112 +326,87 @@ export function ContactSection({
                 reducedMotion={reducedMotion}
               />
 
-              {/* Slate Body: Say Hello & Channels */}
-              <div className="flex flex-col gap-4 mt-3">
-                <div>
-                  <p className="font-mono text-xs text-[#C6FF3D] uppercase tracking-widest">
-                    {kicker}
-                  </p>
-                  <h2
-                    id="contact-heading-mobile"
-                    className="mt-1.5 text-3xl font-black uppercase tracking-tight text-[#F4F1EA] font-display leading-[0.95]"
-                  >
-                    {heading}
-                  </h2>
-                  <p className="mt-2 text-xs text-[#A9A7A0] leading-relaxed">
-                    {subline}
-                  </p>
+              {/* Slate Body: Say Hello & Channels or SuccessWrap if submitted */}
+              {isSubmitted ? (
+                <div className="py-4">
+                  <SuccessWrap
+                    confirmationTimecode={frozenTimecode}
+                    onReset={handleResetForm}
+                    reducedMotion={reducedMotion}
+                  />
                 </div>
+              ) : (
+                <div className="flex flex-col gap-4 mt-3">
+                  <div>
+                    <p className="font-mono text-xs text-[#C6FF3D] uppercase tracking-widest">
+                      {kicker}
+                    </p>
+                    <h2
+                      id="contact-heading-mobile"
+                      className="mt-1.5 text-3xl font-black uppercase tracking-tight text-[#F4F1EA] font-display leading-[0.95]"
+                    >
+                      {heading}
+                    </h2>
+                    <p className="mt-2 text-xs text-[#A9A7A0] leading-relaxed">
+                      {subline}
+                    </p>
+                  </div>
 
-                {/* Channels List */}
-                <ChannelList channels={channels} reducedMotion={reducedMotion} />
+                  {/* Channels List */}
+                  <ChannelList channels={channels} reducedMotion={reducedMotion} />
 
-                {/* Service Area Note */}
-                <p className="text-[11px] font-mono text-[#A9A7A0]/60 leading-relaxed">
-                  {serviceAreaNote}
-                </p>
+                  {/* Service Area Note */}
+                  <p className="text-[11px] font-mono text-[#A9A7A0]/60 leading-relaxed">
+                    {serviceAreaNote}
+                  </p>
 
-                {/* Direct Action Buttons */}
-                <div className="flex items-center gap-2 pt-1 font-mono select-none">
-                  <a
-                    href="tel:8300478244"
-                    className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg border border-[#2A2A30] bg-[#141419] text-xs text-[#F4F1EA] hover:border-[#C6FF3D] font-bold active:scale-95 transition-all"
+                  {/* Direct Action Buttons */}
+                  <div className="flex items-center gap-2 pt-1 font-mono select-none">
+                    <a
+                      href="tel:8300478244"
+                      className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg border border-[#2A2A30] bg-[#141419] text-xs text-[#F4F1EA] hover:border-[#C6FF3D] font-bold active:scale-95 transition-all"
+                    >
+                      <span>📞</span>
+                      <span>CALL DIRECT</span>
+                    </a>
+                    <a
+                      href={`https://wa.me/${siteConfig.whatsappNumber}?text=Hi%2027%20Creative%20Studio%2C%20I%20would%20like%20to%20grow%20my%20brand.`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg border border-[#C6FF3D] bg-[#C6FF3D] text-xs !text-[#0B0B0F] font-black active:scale-95 transition-all shadow-sm"
+                    >
+                      <span>💬</span>
+                      <span>WHATSAPP</span>
+                    </a>
+                  </div>
+
+                  {/* Button to open Slide-Up Cinema Slate Sheet */}
+                  <button
+                    type="button"
+                    onClick={() => setMobileFormOpen(true)}
+                    className="w-full mt-1.5 py-3 px-4 rounded-xl border border-[#C6FF3D] bg-[#C6FF3D]/10 hover:bg-[#C6FF3D]/20 text-xs font-mono font-bold text-[#C6FF3D] flex items-center justify-center gap-2 active:scale-98 transition-all shadow-[0_0_16px_rgba(198,255,61,0.15)] select-none"
                   >
-                    <span>📞</span>
-                    <span>CALL DIRECT</span>
-                  </a>
-                  <a
-                    href={`https://wa.me/${siteConfig.whatsappNumber}?text=Hi%2027%20Creative%20Studio%2C%20I%20would%20like%20to%20grow%20my%20brand.`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg border border-[#C6FF3D] bg-[#C6FF3D] text-xs !text-[#0B0B0F] font-black active:scale-95 transition-all shadow-sm"
-                  >
-                    <span>💬</span>
-                    <span>WHATSAPP</span>
-                  </a>
+                    <span>🎬</span>
+                    <span className="tracking-wide">FILL PRODUCTION BRIEF</span>
+                    <span className="text-[10px] text-[#F4F1EA]/70 font-normal">· 1 MIN</span>
+                  </button>
                 </div>
-
-                {/* Toggle to expand brief form on phone */}
-                <button
-                  type="button"
-                  onClick={() => setMobileFormOpen(!mobileFormOpen)}
-                  className="w-full mt-1 py-3 px-4 rounded-lg border border-dashed border-[#C6FF3D]/40 hover:border-[#C6FF3D] bg-[#C6FF3D]/5 text-xs font-mono font-bold text-[#C6FF3D] flex items-center justify-center gap-2 active:scale-98 transition-all"
-                >
-                  <span>{mobileFormOpen ? "✕ HIDE BRIEF FORM" : "✍️ OR FILL WRITTEN BRIEF"}</span>
-                  <span className="text-[10px] opacity-75">{mobileFormOpen ? "" : "(TAP TO EXPAND)"}</span>
-                </button>
-              </div>
+              )}
             </motion.div>
           </div>
 
-          {/* 2. Mobile Brief Form (Collapsible / Focused card) */}
-          <AnimatePresence>
-            {(mobileFormOpen || isSubmitted) && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                className="overflow-hidden"
-              >
-                <div className="relative rounded-xl border border-[#2A2A30] bg-[#141419] p-5 shadow-xl">
-                  {/* Viewfinder corner brackets for form */}
-                  <div className="absolute top-2.5 left-2.5 w-3 h-3 border-t-2 border-l-2 border-[#C6FF3D]/60 pointer-events-none" />
-                  <div className="absolute top-2.5 right-2.5 w-3 h-3 border-t-2 border-r-2 border-[#C6FF3D]/60 pointer-events-none" />
-                  <div className="absolute bottom-2.5 left-2.5 w-3 h-3 border-b-2 border-l-2 border-[#C6FF3D]/60 pointer-events-none" />
-                  <div className="absolute bottom-2.5 right-2.5 w-3 h-3 border-b-2 border-r-2 border-[#C6FF3D]/60 pointer-events-none" />
-
-                  <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#2A2A30]">
-                    <span className="font-mono text-xs font-bold text-[#C6FF3D] uppercase tracking-widest">
-                      PRODUCTION BRIEF // 27·STUDIO
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => setMobileFormOpen(false)}
-                      className="font-mono text-xs text-[#A9A7A0] hover:text-white"
-                    >
-                      CLOSE ✕
-                    </button>
-                  </div>
-
-                  {isSubmitted ? (
-                    <SuccessWrap
-                      confirmationTimecode={frozenTimecode}
-                      onReset={handleResetForm}
-                      reducedMotion={reducedMotion}
-                    />
-                  ) : (
-                    <ContactForm
-                      onFormValuesChange={handleFormValuesChange}
-                      onSubmitSuccess={handleSubmitSuccess}
-                      currentTimecode={currentTimecode}
-                      reducedMotion={reducedMotion}
-                    />
-                  )}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {/* Slide-Up Cinema Slate Sheet Modal for Phone */}
+          <MobileBriefSheet
+            isOpen={mobileFormOpen}
+            onClose={() => setMobileFormOpen(false)}
+            onFormValuesChange={handleFormValuesChange}
+            onSubmitSuccess={(tc) => {
+              setMobileFormOpen(false);
+              handleSubmitSuccess(tc);
+            }}
+            currentTimecode={currentTimecode}
+            reducedMotion={reducedMotion}
+          />
         </div>
       </div>
     </section>
