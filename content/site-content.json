@@ -390,31 +390,6 @@
       ],
       "posterSrc": "",
       "videoSrc": ""
-    },
-    {
-      "title": "New Client Success Story",
-      "type": "Case study",
-      "label": "CASE / RETAIL",
-      "meta": "READ",
-      "client": "Client Business",
-      "handle": "@client_handle",
-      "location": "Thoothukudi",
-      "growthMultiplier": "3.5x",
-      "followersStart": "500",
-      "followersNow": "2,000",
-      "newFollowers": "+1,500",
-      "topViews": "15.0K",
-      "postsCount": "50",
-      "googleRating": "4.8 / 5",
-      "googleReviews": "50 reviews",
-      "goal": "Increase local footfall and scale follower reach in Thoothukudi.",
-      "shot": "On-location reels, product walkarounds, and Google Maps optimization.",
-      "result": "Tripled follower base and drove consistent weekly walk-ins.",
-      "industries": [
-        "everything"
-      ],
-      "posterSrc": "",
-      "videoSrc": ""
     }
   ],
   "packages": [
@@ -625,19 +600,19 @@
     },
     {
       "id": "shoot-how-long",
-      "category": "Shoot day",
+      "category": "Shoot Day",
       "question": "How long does a typical shoot take?",
       "answer": "A focused reel shoot is typically 2 to 4 hours. A full content day or multi-camera brand film is usually 5 to 7 hours."
     },
     {
       "id": "shoot-business-disruption",
-      "category": "Shoot day",
+      "category": "Shoot Day",
       "question": "Will the shoot disrupt our daily business operations?",
       "answer": "No. We work with lean cinema equipment and fast glass, working around your staff, chefs, and customers without obstructing your floor or dining space."
     },
     {
       "id": "shoot-weather-rain",
-      "category": "Shoot day",
+      "category": "Shoot Day",
       "question": "What if it rains during outdoor shots?",
       "answer": "Outdoor shoots reschedule for rain or bad weather at no charge with 24 hours notice."
     },
@@ -685,31 +660,31 @@
     },
     {
       "id": "work-results",
-      "category": "Working together",
+      "category": "Working Together",
       "question": "What kind of results can a Thoothukudi business expect?",
       "answer": "Across our active clients (Thamira Restaurant, MM Cars, Surya Mobiles, ThoorigAI Infotech), we generated 6,300+ new followers, up to 6.1x follower growth, and 13.6K+ top reel views, alongside direct increases in customer walk-ins and sales."
     },
     {
       "id": "work-call-first",
-      "category": "Working together",
+      "category": "Working Together",
       "question": "Can we talk before booking?",
       "answer": "Definitely. Call or WhatsApp us directly at 83004 78244 for a 15-minute intro call or WhatsApp brief."
     },
     {
       "id": "work-location",
-      "category": "Working together",
+      "category": "Working Together",
       "question": "Where are you based and do you shoot on-location?",
       "answer": "We are based right here in Thoothukudi (Tuticorin), Tamil Nadu. We shoot on-location at your restaurant, showroom, institute, or event venue with professional cinema gear and lighting across Thoothukudi, Tirunelveli, and surrounding districts."
     },
     {
       "id": "work-uncertain-needs",
-      "category": "Working together",
+      "category": "Working Together",
       "question": "What if I'm not sure which social strategy to take?",
       "answer": "That's exactly what we're here for. We audit your current page and local competitors, then craft a clear, actionable plan to grow your followers and customer walk-ins."
     },
     {
       "id": "work-get-started",
-      "category": "Working together",
+      "category": "Working Together",
       "question": "How do we get started?",
       "answer": "Simply call or WhatsApp us at 83004 78244, or fill out the brief form below. We will review your current online presence and map out a tailored growth strategy for your business."
     }

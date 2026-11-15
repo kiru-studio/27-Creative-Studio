@@ -36,7 +36,7 @@ export function StickyMobileCta() {
   return (
     <aside
       aria-label="Quick contact actions"
-      className="sm:hidden fixed bottom-3 left-3 right-3 z-40 animate-in fade-in slide-in-from-bottom-3 duration-300 pointer-events-auto"
+      className="sm:hidden fixed bottom-[calc(env(safe-area-inset-bottom,0px)+12px)] left-3 right-3 z-40 animate-in fade-in slide-in-from-bottom-3 duration-300 pointer-events-auto"
     >
       <div className="flex items-center gap-2 p-2 rounded-xl bg-[#0E0E14]/95 backdrop-blur-md border border-[#2A2A30] shadow-[0_12px_36px_rgba(0,0,0,0.8)] font-mono text-xs">
         {/* Call button */}
