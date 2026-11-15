@@ -19,7 +19,8 @@ import {
 } from "lucide-react";
 import { MediaSlot } from "@/components/media-slot";
 import { BrandLockup } from "@/components/brand-lockup";
-import { Hero, ViewfinderCursor } from "@/components/hero";
+import { Hero, ViewfinderCursor, RecIndicator } from "@/components/hero";
+import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 import { FilmSection } from "@/components/film-section";
 import { ProcessSection } from "@/components/process";
 import { AboutSection } from "@/components/about-section";
@@ -386,6 +387,30 @@ export default function Page() {
   const [viewerIndex, setViewerIndex] = useState<number | null>(null);
   const menuToggleRef = useRef<HTMLButtonElement>(null);
   const viewerOpenerRef = useRef<HTMLElement | null>(null);
+  const shouldReduceMotion = useHydratedReducedMotion();
+  const [headerVisible, setHeaderVisible] = useState(true);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setIsScrolled(currentScrollY > 20);
+
+      if (currentScrollY <= 40) {
+        setHeaderVisible(true);
+      } else if (currentScrollY > lastScrollY.current + 8) {
+        setHeaderVisible(false);
+      } else if (currentScrollY < lastScrollY.current - 8) {
+        setHeaderVisible(true);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   const finishPreloader = useCallback(() => {
     try {
       if (sessionStorage.getItem("rec-mode-preloader-seen")) {
@@ -734,30 +759,51 @@ export default function Page() {
         </button>
       </header>
 
-      {/* Mobile Cinematic HUD Navigation Trigger */}
-      <button
-        className="mobile-nav-trigger pointer-events-auto"
-        ref={menuToggleRef}
-        onClick={() => setMenuOpen(!menuOpen)}
-        aria-label={
-          menuOpen ? siteContent.ui.menuOpen : siteContent.ui.menuClosed
-        }
-        aria-expanded={menuOpen}
-        aria-controls="mobile-navigation"
+      {/* Mobile Auto-Hide Unified Header Bar */}
+      <header
+        className={`sm:hidden fixed top-0 left-0 right-0 z-[100] transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          headerVisible || menuOpen ? "translate-y-0" : "-translate-y-full"
+        } ${
+          isScrolled || menuOpen
+            ? "bg-[color-mix(in_srgb,var(--ink,#0B0B0F)_92%,transparent)] backdrop-blur-md border-b border-[var(--line,#2A2A30)] shadow-lg py-2.5 px-4"
+            : "bg-transparent py-3 px-4"
+        }`}
       >
-        <span className="mobile-nav-trigger-label">
-          {menuOpen ? "CLOSE" : "MENU"}
-        </span>
-        {menuOpen ? (
-          <span className="mobile-nav-close-icon" aria-hidden="true">✕</span>
-        ) : (
-          <div className="mobile-nav-ticks" aria-hidden="true">
-            <span className="mobile-nav-tick-1" />
-            <span className="mobile-nav-tick-2" />
-            <span className="mobile-nav-tick-3" />
+        <div className="flex items-center justify-between gap-3 w-full">
+          <div className="flex items-center gap-2.5 shrink-0">
+            <BrandLockup href="#top" onClick={() => menuOpen && setMenuOpen(false)} />
+            <span className="text-[var(--line,#333)] font-mono text-xs select-none" aria-hidden="true">
+              /
+            </span>
+            <RecIndicator shouldReduceMotion={shouldReduceMotion} />
           </div>
-        )}
-      </button>
+
+          <button
+            ref={menuToggleRef}
+            type="button"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label={
+              menuOpen ? siteContent.ui.menuOpen : siteContent.ui.menuClosed
+            }
+            aria-expanded={menuOpen}
+            aria-controls="mobile-navigation"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[var(--line,#2A2A30)] bg-[color-mix(in_srgb,var(--ink,#0B0B0F)_85%,transparent)] hover:border-[var(--industry,#C6FF3D)] active:scale-95 transition-all text-[var(--paper,#F3F3F5)]"
+          >
+            <span className="font-mono text-[10px] font-bold tracking-wider uppercase text-[var(--muted,#A9A7A0)]">
+              {menuOpen ? "CLOSE" : "MENU"}
+            </span>
+            {menuOpen ? (
+              <span className="font-mono text-xs text-[var(--industry,#C6FF3D)] leading-none" aria-hidden="true">✕</span>
+            ) : (
+              <div className="flex flex-col items-end gap-[3px] w-3.5" aria-hidden="true">
+                <span className="w-3.5 h-[1.5px] bg-[var(--industry,#C6FF3D)] rounded-full" />
+                <span className="w-2.5 h-[1.5px] bg-[var(--industry,#C6FF3D)] rounded-full" />
+                <span className="w-3.5 h-[1.5px] bg-[var(--industry,#C6FF3D)] rounded-full" />
+              </div>
+            )}
+          </button>
+        </div>
+      </header>
 
       {/* Mobile Full-Screen Director's Slate Drawer */}
       {menuOpen && (

@@ -1103,7 +1103,6 @@ input[type='range'] { accent-color: var(--industry); }
   .site-header nav a[data-stagger-active='true'] .nav-stagger-label { color: var(--industry); opacity: 1; }
 }
 
-.mobile-nav-trigger,
 .mobile-nav-drawer {
   display: none;
 }
@@ -1112,72 +1111,6 @@ input[type='range'] { accent-color: var(--industry); }
   .site-header nav,
   .site-header .menu-toggle {
     display: none !important;
-  }
-
-  .mobile-nav-trigger {
-    position: fixed;
-    top: 12px;
-    right: 16px;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 10px;
-    border: var(--border-width) solid var(--line);
-    border-radius: var(--radius-control);
-    background: color-mix(in srgb, var(--ink) 90%, transparent);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    cursor: pointer;
-    transition: border-color var(--motion-fast) ease, background-color var(--motion-fast) ease, transform var(--motion-fast) ease;
-  }
-  .mobile-nav-trigger:hover,
-  .mobile-nav-trigger:focus-visible {
-    border-color: var(--industry);
-    outline: none;
-  }
-  .mobile-nav-trigger:active {
-    transform: scale(0.97);
-  }
-  .mobile-nav-trigger-label {
-    font: 700 10px var(--font-mono);
-    letter-spacing: 0.12em;
-    color: var(--muted);
-    text-transform: uppercase;
-  }
-  .mobile-nav-trigger:hover .mobile-nav-trigger-label,
-  .mobile-nav-trigger:focus-visible .mobile-nav-trigger-label {
-    color: var(--paper);
-  }
-  .mobile-nav-close-icon {
-    font: 700 12px var(--font-mono);
-    color: var(--industry);
-    line-height: 1;
-  }
-  .mobile-nav-ticks {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 3.5px;
-    width: 14px;
-  }
-  .mobile-nav-tick-1 {
-    width: 14px;
-    height: 1.5px;
-    background: var(--industry);
-    border-radius: 1px;
-  }
-  .mobile-nav-tick-2 {
-    width: 8px;
-    height: 1.5px;
-    background: var(--paper);
-    border-radius: 1px;
-  }
-  .mobile-nav-tick-3 {
-    width: 12px;
-    height: 1.5px;
-    background: var(--industry);
-    border-radius: 1px;
   }
 
   /* Full Screen Slate Drawer */

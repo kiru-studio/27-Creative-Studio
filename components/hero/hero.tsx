@@ -47,7 +47,7 @@ export function Hero({ enableViewfinderCursor = false }: HeroProps) {
         ref={heroRef}
         id="hero"
         aria-labelledby="hero-heading"
-        className="relative w-full min-h-screen min-h-[100svh] flex flex-col justify-between overflow-hidden bg-[var(--ink,#0B0B0F)] text-[var(--paper,#F3F3F5)] select-none pt-4 pb-16 sm:pt-6 sm:pb-6 lg:pt-8 lg:pb-8"
+        className="relative w-full min-h-screen min-h-[100svh] flex flex-col justify-between overflow-hidden bg-[var(--ink,#0B0B0F)] text-[var(--paper,#F3F3F5)] select-none pt-16 pb-16 sm:pt-6 sm:pb-6 lg:pt-8 lg:pb-8"
       >
         {/* Atmosphere: 4% subtle film-grain overlay */}
         <div className="faq-grain-overlay pointer-events-none" aria-hidden="true" />
@@ -67,9 +67,9 @@ export function Hero({ enableViewfinderCursor = false }: HeroProps) {
         />
 
         {/* ======================================================== */}
-        {/* TOP HUD: Unified Grid Container                          */}
+        {/* TOP HUD: Unified Grid Container (Desktop / Tablet)        */}
         {/* ======================================================== */}
-        <div className="relative z-30 w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-14 flex items-center justify-between gap-2 sm:gap-4">
+        <div className="hidden sm:flex relative z-30 w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-14 items-center justify-between gap-2 sm:gap-4">
           {/* Studio mark and recording indicator */}
           <div className="flex items-center gap-2 sm:gap-4 shrink-0">
             <BrandLockup href="#top" />
@@ -84,11 +84,10 @@ export function Hero({ enableViewfinderCursor = false }: HeroProps) {
             <LiveTimecode />
           </div>
 
-          {/* Right: Camera Readout Cluster & Camera Menu (Desktop/Tablet) or spacer for Mobile hamburger */}
+          {/* Right: Camera Readout Cluster & Camera Menu (Desktop/Tablet) */}
           <div className="hidden sm:flex items-center justify-end shrink-0">
             <CameraMenu />
           </div>
-          <div className="sm:hidden w-20 shrink-0" aria-hidden="true" />
         </div>
 
         {/* ======================================================== */}
