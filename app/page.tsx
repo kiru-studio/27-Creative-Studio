@@ -392,7 +392,34 @@ export default function Page() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [scrolledNavIndex, setScrolledNavIndex] = useState<number>(0);
   const [isNavHovered, setIsNavHovered] = useState(false);
+  const navHoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const lastScrollY = useRef(0);
+
+  const handleNavPointerEnter = useCallback(() => {
+    if (navHoverTimeoutRef.current) {
+      clearTimeout(navHoverTimeoutRef.current);
+      navHoverTimeoutRef.current = null;
+    }
+    setIsNavHovered(true);
+  }, []);
+
+  const handleNavPointerLeave = useCallback(() => {
+    if (navHoverTimeoutRef.current) {
+      clearTimeout(navHoverTimeoutRef.current);
+    }
+    navHoverTimeoutRef.current = setTimeout(() => {
+      setIsNavHovered(false);
+      resetNavWave();
+    }, 100);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (navHoverTimeoutRef.current) {
+        clearTimeout(navHoverTimeoutRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -711,15 +738,12 @@ export default function Page() {
           data-wave-active={activeNavIndex !== null}
           data-nav-hovered={isNavHovered}
           aria-label="Main navigation"
-          onPointerEnter={() => setIsNavHovered(true)}
+          onPointerEnter={handleNavPointerEnter}
           onPointerMove={(event) => {
-            if (!isNavHovered) setIsNavHovered(true);
+            if (!isNavHovered) handleNavPointerEnter();
             updateNavWave(event.clientY - event.currentTarget.getBoundingClientRect().top);
           }}
-          onPointerLeave={() => {
-            setIsNavHovered(false);
-            resetNavWave();
-          }}
+          onPointerLeave={handleNavPointerLeave}
         >
           {Array.from({ length: NAV_TICK_COUNT }, (_, tick) => {
             const navIndex = NAV_LINK_TICK_INDEXES.indexOf(tick);
@@ -767,12 +791,7 @@ export default function Page() {
                 onClick={() => setMenuOpen(false)}
               >
                 {rulerTick}
-                <span className="nav-stagger-label">
-                  <span className="nav-stagger-num">
-                    {String(navIndex + 1).padStart(2, "0")} //
-                  </span>
-                  <span className="nav-stagger-text">{label}</span>
-                </span>
+                <span className="nav-stagger-label">{label}</span>
               </a>
             );
           })}

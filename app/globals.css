@@ -1032,16 +1032,15 @@ input[type='range'] { accent-color: var(--industry); }
   position: fixed;
   inset: 0;
   z-index: 65;
-  background: rgba(0, 0, 0, 0.68);
+  background: rgba(0, 0, 0, 0.65);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 350ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @media (min-width: 48.001rem) {
-  body:has(#main-navigation:hover) .sidebar-dim-overlay,
   .sidebar-dim-overlay[data-active='true'] {
     opacity: 1;
   }
@@ -1055,7 +1054,7 @@ input[type='range'] { accent-color: var(--industry); }
     right: 0;
     bottom: 0;
     display: flex;
-    width: 44px;
+    width: 32px;
     flex-direction: column;
     align-items: flex-end;
     justify-content: space-between;
@@ -1066,9 +1065,10 @@ input[type='range'] { accent-color: var(--industry); }
     transition: width 300ms cubic-bezier(0.16, 1, 0.3, 1);
   }
   .site-header nav:hover,
+  .site-header nav[data-nav-hovered='true'],
   .site-header nav[data-wave-active='true'],
   .site-header nav.nav-open {
-    width: 220px;
+    width: 150px;
     background: transparent;
   }
   .site-header nav a {
@@ -1081,15 +1081,6 @@ input[type='range'] { accent-color: var(--industry); }
     padding: 0;
     color: var(--paper);
   }
-  .site-header nav a::before {
-    content: '';
-    position: absolute;
-    top: -12px;
-    bottom: -12px;
-    right: 0;
-    left: -190px;
-    cursor: pointer;
-  }
   .nav-ruler-tick {
     position: relative;
     display: block;
@@ -1101,11 +1092,10 @@ input[type='range'] { accent-color: var(--industry); }
     position: absolute;
     z-index: 2;
     top: 50%;
-    transform: translateY(-50%);
-    right: calc(100% + 12px);
+    transform: translateY(-50%) translateX(6px);
+    right: calc(100% + 10px);
     display: inline-flex;
     align-items: center;
-    gap: 6px;
     padding: 3px 8px;
     border-radius: 4px;
     background: transparent;
@@ -1120,18 +1110,7 @@ input[type='range'] { accent-color: var(--industry); }
     opacity: 0;
     pointer-events: none;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
-    transition: opacity 250ms cubic-bezier(0.16, 1, 0.3, 1), transform 250ms cubic-bezier(0.16, 1, 0.3, 1), background-color 200ms ease, color 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
-  }
-  .nav-stagger-num {
-    font-family: var(--font-mono);
-    font-weight: 700;
-    opacity: 0.65;
-    letter-spacing: 0.04em;
-    color: inherit;
-    transition: color 200ms ease, opacity 200ms ease;
-  }
-  .nav-stagger-text {
-    letter-spacing: 0.08em;
+    transition: opacity 250ms cubic-bezier(0.16, 1, 0.3, 1), transform 250ms cubic-bezier(0.16, 1, 0.3, 1), background-color 180ms ease, color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
   }
   .nav-stagger-line {
     position: absolute;
@@ -1156,31 +1135,29 @@ input[type='range'] { accent-color: var(--industry); }
   .site-header nav[data-wave-active='true'] .nav-stagger-label {
     opacity: 1;
     pointer-events: auto;
+    transform: translateY(-50%) translateX(0);
   }
 
-  .site-header nav a:hover .nav-stagger-line,
-  .site-header nav a[data-stagger-active='true'] .nav-stagger-line {
+  /* Only highlight lines when hovering! Never when not hovering! */
+  .site-header nav:hover a:hover .nav-stagger-line,
+  .site-header nav:hover a[data-stagger-active='true'] .nav-stagger-line,
+  .site-header nav[data-nav-hovered='true'] a[data-stagger-active='true'] .nav-stagger-line {
     background: var(--industry);
     height: 2px;
   }
 
-  /* Active / Hovered link: clean neon green highlight with decreased shadow */
-  .site-header nav a:hover .nav-stagger-label,
-  .site-header nav a:focus-visible .nav-stagger-label,
-  .site-header nav a[data-stagger-active='true'] .nav-stagger-label {
+  /* Active / Hovered link: clean neon green highlight with decreased shadow, ONLY when nav is hovered */
+  .site-header nav:hover a:hover .nav-stagger-label,
+  .site-header nav:hover a:focus-visible .nav-stagger-label,
+  .site-header nav:hover a[data-stagger-active='true'] .nav-stagger-label,
+  .site-header nav[data-nav-hovered='true'] a[data-stagger-active='true'] .nav-stagger-label {
     background: var(--industry) !important;
     color: #000000 !important;
     border: 1px solid var(--industry) !important;
     font-weight: 800;
-    transform: translateY(-50%) translateX(-4px);
+    transform: translateY(-50%) translateX(-3px);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4), 0 0 4px rgba(198, 255, 61, 0.2) !important;
     text-shadow: none;
-  }
-
-  .site-header nav a:hover .nav-stagger-num,
-  .site-header nav a[data-stagger-active='true'] .nav-stagger-num {
-    color: #000000;
-    opacity: 0.85;
   }
 }
 
