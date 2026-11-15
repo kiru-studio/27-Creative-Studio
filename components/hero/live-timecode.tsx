@@ -99,7 +99,7 @@ export function LiveTimecode({ className = "" }: { className?: string }) {
   return (
     <span
       ref={spanRef}
-      className={`font-mono text-xs sm:text-sm tracking-wider text-[var(--paper)] select-none tabular-nums ${className}`}
+      className={`font-mono text-xs sm:text-sm tracking-widest text-[#D4FF3F] font-bold select-none tabular-nums ${className}`}
       aria-hidden="true"
     >
       {timecode}

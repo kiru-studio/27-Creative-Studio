@@ -67,20 +67,20 @@ export function MagneticPrimaryButton({
       style={{
         x: canHover && !shouldReduceMotion ? springX : 0,
         y: canHover && !shouldReduceMotion ? springY : 0,
-        color: "#0B0B0F",
+        color: "#0B0B0B",
       }}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => {
         onMouseEnter?.();
       }}
       onMouseLeave={handleMouseLeave}
-      className={`group relative inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-2.5 rounded-[var(--radius-control,4px)] bg-[var(--industry)] !text-[#0B0B0F] font-mono text-xs font-bold uppercase tracking-wider transition-all duration-200 hover:shadow-[0_0_24px_rgba(198,255,61,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--industry)] ${className}`}
+      className={`group relative inline-flex items-center justify-center gap-2 min-h-[48px] px-8 py-3 bg-[#FF2DA8] !text-[#0B0B0B] font-mono text-xs font-extrabold uppercase tracking-widest transition-all duration-200 hover:shadow-[0_0_24px_#FF2DA8] hover:border-[#D4FF3F] border border-[#FF2DA8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4FF3F] ${className}`}
     >
-      <span className="!text-[#0B0B0F]" style={{ color: "#0B0B0F" }}>{text}</span>
+      <span className="!text-[#0B0B0B] font-extrabold tracking-widest">{text}</span>
       <ArrowUpRight
         size={16}
-        className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 !text-[#0B0B0F]"
-        style={{ color: "#0B0B0F", stroke: "#0B0B0F" }}
+        className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 !text-[#0B0B0B]"
+        style={{ color: "#0B0B0B", stroke: "#0B0B0B" }}
         aria-hidden="true"
       />
     </motion.a>
@@ -112,16 +112,15 @@ export function OutlinedWatchButton({
       onClick={onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className={`group inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-2.5 rounded-[var(--radius-control,4px)] border border-[var(--line,#333)] text-[var(--paper)] hover:border-[var(--industry)] hover:text-[var(--paper)] font-mono text-xs uppercase tracking-wider transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--industry)] ${className}`}
+      className={`group inline-flex items-center justify-center gap-2 min-h-[48px] px-8 py-3 border-2 border-[#D4FF3F] bg-[#0B0B0B] text-[#D4FF3F] hover:bg-[#D4FF3F] hover:text-[#0B0B0B] font-mono text-xs font-bold uppercase tracking-widest transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF2DA8] ${className}`}
     >
-      {/* Play Triangle: outlines by default, fills lime on hover */}
       <span
-        className="inline-block text-[10px] text-[var(--muted)] group-hover:text-[var(--industry)] transition-colors duration-150"
+        className="inline-block text-[11px] text-[#D4FF3F] group-hover:text-[#0B0B0B] transition-colors duration-150"
         aria-hidden="true"
       >
         ▶
       </span>
-      <span>{text}</span>
+      <span className="group-hover:text-[#0B0B0B]">{text}</span>
     </button>
   );
 }

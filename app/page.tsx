@@ -664,102 +664,60 @@ export default function Page() {
       <a className="skip-link" href="#hero-heading">
         {siteContent.ui.skipLink}
       </a>
-      <header className="site-header pointer-events-none flex justify-end">
-        <nav
-          id="main-navigation"
-          ref={navRef}
-          className={`${menuOpen ? "nav-open " : ""}pointer-events-auto`}
-          data-wave-active={activeNavIndex !== null}
-          aria-label="Main navigation"
-          onPointerMove={(event) => {
-            updateNavWave(event.clientY - event.currentTarget.getBoundingClientRect().top);
-          }}
-          onPointerLeave={resetNavWave}
-        >
-          {Array.from({ length: NAV_TICK_COUNT }, (_, tick) => {
-            const navIndex = NAV_LINK_TICK_INDEXES.indexOf(tick);
-            const label = siteContent.nav[navIndex];
-            const href = label ? (NAV_ITEM_HREFS[label] || `#${label.toLowerCase()}`) : undefined;
-            const tickSize = label ? "long" : "medium";
-            const rulerTick = (
-              <span
-                className="nav-stagger-line"
-                data-nav-tick
-                data-nav-tick-size={label ? "long" : tickSize}
-                data-nav-link-index={label ? navIndex : undefined}
-                aria-hidden="true"
-              />
-            );
+      <header className="sticky top-0 z-[60] w-full bg-[#0B0B0B] border-b border-[#FF2DA8] flex items-center justify-between px-4 sm:px-8 py-3 select-none">
+        {/* Left: Brand Lockup */}
+        <div className="flex items-center gap-3 shrink-0">
+          <BrandLockup href="#top" />
+          <span className="hidden xl:inline-block font-mono text-[11px] text-[#D4FF3F] font-bold tracking-widest px-2 py-0.5 border border-[#D4FF3F]">
+            THOOTHUKUDI HQ
+          </span>
+        </div>
 
-            if (!label || !href) {
-              return (
-                <span className="nav-ruler-tick" key={`tick-${tick}`}>
-                  {rulerTick}
-                </span>
-              );
-            }
+        {/* Center: Running Ticker Marquee (Hidden on mobile/tablet) */}
+        <div className="hidden lg:flex items-center overflow-hidden max-w-lg mx-4 border-x border-[#FF2DA8] px-4 py-1">
+          <div className="whitespace-nowrap font-mono text-[11px] text-[#D4FF3F] font-bold uppercase tracking-widest flex items-center gap-4">
+            <span>SONY FX3 ACTIVE</span>
+            <span className="text-[#FF2DA8]">●</span>
+            <span>6,300+ NEW FOLLOWERS GENERATED</span>
+            <span className="text-[#FF2DA8]">●</span>
+            <span>4K 24FPS DCI</span>
+            <span className="text-[#FF2DA8]">●</span>
+            <span>ZERO FILLER FRAMES</span>
+          </div>
+        </div>
 
-            return (
+        {/* Right: Desktop Navigation Links & Action */}
+        <div className="hidden md:flex items-center gap-5 shrink-0">
+          <nav className="flex items-center gap-4 font-mono text-xs uppercase tracking-widest" aria-label="Main navigation">
+            {["Work", "Films", "Process", "Cases", "Packages", "About", "FAQ", "Contact"].map((item) => (
               <a
-                key={label}
-                href={href}
-                data-stagger-active={activeNavIndex === navIndex}
-                onFocus={(event) => {
-                  const navBounds = navRef.current?.getBoundingClientRect();
-                  if (navBounds) {
-                    const linkBounds = event.currentTarget.getBoundingClientRect();
-                    updateNavWave(
-                      linkBounds.top + linkBounds.height / 2 - navBounds.top,
-                    );
-                  }
-                }}
-                onBlur={resetNavWave}
-                onClick={() => setMenuOpen(false)}
+                key={item}
+                href={NAV_ITEM_HREFS[item] || `#${item.toLowerCase()}`}
+                className="text-[#FF2DA8] hover:text-[#D4FF3F] transition-colors py-1 px-1 font-bold"
               >
-                {rulerTick}
-                <span className="nav-stagger-label">{label}</span>
+                {item}
               </a>
-            );
-          })}
-        </nav>
+            ))}
+          </nav>
+          <a
+            href="#contact"
+            className="hidden sm:inline-flex items-center justify-center px-4 py-2 bg-[#FF2DA8] text-[#0B0B0B] font-mono text-xs font-black uppercase tracking-wider hover:bg-[#D4FF3F] hover:text-[#0B0B0B] transition-colors"
+          >
+            TALK TO US ↗
+          </a>
+        </div>
+
+        {/* Mobile Hamburger Trigger */}
         <button
-          className="menu-toggle pointer-events-auto !ml-auto"
-          style={{ marginLeft: "auto" }}
+          className="md:hidden flex items-center gap-2 px-3 py-1.5 border border-[#FF2DA8] bg-[#0B0B0B] text-[#FF2DA8] font-mono text-xs font-bold uppercase tracking-wider"
           onClick={() => setMenuOpen(!menuOpen)}
-          aria-label={
-            menuOpen ? siteContent.ui.menuOpen : siteContent.ui.menuClosed
-          }
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
-          aria-controls="main-navigation"
         >
-          {menuOpen ? <X /> : <Menu />}
+          <span>{menuOpen ? "CLOSE" : "MENU"}</span>
+          <span>{menuOpen ? "✕" : "☰"}</span>
         </button>
       </header>
-
-      {/* Mobile Cinematic HUD Navigation Trigger */}
-      <button
-        className="mobile-nav-trigger pointer-events-auto"
-        ref={menuToggleRef}
-        onClick={() => setMenuOpen(!menuOpen)}
-        aria-label={
-          menuOpen ? siteContent.ui.menuOpen : siteContent.ui.menuClosed
-        }
-        aria-expanded={menuOpen}
-        aria-controls="mobile-navigation"
-      >
-        <span className="mobile-nav-trigger-label">
-          {menuOpen ? "CLOSE" : "MENU"}
-        </span>
-        {menuOpen ? (
-          <span className="mobile-nav-close-icon" aria-hidden="true">✕</span>
-        ) : (
-          <div className="mobile-nav-ticks" aria-hidden="true">
-            <span className="mobile-nav-tick-1" />
-            <span className="mobile-nav-tick-2" />
-            <span className="mobile-nav-tick-3" />
-          </div>
-        )}
-      </button>
 
       {/* Mobile Full-Screen Director's Slate Drawer */}
       {menuOpen && (

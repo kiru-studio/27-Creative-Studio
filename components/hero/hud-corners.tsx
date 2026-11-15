@@ -58,7 +58,7 @@ export function HudCorners({
       {corners.map((corner) => (
         <motion.div
           key={corner.key}
-          className={`absolute ${corner.pos} ${corner.border} border-[var(--industry)] w-5 h-5 sm:w-7 sm:h-7`}
+          className={`absolute ${corner.pos} ${corner.border} border-[#D4FF3F] w-5 h-5 sm:w-7 sm:h-7`}
           initial={corner.initial}
           animate={{ opacity: 1, x: 0, y: 0 }}
           transition={springTransition}

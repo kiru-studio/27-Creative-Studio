@@ -19,20 +19,20 @@ export function RecIndicator({
       aria-label="Recording indicator"
     >
       <motion.span
-        className="inline-block w-2.5 h-2.5 rounded-full bg-[var(--rec,#FF3B30)] shadow-[0_0_8px_rgba(255,59,48,0.7)]"
+        className="inline-block w-2.5 h-2.5 bg-[#FF2DA8] shadow-[0_0_8px_#FF2DA8]"
         animate={
           shouldReduceMotion
             ? { opacity: 1 }
-            : { opacity: [1, 0.25, 1] }
+            : { opacity: [1, 0.2, 1] }
         }
         transition={
           shouldReduceMotion
             ? { duration: 0 }
-            : { duration: 1.2, repeat: Infinity, ease: "easeInOut" }
+            : { duration: 1.1, repeat: Infinity, ease: "easeInOut" }
         }
         aria-hidden="true"
       />
-      <span className="font-mono text-xs uppercase tracking-wider text-[var(--paper)]">
+      <span className="font-mono text-xs uppercase tracking-widest font-bold text-[#FF2DA8]">
         {label}
       </span>
     </div>

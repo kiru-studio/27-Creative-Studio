@@ -102,7 +102,7 @@ export function VideoWindow({
           WebkitClipPath: clipPathStyle,
         }}
       >
-        {/* Video Element or Animated Gradient Fallback */}
+        {/* Video Element or 3-Colour Abstract Cine Frame */}
         {siteContent.hero?.videoSrc || heroConfig.videoSrc ? (
           <video
             ref={videoRef}
@@ -113,44 +113,41 @@ export function VideoWindow({
             muted={isMuted}
             playsInline
             preload="metadata"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover duotone-pink transition-all duration-500 group-hover:filter-none"
+            style={{ filter: "url(#duotone-pink)" }}
           />
         ) : (
-          <div className="w-full h-full relative overflow-hidden bg-gradient-to-br from-[var(--industry)] via-[#9bc628] to-[var(--ink)]">
-            {/* Subtle animated light sweep across lime slab */}
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none"
-              animate={
-                shouldReduceMotion
-                  ? { opacity: 0 }
-                  : { x: ["-100%", "200%"] }
-              }
-              transition={
-                shouldReduceMotion
-                  ? { duration: 0 }
-                  : { duration: 4, repeat: Infinity, ease: "linear" }
-              }
+          <div className="w-full h-full relative overflow-hidden bg-[#0B0B0B] border border-[#FF2DA8] flex items-center justify-center">
+            {/* Halftone / Line Grid in Chartreuse and Pink */}
+            <div
+              className="absolute inset-0 opacity-20 pointer-events-none"
+              style={{
+                backgroundImage:
+                  "radial-gradient(#D4FF3F 1px, transparent 1px), radial-gradient(#FF2DA8 1px, #0B0B0B 1px)",
+                backgroundSize: "20px 20px",
+                backgroundPosition: "0 0, 10px 10px",
+              }}
             />
+            {/* Kinetic Telemetry Label */}
+            <div className="relative z-10 flex flex-col items-center gap-2 text-center p-4">
+              <span className="font-mono text-xs text-[#D4FF3F] uppercase tracking-widest border border-[#D4FF3F] px-2 py-0.5">
+                SONY FX3 // 4K 24FPS
+              </span>
+              <span className="font-display font-extrabold text-2xl text-[#FF2DA8] uppercase tracking-tight">
+                THAMIRA RESTAURANT
+              </span>
+              <span className="font-mono text-[10px] text-[#D4FF3F] tracking-widest">
+                10.1K VIEWS // 00:30 S-LOG3
+              </span>
+            </div>
           </div>
         )}
 
-        {/* Lime Duotone / Brand Tint Overlay (~25% opacity) */}
-        <div
-          className="absolute inset-0 bg-[var(--industry)]/25 pointer-events-none mix-blend-color transition-opacity group-hover:opacity-15"
-          aria-hidden="true"
-        />
-
-        {/* Subtle Dark Vignette for Cinematic Look */}
-        <div
-          className="absolute inset-0 bg-radial from-transparent to-black/40 pointer-events-none"
-          aria-hidden="true"
-        />
-
         {/* Hover Cue: Viewfinder Play Badge */}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-200 pointer-events-none">
-          <div className="px-3.5 py-1.5 rounded-full bg-[var(--ink)]/85 border border-[var(--industry)] text-[var(--industry)] font-mono text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-lg backdrop-blur-sm">
+          <div className="px-4 py-2 bg-[#0B0B0B] border-2 border-[#D4FF3F] text-[#D4FF3F] font-mono text-xs uppercase tracking-widest flex items-center gap-2 shadow-2xl">
             <span>▶</span>
-            <span>PLAY REEL</span>
+            <span>PLAY REEL [4K]</span>
           </div>
         </div>
       </div>

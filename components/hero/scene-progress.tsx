@@ -79,7 +79,7 @@ export function SceneProgress({
             animate={{ opacity: 1, y: 0 }}
             exit={shouldReduceMotion ? undefined : { opacity: 0, y: -3 }}
             transition={{ duration: 0.2 }}
-            className="text-[var(--paper)] font-medium text-xs whitespace-nowrap"
+            className="text-[#FF2DA8] font-bold text-xs whitespace-nowrap tracking-widest uppercase"
           >
             {sceneText}
           </motion.span>
@@ -94,18 +94,18 @@ export function SceneProgress({
           onClick={onToggleMute}
           aria-pressed={!isMuted}
           aria-label={isMuted ? "Unmute background video" : "Mute background video"}
-          className="inline-flex items-center gap-1.5 text-xs text-[var(--paper)] hover:text-[var(--industry)] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--industry)] rounded px-1.5 py-0.5 -mr-1.5 cursor-pointer"
+          className="inline-flex items-center gap-1.5 text-xs text-[#D4FF3F] hover:text-[#FF2DA8] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FF2DA8] border border-[#D4FF3F] px-2.5 py-1 cursor-pointer"
         >
           {isMuted ? (
-            <VolumeX size={13} className="text-[var(--muted)]" aria-hidden="true" />
+            <VolumeX size={13} className="text-[#D4FF3F]" aria-hidden="true" />
           ) : (
-            <Volume2 size={13} className="text-[var(--industry)]" aria-hidden="true" />
+            <Volume2 size={13} className="text-[#FF2DA8]" aria-hidden="true" />
           )}
-          <span>{isMuted ? "sound off" : "sound on"}</span>
+          <span className="font-bold tracking-wider">{isMuted ? "sound off" : "sound on"}</span>
         </button>
 
-        {/* Secondary Line: Lower Opacity (60%), visible on tablet and desktop */}
-        <span className="hidden sm:inline-block text-[10px] sm:text-xs text-[var(--muted)] opacity-60 tracking-wider text-right">
+        {/* Secondary Line: visible on tablet and desktop */}
+        <span className="hidden sm:inline-block text-[10px] sm:text-xs text-[#D4FF3F] font-bold tracking-widest text-right">
           {heroConfig.reelLabel}
         </span>
       </div>
