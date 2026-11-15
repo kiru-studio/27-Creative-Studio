@@ -1,28 +1,30 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Big_Shoulders, Figtree, Martian_Mono } from 'next/font/google'
+import { Syne, Space_Grotesk, Martian_Mono } from 'next/font/google'
 import { siteContent, getSiteBaseUrl } from '@/lib/site-content'
 import { CookieBanner } from '@/components/ui/cookie-banner'
 import { AnalyticsTracker } from '@/components/analytics-tracker'
 import './globals.css'
 
-const displayFont = Big_Shoulders({
+const displayFont = Syne({
   subsets: ['latin'],
   display: 'swap',
-  adjustFontFallback: false,
-  variable: '--font-next-display',
+  variable: '--font-syne',
+  weight: ['700', '800'],
 })
 
-const bodyFont = Figtree({
+const bodyFont = Space_Grotesk({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-next-body',
+  variable: '--font-space-grotesk',
+  weight: ['400', '500', '600', '700'],
 })
 
 const monoFont = Martian_Mono({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-next-mono',
+  variable: '--font-martian-mono',
+  weight: ['400', '700'],
 })
 
 const siteUrl = getSiteBaseUrl()
@@ -130,8 +132,39 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable} antialiased`}>
+    <html lang="en" className="bg-[#0B0B0B] text-[#FF2DA8]">
+      <body className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable} antialiased bg-[#0B0B0B] text-[#FF2DA8] selection:bg-[#FF2DA8] selection:text-[#0B0B0B]`}>
+        {/* Global SVG Duotone Shaders (Strict 3-Colour Law: Jet Black #0B0B0B, Hot Pink #FF2DA8, Chartreuse #D4FF3F) */}
+        <svg className="sr-only" aria-hidden="true" width="0" height="0">
+          <defs>
+            {/* Duotone: Jet Black (#0B0B0B) to Hot Pink (#FF2DA8) */}
+            <filter id="duotone-pink" colorInterpolationFilters="sRGB">
+              <feColorMatrix type="matrix" values="0.2126 0.7152 0.0722 0 0
+                                                   0.2126 0.7152 0.0722 0 0
+                                                   0.2126 0.7152 0.0722 0 0
+                                                   0      0      0      1 0" />
+              <feComponentTransfer>
+                <feFuncR type="table" tableValues="0.043 1.000" />
+                <feFuncG type="table" tableValues="0.043 0.176" />
+                <feFuncB type="table" tableValues="0.043 0.658" />
+              </feComponentTransfer>
+            </filter>
+
+            {/* Duotone: Jet Black (#0B0B0B) to Chartreuse (#D4FF3F) */}
+            <filter id="duotone-chartreuse" colorInterpolationFilters="sRGB">
+              <feColorMatrix type="matrix" values="0.2126 0.7152 0.0722 0 0
+                                                   0.2126 0.7152 0.0722 0 0
+                                                   0.2126 0.7152 0.0722 0 0
+                                                   0      0      0      1 0" />
+              <feComponentTransfer>
+                <feFuncR type="table" tableValues="0.043 0.831" />
+                <feFuncG type="table" tableValues="0.043 1.000" />
+                <feFuncB type="table" tableValues="0.043 0.247" />
+              </feComponentTransfer>
+            </filter>
+          </defs>
+        </svg>
+
         {children}
         <CookieBanner />
         <AnalyticsTracker />
