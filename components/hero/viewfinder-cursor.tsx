@@ -114,22 +114,22 @@ export function ViewfinderCursor({
           width: size,
           height: size,
           scale: isMouseDown ? 0.84 : 1,
-          borderColor: activeCta ? "var(--industry)" : "rgba(198, 255, 61, 0.65)",
+          borderColor: activeCta ? "#FF2DA8" : "#D4FF3F",
           boxShadow: activeCta
-            ? "0 0 16px rgba(198, 255, 61, 0.35), inset 0 0 8px rgba(198, 255, 61, 0.15)"
-            : "0 0 0px transparent",
+            ? "0 0 16px rgba(255, 45, 168, 0.5), inset 0 0 8px rgba(255, 45, 168, 0.25)"
+            : "0 0 8px rgba(212, 255, 63, 0.3)",
         }}
         transition={{ type: "spring", stiffness: 320, damping: 24 }}
-        className="relative border border-[var(--industry)] rounded-[2px]"
+        className="relative border border-[#D4FF3F] rounded-none"
       >
         {/* Center Crosshair Dot */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1 h-1 rounded-full bg-[var(--industry)]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1 h-1 bg-[#D4FF3F]" />
 
         {/* Viewfinder Tick Marks */}
-        <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-0.5 h-1 bg-[var(--industry)]" />
-        <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0.5 h-1 bg-[var(--industry)]" />
-        <div className="absolute top-1/2 -left-1 -translate-y-1/2 w-1 h-0.5 bg-[var(--industry)]" />
-        <div className="absolute top-1/2 -right-1 -translate-y-1/2 w-1 h-0.5 bg-[var(--industry)]" />
+        <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-0.5 h-1 bg-[#D4FF3F]" />
+        <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0.5 h-1 bg-[#D4FF3F]" />
+        <div className="absolute top-1/2 -left-1 -translate-y-1/2 w-1 h-0.5 bg-[#D4FF3F]" />
+        <div className="absolute top-1/2 -right-1 -translate-y-1/2 w-1 h-0.5 bg-[#D4FF3F]" />
       </motion.div>
     </motion.div>
   );

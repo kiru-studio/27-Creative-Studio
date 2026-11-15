@@ -74,13 +74,13 @@ export function ChipGroup({
       role={isMulti ? "group" : "radiogroup"}
       aria-label={`${slateTag ? slateTag + " " : ""}${label}`}
     >
-      <div className="flex items-center gap-1.5 text-xs text-[#F4F1EA] font-medium">
+      <div className="flex items-center gap-1.5 text-xs text-[#D4FF3F] font-medium">
         {slateTag && (
-          <span className="font-mono text-[#C6FF3D]/70 font-semibold">{slateTag}</span>
+          <span className="font-mono text-[#D4FF3F]/70 font-semibold">{slateTag}</span>
         )}
         <span>{label}</span>
         {isMulti && (
-          <span className="text-[10px] font-mono text-[#A9A7A0] ml-1">
+          <span className="text-[10px] font-mono text-[#D4FF3F] ml-1">
             (select all that apply)
           </span>
         )}
@@ -102,17 +102,17 @@ export function ChipGroup({
               tabIndex={active || idx === 0 ? 0 : -1}
               onClick={() => handleToggle(option.id)}
               onKeyDown={(e) => handleKeyDown(e, idx)}
-              className={`relative px-3.5 py-2 rounded-lg border text-xs font-mono tracking-wider transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-[#C6FF3D] cursor-pointer min-h-[38px] flex items-center justify-center ${
+              className={`relative px-3.5 py-2 rounded-lg border text-xs font-mono tracking-wider transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-[#D4FF3F] cursor-pointer min-h-[38px] flex items-center justify-center ${
                 active
-                  ? "border-[#C6FF3D] bg-[#C6FF3D]/15 text-[#C6FF3D] font-bold shadow-[0_0_10px_rgba(198,255,61,0.15)]"
-                  : "border-[#2A2A30] bg-[#141419] text-[#A9A7A0] hover:border-[#C6FF3D]/50 hover:text-[#F4F1EA]"
+                  ? "border-[#D4FF3F] bg-[#D4FF3F]/15 text-[#D4FF3F] font-bold shadow-[0_0_10px_rgba(198,255,61,0.15)]"
+                  : "border-[#FF2DA8] bg-[#0B0B0B] text-[#D4FF3F] hover:border-[#D4FF3F]/50 hover:text-[#D4FF3F]"
               }`}
             >
               {/* Subtle active border glow */}
               {active && !reducedMotion && (
                 <motion.div
                   layoutId={isMulti ? undefined : `active-chip-${label}`}
-                  className="absolute inset-0 rounded-lg border border-[#C6FF3D] pointer-events-none"
+                  className="absolute inset-0 rounded-lg border border-[#D4FF3F] pointer-events-none"
                   transition={{ type: "spring", stiffness: 400, damping: 28 }}
                 />
               )}
@@ -123,7 +123,7 @@ export function ChipGroup({
       </div>
 
       {error && (
-        <p role="alert" className="font-mono text-[11px] text-[#FF5A3D] tracking-wide mt-0.5">
+        <p role="alert" className="font-mono text-[11px] text-[#FF2DA8] tracking-wide mt-0.5">
           {error}
         </p>
       )}

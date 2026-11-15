@@ -9,6 +9,7 @@ import {
 } from "framer-motion";
 import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 import { siteContent } from "@/lib/site-content";
+import { NeonPlay } from "@/components/ui/neon-icons";
 
 export type FilmVideoItem = {
   id: string;
@@ -246,7 +247,7 @@ export function MainPlayer({
             }
             aria-pressed={playing}
           >
-            {playing ? "Ⅱ" : "▶"}
+            {playing ? "Ⅱ" : <NeonPlay className="size-3 inline-block" />}
           </button>
           <input
             aria-label={siteContent.ui.seekFilm}
@@ -372,12 +373,12 @@ export function VideoCard({
         />
       </motion.div>
 
-      {/* Caption: shifts up 2px and transitions from muted gray to white */}
+      {/* Caption: shifts up 2px and transitions from Pink to Chartreuse */}
       <motion.span
         className="film-small-caption"
         animate={{
           y: isHovered && !shouldReduceMotion ? -2 : 0,
-          color: isHovered ? "#ffffff" : "var(--muted)",
+          color: isHovered ? "#D4FF3F" : "#FF2DA8",
         }}
         transition={{ duration: 0.2, ease: "easeOut" }}
       >
@@ -510,11 +511,11 @@ export function FilmSection() {
                     key={film.id}
                     type="button"
                     onClick={() => handleSwap(film.id)}
-                    style={{ color: isSelected ? "#0B0B0F" : undefined }}
-                    className={`shrink-0 px-3 py-1.5 rounded text-[11px] font-mono tracking-wider uppercase transition-all ${
+                    style={{ color: isSelected ? "#0B0B0B" : undefined }}
+                    className={`shrink-0 px-3 py-1.5 rounded-none text-[11px] font-mono tracking-wider uppercase transition-all ${
                       isSelected
-                        ? "bg-[#C6FF3D] !text-[#0B0B0F] font-bold border border-[#C6FF3D]"
-                        : "bg-[#141419] text-[#A9A7A0] border border-[#2A2A30]"
+                        ? "bg-[#D4FF3F] !text-[#0B0B0B] font-bold border border-[#D4FF3F]"
+                        : "bg-[#0B0B0B] text-[#FF2DA8] border border-[#FF2DA8]/40 hover:border-[#D4FF3F]"
                     }`}
                   >
                     0{idx + 1} // {film.client}

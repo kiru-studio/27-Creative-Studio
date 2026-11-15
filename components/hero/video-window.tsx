@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { heroConfig } from "@/data/hero";
 import { siteContent } from "@/lib/site-content";
+import { NeonPlay } from "@/components/ui/neon-icons";
 
 interface VideoWindowProps {
   isMuted?: boolean;
@@ -146,7 +147,7 @@ export function VideoWindow({
         {/* Hover Cue: Viewfinder Play Badge */}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-200 pointer-events-none">
           <div className="px-4 py-2 bg-[#0B0B0B] border-2 border-[#D4FF3F] text-[#D4FF3F] font-mono text-xs uppercase tracking-widest flex items-center gap-2 shadow-2xl">
-            <span>▶</span>
+            <NeonPlay className="size-3 inline-block" />
             <span>PLAY REEL [4K]</span>
           </div>
         </div>

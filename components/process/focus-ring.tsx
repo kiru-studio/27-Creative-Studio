@@ -13,7 +13,7 @@ export function FocusRing({ stepIndex, reducedMotion }: FocusRingProps) {
   return (
     <div className="absolute inset-0 pointer-events-none rounded-full" aria-hidden="true">
       {/* Outer focus ring housing */}
-      <div className="absolute inset-0 rounded-full border border-[#2A2A30] bg-[#141419]/80 shadow-[inset_0_0_24px_rgba(0,0,0,0.9)]" />
+      <div className="absolute inset-0 rounded-full border border-[#FF2DA8]/50 bg-[#0B0B0B] shadow-[inset_0_0_24px_rgba(255,45,168,0.2)]" />
 
       {/* 48 radial tick marks with rotation */}
       <motion.div
@@ -34,7 +34,7 @@ export function FocusRing({ stepIndex, reducedMotion }: FocusRingProps) {
             >
               <div
                 className={`w-[1.5px] transition-colors duration-300 ${
-                  isMajor ? "h-3 bg-[#F4F1EA]" : "h-1.5 bg-[#A9A7A0]/35"
+                  isMajor ? "h-3 bg-[#D4FF3F]" : "h-1.5 bg-[#FF2DA8]"
                 }`}
               />
             </div>
@@ -43,13 +43,12 @@ export function FocusRing({ stepIndex, reducedMotion }: FocusRingProps) {
       </motion.div>
 
       {/* Concentric knurled ridges */}
-      <div className="absolute inset-[10%] rounded-full border border-[#2A2A30] shadow-[inset_0_0_10px_rgba(0,0,0,0.8)]" />
-      <div className="absolute inset-[16%] rounded-full border border-dashed border-[#2A2A30]/80" />
-      <div className="absolute inset-[22%] rounded-full border border-[#2A2A30]" />
+      <div className="absolute inset-[10%] rounded-full border border-[#FF2DA8]/30 shadow-[inset_0_0_10px_rgba(255,45,168,0.3)]" />
+      <div className="absolute inset-[16%] rounded-full border border-dashed border-[#D4FF3F]/40" />
+      <div className="absolute inset-[22%] rounded-full border border-[#FF2DA8]/40" />
       
-      {/* Aperture ring glass rim with subtle specular highlight */}
-      <div className="absolute inset-[24%] rounded-full border border-[#A9A7A0]/20 bg-gradient-to-br from-white/5 via-transparent to-black/60" />
+      {/* Aperture ring glass rim */}
+      <div className="absolute inset-[24%] rounded-full border border-[#D4FF3F]/30 bg-[#0B0B0B]" />
     </div>
   );
 }
-

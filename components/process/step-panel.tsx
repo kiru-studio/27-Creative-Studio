@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { NeonPlay } from "@/components/ui/neon-icons";
 import type { ProcessStep, TurnaroundFormatId } from "@/data/process";
 
 interface StepPanelProps {
@@ -52,13 +53,13 @@ export function StepPanel({
       aria-labelledby={`step-tab-${currentStep.id}`}
       className="relative flex items-stretch gap-4 sm:gap-6 w-full"
     >
-      {/* Left Lime Vertical Progress Bar */}
+      {/* Left Vertical Progress Bar */}
       <div
-        className="relative w-1 sm:w-1.5 shrink-0 rounded-full bg-[#2A2A30] overflow-hidden"
+        className="relative w-1.5 shrink-0 bg-[#0B0B0B] border border-[#FF2DA8]/30 overflow-hidden"
         aria-hidden="true"
       >
         <motion.div
-          className="w-full bg-[#C6FF3D] rounded-full origin-top"
+          className="w-full bg-[#D4FF3F] origin-top shadow-[0_0_8px_#D4FF3F]"
           animate={{
             scaleY: (activeStepIndex + 1) / totalSteps,
           }}
@@ -84,21 +85,21 @@ export function StepPanel({
           >
             {/* Meta Eyebrow with rolling Day indicator */}
             <motion.div variants={itemVariants} className="flex items-center gap-3">
-              <span className="font-mono text-xs font-bold tracking-widest text-[#C6FF3D] uppercase px-2 py-0.5 rounded bg-[#C6FF3D]/10 border border-[#C6FF3D]/30">
+              <span className="font-mono text-xs font-bold tracking-widest text-[#0B0B0B] uppercase px-2.5 py-1 bg-[#D4FF3F]">
                 {currentDay}
               </span>
-              <span className="font-mono text-xs text-[#A9A7A0] tracking-wider uppercase">
-                Step {currentStep.stepNumber} of 0{totalSteps}
+              <span className="font-mono text-xs text-[#FF2DA8] tracking-widest uppercase font-bold">
+                PHASE 0{currentStep.stepNumber} // 0{totalSteps}
               </span>
             </motion.div>
 
             {/* Title & Tagline */}
             <motion.div variants={itemVariants}>
-              <h3 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-[#F4F1EA] font-display">
+              <h3 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-[#FF2DA8] font-display">
                 {currentStep.title}
               </h3>
-              <p className="mt-1 font-mono text-sm sm:text-base text-[#C6FF3D] font-medium">
-                {currentStep.tagline}
+              <p className="mt-1 font-mono text-sm sm:text-base text-[#D4FF3F] font-bold tracking-wide">
+                // {currentStep.tagline}
               </p>
             </motion.div>
 
@@ -106,7 +107,7 @@ export function StepPanel({
             {currentStep.description && currentStep.description !== currentStep.tagline && (
               <motion.p
                 variants={itemVariants}
-                className="text-sm sm:text-base text-[#A9A7A0] leading-relaxed max-w-xl"
+                className="text-sm sm:text-base text-[#D4FF3F]/90 leading-relaxed max-w-xl font-mono"
               >
                 {currentStep.description}
               </motion.p>
@@ -115,19 +116,17 @@ export function StepPanel({
             {/* Happens & Needs Bullet Lists */}
             <motion.div
               variants={itemVariants}
-              className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 mt-2 border-t border-[#2A2A30]"
+              className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 mt-2 border-t border-[#FF2DA8]/30"
             >
               {/* What happens */}
               <div className="flex flex-col gap-2">
-                <span className="font-mono text-[11px] font-bold tracking-widest text-[#A9A7A0] uppercase">
-                  What happens
+                <span className="font-mono text-[11px] font-bold tracking-widest text-[#FF2DA8] uppercase">
+                  [ PROTOCOL EXECUTION ]
                 </span>
-                <ul className="flex flex-col gap-1.5 text-xs text-[#F4F1EA]">
+                <ul className="flex flex-col gap-1.5 text-xs text-[#D4FF3F] font-mono">
                   {currentStep.happens.map((item, idx) => (
                     <li key={idx} className="flex items-start gap-2">
-                      <span className="text-[#C6FF3D] font-bold select-none" aria-hidden="true">
-                        /
-                      </span>
+                      <NeonPlay className="size-2 text-[#FF2DA8] mt-1 shrink-0 select-none" />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -136,15 +135,13 @@ export function StepPanel({
 
               {/* What we need */}
               <div className="flex flex-col gap-2">
-                <span className="font-mono text-[11px] font-bold tracking-widest text-[#A9A7A0] uppercase">
-                  What we need
+                <span className="font-mono text-[11px] font-bold tracking-widest text-[#D4FF3F] uppercase">
+                  [ CLIENT DELIVERABLES ]
                 </span>
-                <ul className="flex flex-col gap-1.5 text-xs text-[#F4F1EA]">
+                <ul className="flex flex-col gap-1.5 text-xs text-[#FF2DA8] font-mono">
                   {currentStep.needs.map((item, idx) => (
                     <li key={idx} className="flex items-start gap-2">
-                      <span className="text-[#C6FF3D] font-bold select-none" aria-hidden="true">
-                        /
-                      </span>
+                      <NeonPlay className="size-2 text-[#D4FF3F] mt-1 shrink-0 select-none" />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -157,14 +154,12 @@ export function StepPanel({
               {isLastStep ? (
                 <a
                   href="#contact"
-                  className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-lg !bg-[#C6FF3D] !text-[#0B0B0F] font-mono text-xs font-bold uppercase tracking-wider hover:!bg-[#d4ff66] transition-all duration-200 shadow-[0_0_16px_rgba(198,255,61,0.25)] hover:shadow-[0_0_24px_rgba(198,255,61,0.4)]"
-                  style={{ backgroundColor: "var(--industry, #C6FF3D)", color: "var(--ink, #0B0B0F)" }}
+                  className="group inline-flex items-center gap-2 px-6 py-3 bg-[#D4FF3F] text-[#0B0B0B] font-mono text-xs font-black uppercase tracking-widest hover:bg-[#FF2DA8] hover:text-[#0B0B0B] transition-colors shadow-[0_0_20px_rgba(212,255,63,0.3)]"
                 >
-                  <span style={{ color: "var(--ink, #0B0B0F)" }}>Book a shoot</span>
+                  <span>BOOK SONY FX3 PRODUCTION</span>
                   <ArrowUpRight
                     size={16}
-                    className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                    style={{ stroke: "var(--ink, #0B0B0F)" }}
+                    className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1"
                     aria-hidden="true"
                   />
                 </a>
@@ -172,12 +167,12 @@ export function StepPanel({
                 <button
                   type="button"
                   onClick={onNextStep}
-                  className="group inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-[#2A2A30] bg-[#141419] text-[#F4F1EA] font-mono text-xs font-bold uppercase tracking-wider hover:border-[#C6FF3D] hover:text-[#C6FF3D] transition-all duration-200 cursor-pointer"
+                  className="group inline-flex items-center gap-2 px-5 py-2.5 border border-[#FF2DA8] bg-[#0B0B0B] text-[#D4FF3F] font-mono text-xs font-bold uppercase tracking-wider hover:border-[#D4FF3F] hover:text-[#FF2DA8] transition-all duration-200 cursor-pointer"
                 >
-                  <span>{nextStep?.title ?? "Next"}</span>
+                  <span>NEXT: {nextStep?.title ?? "ADVANCE"}</span>
                   <ArrowUpRight
                     size={16}
-                    className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-[#C6FF3D]"
+                    className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-[#FF2DA8]"
                     aria-hidden="true"
                   />
                 </button>

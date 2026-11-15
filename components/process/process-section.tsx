@@ -113,7 +113,7 @@ export function ProcessSection({
       id="process"
       aria-labelledby="speed-heading"
       style={containerStyle}
-      className="relative w-full bg-[#0B0B0F] text-[#F4F1EA]"
+      className="relative w-full bg-[#0B0B0B] text-[#FF2DA8] border-b border-[#FF2DA8]/20"
     >
       {/* Sticky Inner Wrapper for Desktop Storytelling */}
       <div
@@ -125,11 +125,11 @@ export function ProcessSection({
       >
         {/* Top Content: Eyebrow, Heading, and HUD status */}
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-[#2A2A30]">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-[#FF2DA8]/30">
             <div>
               <div className="overflow-mask-inline">
                 <motion.p
-                  className="font-mono text-xs text-[#C6FF3D] uppercase tracking-widest block"
+                  className="font-mono text-xs text-[#D4FF3F] uppercase tracking-widest block font-bold"
                   initial={
                     shouldReduceMotion
                       ? { y: 0, opacity: 1 }
@@ -140,14 +140,14 @@ export function ProcessSection({
                   viewport={{ once: true, amount: 0.05 }}
                   transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  {kicker}
+                  // {kicker}
                 </motion.p>
               </div>
 
               <div className="overflow-mask mt-2">
                 <motion.h2
                   id="speed-heading"
-                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#F4F1EA] font-display block"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#FF2DA8] font-display block"
                   initial={
                     shouldReduceMotion
                       ? { y: 0, opacity: 1 }
@@ -168,8 +168,8 @@ export function ProcessSection({
             </div>
 
             {/* HUD scene timecode indicator */}
-            <div className="flex items-center gap-4 text-xs font-mono text-[#A9A7A0]">
-              <span className="tracking-widest text-[11px] text-[#A9A7A0]/60">
+            <div className="flex items-center gap-4 text-xs font-mono text-[#D4FF3F]">
+              <span className="tracking-widest text-[11px] text-[#D4FF3F] bg-[#0B0B0B] border border-[#FF2DA8]/40 px-3 py-1 font-bold">
                 SCENE 0{activeStepIndex + 1} // 0{totalSteps}
               </span>
             </div>

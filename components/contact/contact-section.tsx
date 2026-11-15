@@ -122,7 +122,7 @@ export function ContactSection({
       ref={sectionRef}
       id="contact"
       aria-labelledby="contact-heading"
-      className="relative w-full py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#0B0B0F] text-[#F4F1EA]"
+      className="relative w-full py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#0B0B0B] text-[#D4FF3F]"
     >
       <div className="max-w-7xl mx-auto">
         {/* Unified Clapperboard Wrapper */}
@@ -145,7 +145,7 @@ export function ContactSection({
                 : { y: 20, opacity: 0 }
             }
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="relative w-full rounded-b-xl border border-[#2A2A30] bg-[#141419] p-5 sm:p-8 md:p-10 shadow-[0_24px_64px_rgba(0,0,0,0.85)] overflow-hidden"
+            className="relative w-full rounded-b-xl border border-[#FF2DA8] bg-[#0B0B0B] p-5 sm:p-8 md:p-10 shadow-[0_24px_64px_rgba(0,0,0,0.85)] overflow-hidden"
           >
             {/* L-shaped Lime Corner Brackets */}
             <motion.div
@@ -155,15 +155,15 @@ export function ContactSection({
               className="absolute inset-0 pointer-events-none select-none z-10"
               aria-hidden="true"
             >
-              <div className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 border-[#C6FF3D]" />
-              <div className="absolute top-3 right-3 w-4 h-4 border-t-2 border-r-2 border-[#C6FF3D]" />
-              <div className="absolute bottom-3 left-3 w-4 h-4 border-b-2 border-l-2 border-[#C6FF3D]" />
-              <div className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 border-[#C6FF3D]" />
+              <div className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 border-[#D4FF3F]" />
+              <div className="absolute top-3 right-3 w-4 h-4 border-t-2 border-r-2 border-[#D4FF3F]" />
+              <div className="absolute bottom-3 left-3 w-4 h-4 border-b-2 border-l-2 border-[#D4FF3F]" />
+              <div className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 border-[#D4FF3F]" />
             </motion.div>
 
             {/* Subtle SVG Film Grain Overlay (4% opacity) */}
             <div
-              className="absolute inset-0 pointer-events-none opacity-[0.04] bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"
+              className="absolute inset-0 pointer-events-none opacity-[0.04] bg-[radial-gradient(#FF2DA8_1px,transparent_1px)] [background-size:16px_16px]"
               aria-hidden="true"
             />
 
@@ -175,7 +175,7 @@ export function ContactSection({
                   animate={{ opacity: 0.65 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.25 }}
-                  className="absolute inset-0 bg-white z-30 pointer-events-none"
+                  className="absolute inset-0 bg-[#D4FF3F] z-30 pointer-events-none"
                   aria-hidden="true"
                 />
               )}
@@ -201,16 +201,16 @@ export function ContactSection({
               <div className="lg:col-span-5 flex flex-col gap-6 lg:sticky lg:top-[15vh]">
 
                 <div>
-                  <p className="font-mono text-xs text-[#C6FF3D] uppercase tracking-widest">
+                  <p className="font-mono text-xs text-[#D4FF3F] uppercase tracking-widest">
                     {kicker}
                   </p>
                   <h2
                     id="contact-heading"
-                    className="mt-2 text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#F4F1EA] font-display leading-[0.95]"
+                    className="mt-2 text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#D4FF3F] font-display leading-[0.95]"
                   >
                     {heading}
                   </h2>
-                  <p className="mt-3 text-sm text-[#A9A7A0] leading-relaxed max-w-md">
+                  <p className="mt-3 text-sm text-[#D4FF3F] leading-relaxed max-w-md">
                     {subline}
                   </p>
                 </div>
@@ -219,7 +219,7 @@ export function ContactSection({
                 <ChannelList channels={channels} reducedMotion={reducedMotion} />
 
                 {/* Service Area Note */}
-                <p className="text-xs font-mono text-[#A9A7A0]/60 leading-relaxed mt-2">
+                <p className="text-xs font-mono text-[#D4FF3F]/60 leading-relaxed mt-2">
                   {serviceAreaNote}
                 </p>
               </div>
@@ -230,7 +230,7 @@ export function ContactSection({
                 <div className="md:hidden flex items-center gap-2 mb-5 font-mono select-none">
                   <a
                     href="tel:8300478244"
-                    className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg border border-[#2A2A30] bg-[#141419] text-xs text-[#F4F1EA] hover:border-[#C6FF3D] font-bold active:scale-95 transition-all"
+                    className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg border border-[#FF2DA8] bg-[#0B0B0B] text-xs text-[#D4FF3F] hover:border-[#D4FF3F] font-bold active:scale-95 transition-all"
                   >
                     <span>📞</span>
                     <span>CALL DIRECT</span>
@@ -239,7 +239,7 @@ export function ContactSection({
                     href={`https://wa.me/${siteConfig.whatsappNumber}?text=Hi%2027%20Creative%20Studio%2C%20I%20would%20like%20to%20grow%20my%20brand.`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg border border-[#C6FF3D] bg-[#C6FF3D] text-xs !text-[#0B0B0F] font-black active:scale-95 transition-all shadow-sm"
+                    className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg border border-[#D4FF3F] bg-[#D4FF3F] text-xs !text-[#0B0B0B] font-black active:scale-95 transition-all shadow-sm"
                   >
                     <span>💬</span>
                     <span>WHATSAPP</span>

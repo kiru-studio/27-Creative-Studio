@@ -8,8 +8,8 @@ import { siteContent } from "@/lib/site-content";
 
 const lanyardPeople: LanyardMember[] = siteContent.people.map((person, index) => {
   const customTaglines = [
-    "Shoots first. Sleeps later.",
-    "Finds the audience before the algorithm does.",
+    "Shoots first. Sleeps later. Sony FX3 4K specialist.",
+    "Finds the local audience before the algorithm does.",
     "Turns raw footage into stories people actually stop and watch.",
   ];
   const customSpecialties = [
@@ -63,16 +63,15 @@ export function AboutSection() {
 
   return (
     <section
-      className="about-section relative overflow-hidden py-20 sm:py-28"
+      className="about-section relative overflow-hidden py-20 sm:py-28 bg-[#0B0B0B] text-[#FF2DA8] border-b border-[#FF2DA8]/20"
       id="crew"
       ref={sectionRef}
       aria-labelledby="about-heading"
     >
       <div id="team" className="sr-only" />
       <div id="about" className="sr-only" />
-      <div className="about-grain-overlay" aria-hidden="true" />
 
-      <div className="about-copy relative z-10 max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="about-copy relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="section-intro mb-10 sm:mb-14">
           <div className="overflow-mask-inline">
             <motion.div
@@ -81,18 +80,20 @@ export function AboutSection() {
               animate={isInView ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
-              <p className="kicker m-0">{siteContent.ui.aboutKicker}</p>
+              <p className="font-mono text-xs uppercase tracking-widest text-[#D4FF3F] font-bold block m-0">
+                // {siteContent.ui.aboutKicker}
+              </p>
             </motion.div>
           </div>
 
           <h2
             id="about-heading"
-            className="m-0 font-display font-black leading-tight text-4xl sm:text-5xl lg:text-6xl text-[var(--paper)] tracking-tight uppercase"
+            className="m-0 font-display font-black leading-tight text-4xl sm:text-5xl lg:text-6xl text-[#FF2DA8] tracking-tight uppercase"
           >
             {headingLines.map((line, index) => (
               <span className="overflow-mask block" key={`${line}-${index}`}>
                 <motion.span
-                  className="block"
+                  className={`block ${index === 1 ? "text-[#D4FF3F]" : "text-[#FF2DA8]"}`}
                   initial={
                     shouldReduceMotion
                       ? { y: 0, opacity: 1 }
@@ -115,9 +116,9 @@ export function AboutSection() {
             ))}
           </h2>
 
-          <div className="overflow-mask mt-3">
+          <div className="overflow-mask mt-4">
             <motion.p
-              className="m-0 max-w-[50ch] text-base sm:text-lg text-[var(--muted)] leading-relaxed font-body"
+              className="m-0 max-w-[60ch] text-base sm:text-lg text-[#D4FF3F] leading-relaxed font-mono"
               initial={
                 shouldReduceMotion ? { y: 0, opacity: 1 } : { y: 16, opacity: 0 }
               }

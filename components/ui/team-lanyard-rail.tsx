@@ -354,9 +354,9 @@ function Hole() {
   return (
     <div
       aria-hidden="true"
-      className="absolute left-1/2 top-[0.62em] -translate-x-1/2 w-[1.9em] h-[0.42em] rounded-full bg-[#07070B] border border-white/25 shadow-[inset_0_2px_4px_rgba(0,0,0,0.95)] z-20 pointer-events-none"
+      className="absolute left-1/2 top-[0.62em] -translate-x-1/2 w-[1.9em] h-[0.42em] rounded-full bg-[#0B0B0B] border border-[#FF2DA8]/40 shadow-[inset_0_2px_4px_rgba(0,0,0,0.95)] z-20 pointer-events-none"
     >
-      <div className="absolute inset-x-1.5 bottom-0 h-[1px] bg-white/30 rounded-full" />
+      <div className="absolute inset-x-1.5 bottom-0 h-[1px] bg-[#FF2DA8]/10 rounded-full" />
     </div>
   );
 }
@@ -365,23 +365,11 @@ function HoloFoil() {
   return (
     <div
       aria-hidden="true"
-      className="relative size-5 shrink-0 rounded-[2.5px] overflow-hidden border border-white/40 shadow-[0_2px_6px_rgba(0,0,0,0.85)] select-none pointer-events-none"
-      style={{
-        background:
-          "linear-gradient(135deg, #ff0055 0%, #ff7700 20%, #ffee00 40%, #00ff88 60%, #00d4ff 80%, #8800ff 100%)",
-        backgroundSize: "200% 200%",
-      }}
+      className="relative size-5 shrink-0 rounded-[2.5px] overflow-hidden border border-[#D4FF3F] bg-[#0B0B0B] shadow-[0_2px_6px_rgba(0,0,0,0.85)] select-none pointer-events-none"
     >
-      <div
-        className="absolute inset-0 opacity-85 mix-blend-overlay"
-        style={{
-          background:
-            "radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgba(255,255,255,0.95), transparent 60%)",
-        }}
-      />
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-black/95 leading-none">
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-[#D4FF3F] leading-none">
         <span className="font-mono text-[7px] font-black tracking-tight">27</span>
-        <span className="font-mono text-[3.5px] font-extrabold tracking-widest uppercase opacity-90">
+        <span className="font-mono text-[3.5px] font-extrabold tracking-widest uppercase opacity-90 text-[#FF2DA8]">
           SECURE
         </span>
       </div>
@@ -393,18 +381,18 @@ function MiniQR() {
   return (
     <svg
       viewBox="0 0 25 25"
-      className="size-5.5 shrink-0 text-[#F4F1EA] bg-[#0A0A0E] p-0.5 rounded-[2.5px] border border-white/25 shadow-sm"
+      className="size-5.5 shrink-0 text-[#D4FF3F] bg-[#0B0B0B] p-0.5 rounded-[2.5px] border border-[#FF2DA8]/40 shadow-sm"
       shapeRendering="crispEdges"
       aria-hidden="true"
     >
       <rect x="1" y="1" width="7" height="7" fill="currentColor" />
-      <rect x="2" y="2" width="5" height="5" fill="#0A0A0E" />
+      <rect x="2" y="2" width="5" height="5" fill="#0B0B0B" />
       <rect x="3" y="3" width="3" height="3" fill="currentColor" />
       <rect x="17" y="1" width="7" height="7" fill="currentColor" />
-      <rect x="18" y="2" width="5" height="5" fill="#0A0A0E" />
+      <rect x="18" y="2" width="5" height="5" fill="#0B0B0B" />
       <rect x="19" y="3" width="3" height="3" fill="currentColor" />
       <rect x="1" y="17" width="7" height="7" fill="currentColor" />
-      <rect x="2" y="18" width="5" height="5" fill="#0A0A0E" />
+      <rect x="2" y="18" width="5" height="5" fill="#0B0B0B" />
       <rect x="3" y="19" width="3" height="3" fill="currentColor" />
       <rect x="10" y="2" width="2" height="1" fill="currentColor" />
       <rect x="13" y="1" width="1" height="2" fill="currentColor" />
@@ -453,19 +441,19 @@ function MetallicLobsterClasp({ u }: { u: number }) {
     >
       <defs>
         <linearGradient id="clasp-metal" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#3E3E48" />
-          <stop offset="25%" stopColor="#8A8A9E" />
-          <stop offset="50%" stopColor="#EEEEF6" />
-          <stop offset="75%" stopColor="#6C6C7C" />
-          <stop offset="100%" stopColor="#25252E" />
+          <stop offset="0%" stopColor="#FF2DA8" />
+          <stop offset="25%" stopColor="#FF2DA8" />
+          <stop offset="50%" stopColor="#D4FF3F" />
+          <stop offset="75%" stopColor="#FF2DA8" />
+          <stop offset="100%" stopColor="#0B0B0B" />
         </linearGradient>
         <linearGradient id="clasp-dark" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#18181E" />
-          <stop offset="50%" stopColor="#444452" />
-          <stop offset="100%" stopColor="#18181E" />
+          <stop offset="0%" stopColor="#0B0B0B" />
+          <stop offset="50%" stopColor="#FF2DA8" />
+          <stop offset="100%" stopColor="#0B0B0B" />
         </linearGradient>
         <filter id="clasp-shadow" x="-30%" y="-30%" width="160%" height="160%">
-          <feDropShadow dx="0" dy="1.5" stdDeviation="1.2" floodColor="#000000" floodOpacity="0.85" />
+          <feDropShadow dx="0" dy="1.5" stdDeviation="1.2" floodColor="#0B0B0B" floodOpacity="0.85" />
         </filter>
       </defs>
       {/* 1. Swivel Eye Ring */}
@@ -476,11 +464,11 @@ function MetallicLobsterClasp({ u }: { u: number }) {
         height="5"
         rx="2.5"
         fill="url(#clasp-metal)"
-        stroke="#16161C"
+        stroke="#0B0B0B"
         strokeWidth="0.8"
         filter="url(#clasp-shadow)"
       />
-      <circle cx="12" cy="3.5" r="1.8" fill="#0B0B0F" />
+      <circle cx="12" cy="3.5" r="1.8" fill="#0B0B0B" />
       {/* 2. Swivel Pin Cylinder */}
       <rect
         x="9"
@@ -489,14 +477,14 @@ function MetallicLobsterClasp({ u }: { u: number }) {
         height="4"
         rx="1"
         fill="url(#clasp-dark)"
-        stroke="#4E4E5A"
+        stroke="#FF2DA8"
         strokeWidth="0.6"
       />
       {/* 3. Lobster Hook Claws that pass through the card slot */}
       <path
         d="M 12 8.5 C 7.5 8.5 5 12 5 17 C 5 23 8.5 27.5 12 29 C 13.5 29.6 15 29 15 27.5 C 15 26 13.5 25.5 12 24.5 C 9.5 23.5 7.5 20.5 7.5 17 C 7.5 13.5 9.5 11 12 11 C 14.5 11 16.5 13.5 16.5 17 L 16.5 21 C 16.5 22 17.5 22.8 18.5 22.8 C 19.5 22.8 20.5 22 20.5 21 L 20.5 16 C 20.5 12 16.5 8.5 12 8.5 Z"
         fill="url(#clasp-metal)"
-        stroke="#1E1E26"
+        stroke="#0B0B0B"
         strokeWidth="0.8"
         filter="url(#clasp-shadow)"
       />
@@ -509,7 +497,7 @@ function MetallicLobsterClasp({ u }: { u: number }) {
         strokeLinecap="round"
       />
       {/* Specular Highlight Glint */}
-      <circle cx="8.5" cy="14" r="0.7" fill="#FFFFFF" opacity="0.9" />
+      <circle cx="8.5" cy="14" r="0.7" fill="#D4FF3F" opacity="0.9" />
     </svg>
   );
 }
@@ -528,18 +516,18 @@ const BadgeFaces = React.memo(function BadgeFaces({
       {/* ================= FRONT FACE ================= */}
       <div
         data-face="front"
-        className="absolute inset-0 flex flex-col overflow-hidden rounded-[14px] border border-white/20 bg-[#0E0E14] text-[#F4F1EA] shadow-[0_24px_50px_rgba(0,0,0,0.85)] [backface-visibility:hidden]"
+        className="absolute inset-0 flex flex-col overflow-hidden rounded-[14px] border border-[#FF2DA8]/40 bg-[#0B0B0B] text-[#D4FF3F] shadow-[0_24px_50px_rgba(0,0,0,0.85)] [backface-visibility:hidden]"
         style={{ transform: "translateZ(1px)" }}
       >
         {/* Top Header: Left Studio Tag, Center Clear Zone for Hole Punch, Right Pass ID */}
-        <div className="relative h-[2.2em] w-full bg-[#181822] border-b border-white/10 flex items-center justify-between px-2.5 text-[0.56em] font-mono tracking-wider z-10 shrink-0 select-none">
-          <div className="flex items-center gap-1.5 font-bold text-[#C6FF3D] shrink-0 whitespace-nowrap">
-            <span className="size-1.5 rounded-full bg-[#C6FF3D] shadow-[0_0_6px_#C6FF3D]" />
+        <div className="relative h-[2.2em] w-full bg-[#0B0B0B] border-b border-[#FF2DA8]/40 flex items-center justify-between px-2.5 text-[0.56em] font-mono tracking-wider z-10 shrink-0 select-none">
+          <div className="flex items-center gap-1.5 font-bold text-[#D4FF3F] shrink-0 whitespace-nowrap">
+            <span className="size-1.5 rounded-full bg-[#D4FF3F] shadow-[0_0_6px_#D4FF3F]" />
             27 STUDIO
           </div>
           {/* Dedicated center clearance where Hole punch sits cleanly */}
           <div className="w-[2.2em] shrink-0" aria-hidden="true" />
-          <div className="text-[0.88em] uppercase tracking-[0.1em] text-white/50 font-medium shrink-0 whitespace-nowrap">
+          <div className="text-[0.88em] uppercase tracking-[0.1em] text-[#D4FF3F]/50 font-medium shrink-0 whitespace-nowrap">
             {item.passId ?? "CREW PASS"}
           </div>
         </div>
@@ -548,15 +536,16 @@ const BadgeFaces = React.memo(function BadgeFaces({
         <Hole />
 
         {/* Tactical Editorial Portrait Frame */}
-        <div className="relative mx-auto mt-[1.05em] w-[84%] aspect-square rounded-[8px] overflow-hidden border border-white/15 bg-[#09090D] shadow-inner shrink-0 group">
+        <div className="relative mx-auto mt-[1.05em] w-[84%] aspect-square rounded-[8px] overflow-hidden border border-[#FF2DA8]/40 bg-[#0B0B0B] shadow-inner shrink-0 group">
           {portraitSrc ? (
             <img
               src={portraitSrc}
               alt={item.name}
-              className="size-full object-cover grayscale contrast-125 brightness-95 transition-all duration-300 ease-out group-hover:grayscale-0 group-hover:contrast-105 group-hover:scale-105"
+              className="size-full object-cover transition-all duration-300 ease-out group-hover:scale-105"
+              style={{ filter: "url(#duotone-pink)" }}
             />
           ) : (
-            <div className="size-full bg-gradient-to-br from-[#1C1C24] to-[#0A0A0E] flex items-center justify-center text-muted-foreground text-xs font-mono">
+            <div className="size-full bg-[#0B0B0B] flex items-center justify-center text-[#FF2DA8] text-xs font-mono">
               27 / CREW
             </div>
           )}
@@ -564,62 +553,62 @@ const BadgeFaces = React.memo(function BadgeFaces({
           {/* Film Grain Texture Overlay */}
           <div
             aria-hidden="true"
-            className="absolute inset-0 pointer-events-none opacity-25 mix-blend-screen"
+            className="absolute inset-0 pointer-events-none opacity-20"
             style={{
               backgroundImage:
-                "radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px)",
-              backgroundSize: "3px 3px",
+                "radial-gradient(#FF2DA8 1px, transparent 1px)",
+              backgroundSize: "4px 4px",
             }}
           />
 
           {/* Viewfinder Corner Brackets */}
           <div className="absolute inset-1.5 pointer-events-none z-10">
-            <span className="absolute top-0 left-0 size-2.5 border-t-2 border-l-2 border-[#C6FF3D]" />
-            <span className="absolute top-0 right-0 size-2.5 border-t-2 border-r-2 border-[#C6FF3D]" />
-            <span className="absolute bottom-0 left-0 size-2.5 border-b-2 border-l-2 border-[#C6FF3D]" />
-            <span className="absolute bottom-0 right-0 size-2.5 border-b-2 border-r-2 border-[#C6FF3D]" />
+            <span className="absolute top-0 left-0 size-2.5 border-t-2 border-l-2 border-[#D4FF3F]" />
+            <span className="absolute top-0 right-0 size-2.5 border-t-2 border-r-2 border-[#D4FF3F]" />
+            <span className="absolute bottom-0 left-0 size-2.5 border-b-2 border-l-2 border-[#D4FF3F]" />
+            <span className="absolute bottom-0 right-0 size-2.5 border-b-2 border-r-2 border-[#D4FF3F]" />
             {/* Center Crosshair */}
-            <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[#C6FF3D]/60 text-[9px] font-mono leading-none">
+            <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[#D4FF3F]/60 text-[9px] font-mono leading-none">
               +
             </span>
           </div>
 
           {/* Live Camera HUD Tags */}
           <div className="absolute inset-x-2 top-1.5 flex items-center justify-between text-[7px] font-mono leading-none pointer-events-none z-10">
-            <span className="flex items-center gap-1 text-[#FF3B30] font-bold">
-              <span className="size-1.5 rounded-full bg-[#FF3B30] animate-pulse" />
+            <span className="flex items-center gap-1 text-[#FF2DA8] font-bold">
+              <span className="size-1.5 rounded-full bg-[#FF2DA8] animate-pulse" />
               REC
             </span>
-            <span className="text-white/60">4K 24FPS</span>
+            <span className="text-[#D4FF3F]/60">4K 24FPS</span>
           </div>
-          <div className="absolute inset-x-2 bottom-1.5 flex items-center justify-between text-[7px] font-mono leading-none pointer-events-none z-10 text-white/60">
+          <div className="absolute inset-x-2 bottom-1.5 flex items-center justify-between text-[7px] font-mono leading-none pointer-events-none z-10 text-[#D4FF3F]/60">
             <span>ISO 400</span>
-            <span className="text-[#C6FF3D]">1/50 F1.8</span>
+            <span className="text-[#D4FF3F]">1/50 F1.8</span>
           </div>
         </div>
 
         {/* Member Name & Role Information */}
         <div className="px-2.5 pt-2 text-center flex-1 flex flex-col justify-start">
-          <h3 className="text-[1.04em] font-extrabold tracking-tight text-[#F4F1EA] leading-tight">
+          <h3 className="text-[1.04em] font-extrabold tracking-tight text-[#D4FF3F] leading-tight">
             {item.name}
           </h3>
-          <p className="text-[0.68em] font-mono font-bold text-[#C6FF3D] tracking-wide mt-0.5 leading-snug uppercase">
+          <p className="text-[0.68em] font-mono font-bold text-[#D4FF3F] tracking-wide mt-0.5 leading-snug uppercase">
             {item.role}
           </p>
           {specialtyText && (
-            <p className="text-[0.6em] font-sans text-white/70 tracking-normal mt-0.5 leading-tight line-clamp-1">
+            <p className="text-[0.6em] font-sans text-[#D4FF3F]/70 tracking-normal mt-0.5 leading-tight line-clamp-1">
               {specialtyText}
             </p>
           )}
-          <div className="flex items-center justify-center gap-1.5 mt-1 text-[0.56em] font-mono text-white/50 tracking-wider">
+          <div className="flex items-center justify-center gap-1.5 mt-1 text-[0.56em] font-mono text-[#D4FF3F]/50 tracking-wider">
             <span>{item.passId ?? "27-CREW-01"}</span>
             <span>·</span>
-            <span className="text-[#C6FF3D]/90 font-semibold">{item.access ?? "ALL ACCESS"}</span>
+            <span className="text-[#D4FF3F]/90 font-semibold">{item.access ?? "ALL ACCESS"}</span>
           </div>
         </div>
 
         {/* Bottom Credential Bar: Hologram, Mini QR & Industrial Barcode */}
-        <div className="px-2.5 pb-2 pt-1 border-t border-white/10 bg-[#0A0A0E] flex items-center justify-between gap-2 shrink-0">
+        <div className="px-2.5 pb-2 pt-1 border-t border-[#FF2DA8]/40 bg-[#0B0B0B] flex items-center justify-between gap-2 shrink-0">
           <div className="flex items-center gap-1.5">
             <HoloFoil />
             <MiniQR />
@@ -628,20 +617,20 @@ const BadgeFaces = React.memo(function BadgeFaces({
           {/* Barcode & Serial */}
           <div className="flex-1 flex flex-col items-end">
             <div className="flex items-center gap-[1.5px] h-3">
-              <span className="w-[1.5px] h-full bg-white/80" />
-              <span className="w-[1px] h-full bg-white/40" />
-              <span className="w-[2.5px] h-full bg-white/90" />
+              <span className="w-[1.5px] h-full bg-[#FF2DA8]/10" />
+              <span className="w-[1px] h-full bg-[#FF2DA8]/10" />
+              <span className="w-[2.5px] h-full bg-[#FF2DA8]/10" />
               <span className="w-[1px] h-full bg-transparent" />
-              <span className="w-[1.5px] h-full bg-white/70" />
-              <span className="w-[3px] h-full bg-white/90" />
+              <span className="w-[1.5px] h-full bg-[#FF2DA8]/10" />
+              <span className="w-[3px] h-full bg-[#FF2DA8]/10" />
               <span className="w-[1px] h-full bg-transparent" />
-              <span className="w-[1.5px] h-full bg-white/80" />
-              <span className="w-[2px] h-full bg-white/60" />
-              <span className="w-[1px] h-full bg-white/90" />
-              <span className="w-[2.5px] h-full bg-white/80" />
-              <span className="w-[1px] h-full bg-white/50" />
+              <span className="w-[1.5px] h-full bg-[#FF2DA8]/10" />
+              <span className="w-[2px] h-full bg-[#FF2DA8]/10" />
+              <span className="w-[1px] h-full bg-[#FF2DA8]/10" />
+              <span className="w-[2.5px] h-full bg-[#FF2DA8]/10" />
+              <span className="w-[1px] h-full bg-[#FF2DA8]/10" />
             </div>
-            <span className="text-[6px] font-mono tracking-widest text-white/45 mt-0.5">
+            <span className="text-[6px] font-mono tracking-widest text-[#D4FF3F]/45 mt-0.5">
               27-THOOTHUKUDI
             </span>
           </div>
@@ -650,18 +639,18 @@ const BadgeFaces = React.memo(function BadgeFaces({
         {/* Frosted Plastic Sleeve Overlay: Seam Welt, Glare & Dynamic Specular Sheen */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 rounded-[14px] border border-white/15"
+          className="pointer-events-none absolute inset-0 rounded-[14px] border border-[#FF2DA8]/40"
         >
           {/* Inner welded plastic seam welt */}
-          <div className="absolute inset-[3px] rounded-[11px] border border-white/10" />
+          <div className="absolute inset-[3px] rounded-[11px] border border-[#FF2DA8]/40" />
           {/* Fixed diagonal glare */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.08] to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-[#FF2DA8]/[0.10] to-transparent" />
           {/* Dynamic cursor specular glint */}
           <div
             className="absolute inset-0 opacity-70"
             style={{
               background:
-                "radial-gradient(160px circle at var(--gx, 50%) var(--gy, 50%), rgba(255,255,255,0.18), transparent 70%)",
+                "radial-gradient(160px circle at var(--gx, 50%) var(--gy, 50%), rgba(255,45,168,0.22), transparent 70%)",
             }}
           />
         </div>
@@ -670,14 +659,14 @@ const BadgeFaces = React.memo(function BadgeFaces({
       {/* ================= BACK FACE ================= */}
       <div
         data-face="back"
-        className="absolute inset-0 flex flex-col overflow-hidden rounded-[14px] border border-white/20 bg-[#0E0E14] text-[#F4F1EA] shadow-[0_24px_50px_rgba(0,0,0,0.85)] [backface-visibility:hidden]"
+        className="absolute inset-0 flex flex-col overflow-hidden rounded-[14px] border border-[#FF2DA8]/40 bg-[#0B0B0B] text-[#D4FF3F] shadow-[0_24px_50px_rgba(0,0,0,0.85)] [backface-visibility:hidden]"
         style={{ transform: "rotateY(180deg) translateZ(1px)" }}
       >
         {/* Back Header */}
-        <div className="relative h-[2.2em] w-full bg-[#181822] border-b border-white/10 flex items-center justify-between px-2.5 text-[0.56em] font-mono tracking-wider text-muted-foreground z-10 shrink-0 select-none">
-          <span className="font-bold text-[#C6FF3D] shrink-0 whitespace-nowrap">CREW DOSSIER</span>
+        <div className="relative h-[2.2em] w-full bg-[#0B0B0B] border-b border-[#FF2DA8]/40 flex items-center justify-between px-2.5 text-[0.56em] font-mono tracking-wider text-muted-foreground z-10 shrink-0 select-none">
+          <span className="font-bold text-[#D4FF3F] shrink-0 whitespace-nowrap">CREW DOSSIER</span>
           <div className="w-[2.2em] shrink-0" aria-hidden="true" />
-          <span className="text-[0.88em] uppercase tracking-[0.1em] text-white/50 shrink-0 whitespace-nowrap">
+          <span className="text-[0.88em] uppercase tracking-[0.1em] text-[#D4FF3F]/50 shrink-0 whitespace-nowrap">
             {item.passId ?? "27-CREW"}
           </span>
         </div>
@@ -685,11 +674,11 @@ const BadgeFaces = React.memo(function BadgeFaces({
         <Hole />
 
         {/* Magnetic Security Stripe */}
-        <div className="mt-[1.2em] h-5 w-full bg-[#070709] border-y border-white/15 flex items-center justify-between px-3 shrink-0">
-          <span className="text-[6.5px] font-mono tracking-widest text-white/30">
+        <div className="mt-[1.2em] h-5 w-full bg-[#0B0B0B] border-y border-[#FF2DA8]/40 flex items-center justify-between px-3 shrink-0">
+          <span className="text-[6.5px] font-mono tracking-widest text-[#D4FF3F]/30">
             // 27-STUDIO-ENCODED-PASS //
           </span>
-          <span className="text-[6.5px] font-mono text-[#C6FF3D]/50 font-bold">
+          <span className="text-[6.5px] font-mono text-[#D4FF3F]/50 font-bold">
             THOOTHUKUDI
           </span>
         </div>
@@ -698,36 +687,36 @@ const BadgeFaces = React.memo(function BadgeFaces({
         <div className="p-3 text-left flex-1 flex flex-col justify-between text-[0.74em]">
           <div>
             <div className="mb-2">
-              <span className="block text-[1.02em] font-bold text-[#F4F1EA] leading-tight">
+              <span className="block text-[1.02em] font-bold text-[#D4FF3F] leading-tight">
                 {item.name}
               </span>
-              <span className="block text-[0.72em] font-mono text-[#C6FF3D] uppercase tracking-wide leading-snug">
+              <span className="block text-[0.72em] font-mono text-[#D4FF3F] uppercase tracking-wide leading-snug">
                 {item.role}
               </span>
               {specialtyText && (
-                <span className="block text-[0.66em] text-white/80 font-sans mt-0.5 leading-tight">
+                <span className="block text-[0.66em] text-[#D4FF3F]/80 font-sans mt-0.5 leading-tight">
                   {specialtyText}
                 </span>
               )}
             </div>
 
             {/* Gear & Tools */}
-            <div className="mb-2 rounded bg-white/[0.03] border border-white/10 p-1.5">
-              <span className="block text-[0.6em] font-mono uppercase tracking-wider text-white/50">
+            <div className="mb-2 rounded bg-[#D4FF3F]/[0.03] border border-[#FF2DA8]/40 p-1.5">
+              <span className="block text-[0.6em] font-mono uppercase tracking-wider text-[#D4FF3F]/50">
                 Signature Kit & Gear:
               </span>
-              <span className="block text-[0.72em] font-mono text-[#F4F1EA] font-semibold mt-0.5">
+              <span className="block text-[0.72em] font-mono text-[#D4FF3F] font-semibold mt-0.5">
                 {item.signatureGear ?? item.gear ?? "Cinema Rig · Fast Glass · Pro Gimbal"}
               </span>
             </div>
 
             {/* Signature Aesthetic */}
             {(item.signatureAesthetic || item.focalLength) && (
-              <div className="mb-2 rounded bg-white/[0.03] border border-white/10 p-1.5">
-                <span className="block text-[0.6em] font-mono uppercase tracking-wider text-white/50">
+              <div className="mb-2 rounded bg-[#D4FF3F]/[0.03] border border-[#FF2DA8]/40 p-1.5">
+                <span className="block text-[0.6em] font-mono uppercase tracking-wider text-[#D4FF3F]/50">
                   Signature Aesthetic:
                 </span>
-                <span className="block text-[0.72em] font-mono text-[#C6FF3D] mt-0.5">
+                <span className="block text-[0.72em] font-mono text-[#D4FF3F] mt-0.5">
                   {item.signatureAesthetic || item.focalLength}
                 </span>
               </div>
@@ -742,16 +731,16 @@ const BadgeFaces = React.memo(function BadgeFaces({
           </div>
 
           {/* Action & Direct Connect Buttons */}
-          <div className="flex flex-col gap-1.5 mt-2 pt-2 border-t border-white/10">
+          <div className="flex flex-col gap-1.5 mt-2 pt-2 border-t border-[#FF2DA8]/40">
             {item.featuredWork && (
               <a
                 href={item.featuredWork}
-                style={{ color: "#0B0B0F" }}
-                className="flex items-center justify-between px-2.5 py-1.5 rounded-[4px] bg-[#C6FF3D] !text-[#0B0B0F] hover:brightness-110 transition-all font-mono text-[0.68em] font-black tracking-wider"
+                style={{ color: "#0B0B0B" }}
+                className="flex items-center justify-between px-2.5 py-1.5 rounded-[4px] bg-[#D4FF3F] !text-[#0B0B0B] hover:brightness-110 transition-all font-mono text-[0.68em] font-black tracking-wider"
                 onClick={(e) => e.stopPropagation()}
               >
-                <span style={{ color: "#0B0B0F" }}>VIEW WORK</span>
-                <span style={{ color: "#0B0B0F" }}>→</span>
+                <span style={{ color: "#0B0B0B" }}>VIEW WORK</span>
+                <span style={{ color: "#0B0B0B" }}>→</span>
               </a>
             )}
             {links.map((link) => (
@@ -760,14 +749,14 @@ const BadgeFaces = React.memo(function BadgeFaces({
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between px-2.5 py-1.5 rounded-[4px] bg-[#181822] hover:bg-[#C6FF3D] text-[#F4F1EA] hover:text-[#0B0B0F] border border-white/10 transition-colors font-mono text-[0.68em] font-bold tracking-wider"
+                className="flex items-center justify-between px-2.5 py-1.5 rounded-[4px] bg-[#0B0B0B] hover:bg-[#D4FF3F] text-[#D4FF3F] hover:text-[#0B0B0B] border border-[#FF2DA8]/40 transition-colors font-mono text-[0.68em] font-bold tracking-wider"
                 onClick={(e) => e.stopPropagation()}
               >
                 <span className="flex items-center gap-1.5">
                   <LinkIcon label={link.label} />
                   {link.label}
                 </span>
-                <span>↗</span>
+                <svg className="size-3 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M7 17L17 7M17 7H7M17 7V17"/></svg>
               </a>
             ))}
           </div>
@@ -776,10 +765,10 @@ const BadgeFaces = React.memo(function BadgeFaces({
         {/* Frosted Plastic Sleeve Welt on Back Face */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 rounded-[14px] border border-white/15"
+          className="pointer-events-none absolute inset-0 rounded-[14px] border border-[#FF2DA8]/40"
         >
-          <div className="absolute inset-[3px] rounded-[11px] border border-white/10" />
-          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.08] to-transparent" />
+          <div className="absolute inset-[3px] rounded-[11px] border border-[#FF2DA8]/40" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-[#FF2DA8]/[0.10] to-transparent" />
         </div>
       </div>
 
@@ -788,7 +777,7 @@ const BadgeFaces = React.memo(function BadgeFaces({
         <span
           key={side}
           aria-hidden="true"
-          className="absolute inset-y-[14px] block w-[2px] bg-white/20"
+          className="absolute inset-y-[14px] block w-[2px] bg-[#FF2DA8]/10"
           style={{
             [side ? "right" : "left"]: 0,
             transform: `translateX(${side ? 1 : -1}px) rotateY(90deg)`,
@@ -1788,12 +1777,12 @@ export function TeamLanyardRail({
       {(eyebrow || heading) && (
         <header className="relative z-10 flex flex-col items-center gap-2 px-6 pt-7 text-center">
           {eyebrow && (
-            <p className="text-[11px] font-mono font-bold uppercase tracking-[0.28em] text-[#C6FF3D]">
+            <p className="text-[11px] font-mono font-bold uppercase tracking-[0.28em] text-[#D4FF3F]">
               {eyebrow}
             </p>
           )}
           {heading && (
-            <h2 className="text-balance text-2xl font-black tracking-tight sm:text-3xl md:text-4xl text-[#F4F1EA]">
+            <h2 className="text-balance text-2xl font-black tracking-tight sm:text-3xl md:text-4xl text-[#D4FF3F]">
               {heading}
             </h2>
           )}
@@ -1838,11 +1827,11 @@ export function TeamLanyardRail({
         >
           <defs>
             <linearGradient id={`${uid}-rail`} x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#2A2A34" />
-              <stop offset="15%" stopColor="#4A4A58" />
-              <stop offset="50%" stopColor="#7E7E94" />
-              <stop offset="85%" stopColor="#4A4A58" />
-              <stop offset="100%" stopColor="#2A2A34" />
+              <stop offset="0%" stopColor="#0B0B0B" />
+              <stop offset="10%" stopColor="#D4FF3F" />
+              <stop offset="50%" stopColor="#D4FF3F" />
+              <stop offset="90%" stopColor="#D4FF3F" />
+              <stop offset="100%" stopColor="#0B0B0B" />
             </linearGradient>
             <filter
               id={`${uid}-wire-shadow`}
@@ -1855,7 +1844,7 @@ export function TeamLanyardRail({
                 dx="0"
                 dy="2"
                 stdDeviation="1.5"
-                floodColor="#000000"
+                floodColor="#0B0B0B"
                 floodOpacity="0.8"
               />
             </filter>
@@ -1878,26 +1867,26 @@ export function TeamLanyardRail({
             cx="14"
             cy={g.railY}
             r={g.railR * 1.15}
-            fill="#121218"
-            stroke="#3E3E4C"
+            fill="#0B0B0B"
+            stroke="#FF2DA8"
             strokeWidth="1.8"
           />
-          <circle cx="14" cy={g.railY} r={g.railR * 0.45} fill="#C6FF3D" />
+          <circle cx="14" cy={g.railY} r={g.railR * 0.45} fill="#D4FF3F" />
 
           {/* Right Rig Mount Peg */}
           <circle
             cx={railWidth - 14}
             cy={g.railY}
             r={g.railR * 1.15}
-            fill="#121218"
-            stroke="#3E3E4C"
+            fill="#0B0B0B"
+            stroke="#FF2DA8"
             strokeWidth="1.8"
           />
           <circle
             cx={railWidth - 14}
             cy={g.railY}
             r={g.railR * 0.45}
-            fill="#C6FF3D"
+            fill="#D4FF3F"
           />
         </svg>
 
@@ -1933,7 +1922,7 @@ export function TeamLanyardRail({
               {/* Top Rig Ring */}
               <span
                 aria-hidden="true"
-                className="absolute block rounded-full border-2 border-[#5E5E6E] bg-[#121218] shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+                className="absolute block rounded-full border-2 border-[#FF2DA8] bg-[#0B0B0B] shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
                 style={{
                   left: W / 2 - 4.5 * g.u,
                   top: g.railY - g.ring,
@@ -1972,12 +1961,12 @@ export function TeamLanyardRail({
                       backgroundImage: `
                         repeating-linear-gradient(45deg, rgba(0,0,0,0.4) 0px, rgba(0,0,0,0.4) 2px, transparent 2px, transparent 4px),
                         repeating-linear-gradient(-45deg, rgba(0,0,0,0.4) 0px, rgba(0,0,0,0.4) 2px, transparent 2px, transparent 4px),
-                        linear-gradient(to right, #0A0A0E 0%, #1A1A24 35%, #222230 50%, #1A1A24 65%, #0A0A0E 100%)
+                        linear-gradient(to right, #0B0B0B 0%, #0B0B0B 35%, #FF2DA8 50%, #0B0B0B 65%, #0B0B0B 100%)
                       `,
                     }}
                   >
                     {/* Lime Stitch Lines */}
-                    <span className="absolute inset-y-0 left-[1px] right-[1px] block border-x border-dashed border-[#C6FF3D]/45" />
+                    <span className="absolute inset-y-0 left-[1px] right-[1px] block border-x border-dashed border-[#D4FF3F]/45" />
 
                     {/* Vertical Monospace Studio Typography */}
                     <svg
@@ -1988,7 +1977,7 @@ export function TeamLanyardRail({
                       <text
                         x="50%"
                         y="50%"
-                        fill="#C6FF3D"
+                        fill="#D4FF3F"
                         opacity="0.85"
                         fontSize={Math.max(6.5, 7.5 * g.u)}
                         fontFamily="monospace"
@@ -2006,35 +1995,35 @@ export function TeamLanyardRail({
 
                   {/* Steel Crimp Band at Strap Bottom */}
                   <span
-                    className="absolute block rounded-[1px] shadow-[0_1px_3px_rgba(0,0,0,0.8)] border-y border-[#6E6E7E]"
+                    className="absolute block rounded-[1px] shadow-[0_1px_3px_rgba(0,0,0,0.8)] border-y border-[#FF2DA8]"
                     style={{
                       left: W / 2 - g.strapW / 2 - 1,
                       top: g.pivotY + strap - g.crimp * 0.4,
                       width: g.strapW + 2,
                       height: g.crimp,
                       background:
-                        "linear-gradient(90deg, #2A2A34, #666678 50%, #2A2A34)",
+                        "linear-gradient(90deg, #0B0B0B, #FF2DA8 50%, #0B0B0B)",
                     }}
                   />
 
                   {/* Badge Reel Cylinder */}
                   <span
-                    className="absolute block rounded-full shadow-[0_4px_8px_rgba(0,0,0,0.9)] border border-white/20"
+                    className="absolute block rounded-full shadow-[0_4px_8px_rgba(0,0,0,0.9)] border border-[#FF2DA8]/40"
                     style={{
                       left: W / 2 - g.reel / 2,
                       top: reelTop,
                       width: g.reel,
                       height: g.reel,
                       background:
-                        "radial-gradient(circle at 35% 35%, #2E2E38, #111116 80%)",
+                        "radial-gradient(circle at 35% 35%, #0B0B0B, #0B0B0B 80%)",
                     }}
                   >
-                    <span className="absolute inset-[15%] block rounded-full border border-white/15" />
+                    <span className="absolute inset-[15%] block rounded-full border border-[#FF2DA8]/40" />
                     <span
-                      className="absolute left-1/2 top-1/2 block size-[35%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#8E8E9E]"
+                      className="absolute left-1/2 top-1/2 block size-[35%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#D4FF3F]"
                       style={{
                         background:
-                          "linear-gradient(135deg, #7E7E90, #3E3E4C)",
+                          "linear-gradient(135deg, #FF2DA8, #FF2DA8)",
                       }}
                     />
                   </span>
@@ -2044,7 +2033,7 @@ export function TeamLanyardRail({
                     ref={(node) => {
                       cords.current[i] = node;
                     }}
-                    className="absolute block w-[2px] bg-white/70 shadow-sm"
+                    className="absolute block w-[2px] bg-[#FF2DA8]/10 shadow-sm"
                     style={{
                       left: W / 2 - 1,
                       top: reelTop + g.reel * 0.82,
@@ -2117,9 +2106,9 @@ export function TeamLanyardRail({
                     aria-expanded={isFlipped}
                     className={`pointer-events-auto absolute left-0 cursor-pointer rounded-[14px] p-0 text-left outline-none transition-all duration-300 ${
                       isSelected
-                        ? "ring-2 ring-[#C6FF3D] shadow-[0_0_24px_rgba(198,255,61,0.22)] z-30"
-                        : "hover:ring-1 hover:ring-white/30 z-20"
-                    } focus-visible:ring-2 focus-visible:ring-[#C6FF3D] focus-visible:ring-offset-4 focus-visible:ring-offset-[#0B0B0F]`}
+                        ? "ring-2 ring-[#D4FF3F] shadow-[0_0_24px_rgba(198,255,61,0.22)] z-30"
+                        : "hover:ring-1 hover:ring-[#FF2DA8]/40 z-20"
+                    } focus-visible:ring-2 focus-visible:ring-[#D4FF3F] focus-visible:ring-offset-4 focus-visible:ring-offset-[#0B0B0B]`}
                     style={{
                       top: cardOffset,
                       width: W,
@@ -2186,14 +2175,14 @@ export function TeamLanyardRail({
                 stop();
                 setActive(i);
               }}
-              className="group flex size-11 items-center justify-center rounded-full outline-none focus-visible:ring-2 focus-visible:ring-[#C6FF3D]"
+              className="group flex size-11 items-center justify-center rounded-full outline-none focus-visible:ring-2 focus-visible:ring-[#D4FF3F]"
             >
               <span
                 aria-hidden="true"
                 className={`block h-1.5 rounded-full transition-all duration-300 motion-reduce:transition-none ${
                   centerIndex === i
-                    ? "w-7 bg-[#C6FF3D]"
-                    : "w-2 bg-white/30 group-hover:bg-white/50"
+                    ? "w-7 bg-[#D4FF3F]"
+                    : "w-2 bg-[#FF2DA8]/10 group-hover:bg-[#FF2DA8]/10"
                 }`}
               />
             </button>
@@ -2211,14 +2200,14 @@ export function TeamLanyardRail({
           {person ? (
             <>
               {/* Active Member Readout */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#181822] border border-[#C6FF3D]/40 shadow-[0_0_14px_rgba(198,255,61,0.18)] mb-2 animate-fadeIn">
-                <span className="w-2 h-2 rounded-full bg-[#C6FF3D] shadow-[0_0_6px_#C6FF3D] animate-pulse" />
-                <span className="text-xs sm:text-sm font-bold text-[#F4F1EA] tracking-wide uppercase">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0B0B0B] border border-[#D4FF3F]/40 shadow-[0_0_14px_rgba(198,255,61,0.18)] mb-2 animate-fadeIn">
+                <span className="w-2 h-2 rounded-full bg-[#D4FF3F] shadow-[0_0_6px_#D4FF3F] animate-pulse" />
+                <span className="text-xs sm:text-sm font-bold text-[#D4FF3F] tracking-wide uppercase">
                   {person.name} — {person.role}
                 </span>
               </div>
-              <p className="text-[11px] sm:text-xs text-[#A9A7A0] tracking-wider flex items-center justify-center flex-wrap gap-2 m-0">
-                <span className="text-[#C6FF3D] font-bold">
+              <p className="text-[11px] sm:text-xs text-[#FF2DA8] tracking-wider flex items-center justify-center flex-wrap gap-2 m-0">
+                <span className="text-[#D4FF3F] font-bold">
                   {showingBack ? "DOSSIER ACTIVE" : "PASS SELECTED"}
                 </span>
                 <span>•</span>
@@ -2230,9 +2219,9 @@ export function TeamLanyardRail({
                       href={person.links[0].href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#C6FF3D] hover:underline inline-flex items-center gap-1 font-bold pointer-events-auto"
+                      className="text-[#D4FF3F] hover:underline inline-flex items-center gap-1 font-bold pointer-events-auto"
                     >
-                      CONNECT ↗
+                      CONNECT
                     </a>
                   </>
                 )}
@@ -2241,11 +2230,11 @@ export function TeamLanyardRail({
           ) : (
             <>
               {/* Default State: Instruction & Discoverability */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-[11px] sm:text-xs tracking-wider mb-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#C6FF3D]/80" />
-                <span className="text-[#F4F1EA]/90 font-medium">SELECT A CREW PASS TO VIEW DOSSIER</span>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0B0B0B] border border-[#FF2DA8]/40 text-[11px] sm:text-xs tracking-wider mb-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#D4FF3F]/80" />
+                <span className="text-[#D4FF3F]/90 font-medium">SELECT A CREW PASS TO VIEW DOSSIER</span>
               </div>
-              <p className="text-[10px] sm:text-[11px] text-[#6E6E78] tracking-widest uppercase m-0">
+              <p className="text-[10px] sm:text-[11px] text-[#FF2DA8] tracking-widest uppercase m-0">
                 DRAG TO SWING • CLICK TO FLIP • TAB + ENTER FOR KEYBOARD
               </p>
             </>

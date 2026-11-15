@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { NeonPlay } from "@/components/ui/neon-icons";
 
 interface PrimaryButtonProps {
   text: string;
@@ -114,12 +115,9 @@ export function OutlinedWatchButton({
       onMouseLeave={onMouseLeave}
       className={`group inline-flex items-center justify-center gap-2 min-h-[48px] px-8 py-3 border-2 border-[#D4FF3F] bg-[#0B0B0B] text-[#D4FF3F] hover:bg-[#D4FF3F] hover:text-[#0B0B0B] font-mono text-xs font-bold uppercase tracking-widest transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF2DA8] ${className}`}
     >
-      <span
-        className="inline-block text-[11px] text-[#D4FF3F] group-hover:text-[#0B0B0B] transition-colors duration-150"
-        aria-hidden="true"
-      >
-        ▶
-      </span>
+      <NeonPlay
+        className="size-2.5 inline-block text-[#D4FF3F] group-hover:text-[#0B0B0B] transition-colors duration-150"
+      />
       <span className="group-hover:text-[#0B0B0B]">{text}</span>
     </button>
   );

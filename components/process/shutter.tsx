@@ -10,7 +10,7 @@ interface ShutterProps {
   reducedMotion?: boolean;
 }
 
-export function Shutter({ stepIndex, lensConfig, reducedMotion }: ShutterProps) {
+export function Shutter({ stepIndex, reducedMotion }: ShutterProps) {
   const [triggerFlash, setTriggerFlash] = useState(false);
   const [flareKey, setFlareKey] = useState(0);
   const isFirstRender = useRef(true);
@@ -63,7 +63,7 @@ export function Shutter({ stepIndex, lensConfig, reducedMotion }: ShutterProps) 
   const bladeScale = getBladeScale();
 
   return (
-    <div className="absolute inset-[26%] rounded-full overflow-hidden border border-[#2A2A30] bg-[#0E0E12] shadow-[inset_0_0_20px_rgba(0,0,0,0.95)]">
+    <div className="absolute inset-[26%] rounded-full overflow-hidden border border-[#FF2DA8]/50 bg-[#0B0B0B] shadow-[inset_0_0_20px_rgba(255,45,168,0.4)]">
       {/* 6 Overlapping Iris Shutter Blades */}
       <motion.div
         className="absolute inset-0 pointer-events-none"
@@ -79,8 +79,9 @@ export function Shutter({ stepIndex, lensConfig, reducedMotion }: ShutterProps) 
             style={{
               transformOrigin: "0 0",
               clipPath: "polygon(0 0, 100% 0, 100% 100%, 82% 94%, 64% 74%, 44% 53%, 23% 31%, 0 17%)",
-              background: i % 2 === 0 ? "#1B1B21" : "#24242C",
-              boxShadow: "inset 0 0 4px rgba(0,0,0,0.8)",
+              background: "#0B0B0B",
+              border: i % 2 === 0 ? "1px solid rgba(255,45,168,0.3)" : "1px solid rgba(212,255,63,0.3)",
+              boxShadow: "inset 0 0 6px rgba(0,0,0,0.9)",
             }}
             animate={{
               rotate: i * 60,
@@ -115,14 +116,14 @@ export function Shutter({ stepIndex, lensConfig, reducedMotion }: ShutterProps) 
       {/* Edit Mode: Anamorphic horizontal timeline playhead */}
       {stepIndex === 2 && (
         <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-          {/* Subtle letterbox guide bars */}
-          <div className="absolute top-0 left-0 right-0 h-[22%] bg-black/50 border-b border-[#2A2A30]/50" />
-          <div className="absolute bottom-0 left-0 right-0 h-[22%] bg-black/50 border-t border-[#2A2A30]/50" />
+          {/* Letterbox guide bars */}
+          <div className="absolute top-0 left-0 right-0 h-[22%] bg-[#0B0B0B] border-b border-[#FF2DA8]/40" />
+          <div className="absolute bottom-0 left-0 right-0 h-[22%] bg-[#0B0B0B] border-t border-[#FF2DA8]/40" />
           
-          {/* Sweeping lime playhead line */}
+          {/* Sweeping chartreuse playhead line */}
           {!reducedMotion && (
             <motion.div
-              className="absolute top-[22%] bottom-[22%] w-[2px] bg-[#C6FF3D] shadow-[0_0_8px_#C6FF3D]"
+              className="absolute top-[22%] bottom-[22%] w-[2px] bg-[#D4FF3F] shadow-[0_0_10px_#D4FF3F]"
               animate={{ left: ["5%", "95%", "5%"] }}
               transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
             />
@@ -136,26 +137,26 @@ export function Shutter({ stepIndex, lensConfig, reducedMotion }: ShutterProps) 
           key={flareKey}
           className="absolute inset-[-50%] pointer-events-none z-10"
           initial={{ x: "-60%", y: "-60%", opacity: 0 }}
-          animate={{ x: "60%", y: "60%", opacity: [0, 0.45, 0] }}
+          animate={{ x: "60%", y: "60%", opacity: [0, 0.5, 0] }}
           transition={{ duration: 0.65, ease: "easeOut" }}
           style={{
             background:
-              "linear-gradient(135deg, transparent 35%, rgba(198,255,61,0.25) 48%, rgba(255,255,255,0.4) 50%, rgba(198,255,61,0.2) 53%, transparent 65%)",
+              "linear-gradient(135deg, transparent 35%, rgba(212,255,63,0.3) 48%, rgba(255,45,168,0.5) 50%, rgba(212,255,63,0.3) 53%, transparent 65%)",
           }}
           aria-hidden="true"
         />
       )}
 
-      {/* Shutter Click Flash Overlay on Step 1 (Shoot) */}
+      {/* Shutter Click Flash Overlay on Step 1 (Shoot) - High-voltage Chartreuse Flash */}
       <AnimatePresence>
         {triggerFlash && (
           <motion.div
             key="shutter-flash"
             initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 0.7, 0] }}
+            animate={{ opacity: [0, 0.85, 0] }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.22, ease: "easeOut" }}
-            className="absolute inset-0 bg-white/90 z-20 pointer-events-none rounded-full"
+            className="absolute inset-0 bg-[#D4FF3F] z-20 pointer-events-none rounded-full"
             aria-hidden="true"
           />
         )}
@@ -171,15 +172,15 @@ export function Shutter({ stepIndex, lensConfig, reducedMotion }: ShutterProps) 
               animate={{ opacity: 1, scale: 1 }}
               exit={reducedMotion ? undefined : { opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.2 }}
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#0B0B0F]/90 border border-[#C6FF3D]/40 shadow-[0_0_12px_rgba(0,0,0,0.8)]"
+              className="flex items-center gap-1.5 px-2.5 py-1 bg-[#0B0B0B] border border-[#D4FF3F] shadow-[0_0_12px_rgba(212,255,63,0.3)]"
             >
               <motion.span
                 animate={reducedMotion ? undefined : { opacity: [1, 0.35, 1] }}
                 transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
-                className="w-1.5 h-1.5 rounded-full bg-[#C6FF3D] shadow-[0_0_6px_#C6FF3D]"
+                className="w-1.5 h-1.5 rounded-full bg-[#D4FF3F] shadow-[0_0_6px_#D4FF3F]"
               />
-              <span className="font-mono text-[10px] tracking-widest font-bold text-[#C6FF3D] uppercase">
-                rec
+              <span className="font-mono text-[10px] tracking-widest font-bold text-[#D4FF3F] uppercase">
+                REC
               </span>
             </motion.div>
           )}
@@ -191,15 +192,15 @@ export function Shutter({ stepIndex, lensConfig, reducedMotion }: ShutterProps) 
               animate={{ opacity: 1, scale: 1 }}
               exit={reducedMotion ? undefined : { opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.2 }}
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#0B0B0F]/90 border border-[#FF3B30]/60 shadow-[0_0_12px_rgba(0,0,0,0.8)]"
+              className="flex items-center gap-1.5 px-2.5 py-1 bg-[#0B0B0B] border border-[#FF2DA8] shadow-[0_0_15px_rgba(255,45,168,0.5)]"
             >
               <motion.span
                 animate={reducedMotion ? undefined : { opacity: [1, 0, 1] }}
                 transition={{ duration: 0.35, repeat: Infinity, ease: "linear", times: [0, 0.5, 1] }}
-                className="w-1.5 h-1.5 rounded-full bg-[#FF3B30] shadow-[0_0_8px_#FF3B30]"
+                className="w-1.5 h-1.5 rounded-full bg-[#FF2DA8] shadow-[0_0_8px_#FF2DA8]"
               />
-              <span className="font-mono text-[10px] tracking-widest font-bold text-[#FF3B30] uppercase">
-                rec
+              <span className="font-mono text-[10px] tracking-widest font-bold text-[#FF2DA8] uppercase">
+                ON AIR
               </span>
             </motion.div>
           )}
@@ -211,10 +212,10 @@ export function Shutter({ stepIndex, lensConfig, reducedMotion }: ShutterProps) 
               animate={{ opacity: 1, scale: 1 }}
               exit={reducedMotion ? undefined : { opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.2 }}
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#0B0B0F]/90 border border-[#C6FF3D]/40 shadow-[0_0_12px_rgba(0,0,0,0.8)]"
+              className="flex items-center gap-1.5 px-2.5 py-1 bg-[#0B0B0B] border border-[#D4FF3F] shadow-[0_0_12px_rgba(212,255,63,0.3)]"
             >
-              <span className="font-mono text-[10px] tracking-widest font-bold text-[#C6FF3D] uppercase">
-                cut
+              <span className="font-mono text-[10px] tracking-widest font-bold text-[#D4FF3F] uppercase">
+                CUT / 4K
               </span>
             </motion.div>
           )}
@@ -226,17 +227,17 @@ export function Shutter({ stepIndex, lensConfig, reducedMotion }: ShutterProps) 
               animate={{ opacity: 1, scale: 1 }}
               exit={reducedMotion ? undefined : { opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.2 }}
-              className="relative flex items-center justify-center w-7 h-7 rounded-full bg-[#C6FF3D] text-[#0B0B0F] shadow-[0_0_16px_rgba(198,255,61,0.5)]"
+              className="relative flex items-center justify-center w-7 h-7 bg-[#D4FF3F] text-[#0B0B0B] shadow-[0_0_16px_rgba(212,255,63,0.6)]"
             >
               {!reducedMotion && (
                 <motion.div
                   animate={{ scale: [1, 2.3], opacity: [0.85, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
-                  className="absolute inset-0 rounded-full border-2 border-[#C6FF3D] pointer-events-none"
+                  className="absolute inset-0 border-2 border-[#D4FF3F] pointer-events-none"
                 />
               )}
               <svg
-                className="w-4 h-4 stroke-[3] stroke-[#0B0B0F] fill-none"
+                className="w-4 h-4 stroke-[3] stroke-[#0B0B0B] fill-none"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
               >

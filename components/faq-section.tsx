@@ -2,8 +2,6 @@
 
 import React, {
   useCallback,
-  useEffect,
-  useId,
   useMemo,
   useRef,
   useState,
@@ -36,17 +34,10 @@ export function CategoryTabs({
 }: CategoryTabsProps) {
   return (
     <div className="relative w-full mb-8">
-      {/* Scrollable container with edge fade masks on mobile */}
       <div
         role="tablist"
         aria-label="FAQ categories"
-        className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory py-2 px-1 mask-fade-edges"
-        style={{
-          maskImage:
-            "linear-gradient(to right, transparent 0%, black 16px, black calc(100% - 16px), transparent 100%)",
-          WebkitMaskImage:
-            "linear-gradient(to right, transparent 0%, black 16px, black calc(100% - 16px), transparent 100%)",
-        }}
+        className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory py-2 px-1"
       >
         {categories.map((cat) => {
           const isActive = activeCategory === cat;
@@ -56,14 +47,14 @@ export function CategoryTabs({
               role="tab"
               aria-selected={isActive}
               onClick={() => onSelect(cat)}
-              className={`px-3.5 py-1.5 rounded-full font-mono text-xs uppercase tracking-wider transition-all whitespace-nowrap snap-start shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--industry)] ${
+              className={`px-3.5 py-1.5 font-mono text-xs uppercase tracking-wider transition-all whitespace-nowrap snap-start shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4FF3F] ${
                 isActive
-                  ? "bg-[var(--industry)] !text-black font-black shadow-sm"
-                  : "border border-[var(--line)] text-[var(--muted)] hover:text-[var(--paper)] hover:border-[var(--muted)] bg-transparent"
+                  ? "bg-[#D4FF3F] !text-[#0B0B0B] font-bold shadow-[0_0_12px_rgba(212,255,63,0.3)]"
+                  : "border border-[#FF2DA8]/40 text-[#FF2DA8] hover:text-[#D4FF3F] hover:border-[#D4FF3F] bg-[#0B0B0B]"
               }`}
               style={{
-                color: isActive ? "#000000" : undefined,
-                backgroundColor: isActive ? "var(--industry)" : undefined,
+                color: isActive ? "#0B0B0B" : undefined,
+                backgroundColor: isActive ? "#D4FF3F" : undefined,
               }}
             >
               {cat}
@@ -95,7 +86,6 @@ export function FaqItem({
   resolvedAnswer,
   isOpen,
   onToggle,
-  index,
   shouldReduceMotion = false,
   onKeyDown,
   buttonRef,
@@ -104,8 +94,7 @@ export function FaqItem({
   const panelId = `faq-panel-${item.id}`;
 
   return (
-    <div className="faq-row-item border-b border-[var(--line)]">
-      {/* Accordion Header Button */}
+    <div className="faq-row-item border-b border-[#FF2DA8]/30">
       <h3>
         <button
           ref={buttonRef}
@@ -115,9 +104,13 @@ export function FaqItem({
           aria-controls={panelId}
           onClick={onToggle}
           onKeyDown={onKeyDown}
-          className="w-full flex items-center justify-between gap-4 py-4 sm:py-5 text-left group transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--industry)] rounded-[var(--radius-control)] min-h-[48px]"
+          className="w-full flex items-center justify-between gap-4 py-4 sm:py-5 text-left group transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4FF3F] min-h-[48px]"
         >
-          <span className="font-display font-bold text-lg sm:text-xl text-[var(--paper)] group-hover:text-[var(--industry)] transition-colors leading-snug">
+          <span
+            className={`font-display font-bold text-lg sm:text-xl transition-colors leading-snug uppercase tracking-tight ${
+              isOpen ? "text-[#D4FF3F]" : "text-[#FF2DA8] group-hover:text-[#D4FF3F]"
+            }`}
+          >
             {item.question}
           </span>
 
@@ -128,7 +121,7 @@ export function FaqItem({
               height="10"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className={isOpen ? "text-[var(--industry)]" : "text-[var(--muted)]"}
+              className={isOpen ? "text-[#D4FF3F]" : "text-[#FF2DA8]"}
               animate={{ rotate: isOpen ? 90 : 0 }}
               transition={
                 shouldReduceMotion
@@ -143,7 +136,7 @@ export function FaqItem({
         </button>
       </h3>
 
-      {/* Accordion Panel (Height auto + opacity) */}
+      {/* Accordion Panel */}
       <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div
@@ -161,9 +154,9 @@ export function FaqItem({
             style={{ overflow: "hidden" }}
           >
             <div className="relative pl-5 sm:pl-7 pr-4 pb-6 pt-1">
-              {/* 2px Lime Bar on left edge drawing top to bottom */}
+              {/* 2px Chartreuse Bar on left edge */}
               <motion.div
-                className="absolute left-0 top-0 bottom-6 w-[2px] bg-[var(--industry)] origin-top pointer-events-none"
+                className="absolute left-0 top-0 bottom-6 w-[2px] bg-[#D4FF3F] origin-top pointer-events-none shadow-[0_0_8px_#D4FF3F]"
                 initial={shouldReduceMotion ? false : { scaleY: 0 }}
                 animate={{ scaleY: 1 }}
                 exit={{ scaleY: 0 }}
@@ -175,7 +168,7 @@ export function FaqItem({
                 aria-hidden="true"
               />
 
-              {/* Rising Answer Text (y: 8 -> 0) */}
+              {/* Answer Text */}
               <motion.p
                 initial={shouldReduceMotion ? false : { y: 8, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -185,7 +178,7 @@ export function FaqItem({
                     ? { duration: 0 }
                     : { duration: 0.3, delay: 0.05, ease: "easeOut" }
                 }
-                className="text-sm sm:text-base text-[var(--muted)] leading-relaxed max-w-3xl m-0"
+                className="text-sm sm:text-base text-[#D4FF3F] leading-relaxed max-w-3xl m-0 font-mono"
               >
                 {resolvedAnswer}
               </motion.p>
@@ -212,7 +205,6 @@ export function FaqSection() {
 
   const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
-  // Active raw FAQ list from siteContent with fallback to defaults
   const rawFaqItems = useMemo(() => {
     if (siteContent.faqs && siteContent.faqs.length > 0) {
       return siteContent.faqs.map((f, i) => ({
@@ -225,7 +217,6 @@ export function FaqSection() {
     return faqItems;
   }, []);
 
-  // 1. Categories derived dynamically from data with clean logical ordering
   const categories = useMemo(() => {
     const preferredOrder = [
       "All",
@@ -246,7 +237,6 @@ export function FaqSection() {
     return sorted;
   }, [rawFaqItems]);
 
-  // 2. Pre-resolve tokens in all FAQ items for quick filtering and rendering
   const resolvedFaqList = useMemo(() => {
     return rawFaqItems.map((item) => ({
       ...item,
@@ -254,18 +244,15 @@ export function FaqSection() {
     }));
   }, [rawFaqItems]);
 
-  // 3. Filter items by active category
   const filteredItems = useMemo(() => {
     return resolvedFaqList.filter((item) => {
       return activeCategory === "All" || item.category === activeCategory;
     });
   }, [resolvedFaqList, activeCategory]);
 
-  // 4. Pagination / Show more limit (8 items max when collapsed)
   const visibleItems = isExpanded ? filteredItems : filteredItems.slice(0, 8);
   const hasMore = filteredItems.length > 8;
 
-  // Keyboard navigation across FAQ header buttons
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLButtonElement>, currentIndex: number) => {
       const count = visibleItems.length;
@@ -290,7 +277,6 @@ export function FaqSection() {
     [visibleItems.length],
   );
 
-  // SEO: Generate JSON-LD FAQPage schema dynamically from same resolved data
   const jsonLdSchema = useMemo(() => {
     return {
       "@context": "https://schema.org",
@@ -306,12 +292,8 @@ export function FaqSection() {
     };
   }, [resolvedFaqList]);
 
-  // Masked heading lines for dedicated Q&A section
-  const headingLines = ["Questions,", "answered."];
-
   return (
     <>
-      {/* Schema.org FAQPage Structured Data for SEO */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
@@ -319,67 +301,59 @@ export function FaqSection() {
 
       <section
         ref={sectionRef}
-        className="faq-section relative overflow-hidden py-16 sm:py-24"
+        className="faq-section relative overflow-hidden py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#0B0B0B] text-[#FF2DA8] border-b border-[#FF2DA8]/20"
         id="faq"
         aria-labelledby="faq-heading"
       >
         <div id="questions" className="sr-only" />
         <div id="q&a" className="sr-only" />
         <div id="qa" className="sr-only" />
-        {/* Atmosphere: 4% subtle film-grain overlay */}
-        <div className="faq-grain-overlay pointer-events-none" aria-hidden="true" />
 
-        <div className="relative z-10 w-full">
-          {/* ------------------------------------------ */}
-          {/* SECTION HEADER (Scroll entrance)           */}
-          {/* ------------------------------------------ */}
+        <div className="relative z-10 max-w-7xl mx-auto w-full">
+          {/* Header */}
           <div className="section-intro mb-10 sm:mb-14">
-            {/* Tag / Kicker */}
             <motion.p
-              className="kicker"
+              className="font-mono text-xs uppercase tracking-widest text-[#D4FF3F] font-bold block mb-2"
               initial={shouldReduceMotion ? false : { opacity: 0 }}
-              animate={
-                isInView
-                  ? { opacity: 1 }
-                  : shouldReduceMotion
-                  ? { opacity: 1 }
-                  : { opacity: 0 }
-              }
+              animate={isInView ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
-              the fine print
+              // {siteContent.ui.packagesKicker ? "THE FINE PRINT" : "FREQUENTLY ASKED QUESTIONS"}
             </motion.p>
 
-            {/* Masked Heading Lines (y: 100% -> 0, 0.1s stagger) */}
-            <h2 id="faq-heading" className="flex flex-col items-start m-0">
-              {headingLines.map((line, idx) => (
-                <span key={idx} className="overflow-hidden block leading-none">
-                  <motion.span
-                    className="block"
-                    initial={shouldReduceMotion ? false : { y: "100%" }}
-                    animate={
-                      isInView
-                        ? { y: 0 }
-                        : shouldReduceMotion
-                        ? { y: 0 }
-                        : { y: "100%" }
-                    }
-                    transition={{
-                      duration: 0.6,
-                      ease: [0.16, 1, 0.3, 1] as const,
-                      delay: shouldReduceMotion ? 0 : 0.1 + idx * 0.1,
-                    }}
-                  >
-                    {line}
-                  </motion.span>
-                </span>
-              ))}
+            <h2 id="faq-heading" className="flex flex-col items-start m-0 font-display font-black text-4xl sm:text-5xl lg:text-6xl uppercase tracking-tight text-[#FF2DA8]">
+              <span className="overflow-hidden block leading-none">
+                <motion.span
+                  className="block"
+                  initial={shouldReduceMotion ? false : { y: "100%" }}
+                  animate={isInView ? { y: 0 } : { y: "100%" }}
+                  transition={{
+                    duration: 0.6,
+                    ease: [0.16, 1, 0.3, 1] as const,
+                    delay: shouldReduceMotion ? 0 : 0.1,
+                  }}
+                >
+                  QUESTIONS,
+                </motion.span>
+              </span>
+              <span className="overflow-hidden block leading-none">
+                <motion.span
+                  className="block text-[#D4FF3F]"
+                  initial={shouldReduceMotion ? false : { y: "100%" }}
+                  animate={isInView ? { y: 0 } : { y: "100%" }}
+                  transition={{
+                    duration: 0.6,
+                    ease: [0.16, 1, 0.3, 1] as const,
+                    delay: shouldReduceMotion ? 0 : 0.2,
+                  }}
+                >
+                  ANSWERED.
+                </motion.span>
+              </span>
             </h2>
           </div>
 
-          {/* ------------------------------------------ */}
-          {/* FAQ CONTROLS: Category Tabs                */}
-          {/* ------------------------------------------ */}
+          {/* Category Tabs */}
           <CategoryTabs
             categories={categories}
             activeCategory={activeCategory}
@@ -389,59 +363,52 @@ export function FaqSection() {
             }}
           />
 
-          {/* ------------------------------------------ */}
-          {/* FAQ ACCORDION LIST                         */}
-          {/* ------------------------------------------ */}
-          <div className="faq-list border-t border-[var(--line)]">
+          {/* FAQ Accordion List */}
+          <div className="faq-list border-t border-[#FF2DA8]/30">
             {visibleItems.map((item, index) => (
-                <FaqItem
-                  key={item.id}
-                  item={item}
-                  resolvedAnswer={item.resolvedAnswer}
-                  isOpen={openId === item.id}
-                  onToggle={() =>
-                    setOpenId((curr) => (curr === item.id ? null : item.id))
-                  }
-                  index={index}
-                  shouldReduceMotion={shouldReduceMotion}
-                  onKeyDown={(e) => handleKeyDown(e, index)}
-                  buttonRef={(node) => {
-                    buttonRefs.current[index] = node;
-                  }}
-                />
-              ))}
+              <FaqItem
+                key={item.id}
+                item={item}
+                resolvedAnswer={item.resolvedAnswer}
+                isOpen={openId === item.id}
+                onToggle={() =>
+                  setOpenId((curr) => (curr === item.id ? null : item.id))
+                }
+                index={index}
+                shouldReduceMotion={shouldReduceMotion}
+                onKeyDown={(e) => handleKeyDown(e, index)}
+                buttonRef={(node) => {
+                  buttonRefs.current[index] = node;
+                }}
+              />
+            ))}
           </div>
 
-          {/* ------------------------------------------ */}
-          {/* 4. SHOW MORE / SHOW LESS TOGGLE            */}
-          {/* ------------------------------------------ */}
+          {/* Show more toggle */}
           {hasMore && (
             <div className="pt-6 pb-2 text-center">
               <button
                 type="button"
                 onClick={() => setIsExpanded((prev) => !prev)}
-                className="px-5 py-2.5 rounded-[var(--radius-control)] border border-[var(--line)] hover:border-[var(--industry)] text-xs font-mono uppercase tracking-widest text-[var(--muted)] hover:text-[var(--paper)] transition-all inline-flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--industry)]"
+                className="px-6 py-3 border border-[#FF2DA8] bg-[#0B0B0B] hover:border-[#D4FF3F] text-xs font-mono uppercase tracking-widest text-[#FF2DA8] hover:text-[#D4FF3F] transition-all inline-flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4FF3F] cursor-pointer"
               >
                 {isExpanded ? (
-                  <span>Show less</span>
+                  <span>[ SHOW LESS ▲ ]</span>
                 ) : (
                   <span>
-                    Show more <span className="text-[var(--industry)]">(+ {filteredItems.length - 8} more)</span>
+                    [ SHOW MORE (+{filteredItems.length - 8} MORE) ▼ ]
                   </span>
                 )}
               </button>
             </div>
           )}
 
-          {/* ------------------------------------------ */}
-          {/* 5. BOTTOM PROMPT (no grey line above)      */}
-          {/* ------------------------------------------ */}
-          <div className="pt-8 pb-4">
-            <p className="text-sm sm:text-base text-[var(--muted)] m-0 font-mono">
-              <span className="text-[var(--paper)] font-medium">Still curious?</span> Let&rsquo;s talk about what you need.
+          {/* Bottom Prompt */}
+          <div className="pt-8 pb-4 border-t border-[#FF2DA8]/20 mt-8">
+            <p className="text-sm sm:text-base text-[#D4FF3F] m-0 font-mono">
+              <span className="text-[#FF2DA8] font-bold">// STILL CURIOUS?</span> Let&rsquo;s talk about what you need.
             </p>
           </div>
-
         </div>
       </section>
     </>

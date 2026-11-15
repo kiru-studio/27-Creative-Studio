@@ -53,12 +53,12 @@ export function Clapper({
     >
       {/* Top Movable Clapper Arm */}
       <motion.div
-        className="relative h-10 w-full rounded-t-lg border border-[#2A2A30] cursor-pointer overflow-hidden z-20 shadow-[0_6px_18px_rgba(0,0,0,0.6)]"
+        className="relative h-10 w-full rounded-t-lg border border-[#FF2DA8] cursor-pointer overflow-hidden z-20 shadow-[0_6px_18px_rgba(0,0,0,0.6)]"
         style={{
           transformOrigin: "bottom left",
-          backgroundColor: "#1B1B21",
+          backgroundColor: "#0B0B0B",
           backgroundImage:
-            "repeating-linear-gradient(-45deg, #F4F1EA 0, #F4F1EA 18px, #0B0B0F 18px, #0B0B0F 36px)",
+            "repeating-linear-gradient(-45deg, #D4FF3F 0, #D4FF3F 18px, #0B0B0B 18px, #0B0B0B 36px)",
         }}
         animate={{
           rotate: targetRotation,
@@ -85,23 +85,23 @@ export function Clapper({
         )}
 
         {/* Hinge Pivot on Top Arm */}
-        <div className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full border border-[#2A2A30] bg-[#141419] flex items-center justify-center shadow-md">
-          <div className="w-2 h-2 rounded-full bg-[#A9A7A0]" />
+        <div className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full border border-[#FF2DA8] bg-[#0B0B0B] flex items-center justify-center shadow-md">
+          <div className="w-2 h-2 rounded-full bg-[#D4FF3F]" />
         </div>
       </motion.div>
 
       {/* Bottom Fixed Clapper Stick */}
       <div
-        className="relative h-10 w-full border border-[#2A2A30] border-t-0 overflow-hidden z-10"
+        className="relative h-10 w-full border border-[#FF2DA8] border-t-0 overflow-hidden z-10"
         style={{
-          backgroundColor: "#1B1B21",
+          backgroundColor: "#0B0B0B",
           backgroundImage:
-            "repeating-linear-gradient(-45deg, #F4F1EA 0, #F4F1EA 18px, #0B0B0F 18px, #0B0B0F 36px)",
+            "repeating-linear-gradient(-45deg, #D4FF3F 0, #D4FF3F 18px, #0B0B0B 18px, #0B0B0B 36px)",
         }}
       >
         {/* Hinge Pivot on Bottom Bar */}
-        <div className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full border border-[#2A2A30] bg-[#141419] flex items-center justify-center shadow-md">
-          <div className="w-2 h-2 rounded-full bg-[#A9A7A0]" />
+        <div className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full border border-[#FF2DA8] bg-[#0B0B0B] flex items-center justify-center shadow-md">
+          <div className="w-2 h-2 rounded-full bg-[#D4FF3F]" />
         </div>
       </div>
     </div>

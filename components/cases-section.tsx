@@ -17,6 +17,7 @@ import {
 } from "framer-motion";
 import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 import { siteContent } from "@/lib/site-content";
+import { NeonArrow } from "@/components/ui/neon-icons";
 
 // ==========================================
 // 0. TYPES & DATA ARRAY
@@ -89,7 +90,7 @@ export function useIsTouchDevice(): boolean {
 }
 
 // ==========================================
-// 1. FILM FRAME DETAILS (Corner Brackets, REC, Timecode, Number Counter)
+// 1. FILM FRAME DETAILS (Corner Brackets, REC, Timecode)
 // ==========================================
 
 export function FilmFrameCornerBrackets({
@@ -131,7 +132,7 @@ export function FilmFrameCornerBrackets({
           left: `${inset}px`,
           width: `${size}px`,
           height: `${size}px`,
-          borderColor: "var(--industry)",
+          borderColor: "#D4FF3F",
           borderStyle: "solid",
           borderWidth: `${borderWidth}px 0 0 ${borderWidth}px`,
           willChange: "transform, opacity",
@@ -152,7 +153,7 @@ export function FilmFrameCornerBrackets({
           right: `${inset}px`,
           width: `${size}px`,
           height: `${size}px`,
-          borderColor: "var(--industry)",
+          borderColor: "#D4FF3F",
           borderStyle: "solid",
           borderWidth: `${borderWidth}px ${borderWidth}px 0 0`,
           willChange: "transform, opacity",
@@ -173,7 +174,7 @@ export function FilmFrameCornerBrackets({
           left: `${inset}px`,
           width: `${size}px`,
           height: `${size}px`,
-          borderColor: "var(--industry)",
+          borderColor: "#D4FF3F",
           borderStyle: "solid",
           borderWidth: `0 0 ${borderWidth}px ${borderWidth}px`,
           willChange: "transform, opacity",
@@ -194,7 +195,7 @@ export function FilmFrameCornerBrackets({
           right: `${inset}px`,
           width: `${size}px`,
           height: `${size}px`,
-          borderColor: "var(--industry)",
+          borderColor: "#D4FF3F",
           borderStyle: "solid",
           borderWidth: `0 ${borderWidth}px ${borderWidth}px 0`,
           willChange: "transform, opacity",
@@ -303,11 +304,11 @@ export interface CursorPreviewProps {
 export function CursorPreview({ item, x, y }: CursorPreviewProps) {
   return (
     <motion.div
-      className="pointer-events-none fixed top-0 left-0 z-50 overflow-hidden rounded-[var(--radius-control)] border border-[var(--line)] border-l-2 border-l-[var(--industry)] bg-[var(--panel-raised)] shadow-2xl"
+      className="pointer-events-none fixed top-0 left-0 z-50 overflow-hidden border-2 border-[#FF2DA8] bg-[#0B0B0B] shadow-[0_0_25px_rgba(255,45,168,0.4)]"
       style={{
         x,
         y,
-        width: 220,
+        width: 240,
         aspectRatio: "16 / 9",
         transform: "translateZ(0)",
         willChange: "transform, opacity",
@@ -318,34 +319,35 @@ export function CursorPreview({ item, x, y }: CursorPreviewProps) {
       transition={{ duration: 0.2, ease: "easeOut" }}
       aria-hidden="true"
     >
-      <div className="relative w-full h-full p-3 flex flex-col justify-between overflow-hidden bg-[var(--ink)]">
+      <div className="relative w-full h-full p-3 flex flex-col justify-between overflow-hidden bg-[#0B0B0B]">
         {item.posterSrc ? (
           <img
             src={item.posterSrc}
             alt={`${item.client || "Case study"} — ${item.title}`}
-            className="absolute inset-0 w-full h-full object-cover opacity-60"
+            className="absolute inset-0 w-full h-full object-cover opacity-75"
+            style={{ filter: "url(#duotone-pink)" }}
           />
         ) : (
-          <div className="absolute inset-0 bg-[var(--panel)] flex items-center justify-center">
-            <span className="text-[var(--line)] text-2xl font-mono select-none">
+          <div className="absolute inset-0 bg-[#0B0B0B] flex items-center justify-center">
+            <span className="text-[#FF2DA8] text-2xl font-mono select-none">
               ⌖
             </span>
           </div>
         )}
 
         {/* Top-left mono PREVIEW label */}
-        <div className="relative z-10 flex items-center justify-between font-mono text-[9px] tracking-widest text-[var(--paper)]">
-          <span className="text-[var(--industry)] font-semibold uppercase">
+        <div className="relative z-10 flex items-center justify-between font-mono text-[9px] tracking-widest text-[#D4FF3F]">
+          <span className="text-[#D4FF3F] font-bold uppercase bg-[#0B0B0B] px-1 border border-[#FF2DA8]/40">
             PREVIEW
           </span>
-          <span className="text-[var(--muted)] text-[8px] uppercase tracking-wider">
+          <span className="text-[#FF2DA8] text-[8px] uppercase tracking-wider font-bold">
             {item.category}
           </span>
         </div>
 
         {/* Bottom case title */}
-        <div className="relative z-10 font-mono text-[10px] text-[var(--paper)] truncate select-none">
-          <span className="text-[var(--industry)] mr-1">CASE /</span>
+        <div className="relative z-10 font-mono text-[10px] text-[#D4FF3F] truncate select-none bg-[#0B0B0B]/90 px-1 py-0.5 border border-[#FF2DA8]/30">
+          <span className="text-[#FF2DA8] mr-1 font-bold">CASE /</span>
           <span className="font-bold">{item.title}</span>
         </div>
       </div>
@@ -369,8 +371,8 @@ export function CasePanel({
   shouldReduceMotion,
 }: CasePanelProps) {
   return (
-    <div className="case-detail pt-2 pb-6">
-      {/* Film Frame: fades/slides in from left (x: -16 -> 0) */}
+    <div className="case-detail pt-2 pb-6 text-[#D4FF3F]">
+      {/* Film Frame: fades/slides in from left */}
       <motion.div
         initial={
           shouldReduceMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -16 }
@@ -381,12 +383,12 @@ export function CasePanel({
           ease: [0.16, 1, 0.3, 1],
           delay: shouldReduceMotion ? 0 : 0.08,
         }}
-        className="case-video relative overflow-hidden bg-[var(--panel)]"
+        className="case-video relative overflow-hidden bg-[#0B0B0B] border border-[#FF2DA8]/40"
         style={{ borderLeft: 0, willChange: "transform, opacity" }}
       >
-        {/* Lime left border draws top to bottom (scaleY 0 -> 1, origin top, ~0.5s) */}
+        {/* Chartreuse left border draws top to bottom */}
         <motion.div
-          className="absolute top-0 bottom-0 left-0 w-[var(--space-1)] bg-[var(--industry)] z-10"
+          className="absolute top-0 bottom-0 left-0 w-1.5 bg-[#D4FF3F] z-10 shadow-[0_0_10px_#D4FF3F]"
           initial={shouldReduceMotion ? { scaleY: 1 } : { scaleY: 0 }}
           animate={{ scaleY: 1 }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
@@ -394,20 +396,20 @@ export function CasePanel({
           aria-hidden="true"
         />
 
-        {/* Four small lime viewfinder corner brackets animate inward (~0.35s) */}
+        {/* Viewfinder corner brackets */}
         <FilmFrameCornerBrackets
           isAnimated={isOpen}
           shouldReduceMotion={shouldReduceMotion}
         />
 
-        {/* Top-left: mono "● REC" with blinking dot (opacity loop, ~1.2s) */}
+        {/* Top-left: REC with blinking dot */}
         {!shouldReduceMotion && (
           <div
-            className="absolute top-3 left-4 z-20 flex items-center gap-1.5 font-mono text-[var(--text-xs)] tracking-widest text-[var(--paper)] pointer-events-none uppercase select-none"
+            className="absolute top-3 left-4 z-20 flex items-center gap-1.5 font-mono text-xs tracking-widest text-[#FF2DA8] pointer-events-none uppercase select-none font-bold"
             aria-hidden="true"
           >
             <motion.span
-              className="inline-block w-2 h-2 rounded-full bg-[var(--industry)]"
+              className="inline-block w-2 h-2 rounded-full bg-[#FF2DA8] shadow-[0_0_6px_#FF2DA8]"
               animate={{ opacity: [1, 0.2, 1] }}
               transition={{
                 duration: 1.2,
@@ -415,13 +417,13 @@ export function CasePanel({
                 ease: "easeInOut",
               }}
             />
-            <span className="font-semibold text-[var(--industry)]">REC</span>
+            <span>REC // CASE FEED</span>
           </div>
         )}
 
-        {/* Top-right: running timecode (00:00:00, increments every second while open, resets on close) */}
+        {/* Top-right: running timecode */}
         <div
-          className="absolute top-3 right-4 z-20 font-mono text-[var(--text-xs)] text-[var(--muted)] pointer-events-none select-none tracking-widest"
+          className="absolute top-3 right-4 z-20 font-mono text-xs text-[#D4FF3F] pointer-events-none select-none tracking-widest font-bold"
           aria-hidden="true"
         >
           <FilmTimecode isActive={isOpen && !shouldReduceMotion} />
@@ -430,7 +432,7 @@ export function CasePanel({
         {/* Video, poster or film placeholder */}
         {item.videoSrc ? (
           <video
-            className="case-video-media"
+            className="case-video-media w-full aspect-video object-cover"
             src={item.videoSrc}
             poster={item.posterSrc}
             controls
@@ -441,13 +443,14 @@ export function CasePanel({
           />
         ) : item.posterSrc ? (
           <img
-            className="case-video-image"
+            className="case-video-image w-full aspect-video object-cover"
             src={item.posterSrc}
             alt={`${item.client || "Case study"} media — ${item.title}`}
+            style={{ filter: "url(#duotone-chartreuse)" }}
           />
         ) : (
-          <div className="w-full h-full min-h-[140px] flex items-end justify-start font-mono text-[var(--text-xs)] text-[var(--muted)] select-none">
-            <span className="relative z-10">
+          <div className="w-full h-full min-h-[140px] flex items-end justify-start font-mono text-xs text-[#FF2DA8] select-none p-4">
+            <span className="relative z-10 font-bold">
               {siteContent.ui.caseFilmPlaceholder}
             </span>
           </div>
@@ -458,52 +461,52 @@ export function CasePanel({
       {(item.location || item.handle) && (
         <div className="flex flex-wrap items-center gap-3 pt-3 pb-1 font-mono text-xs">
           {item.location && (
-            <span className="inline-flex items-center gap-1.5 text-[var(--paper)]">
-              <span className="text-[var(--industry)]">📍</span>
+            <span className="inline-flex items-center gap-1.5 text-[#D4FF3F] font-bold">
+              <span className="text-[#FF2DA8]">LOCATION //</span>
               {item.location}
             </span>
           )}
           {item.handle && (
-            <span className="text-[var(--industry)] font-semibold">
+            <span className="text-[#FF2DA8] font-bold">
               {item.handle}
             </span>
           )}
         </div>
       )}
 
-      {/* Growth Metric Stat Cards (From PDF Pages 3-6) */}
+      {/* Growth Metric Stat Cards */}
       {item.growthMultiplier && (
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 my-3 font-mono">
-          <div className="p-3 rounded bg-[var(--panel-raised)] border border-[var(--line)]">
-            <span className="block text-[9px] sm:text-[10px] uppercase tracking-wider text-[var(--muted)]">Follower Growth</span>
-            <span className="block text-xl sm:text-2xl font-black text-[var(--industry)]">{item.growthMultiplier}</span>
-            {item.newFollowers && <span className="block text-[11px] text-[var(--paper)] font-semibold">{item.newFollowers} new</span>}
+          <div className="p-3 bg-[#0B0B0B] border border-[#FF2DA8]">
+            <span className="block text-[9px] sm:text-[10px] uppercase tracking-wider text-[#FF2DA8] font-bold">Follower Growth</span>
+            <span className="block text-2xl sm:text-3xl font-black text-[#D4FF3F] mt-0.5">{item.growthMultiplier}</span>
+            {item.newFollowers && <span className="block text-[11px] text-[#FF2DA8] font-bold">{item.newFollowers} new</span>}
           </div>
           {item.followersStart && item.followersNow && (
-            <div className="p-3 rounded bg-[var(--panel-raised)] border border-[var(--line)]">
-              <span className="block text-[9px] sm:text-[10px] uppercase tracking-wider text-[var(--muted)]">Trajectory</span>
-              <span className="block text-sm sm:text-base font-bold text-[var(--paper)] mt-0.5">{item.followersStart} → {item.followersNow}</span>
-              <span className="block text-[10px] text-[var(--muted)]">start &gt; now</span>
+            <div className="p-3 bg-[#0B0B0B] border border-[#FF2DA8]/50">
+              <span className="block text-[9px] sm:text-[10px] uppercase tracking-wider text-[#FF2DA8] font-bold">Trajectory</span>
+              <span className="block text-sm sm:text-base font-bold text-[#D4FF3F] mt-0.5">{item.followersStart} → {item.followersNow}</span>
+              <span className="block text-[10px] text-[#D4FF3F]/70">ORGANIC REACH</span>
             </div>
           )}
           {item.topViews && (
-            <div className="p-3 rounded bg-[var(--panel-raised)] border border-[var(--line)]">
-              <span className="block text-[9px] sm:text-[10px] uppercase tracking-wider text-[var(--muted)]">Top Reel Views</span>
-              <span className="block text-lg sm:text-xl font-bold text-[var(--paper)] mt-0.5">{item.topViews}</span>
-              {item.postsCount && <span className="block text-[10px] text-[var(--muted)]">{item.postsCount} posts</span>}
+            <div className="p-3 bg-[#0B0B0B] border border-[#FF2DA8]/50">
+              <span className="block text-[9px] sm:text-[10px] uppercase tracking-wider text-[#FF2DA8] font-bold">Top Reel Views</span>
+              <span className="block text-lg sm:text-xl font-bold text-[#D4FF3F] mt-0.5">{item.topViews}</span>
+              {item.postsCount && <span className="block text-[10px] text-[#D4FF3F]/70">{item.postsCount} reels shot</span>}
             </div>
           )}
           {item.googleRating && (
-            <div className="p-3 rounded bg-[var(--panel-raised)] border border-[var(--line)]">
-              <span className="block text-[9px] sm:text-[10px] uppercase tracking-wider text-[var(--muted)]">Google Rating</span>
-              <span className="block text-lg sm:text-xl font-bold text-[#FFD700] mt-0.5">★ {item.googleRating}</span>
-              {item.googleReviews && <span className="block text-[10px] text-[var(--muted)]">{item.googleReviews}</span>}
+            <div className="p-3 bg-[#0B0B0B] border border-[#FF2DA8]/50">
+              <span className="block text-[9px] sm:text-[10px] uppercase tracking-wider text-[#FF2DA8] font-bold">Google Rating</span>
+              <span className="block text-lg sm:text-xl font-bold text-[#D4FF3F] mt-0.5">★ {item.googleRating}</span>
+              {item.googleReviews && <span className="block text-[10px] text-[#D4FF3F]/70">{item.googleReviews}</span>}
             </div>
           )}
         </div>
       )}
 
-      {/* Goal block: rises (y: 12 -> 0, 80ms apart) */}
+      {/* Goal block */}
       <motion.p
         initial={
           shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }
@@ -514,15 +517,15 @@ export function CasePanel({
           ease: "easeOut",
           delay: shouldReduceMotion ? 0 : 0.16,
         }}
-        className="m-0"
+        className="m-0 font-mono text-sm leading-relaxed"
       >
-        <strong className="text-[var(--paper)] mr-2 font-bold">
-          {siteContent.ui.caseGoalLabel}
+        <strong className="text-[#FF2DA8] mr-2 font-bold uppercase tracking-wider">
+          {siteContent.ui.caseGoalLabel}:
         </strong>
-        <span>{item.goal}</span>
+        <span className="text-[#D4FF3F]">{item.goal}</span>
       </motion.p>
 
-      {/* What we shot block: rises (y: 12 -> 0, 80ms apart) */}
+      {/* What we shot block */}
       <motion.p
         initial={
           shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }
@@ -533,15 +536,15 @@ export function CasePanel({
           ease: "easeOut",
           delay: shouldReduceMotion ? 0 : 0.24,
         }}
-        className="m-0"
+        className="m-0 mt-2 font-mono text-sm leading-relaxed"
       >
-        <strong className="text-[var(--paper)] mr-2 font-bold">
-          {siteContent.ui.caseShotLabel}
+        <strong className="text-[#FF2DA8] mr-2 font-bold uppercase tracking-wider">
+          {siteContent.ui.caseShotLabel}:
         </strong>
-        <span>{item.shot}</span>
+        <span className="text-[#D4FF3F]">{item.shot}</span>
       </motion.p>
 
-      {/* Result block: rises (y: 12 -> 0, 80ms apart) + number count up */}
+      {/* Result block with number counter */}
       <motion.p
         initial={
           shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }
@@ -552,16 +555,18 @@ export function CasePanel({
           ease: "easeOut",
           delay: shouldReduceMotion ? 0 : 0.32,
         }}
-        className="m-0"
+        className="m-0 mt-2 font-mono text-sm leading-relaxed"
       >
-        <strong className="text-[var(--paper)] mr-2 font-bold">
-          {siteContent.ui.caseResultLabel}
+        <strong className="text-[#FF2DA8] mr-2 font-bold uppercase tracking-wider">
+          {siteContent.ui.caseResultLabel}:
         </strong>
-        <ResultTextWithCounter
-          text={item.result || ""}
-          isOpen={isOpen}
-          shouldReduceMotion={shouldReduceMotion}
-        />
+        <span className="text-[#D4FF3F] font-bold">
+          <ResultTextWithCounter
+            text={item.result || ""}
+            isOpen={isOpen}
+            shouldReduceMotion={shouldReduceMotion}
+          />
+        </span>
       </motion.p>
     </div>
   );
@@ -600,16 +605,14 @@ export function CaseRow({
   onHoverEnd,
   onPointerMove,
 }: CaseRowProps) {
-  // Row opacity rule: The open row NEVER dims. Other rows dim to 0.5 when any row is hovered.
-  const rowOpacity = isOpen ? 1 : isHovered ? 1 : isOtherHovered ? 0.5 : 1;
+  const rowOpacity = isOpen ? 1 : isHovered ? 1 : isOtherHovered ? 0.45 : 1;
 
   return (
     <motion.article
-      className={`case-card relative ${isOpen ? "is-open" : ""}`}
+      className={`case-card relative border-b border-[#FF2DA8]/30 py-5 ${isOpen ? "is-open" : ""}`}
       onMouseEnter={onHoverStart}
       onMouseLeave={onHoverEnd}
       onPointerMove={onPointerMove}
-      // Section entrance: case rows rise 20px and fade in, 100ms apart
       initial={
         shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
       }
@@ -644,31 +647,35 @@ export function CaseRow({
         onBlur={onHoverEnd}
         aria-expanded={isOpen}
         aria-controls={`case-panel-${item.id}`}
-        className="relative z-10 w-full text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--industry)] rounded-[var(--radius-control)]"
+        className="relative z-10 w-full text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4FF3F] grid grid-cols-1 md:grid-cols-12 gap-3 items-center py-2"
       >
-        {/* Left mono label: turns lime on hover */}
-        <motion.span
-          animate={{
-            color: isHovered ? "var(--industry)" : "var(--muted)",
-          }}
-          transition={{ duration: 0.2, ease: "easeOut" }}
-          className="font-mono text-[var(--text-xs)] uppercase tracking-wider"
-        >
-          {item.label}
-        </motion.span>
+        {/* Left mono label: turns chartreuse on hover */}
+        <div className="md:col-span-3">
+          <motion.span
+            animate={{
+              color: isHovered || isOpen ? "#D4FF3F" : "#FF2DA8",
+            }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="font-mono text-xs uppercase tracking-widest font-bold block"
+          >
+            // {item.label}
+          </motion.span>
+        </div>
 
         {/* Middle case title: shifts x: 8px on hover */}
-        <motion.strong
-          animate={{ x: isHovered && !shouldReduceMotion ? 8 : 0 }}
-          transition={{ duration: 0.25, ease: "easeOut" }}
-          style={{ willChange: "transform" }}
-          className="block font-bold leading-tight"
-        >
-          {item.title}
-        </motion.strong>
+        <div className="md:col-span-6">
+          <motion.strong
+            animate={{ x: isHovered && !shouldReduceMotion ? 8 : 0 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            style={{ willChange: "transform" }}
+            className="block font-black text-xl sm:text-2xl md:text-3xl uppercase tracking-tight text-[#FF2DA8] group-hover:text-[#D4FF3F] font-display"
+          >
+            {item.title}
+          </motion.strong>
+        </div>
 
-        {/* Right action text: swaps "Read case +" <-> "Close —" with vertical crossfade and '+' rotate 90 */}
-        <b className="flex items-center justify-end gap-1.5 font-mono text-[var(--text-sm)] text-[var(--industry)] select-none">
+        {/* Right action text */}
+        <div className="md:col-span-3 flex items-center justify-end gap-2 font-mono text-xs text-[#D4FF3F] select-none font-bold">
           <AnimatePresence mode="wait" initial={false}>
             <motion.span
               key={isOpen ? "close" : "open"}
@@ -676,34 +683,34 @@ export function CaseRow({
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: isOpen ? -6 : 6, opacity: 0 }}
               transition={{ duration: 0.2, ease: "easeOut" }}
-              className="inline-block"
+              className="inline-block tracking-widest uppercase"
             >
-              {isOpen ? "Close" : "Read case"}
+              {isOpen ? "[ CLOSE CASE ]" : "[ READ CASE + ]"}
             </motion.span>
           </AnimatePresence>
 
           <motion.span
-            className="inline-block font-bold text-base leading-none origin-center"
+            className="inline-flex items-center justify-center font-bold text-sm leading-none origin-center text-[#FF2DA8]"
             animate={{ rotate: isOpen ? 90 : 0 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
             aria-hidden="true"
           >
-            {isOpen ? "—" : "+"}
+            {isOpen ? "—" : <NeonArrow className="size-3.5 inline-block" />}
           </motion.span>
-        </b>
+        </div>
       </button>
 
-      {/* 1px lime line along the bottom of the row (scaleX 0 -> 1, origin left, ~0.4s) */}
+      {/* 1px chartreuse highlight line on hover */}
       <motion.div
-        className="absolute bottom-0 left-0 right-0 h-[1px] bg-[var(--industry)] pointer-events-none z-10"
+        className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#D4FF3F] pointer-events-none z-10 shadow-[0_0_8px_#D4FF3F]"
         initial={{ scaleX: 0 }}
-        animate={{ scaleX: isHovered ? 1 : 0 }}
+        animate={{ scaleX: isHovered || isOpen ? 1 : 0 }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         style={{ transformOrigin: "left", willChange: "transform" }}
         aria-hidden="true"
       />
 
-      {/* Accordion Panel Container with AnimatePresence & Height: 0 -> auto */}
+      {/* Accordion Panel Container */}
       <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div
@@ -736,7 +743,6 @@ export function CaseRow({
 // 5. MAIN CASES SECTION COMPONENT
 // ==========================================
 
-// Studio KPI Stats Data Array for Results at a Glance
 const KPI_STATS = [
   {
     id: "clients",
@@ -784,7 +790,7 @@ export function CasesSection() {
   const shouldReduceMotion = useHydratedReducedMotion();
   const isTouch = useIsTouchDevice();
 
-  // Floating cursor spring motion values (offset to right and above pointer)
+  // Floating cursor spring motion values
   const cursorX = useMotionValue(-1000);
   const cursorY = useMotionValue(-1000);
   const smoothX = useSpring(cursorX, { stiffness: 320, damping: 28 });
@@ -793,7 +799,6 @@ export function CasesSection() {
   const handlePointerMove = useCallback(
     (e: React.PointerEvent) => {
       if (isTouch || shouldReduceMotion) return;
-      // Position offset: sits to the right (+24px) and above pointer (-140px)
       cursorX.set(e.clientX + 24);
       cursorY.set(e.clientY - 140);
     },
@@ -807,7 +812,7 @@ export function CasesSection() {
 
   return (
     <section
-      className="cases-section relative overflow-hidden"
+      className="cases-section relative overflow-hidden bg-[#0B0B0B] text-[#FF2DA8] py-20 px-4 sm:px-6 lg:px-8 border-b border-[#FF2DA8]/20"
       id="cases"
       ref={sectionRef}
       aria-labelledby="cases-heading"
@@ -816,9 +821,6 @@ export function CasesSection() {
         setHoveredClosedCase(null);
       }}
     >
-      {/* 6. ATMOSPHERE: Subtle Film-Grain Overlay (4% opacity) */}
-      <div className="cases-grain-overlay" aria-hidden="true" />
-
       {/* Floating Cursor Preview (Active for hovered closed rows) */}
       <AnimatePresence>
         {hoveredClosedCase && !shouldReduceMotion && !isTouch && (
@@ -830,25 +832,25 @@ export function CasesSection() {
         )}
       </AnimatePresence>
 
-      <div className="relative z-10 flex flex-col justify-start w-full">
-        {/* 5. SCROLL REVEAL: Header Entrance */}
+      <div className="relative z-10 max-w-7xl mx-auto flex flex-col justify-start w-full">
+        {/* Header Entrance */}
         <div className="section-intro mb-8">
           <div className="overflow-mask-inline">
             <motion.p
-              className="kicker"
+              className="font-mono text-xs uppercase tracking-widest text-[#D4FF3F] font-bold block mb-2"
               initial={
                 shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }
               }
               animate={isInView ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
-              {siteContent.ui.casesKicker}
+              // {siteContent.ui.casesKicker}
             </motion.p>
           </div>
 
           <h2
             id="cases-heading"
-            className="m-0 font-extrabold leading-tight text-4xl sm:text-5xl lg:text-6xl"
+            className="m-0 font-extrabold leading-tight text-4xl sm:text-5xl lg:text-6xl font-display uppercase tracking-tight text-[#FF2DA8]"
           >
             <span className="overflow-mask block">
               <motion.span
@@ -869,12 +871,12 @@ export function CasesSection() {
                   delay: 0.08,
                 }}
               >
-                A few things
+                A FEW THINGS
               </motion.span>
             </span>
             <span className="overflow-mask block">
               <motion.span
-                className="block"
+                className="block text-[#D4FF3F]"
                 initial={
                   shouldReduceMotion
                     ? { y: 0, opacity: 1 }
@@ -891,7 +893,7 @@ export function CasesSection() {
                   delay: 0.18,
                 }}
               >
-                we made move.
+                WE MADE MOVE.
               </motion.span>
             </span>
           </h2>
@@ -902,18 +904,18 @@ export function CasesSection() {
           initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
           transition={{ duration: 0.5, delay: 0.25 }}
-          className="mb-10 sm:mb-12 py-6 sm:py-7 border-y border-[var(--line,#2A2A30)] bg-[var(--panel,#141419)]/30 relative"
+          className="mb-10 sm:mb-12 py-6 sm:py-7 border-y border-[#FF2DA8]/30 bg-[#0B0B0B] relative"
           onMouseLeave={() => setHoveredKpiIndex(null)}
         >
           {/* Top metadata rule */}
-          <div className="flex flex-wrap items-center justify-between gap-2 pb-4 mb-5 border-b border-[var(--line,#2A2A30)]/60 text-[10px] sm:text-[11px] uppercase tracking-widest text-[var(--muted,#A9A7A0)] font-mono">
+          <div className="flex flex-wrap items-center justify-between gap-2 pb-4 mb-5 border-b border-[#FF2DA8]/20 text-[10px] sm:text-[11px] uppercase tracking-widest text-[#D4FF3F] font-mono">
             <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
-              <strong className="font-bold text-[var(--paper,#F4F1EA)]">RESULTS AT A GLANCE</strong>
-              <span className="text-[var(--line,#2A2A30)]" aria-hidden="true">/</span>
+              <strong className="font-bold text-[#FF2DA8]">RESULTS AT A GLANCE</strong>
+              <span className="text-[#FF2DA8]" aria-hidden="true">//</span>
               <span>THOOTHUKUDI CAMPAIGNS</span>
             </span>
-            <span className="hidden sm:inline-block text-[10px] text-[var(--muted,#A9A7A0)]/60 tracking-widest">
-              PORTFOLIO TRACK RECORD
+            <span className="hidden sm:inline-block text-[10px] text-[#D4FF3F]/80 tracking-widest font-bold">
+              VERIFIED PORTFOLIO RECORD
             </span>
           </div>
 
@@ -933,10 +935,10 @@ export function CasesSection() {
                   onBlur={() => setHoveredKpiIndex(null)}
                   className={`group relative min-w-0 pl-4 sm:pl-5 py-2 border-l outline-none cursor-default select-none transition-colors duration-200 ${
                     isHovered
-                      ? "border-[var(--industry,#C6FF3D)]"
+                      ? "border-[#D4FF3F] bg-[#0B0B0B]"
                       : kpi.accent
-                      ? "border-[var(--industry,#C6FF3D)]/50"
-                      : "border-[var(--line,#2A2A30)]"
+                      ? "border-[#D4FF3F]/60"
+                      : "border-[#FF2DA8]/40"
                   }`}
                   style={{
                     opacity: isOtherHovered ? 0.38 : 1,
@@ -946,8 +948,8 @@ export function CasesSection() {
                   <span
                     className={`text-[11px] uppercase tracking-widest block transition-colors duration-200 ${
                       isHovered || kpi.accent
-                        ? "text-[var(--industry,#C6FF3D)] font-bold"
-                        : "text-[var(--muted,#A9A7A0)] group-hover:text-[var(--paper,#F4F1EA)]"
+                        ? "text-[#D4FF3F] font-bold"
+                        : "text-[#FF2DA8] group-hover:text-[#D4FF3F]"
                     }`}
                   >
                     {kpi.label}
@@ -955,10 +957,10 @@ export function CasesSection() {
                   <span
                     className={`text-3xl sm:text-4xl lg:text-5xl font-black font-display block mt-1 transition-colors duration-200 ${
                       kpi.accent
-                        ? "text-[var(--industry,#C6FF3D)]"
+                        ? "text-[#D4FF3F]"
                         : isHovered
-                        ? "text-white"
-                        : "text-[var(--paper,#F4F1EA)]"
+                        ? "text-[#D4FF3F]"
+                        : "text-[#FF2DA8]"
                     }`}
                   >
                     {kpi.value}
@@ -967,8 +969,8 @@ export function CasesSection() {
                     <span
                       className={`text-xs block truncate transition-colors duration-200 ${
                         isHovered
-                          ? "text-[var(--paper,#F4F1EA)] font-medium"
-                          : "text-[var(--muted,#A9A7A0)]/75"
+                          ? "text-[#D4FF3F] font-bold"
+                          : "text-[#D4FF3F]/70"
                       }`}
                     >
                       {isHovered ? kpi.hoverSub : kpi.defaultSub}

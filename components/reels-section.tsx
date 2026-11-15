@@ -77,7 +77,9 @@ export function ReelsSection({
                 {/* 1. Poster Image / Art */}
                 {item.posterSrc ? (
                   <img
-                    className="reel-card-image"
+                    className={`reel-card-image ${
+                      isActive ? "duotone-chartreuse" : "duotone-pink"
+                    } transition-all duration-500`}
                     src={item.posterSrc}
                     alt={`${item.client || "Client"} — ${item.title}`}
                     loading="lazy"
@@ -92,23 +94,23 @@ export function ReelsSection({
                 {/* 2. Darkness Shade Overlay */}
                 <span className="reel-card-shade" aria-hidden="true" />
 
-                {/* 3. L-shaped Lime Viewfinder Brackets (Active card) */}
+                {/* 3. L-shaped Chartreuse Viewfinder Brackets (Active card) */}
                 <span
                   className={`pointer-events-none absolute inset-0 z-10 p-2 transition-opacity duration-300 ${
                     isActive ? "opacity-100" : "opacity-0"
                   }`}
                   aria-hidden="true"
                 >
-                  <span className="absolute top-2 left-2 w-2.5 h-2.5 border-t-2 border-l-2 border-[var(--industry,#C6FF3D)]" />
-                  <span className="absolute top-2 right-2 w-2.5 h-2.5 border-t-2 border-r-2 border-[var(--industry,#C6FF3D)]" />
-                  <span className="absolute bottom-2 left-2 w-2.5 h-2.5 border-b-2 border-l-2 border-[var(--industry,#C6FF3D)]" />
-                  <span className="absolute bottom-2 right-2 w-2.5 h-2.5 border-b-2 border-r-2 border-[var(--industry,#C6FF3D)]" />
+                  <span className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-[#D4FF3F]" />
+                  <span className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-[#D4FF3F]" />
+                  <span className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-[#D4FF3F]" />
+                  <span className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-[#D4FF3F]" />
                 </span>
 
-                {/* 4. Duration Pill */}
+                {/* 4. Duration Pill (Strict 3-Colour) */}
                 <span className="reel-card-duration">
-                  <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-black/60 backdrop-blur-sm border border-white/10 font-mono text-[11px] text-[var(--paper,#F4F1EA)]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#0B0B0B] border border-[#D4FF3F] font-mono text-[11px] text-[#D4FF3F] font-bold">
+                    <span className="w-1.5 h-1.5 bg-[#FF2DA8] animate-pulse" />
                     <span>{item.meta}</span>
                   </span>
                 </span>

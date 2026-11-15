@@ -1347,3 +1347,38 @@ button { min-height: var(--control-height); }
   }
   .filmstrip-track { animation-play-state: paused !important; }
 }
+
+/* =========================================================================
+   SCROLLBAR STYLING & MOBILE UTILITIES (Strict 3-Colour Law)
+   ========================================================================= */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0B0B0B;
+}
+::-webkit-scrollbar-thumb {
+  background: #FF2DA8;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D4FF3F;
+}
+* {
+  scrollbar-color: #FF2DA8 #0B0B0B;
+}
+
+@media (max-width: 767px) {
+  .whatsapp-fab {
+    display: none !important;
+  }
+}
+

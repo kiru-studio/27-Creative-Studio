@@ -7,8 +7,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: 'Instagram growth and local visibility for Thoothukudi businesses.',
     start_url: '/',
     display: 'standalone',
-    background_color: '#0B0B0F',
-    theme_color: '#0B0B0F',
+    background_color: '#0B0B0B',
+    theme_color: '#0B0B0B',
     icons: [
       {
         src: '/icon-dark-32x32.png',

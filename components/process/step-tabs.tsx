@@ -62,29 +62,24 @@ export function StepTabs({
             aria-selected={isActive}
             tabIndex={isActive ? 0 : -1}
             onClick={() => onSelectStep(index)}
-            style={{ color: isActive ? "#0B0B0F" : undefined }}
-            className={`group relative flex flex-col items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg border text-xs font-mono tracking-wider transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-[#C6FF3D] overflow-hidden ${
+            style={{ color: isActive ? "#0B0B0B" : undefined }}
+            className={`group relative flex flex-col items-center justify-center gap-1.5 py-2.5 px-3 border text-xs font-mono tracking-wider transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-[#D4FF3F] overflow-hidden ${
               isActive
-                ? "border-[#C6FF3D] !text-[#0B0B0F] font-bold"
-                : "border-[#2A2A30] bg-[#141419]/90 text-[#A9A7A0] hover:text-[#F4F1EA] hover:border-[#C6FF3D]/50"
+                ? "border-[#D4FF3F] !text-[#0B0B0B] font-bold"
+                : "border-[#FF2DA8]/40 bg-[#0B0B0B] text-[#FF2DA8] hover:text-[#D4FF3F] hover:border-[#D4FF3F]"
             }`}
           >
-            {/* Active solid lime fill background */}
+            {/* Active solid chartreuse fill background */}
             {isActive && (
               <motion.div
                 layoutId="active-step-tab-bg"
-                className="absolute inset-0 bg-[#C6FF3D] z-0"
+                className="absolute inset-0 bg-[#D4FF3F] z-0"
                 transition={
                   reducedMotion
                     ? { duration: 0 }
                     : { type: "spring", stiffness: 350, damping: 30 }
                 }
               />
-            )}
-
-            {/* Hover wipe highlight for inactive */}
-            {!isActive && (
-              <div className="absolute inset-0 bg-white/[0.04] opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
             )}
 
             {/* Icon with hover nudge */}
@@ -96,7 +91,7 @@ export function StepTabs({
               <Icon
                 size={16}
                 className={`transition-colors duration-200 ${
-                  isActive ? "!text-[#0B0B0F]" : "text-[#A9A7A0] group-hover:text-[#C6FF3D]"
+                  isActive ? "!text-[#0B0B0B]" : "text-[#FF2DA8] group-hover:text-[#D4FF3F]"
                 }`}
                 aria-hidden="true"
               />
@@ -104,8 +99,8 @@ export function StepTabs({
 
             {/* Step Title */}
             <span
-              className={`relative z-10 select-none ${isActive ? "!text-[#0B0B0F] font-bold" : ""}`}
-              style={{ color: isActive ? "#0B0B0F" : undefined }}
+              className={`relative z-10 select-none uppercase font-bold text-[11px] ${isActive ? "!text-[#0B0B0B]" : ""}`}
+              style={{ color: isActive ? "#0B0B0B" : undefined }}
             >
               {step.title}
             </span>

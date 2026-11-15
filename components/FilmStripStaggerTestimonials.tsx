@@ -5,6 +5,7 @@ import { motion, useInView } from "framer-motion";
 import { MediaSlot } from "@/components/media-slot";
 import { siteContent } from "@/lib/site-content";
 import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
+import { NeonPlay } from "@/components/ui/neon-icons";
 
 export interface FilmTestimonial {
   id: string;
@@ -78,9 +79,16 @@ export function FilmStripStaggerTestimonials({
       aria-labelledby="testimonials-heading"
     >
       <div className="testimonials-grain-overlay" aria-hidden="true" />
-      <div className="section-intro relative z-10 filmstrip-intro">
-        <p className="kicker">{siteContent.ui.testimonialsKicker}</p>
-        <h2 id="testimonials-heading">{siteContent.ui.testimonialsHeading}</h2>
+      <div className="section-intro relative z-10 filmstrip-intro mb-12">
+        <p className="font-mono text-xs uppercase tracking-widest text-[#D4FF3F] font-bold block mb-2">
+          // {siteContent.ui.testimonialsKicker}
+        </p>
+        <h2
+          id="testimonials-heading"
+          className="font-display font-black text-4xl sm:text-5xl lg:text-6xl text-[#FF2DA8] uppercase tracking-tight"
+        >
+          {siteContent.ui.testimonialsHeading}
+        </h2>
       </div>
 
       <div
@@ -178,13 +186,13 @@ export function FilmStripStaggerTestimonials({
                                   {initials(item.author)}
                                 </span>
                               )}
-                              <span className="filmstrip-byline">
+                              <span className="filmstrip-byline flex flex-col gap-0.5 ml-2">
                                 <strong>{item.author}</strong>
-                                <span>{item.role}</span>
+                                <span className="text-xs opacity-80">{item.role}</span>
                               </span>
                             </span>
-                            <span className="filmstrip-rate">
-                              <span aria-hidden="true">▶</span>
+                            <span className="filmstrip-rate flex items-center gap-1.5">
+                              <NeonPlay className="size-2.5 inline-block text-[#D4FF3F]" />
                               {siteContent.ui.filmRateLabel}
                             </span>
                           </figcaption>

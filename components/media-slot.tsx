@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { NeonPlay } from '@/components/ui/neon-icons'
 
 type MediaSlotProps = {
   label: string
@@ -60,12 +61,12 @@ export function MediaSlot({
           {!hideLabel && <span className="media-label">{label}</span>}
           {src && (
             <button
-              className="media-play"
+              className="media-play flex items-center justify-center"
               type="button"
               onClick={() => setStarted(true)}
               aria-label={label}
             >
-              <span aria-hidden="true">▶</span>
+              <NeonPlay className="size-3.5 inline-block text-[#0B0B0B]" />
             </button>
           )}
         </>

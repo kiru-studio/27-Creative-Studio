@@ -49,7 +49,7 @@ export function Hero({ enableViewfinderCursor = false }: HeroProps) {
         ref={heroRef}
         id="hero"
         aria-labelledby="hero-heading"
-        className="relative w-full min-h-screen min-h-[100svh] flex flex-col justify-between overflow-hidden bg-[var(--ink,#0B0B0F)] text-[var(--paper,#F3F3F5)] select-none pt-4 pb-16 sm:pt-6 sm:pb-6 lg:pt-8 lg:pb-8"
+        className="relative w-full min-h-screen min-h-[100svh] flex flex-col justify-between overflow-hidden bg-[#0B0B0B] text-[#FF2DA8] select-none pt-4 pb-16 sm:pt-6 sm:pb-6 lg:pt-8 lg:pb-8"
       >
         {/* Atmosphere: 4% subtle film-grain overlay */}
         <div className="faq-grain-overlay pointer-events-none" aria-hidden="true" />
@@ -75,7 +75,7 @@ export function Hero({ enableViewfinderCursor = false }: HeroProps) {
           {/* Studio mark and recording indicator */}
           <div className="flex items-center gap-2 sm:gap-4 shrink-0">
             <BrandLockup href="#top" />
-            <span className="hidden sm:inline-block text-[var(--line,#333)] font-mono text-xs" aria-hidden="true">
+            <span className="hidden sm:inline-block text-[#FF2DA8]/40 font-mono text-xs" aria-hidden="true">
               /
             </span>
             <RecIndicator shouldReduceMotion={shouldReduceMotion} />

@@ -15,16 +15,16 @@ export default function PrivacyPolicyPage() {
   const lastUpdated = 'November 12, 2026';
 
   return (
-    <main className="min-h-screen bg-[#0B0B0F] text-[#F4F1EA] select-none p-6 sm:p-10 lg:p-16 relative overflow-hidden">
+    <main className="min-h-screen bg-[#0B0B0B] text-[#FF2DA8] select-none p-6 sm:p-10 lg:p-16 relative overflow-hidden">
       {/* Background overlay */}
       <div className="faq-grain-overlay pointer-events-none" aria-hidden="true" />
 
       {/* Header */}
-      <header className="relative z-10 max-w-4xl mx-auto flex items-center justify-between border-b border-[#2A2A30] pb-6 mb-12">
+      <header className="relative z-10 max-w-4xl mx-auto flex items-center justify-between border-b border-[#FF2DA8] pb-6 mb-12">
         <BrandLockup href="/" />
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 font-mono text-xs text-[#A9A7A0] hover:text-[#C6FF3D] transition-colors"
+          className="inline-flex items-center gap-1.5 font-mono text-xs text-[#D4FF3F] hover:text-[#D4FF3F] transition-colors"
         >
           <ArrowLeft size={14} />
           <span>BACK TO HOME</span>
@@ -34,20 +34,20 @@ export default function PrivacyPolicyPage() {
       {/* Content */}
       <article className="relative z-10 max-w-4xl mx-auto font-sans leading-relaxed">
         <div className="mb-10">
-          <p className="font-mono text-xs text-[#C6FF3D] tracking-widest uppercase mb-2">
+          <p className="font-mono text-xs text-[#D4FF3F] tracking-widest uppercase mb-2">
             // LEGAL DOCUMENTATION
           </p>
-          <h1 className="font-display font-black text-4xl sm:text-5xl uppercase tracking-tight text-[#F4F1EA]">
+          <h1 className="font-display font-black text-4xl sm:text-5xl uppercase tracking-tight text-[#FF2DA8]">
             PRIVACY POLICY
           </h1>
-          <p className="font-mono text-xs text-[#A9A7A0] mt-2">
+          <p className="font-mono text-xs text-[#D4FF3F] mt-2">
             EFFECTIVE DATE: {lastUpdated} · 27 CREATIVE STUDIO, THOOTHUKUDI
           </p>
         </div>
 
-        <div className="space-y-8 text-sm sm:text-base text-[#D0CDC6] border-t border-[#2A2A30] pt-8">
+        <div className="space-y-8 text-sm sm:text-base text-[#D4FF3F] border-t border-[#FF2DA8] pt-8">
           <section>
-            <h2 className="font-display font-bold text-xl uppercase tracking-wide text-[#F4F1EA] mb-3">
+            <h2 className="font-display font-bold text-xl uppercase tracking-wide text-[#FF2DA8] mb-3">
               1. Overview
             </h2>
             <p>
@@ -56,11 +56,11 @@ export default function PrivacyPolicyPage() {
           </section>
 
           <section>
-            <h2 className="font-display font-bold text-xl uppercase tracking-wide text-[#F4F1EA] mb-3">
+            <h2 className="font-display font-bold text-xl uppercase tracking-wide text-[#FF2DA8] mb-3">
               2. Information We Collect
             </h2>
             <p className="mb-2">We collect only information necessary to deliver video production, creative strategy, and digital marketing services:</p>
-            <ul className="list-disc pl-5 space-y-1.5 text-[#A9A7A0]">
+            <ul className="list-disc pl-5 space-y-1.5 text-[#D4FF3F]">
               <li><strong>Contact Information:</strong> Name, phone number, WhatsApp number, email address, and business brand name submitted via our project brief clapperboard.</li>
               <li><strong>Project Details:</strong> Business type, marketing goals, preferred filming dates, brand social media handles, and creative references.</li>
               <li><strong>Media & Footage:</strong> Video recordings, raw b-roll, audio stems, photographs, and logos created during scheduled shoot sessions with client consent.</li>
@@ -69,10 +69,10 @@ export default function PrivacyPolicyPage() {
           </section>
 
           <section>
-            <h2 className="font-display font-bold text-xl uppercase tracking-wide text-[#F4F1EA] mb-3">
+            <h2 className="font-display font-bold text-xl uppercase tracking-wide text-[#FF2DA8] mb-3">
               3. How We Use Your Information
             </h2>
-            <ul className="list-disc pl-5 space-y-1.5 text-[#A9A7A0]">
+            <ul className="list-disc pl-5 space-y-1.5 text-[#D4FF3F]">
               <li>To prepare customized video production packages, quotations, and creative briefs.</li>
               <li>To coordinate shoot dates, locations, logistics, and delivery timelines with you via WhatsApp or phone.</li>
               <li>To execute video editing, sound design, color grading, and social media posting workflows as agreed.</li>
@@ -81,7 +81,7 @@ export default function PrivacyPolicyPage() {
           </section>
 
           <section>
-            <h2 className="font-display font-bold text-xl uppercase tracking-wide text-[#F4F1EA] mb-3">
+            <h2 className="font-display font-bold text-xl uppercase tracking-wide text-[#FF2DA8] mb-3">
               4. Media & Filming Consent
             </h2>
             <p>
@@ -90,7 +90,7 @@ export default function PrivacyPolicyPage() {
           </section>
 
           <section>
-            <h2 className="font-display font-bold text-xl uppercase tracking-wide text-[#F4F1EA] mb-3">
+            <h2 className="font-display font-bold text-xl uppercase tracking-wide text-[#FF2DA8] mb-3">
               5. Data Protection & Sharing
             </h2>
             <p>
@@ -99,7 +99,7 @@ export default function PrivacyPolicyPage() {
           </section>
 
           <section>
-            <h2 className="font-display font-bold text-xl uppercase tracking-wide text-[#F4F1EA] mb-3">
+            <h2 className="font-display font-bold text-xl uppercase tracking-wide text-[#FF2DA8] mb-3">
               6. Cookies & Local Storage
             </h2>
             <p>
@@ -108,12 +108,12 @@ export default function PrivacyPolicyPage() {
           </section>
 
           <section>
-            <h2 className="font-display font-bold text-xl uppercase tracking-wide text-[#F4F1EA] mb-3">
+            <h2 className="font-display font-bold text-xl uppercase tracking-wide text-[#FF2DA8] mb-3">
               7. Studio Contact Details
             </h2>
             <p className="mb-2">For any questions or privacy inquiries, contact our studio team directly:</p>
-            <div className="p-4 rounded-xl bg-[#141419] border border-[#2A2A30] font-mono text-xs text-[#A9A7A0] space-y-1">
-              <p><strong className="text-white">27 Creative Studio</strong></p>
+            <div className="p-4 rounded-xl bg-[#0B0B0B] border border-[#FF2DA8] font-mono text-xs text-[#D4FF3F] space-y-1">
+              <p><strong className="text-[#FF2DA8]">27 Creative Studio</strong></p>
               <p>Address: Polpettai / Ettayapuram Road, Thoothukudi, Tamil Nadu 628002, India</p>
               <p>Phone / WhatsApp: +91 83004 78244</p>
               <p>Email: hello@27creativestudio.com</p>
@@ -123,9 +123,9 @@ export default function PrivacyPolicyPage() {
       </article>
 
       {/* Footer */}
-      <footer className="relative z-10 max-w-4xl mx-auto mt-16 pt-6 border-t border-[#2A2A30] flex flex-col sm:flex-row items-center justify-between font-mono text-xs text-[#A9A7A0] gap-2">
+      <footer className="relative z-10 max-w-4xl mx-auto mt-16 pt-6 border-t border-[#FF2DA8] flex flex-col sm:flex-row items-center justify-between font-mono text-xs text-[#D4FF3F] gap-2">
         <p>© {new Date().getFullYear()} 27 Creative Studio. All rights reserved.</p>
-        <Link href="/" className="hover:text-[#C6FF3D] transition-colors">
+        <Link href="/" className="hover:text-[#D4FF3F] transition-colors">
           Return to Studio Home →
         </Link>
       </footer>

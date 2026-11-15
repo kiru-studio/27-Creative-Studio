@@ -83,26 +83,26 @@ export function CameraSvg({
           rotateY: reducedMotion ? 0 : rotateY,
           transformStyle: "preserve-3d",
         }}
-        className="relative w-full aspect-[1.38/1] rounded-2xl border-2 border-[#2A2A30] bg-[#141419] p-4 sm:p-5 shadow-[0_24px_48px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.06)]"
+        className="relative w-full aspect-[1.38/1] rounded-none border-2 border-[#FF2DA8] bg-[#0B0B0B] p-4 sm:p-5 shadow-[0_0_40px_rgba(255,45,168,0.2)]"
       >
         {/* Top Hotshoe bump */}
         <div
-          className="absolute -top-3 left-[22%] -translate-x-1/2 w-16 h-3 rounded-t-sm border border-[#2A2A30] border-b-0 bg-[#1B1B21] shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] flex items-center justify-center"
+          className="absolute -top-3 left-[22%] -translate-x-1/2 w-16 h-3 border border-[#FF2DA8] border-b-0 bg-[#0B0B0B] flex items-center justify-center"
           aria-hidden="true"
         >
-          <div className="w-8 h-1 bg-[#0B0B0F] rounded-xs" />
+          <div className="w-8 h-1 bg-[#D4FF3F]" />
         </div>
 
         {/* Top Shutter Button (glowing on shoot) */}
         <div
-          className="absolute -top-4 left-[10%] w-7 h-4 rounded-t-md border border-[#2A2A30] border-b-0 bg-[#22222A] flex flex-col items-center justify-start pt-0.5 shadow-md"
+          className="absolute -top-4 left-[10%] w-7 h-4 border border-[#FF2DA8] border-b-0 bg-[#0B0B0B] flex flex-col items-center justify-start pt-0.5 shadow-md"
           aria-hidden="true"
         >
           <motion.div
-            className={`w-5 h-1.5 rounded-full transition-all duration-300 ${
+            className={`w-5 h-1.5 transition-all duration-300 ${
               isShooting
-                ? "bg-[#C6FF3D] shadow-[0_0_10px_#C6FF3D]"
-                : "bg-[#3A3A41]"
+                ? "bg-[#D4FF3F] shadow-[0_0_12px_#D4FF3F]"
+                : "bg-[#FF2DA8]"
             }`}
             animate={
               isShooting && !reducedMotion
@@ -115,25 +115,23 @@ export function CameraSvg({
 
         {/* Top Dial */}
         <div
-          className="absolute -top-2 left-[36%] w-10 h-2 rounded-t-xs border border-[#2A2A30] bg-[#1E1E26] flex items-center justify-evenly px-1"
+          className="absolute -top-2 left-[36%] w-10 h-2 border border-[#FF2DA8]/60 bg-[#0B0B0B] flex items-center justify-evenly px-1"
           aria-hidden="true"
         >
-          <span className="w-0.5 h-1 bg-[#A9A7A0]/40" />
-          <span className="w-0.5 h-1 bg-[#A9A7A0]/40" />
-          <span className="w-0.5 h-1 bg-[#A9A7A0]/40" />
+          <span className="w-0.5 h-1 bg-[#D4FF3F]" />
+          <span className="w-0.5 h-1 bg-[#D4FF3F]" />
+          <span className="w-0.5 h-1 bg-[#D4FF3F]" />
         </div>
 
         {/* Camera Top Plate Bar */}
-        <div className="flex items-center justify-between pb-3 border-b border-[#2A2A30]">
+        <div className="flex items-center justify-between pb-3 border-b border-[#FF2DA8]/40">
           {/* Brand & Studio Logo */}
           <div className="flex items-center gap-2">
-            <img
-              src="/images/27-studio-symbol.png"
-              alt="27"
-              className="h-3.5 sm:h-4 w-auto object-contain brightness-125 select-none pointer-events-none"
-            />
-            <span className="font-mono text-[11px] tracking-widest text-[#F4F1EA] uppercase font-bold">
-              STUDIO <span className="text-[#A9A7A0] font-normal">C-400</span>
+            <span className="font-display font-black text-sm tracking-wider text-[#FF2DA8]">
+              27
+            </span>
+            <span className="font-mono text-[11px] tracking-widest text-[#D4FF3F] uppercase font-bold">
+              STUDIO <span className="text-[#FF2DA8] font-normal">FX3-CINE</span>
             </span>
           </div>
 
@@ -150,17 +148,17 @@ export function CameraSvg({
         <div className="relative mt-3 flex items-center justify-center">
           {/* Left Grip Texture */}
           <div
-            className="absolute left-0 top-1/2 -translate-y-1/2 w-3.5 h-[65%] rounded-md border border-[#2A2A30] bg-[#1B1B21] flex flex-col justify-around py-1.5 px-0.5 opacity-80"
+            className="absolute left-0 top-1/2 -translate-y-1/2 w-3.5 h-[65%] border border-[#FF2DA8]/40 bg-[#0B0B0B] flex flex-col justify-around py-1.5 px-0.5 opacity-80"
             aria-hidden="true"
           >
-            <div className="w-full h-0.5 bg-[#0B0B0F]" />
-            <div className="w-full h-0.5 bg-[#0B0B0F]" />
-            <div className="w-full h-0.5 bg-[#0B0B0F]" />
-            <div className="w-full h-0.5 bg-[#0B0B0F]" />
+            <div className="w-full h-0.5 bg-[#FF2DA8]" />
+            <div className="w-full h-0.5 bg-[#D4FF3F]" />
+            <div className="w-full h-0.5 bg-[#FF2DA8]" />
+            <div className="w-full h-0.5 bg-[#D4FF3F]" />
           </div>
 
           {/* Circular Cinema Lens Barrel */}
-          <div className="relative w-48 sm:w-56 md:w-64 aspect-square rounded-full flex items-center justify-center shadow-[0_12px_32px_rgba(0,0,0,0.9)]">
+          <div className="relative w-48 sm:w-56 md:w-64 aspect-square rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(255,45,168,0.25)] border border-[#FF2DA8]/30">
             {/* Concentric Focus Ring with tick marks */}
             <FocusRing
               stepIndex={stepIndex}
@@ -196,10 +194,10 @@ export function CameraSvg({
                   />
                 </defs>
                 <text
-                  className="font-mono text-[7.5px] sm:text-[8px] tracking-[0.24em] fill-[#A9A7A0]/75 uppercase font-semibold select-none"
+                  className="font-mono text-[7.5px] sm:text-[8px] tracking-[0.24em] fill-[#D4FF3F] uppercase font-bold select-none"
                 >
                   <textPath href="#lensRotatingCircle" startOffset="0%">
-                    35mm T1.5 · CINE • 27 CREATIVE STUDIO • 35mm T1.5 · CINE • SONY 4K DCI •
+                    SONY FX3 · 35mm T1.5 · 27 CREATIVE STUDIO · 4K DCI · 10-BIT 4:2:2 ·
                   </textPath>
                 </text>
               </svg>
@@ -208,12 +206,12 @@ export function CameraSvg({
         </div>
 
         {/* Camera bottom status bar */}
-        <div className="mt-3 pt-2 flex items-center justify-between border-t border-[#2A2A30]/60 font-mono text-[9px] text-[#A9A7A0]/60">
+        <div className="mt-3 pt-2 flex items-center justify-between border-t border-[#FF2DA8]/30 font-mono text-[9px] text-[#D4FF3F]">
           <div className="flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#C6FF3D]/70" />
-            <span>4K DCI · 24.00 FPS</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#D4FF3F] animate-pulse" />
+            <span className="font-bold">4K DCI · 24.00 FPS S-LOG3</span>
           </div>
-          <span>LOG·RAW</span>
+          <span className="font-bold text-[#FF2DA8]">RAW / ALL-I</span>
         </div>
       </motion.div>
     </div>

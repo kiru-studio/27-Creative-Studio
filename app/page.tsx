@@ -31,6 +31,7 @@ import { FaqSection } from "@/components/faq-section";
 import { ReelsSection } from "@/components/reels-section";
 import { ContactSection as ContactSectionComponent } from "@/components/contact";
 import { StickyMobileCta } from "@/components/ui/sticky-mobile-cta";
+import { NeonArrow } from "@/components/ui/neon-icons";
 import {
   siteContent,
   whatsappHref,
@@ -241,12 +242,14 @@ function ReelViewer({
               playsInline
               preload="none"
               aria-label={item.title}
+              style={{ filter: "url(#duotone-pink)" }}
             />
           ) : item.posterSrc ? (
             <img
               className="poster-image"
               src={item.posterSrc}
               alt={`${item.client || "Client"} — ${item.title}`}
+              style={{ filter: "url(#duotone-pink)" }}
             />
           ) : null}
           {!item.videoSrc && <span className="poster-play">{item.label}</span>}
@@ -318,29 +321,29 @@ function FooterSection() {
         <div>
           <p className="footer-line">{siteContent.footer.line}</p>
           <BrandLockup href="#top" className="footer-brand" />
-          <address className="not-italic mt-3 text-xs font-mono text-[var(--muted)] max-w-sm leading-relaxed">
-            <span className="text-[var(--paper)] font-bold">Studio:</span>{" "}
+          <address className="not-italic mt-3 text-xs font-mono text-[#D4FF3F] max-w-sm leading-relaxed">
+            <span className="text-[#FF2DA8] font-bold">Studio:</span>{" "}
             Polpettai / Ettayapuram Road, Thoothukudi, Tamil Nadu 628002
             <br />
             <a
               href="https://maps.google.com/?q=Polpettai,+Thoothukudi,+Tamil+Nadu+628002"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[var(--industry)] hover:underline inline-flex items-center gap-1 mt-1"
+              className="text-[#D4FF3F] hover:text-[#FF2DA8] underline inline-flex items-center gap-1 mt-1 font-bold"
             >
               <span>View on Google Maps</span>
-              <span>↗</span>
+              <NeonArrow className="size-3 inline-block" />
             </a>
           </address>
         </div>
-        <nav className="footer-nav" aria-label={siteContent.ui.footerNavigationLabel}>
+        <nav className="footer-nav flex flex-wrap gap-x-6 gap-y-3 font-mono text-xs uppercase tracking-wider" aria-label={siteContent.ui.footerNavigationLabel}>
           {siteContent.footer.nav.map((item) => (
-            <a key={item} href={`#${item.toLowerCase()}`}>
+            <a key={item} href={`#${item.toLowerCase()}`} className="text-[#FF2DA8] hover:text-[#D4FF3F] transition-colors py-1">
               {item}
             </a>
           ))}
-          <a href="/privacy">Privacy</a>
-          <a href="/terms">Terms</a>
+          <a href="/privacy" className="text-[#FF2DA8] hover:text-[#D4FF3F] transition-colors py-1">Privacy</a>
+          <a href="/terms" className="text-[#FF2DA8] hover:text-[#D4FF3F] transition-colors py-1">Terms</a>
         </nav>
       </div>
 
@@ -357,11 +360,11 @@ function FooterSection() {
         ))}
       </div>
 
-      <div className="mt-8 pt-6 border-t border-[var(--line)] flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-[var(--muted)] gap-3">
+      <div className="mt-8 pt-6 border-t border-[#FF2DA8]/30 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-[#D4FF3F] gap-3">
         <p>© {currentYear} 27 Creative Studio. All rights reserved.</p>
         <p className="flex items-center gap-2">
           <span>Thoothukudi · Tamil Nadu</span>
-          <span className="text-[var(--industry)]">●</span>
+          <span className="text-[#FF2DA8]">●</span>
           <span>4K · 24fps Production</span>
         </p>
       </div>
@@ -652,7 +655,7 @@ export default function Page() {
   };
 
   return (
-    <main id="top">
+    <main id="top" className="w-full max-w-full overflow-x-hidden relative">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -701,9 +704,10 @@ export default function Page() {
           </nav>
           <a
             href="#contact"
-            className="hidden sm:inline-flex items-center justify-center px-4 py-2 bg-[#FF2DA8] text-[#0B0B0B] font-mono text-xs font-black uppercase tracking-wider hover:bg-[#D4FF3F] hover:text-[#0B0B0B] transition-colors"
+            className="hidden sm:inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-[#FF2DA8] text-[#0B0B0B] font-mono text-xs font-black uppercase tracking-wider hover:bg-[#D4FF3F] hover:text-[#0B0B0B] transition-colors"
           >
-            TALK TO US ↗
+            <span>TALK TO US</span>
+            <NeonArrow className="size-3 inline-block" />
           </a>
         </div>
 
@@ -769,9 +773,9 @@ export default function Page() {
                   <span className="mobile-drawer-num">{item.num} //</span>
                   <span className="mobile-drawer-title">{item.name}</span>
                 </div>
-                <div className="mobile-drawer-tag">
+                <div className="mobile-drawer-tag flex items-center gap-1">
                   <span>{item.tag}</span>
-                  <span className="text-[var(--industry)]">↗</span>
+                  <NeonArrow className="size-3 inline-block text-[#D4FF3F]" />
                 </div>
               </a>
             ))}
@@ -786,9 +790,10 @@ export default function Page() {
             <a
               href="#contact"
               onClick={() => setMenuOpen(false)}
-              className="mobile-drawer-cta"
+              className="mobile-drawer-cta flex items-center justify-center gap-1.5"
             >
-              GROW YOUR BRAND ↗
+              <span>GROW YOUR BRAND</span>
+              <NeonArrow className="size-3 inline-block" />
             </a>
           </div>
         </div>
