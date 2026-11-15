@@ -312,20 +312,6 @@ export function ContactSection({
                 )}
               </AnimatePresence>
 
-              {/* Slate Header Row */}
-              <SlateHeader
-                businessName={formValues.businessName}
-                businessTypeLabel={businessTypeLabel}
-                sceneCode={sceneCode}
-                rollCode={rollCode}
-                takeCount={takeCount}
-                isSubmitting={isShut && !isSubmitted}
-                isFrozen={Boolean(frozenTimecode)}
-                frozenTimecode={frozenTimecode}
-                onTimecodeUpdate={setCurrentTimecode}
-                reducedMotion={reducedMotion}
-              />
-
               {/* Slate Body: Say Hello & Channels or SuccessWrap if submitted */}
               {isSubmitted ? (
                 <div className="py-4">
@@ -336,7 +322,7 @@ export function ContactSection({
                   />
                 </div>
               ) : (
-                <div className="flex flex-col gap-4 mt-3">
+                <div className="flex flex-col gap-4">
                   <div>
                     <p className="font-mono text-xs text-[#C6FF3D] uppercase tracking-widest">
                       {kicker}
@@ -347,18 +333,10 @@ export function ContactSection({
                     >
                       {heading}
                     </h2>
-                    <p className="mt-2 text-xs text-[#A9A7A0] leading-relaxed">
-                      {subline}
-                    </p>
                   </div>
 
                   {/* Channels List */}
                   <ChannelList channels={channels} reducedMotion={reducedMotion} />
-
-                  {/* Service Area Note */}
-                  <p className="text-[11px] font-mono text-[#A9A7A0]/60 leading-relaxed">
-                    {serviceAreaNote}
-                  </p>
 
                   {/* Direct Action Buttons */}
                   <div className="flex items-center gap-2 pt-1 font-mono select-none">
