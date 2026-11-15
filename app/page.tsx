@@ -761,13 +761,13 @@ export default function Page() {
 
       {/* Mobile Auto-Hide Unified Header Bar */}
       <header
-        className={`sm:hidden fixed top-0 left-0 right-0 z-[100] transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`sm:hidden fixed top-0 left-0 right-0 z-[1000] transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           headerVisible || menuOpen ? "translate-y-0" : "-translate-y-full"
         } ${
           isScrolled || menuOpen
-            ? "bg-[color-mix(in_srgb,var(--ink,#0B0B0F)_92%,transparent)] backdrop-blur-md border-b border-[var(--line,#2A2A30)] shadow-lg py-2.5 px-4"
-            : "bg-transparent py-3 px-4"
-        }`}
+            ? "bg-[color-mix(in_srgb,var(--ink,#0B0B0F)_95%,transparent)] backdrop-blur-md border-b border-[var(--line,#2A2A30)]"
+            : "bg-transparent border-b border-transparent"
+        } px-4 py-3`}
       >
         <div className="flex items-center justify-between gap-3 w-full">
           <div className="flex items-center gap-2.5 shrink-0">
@@ -787,13 +787,13 @@ export default function Page() {
             }
             aria-expanded={menuOpen}
             aria-controls="mobile-navigation"
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[var(--line,#2A2A30)] bg-[color-mix(in_srgb,var(--ink,#0B0B0F)_85%,transparent)] hover:border-[var(--industry,#C6FF3D)] active:scale-95 transition-all text-[var(--paper,#F3F3F5)]"
+            className="flex items-center gap-2 py-1 px-1 bg-transparent border-0 outline-none cursor-pointer text-[var(--paper,#F3F3F5)] hover:text-[var(--industry,#C6FF3D)] transition-colors select-none"
           >
-            <span className="font-mono text-[10px] font-bold tracking-wider uppercase text-[var(--muted,#A9A7A0)]">
+            <span className="font-mono text-xs font-bold tracking-widest uppercase text-[var(--paper,#F3F3F5)]">
               {menuOpen ? "CLOSE" : "MENU"}
             </span>
             {menuOpen ? (
-              <span className="font-mono text-xs text-[var(--industry,#C6FF3D)] leading-none" aria-hidden="true">✕</span>
+              <span className="font-mono text-sm text-[var(--industry,#C6FF3D)] leading-none" aria-hidden="true">✕</span>
             ) : (
               <div className="flex flex-col items-end gap-[3px] w-3.5" aria-hidden="true">
                 <span className="w-3.5 h-[1.5px] bg-[var(--industry,#C6FF3D)] rounded-full" />
@@ -820,26 +820,6 @@ export default function Page() {
             <span className="mobile-drawer-bracket-tr" />
             <span className="mobile-drawer-bracket-bl" />
             <span className="mobile-drawer-bracket-br" />
-          </div>
-
-          {/* Top HUD Header */}
-          <div className="mobile-drawer-header">
-            <BrandLockup
-              href="#top"
-              className="mobile-drawer-brand"
-              onClick={() => setMenuOpen(false)}
-            />
-            <div className="flex items-center gap-3">
-              <span className="mobile-drawer-timecode">{timecode}</span>
-              <button
-                className="mobile-drawer-close"
-                onClick={() => setMenuOpen(false)}
-                aria-label="Close navigation"
-              >
-                <span>CLOSE</span>
-                <span aria-hidden="true">✕</span>
-              </button>
-            </div>
           </div>
 
           {/* Nav List with Big Shoulders typography & Scene tags */}

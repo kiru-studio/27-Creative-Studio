@@ -1121,7 +1121,7 @@ input[type='range'] { accent-color: var(--industry); }
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: calc(env(safe-area-inset-top, 0px) + 16px) 20px calc(env(safe-area-inset-bottom, 0px) + 20px);
+    padding: calc(env(safe-area-inset-top, 0px) + 64px) 20px calc(env(safe-area-inset-bottom, 0px) + 20px);
     background: var(--ink);
     font-family: var(--font-mono);
     color: var(--paper);
@@ -1143,7 +1143,7 @@ input[type='range'] { accent-color: var(--industry); }
 
   .mobile-drawer-brackets {
     position: absolute;
-    inset: 16px;
+    inset: calc(env(safe-area-inset-top, 0px) + 56px) 16px 16px 16px;
     pointer-events: none;
   }
   .mobile-drawer-bracket-tl,
@@ -1160,40 +1160,6 @@ input[type='range'] { accent-color: var(--industry); }
   .mobile-drawer-bracket-tr { top: 0; right: 0; border-width: 2px 2px 0 0; }
   .mobile-drawer-bracket-bl { bottom: 0; left: 0; border-width: 0 0 2px 2px; }
   .mobile-drawer-bracket-br { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
-
-  .mobile-drawer-header {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-bottom: 14px;
-    border-bottom: var(--border-width) solid var(--line);
-  }
-  .mobile-drawer-timecode {
-    font: 400 11px var(--font-mono);
-    color: var(--muted);
-    letter-spacing: 0.08em;
-  }
-  .mobile-drawer-close {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 5px 10px;
-    border: var(--border-width) solid var(--line);
-    border-radius: var(--radius-control);
-    background: var(--panel-raised);
-    font: 700 10px var(--font-mono);
-    letter-spacing: 0.1em;
-    color: var(--industry);
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: border-color var(--motion-fast) ease, background-color var(--motion-fast) ease;
-  }
-  .mobile-drawer-close:hover,
-  .mobile-drawer-close:focus-visible {
-    border-color: var(--industry);
-  }
 
   .mobile-drawer-nav {
     position: relative;
