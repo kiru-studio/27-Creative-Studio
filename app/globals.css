@@ -633,7 +633,8 @@ button { min-height: var(--control-height); }
   .filmstrip-stage { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .filmstrip-column:nth-child(3) { display: block; }
 }
-.faq-list { border-top: var(--border-width) solid var(--line); }
+.faq-section { justify-content: flex-start; }
+.faq-list { border-top: var(--border-width) solid var(--line); min-height: 520px; }
 .faq-list details { border-bottom: var(--border-width) solid var(--line); }
 .faq-list summary { min-height: var(--control-height-large); padding: var(--space-4) var(--space-8) var(--space-4) 0; color: var(--paper); font-size: var(--text-lg); }
 .faq-list details[open] summary { color: var(--industry); }

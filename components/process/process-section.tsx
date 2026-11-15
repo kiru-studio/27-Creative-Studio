@@ -15,7 +15,7 @@ interface ProcessSectionProps {
 }
 
 export function ProcessSection({
-  kicker = siteContent.ui?.processKicker || "the process",
+  kicker = siteContent.ui?.processKicker || "The Process",
   heading = siteContent.ui?.processHeading || "Speed without the scramble.",
 }: ProcessSectionProps) {
   const containerRef = useRef<HTMLElement>(null);

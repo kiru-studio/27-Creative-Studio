@@ -24,7 +24,7 @@ interface ContactSectionProps {
 }
 
 export function ContactSection({
-  kicker = "say hello",
+  kicker = "Say Hello",
   heading = "Let's grow your brand.",
   subline = "Your business could be our next success story. Call 83004 78244 or send your brief below.",
   serviceAreaNote = "Serving businesses across Thoothukudi, Tirunelveli, and Tamil Nadu.",

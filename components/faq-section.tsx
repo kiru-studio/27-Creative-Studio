@@ -27,12 +27,14 @@ export interface CategoryTabsProps {
   categories: string[];
   activeCategory: string;
   onSelect: (category: string) => void;
+  shouldReduceMotion?: boolean;
 }
 
 export function CategoryTabs({
   categories,
   activeCategory,
   onSelect,
+  shouldReduceMotion = false,
 }: CategoryTabsProps) {
   return (
     <div className="relative w-full mb-8">
@@ -50,17 +52,31 @@ export function CategoryTabs({
               role="tab"
               aria-selected={isActive}
               onClick={() => onSelect(cat)}
-              className={`px-3.5 py-1.5 rounded-full font-mono text-xs uppercase tracking-wider transition-all whitespace-nowrap snap-start shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--industry)] ${
-                isActive
-                  ? "bg-[var(--industry)] !text-black font-black shadow-sm"
-                  : "border border-[var(--line)] text-[var(--muted)] hover:text-[var(--paper)] hover:border-[var(--muted)] bg-transparent"
-              }`}
-              style={{
-                color: isActive ? "#000000" : undefined,
-                backgroundColor: isActive ? "var(--industry)" : undefined,
-              }}
+              className="relative px-3.5 py-1.5 rounded-full font-mono text-xs uppercase tracking-wider transition-colors whitespace-nowrap snap-start shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--industry)] select-none border border-transparent cursor-pointer"
             >
-              {cat}
+              {isActive && (
+                <motion.div
+                  layoutId="active-faq-category"
+                  className="absolute inset-0 rounded-full bg-[var(--industry)] shadow-sm"
+                  transition={
+                    shouldReduceMotion
+                      ? { duration: 0 }
+                      : { type: "spring", stiffness: 400, damping: 32 }
+                  }
+                />
+              )}
+              {!isActive && (
+                <span className="absolute inset-0 rounded-full border border-[var(--line)] hover:border-[var(--muted)] pointer-events-none transition-colors" />
+              )}
+              <span
+                className={`relative z-10 font-mono text-xs uppercase tracking-wider transition-colors duration-200 ${
+                  isActive
+                    ? "!text-black font-black"
+                    : "text-[var(--muted)] hover:text-[var(--paper)]"
+                }`}
+              >
+                {cat}
+              </span>
             </button>
           );
         })}
@@ -313,7 +329,7 @@ export function FaqSection() {
 
       <section
         ref={sectionRef}
-        className="faq-section relative overflow-hidden py-16 sm:py-24"
+        className="faq-section !justify-start relative overflow-hidden py-16 sm:py-24"
         id="faq"
         aria-labelledby="faq-heading"
       >
@@ -341,7 +357,7 @@ export function FaqSection() {
               }
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
-              The Fine Print
+              {siteContent.ui?.faqKicker || "The Fine Print"}
             </motion.p>
 
             {/* Masked Heading Lines (y: 100% -> 0, 0.1s stagger) */}
@@ -381,29 +397,41 @@ export function FaqSection() {
               setActiveCategory(cat);
               setOpenId(null);
             }}
+            shouldReduceMotion={shouldReduceMotion}
           />
 
           {/* ------------------------------------------ */}
           {/* FAQ ACCORDION LIST                         */}
           {/* ------------------------------------------ */}
-          <div className="faq-list border-t border-[var(--line)]">
-            {visibleItems.map((item, index) => (
-                <FaqItem
-                  key={item.id}
-                  item={item}
-                  resolvedAnswer={item.resolvedAnswer}
-                  isOpen={openId === item.id}
-                  onToggle={() =>
-                    setOpenId((curr) => (curr === item.id ? null : item.id))
-                  }
-                  index={index}
-                  shouldReduceMotion={shouldReduceMotion}
-                  onKeyDown={(e) => handleKeyDown(e, index)}
-                  buttonRef={(node) => {
-                    buttonRefs.current[index] = node;
-                  }}
-                />
-              ))}
+          <div className="faq-list border-t border-[var(--line)] min-h-[580px]">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={activeCategory}
+                initial={shouldReduceMotion ? false : { opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={shouldReduceMotion ? undefined : { opacity: 0, y: -8 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                className="w-full flex flex-col"
+              >
+                {visibleItems.map((item, index) => (
+                  <FaqItem
+                    key={item.id}
+                    item={item}
+                    resolvedAnswer={item.resolvedAnswer}
+                    isOpen={openId === item.id}
+                    onToggle={() =>
+                      setOpenId((curr) => (curr === item.id ? null : item.id))
+                    }
+                    index={index}
+                    shouldReduceMotion={shouldReduceMotion}
+                    onKeyDown={(e) => handleKeyDown(e, index)}
+                    buttonRef={(node) => {
+                      buttonRefs.current[index] = node;
+                    }}
+                  />
+                ))}
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           {/* ------------------------------------------ */}
