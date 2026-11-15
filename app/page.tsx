@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 import { MediaSlot } from "@/components/media-slot";
 import { BrandLockup } from "@/components/brand-lockup";
-import { Hero, ViewfinderCursor, RecIndicator } from "@/components/hero";
+import { Hero, ViewfinderCursor } from "@/components/hero";
 import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 import { FilmSection } from "@/components/film-section";
 import { ProcessSection } from "@/components/process";
@@ -769,13 +769,17 @@ export default function Page() {
             : "bg-transparent border-b border-transparent"
         } px-4 py-3`}
       >
-        <div className="flex items-center justify-between gap-3 w-full">
-          <div className="flex items-center gap-2.5 shrink-0">
+        <div className="relative flex items-center justify-between w-full">
+          <div className="flex items-center shrink-0">
             <BrandLockup href="#top" onClick={() => menuOpen && setMenuOpen(false)} />
-            <span className="text-[var(--line,#333)] font-mono text-xs select-none" aria-hidden="true">
-              /
-            </span>
-            <RecIndicator shouldReduceMotion={shouldReduceMotion} />
+          </div>
+
+          {/* Center: Live Timecode Timer (Fixed in place across both collapsed and exploded states) */}
+          <div
+            className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center font-mono text-xs text-[var(--muted,#A9A7A0)] tracking-widest tabular-nums select-none pointer-events-none"
+            aria-live="off"
+          >
+            {timecode}
           </div>
 
           <button
