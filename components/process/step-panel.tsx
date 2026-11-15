@@ -23,7 +23,6 @@ export function StepPanel({
   onNextStep,
   reducedMotion = false,
 }: StepPanelProps) {
-  const currentDay = currentStep.days[activeFormatId];
   const isLastStep = activeStepIndex === totalSteps - 1;
 
   const containerVariants = {
@@ -82,13 +81,13 @@ export function StepPanel({
             exit="hidden"
             className="flex flex-col gap-4"
           >
-            {/* Meta Eyebrow with rolling Day indicator */}
+            {/* Meta Eyebrow with standardized Step indicator */}
             <motion.div variants={itemVariants} className="flex items-center gap-3">
               <span className="font-mono text-xs font-bold tracking-widest text-[#C6FF3D] uppercase px-2 py-0.5 rounded bg-[#C6FF3D]/10 border border-[#C6FF3D]/30">
-                {currentDay}
+                Step {currentStep.stepNumber}
               </span>
               <span className="font-mono text-xs text-[#A9A7A0] tracking-wider uppercase">
-                Step {currentStep.stepNumber} of 0{totalSteps}
+                {currentStep.stepNumber} of 0{totalSteps}
               </span>
             </motion.div>
 

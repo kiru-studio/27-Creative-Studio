@@ -35,7 +35,7 @@ export function ProcessSection({
           title: speedItem.title || step.title,
           description: speedItem.body || step.description,
           tagline: speedItem.body || step.tagline,
-          stepNumber: speedItem.meta || step.stepNumber,
+          stepNumber: step.stepNumber,
         };
       });
     }

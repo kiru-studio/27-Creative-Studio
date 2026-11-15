@@ -43,30 +43,25 @@ export function WhatsAppButton({
   const whatsappUrl = `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(messageText)}`;
 
   return (
-    <div className="flex flex-col items-center flex-1">
-      <motion.a
-        ref={buttonRef}
-        href={whatsappUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        style={{
-          x: reducedMotion ? 0 : smoothX,
-          y: reducedMotion ? 0 : smoothY,
-        }}
-        className="group relative w-full min-h-[48px] px-6 py-3 rounded-lg border border-[#2A2A30] bg-[#141419] font-mono text-xs font-bold uppercase tracking-wider text-[#F4F1EA] hover:border-[#C6FF3D] hover:text-[#C6FF3D] flex items-center justify-center gap-2 cursor-pointer transition-colors duration-200 select-none"
-      >
-        <MessageSquareShare
-          size={16}
-          className="transition-transform duration-200 group-hover:scale-110 text-[#C6FF3D]"
-          aria-hidden="true"
-        />
-        <span>Book on WhatsApp</span>
-      </motion.a>
-      <span className="font-mono text-[10px] text-[#A9A7A0]/70 mt-1 select-none">
-        opens WhatsApp with your details
-      </span>
-    </div>
+    <motion.a
+      ref={buttonRef}
+      href={whatsappUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        x: reducedMotion ? 0 : smoothX,
+        y: reducedMotion ? 0 : smoothY,
+      }}
+      className="group relative flex-1 min-h-[48px] px-6 py-3 rounded-lg border border-[#2A2A30] bg-[#141419] font-mono text-xs font-bold uppercase tracking-wider text-[#F4F1EA] hover:border-[#C6FF3D] hover:text-[#C6FF3D] flex items-center justify-center gap-2 cursor-pointer transition-colors duration-200 select-none"
+    >
+      <MessageSquareShare
+        size={16}
+        className="transition-transform duration-200 group-hover:scale-110 text-[#C6FF3D]"
+        aria-hidden="true"
+      />
+      <span>Book on WhatsApp</span>
+    </motion.a>
   );
 }

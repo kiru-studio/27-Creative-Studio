@@ -326,7 +326,7 @@ export function ContactForm({
       </FieldWithBrackets>
 
       {/* Two Buttons: Send Brief (Primary Lime) & Book on WhatsApp (Secondary Outlined) */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-start gap-3 pt-2">
+      <div className="flex flex-col sm:flex-row items-stretch gap-3 pt-2">
         <SendBriefButton isLoading={isSubmitting} reducedMotion={reducedMotion} />
         <WhatsAppButton formValues={currentFormValues} reducedMotion={reducedMotion} />
       </div>
