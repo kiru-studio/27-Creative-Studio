@@ -9,7 +9,6 @@ import {
   type CSSProperties,
 } from "react";
 import {
-  ArrowUpRight,
   Clapperboard,
   FileText,
   Menu,
@@ -33,7 +32,6 @@ import { ContactSection as ContactSectionComponent } from "@/components/contact"
 import { StickyMobileCta } from "@/components/ui/sticky-mobile-cta";
 import {
   siteContent,
-  whatsappHref,
   getSiteBaseUrl,
 } from "@/lib/site-content";
 
@@ -851,14 +849,6 @@ export default function Page() {
       <FaqSection />
       <ContactSection />
       <FooterSection />
-      <a
-        className="whatsapp-fab hidden sm:flex"
-        href={whatsappHref}
-        aria-label={siteContent.ui.whatsappAriaLabel}
-      >
-        <span>{siteContent.contact.whatsappLabel}</span>
-        <ArrowUpRight size={15} />
-      </a>
       <StickyMobileCta />
       {lightboxOpen && (
         <ReelViewer
