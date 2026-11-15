@@ -607,7 +607,7 @@ const BadgeFaces = React.memo(function BadgeFaces({
             {item.role}
           </p>
           {specialtyText && (
-            <p className="text-[0.6em] font-sans text-white/70 tracking-normal mt-0.5 leading-tight line-clamp-1">
+            <p className="text-[0.6em] font-sans text-white/70 tracking-normal mt-0.5 leading-tight break-words">
               {specialtyText}
             </p>
           )}
@@ -735,7 +735,7 @@ const BadgeFaces = React.memo(function BadgeFaces({
 
             {/* Bio */}
             {item.bio && (
-              <p className="line-clamp-3 text-[0.68em] leading-relaxed text-muted-foreground mt-1">
+              <p className="text-[0.68em] leading-relaxed text-muted-foreground mt-1 break-words">
                 {item.bio}
               </p>
             )}

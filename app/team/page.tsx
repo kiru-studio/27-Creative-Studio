@@ -156,7 +156,7 @@ export default function TeamOperationsPage() {
       <main className="min-h-screen bg-[#0B0B0F] text-[#F4F1EA] flex flex-col items-center justify-center p-4 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(198,255,61,0.06),transparent_70%)] pointer-events-none" />
         <div className="absolute top-0 left-0 right-0 p-4 sm:p-6 flex items-center justify-between gap-3 font-mono text-xs z-20 pointer-events-none">
-          <span className="text-[#A9A7A0] tracking-widest text-[11px] sm:text-xs truncate">
+          <span className="text-[#A9A7A0] tracking-widest text-[11px] sm:text-xs">
             SYS // 27_TEAM_OPERATIONS
           </span>
           <span className="text-[#C6FF3D] tracking-widest text-[11px] sm:text-xs shrink-0">

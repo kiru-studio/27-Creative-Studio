@@ -35,8 +35,8 @@ export function SlateHeader({
       {/* PROD: Displays business name as typed with fallback REC + red dot */}
       <div className="flex items-center gap-2 max-w-[240px] sm:max-w-[320px]">
         <span className="text-[#A9A7A0] shrink-0">PROD.</span>
-        <div className="flex items-center gap-1.5 truncate">
-          <span className="text-[#F4F1EA] font-bold truncate">{displayProd}</span>
+        <div className="flex items-center gap-1.5 min-w-0">
+          <span className="text-[#F4F1EA] font-bold break-words">{displayProd}</span>
           <span
             className="w-2 h-2 rounded-full bg-[#FF3B30] shadow-[0_0_8px_#FF3B30] shrink-0 animate-pulse"
             aria-hidden="true"

@@ -29,11 +29,11 @@ export function ChannelList({ channels, reducedMotion = false }: ChannelListProp
               rel={ch.id === "email" ? undefined : "noreferrer"}
               className="flex items-center justify-between w-full text-sm text-[#F4F1EA] group-hover:text-[#C6FF3D] transition-colors min-h-[36px]"
             >
-              <div className="flex items-center gap-3 sm:gap-4 min-w-0">
-                <span className="font-mono text-[11px] sm:text-xs text-[#A9A7A0] uppercase min-w-[78px] sm:min-w-[84px] shrink-0">
+              <div className="flex items-start sm:items-center gap-3 sm:gap-4 min-w-0 flex-1 pr-2">
+                <span className="font-mono text-[11px] sm:text-xs text-[#A9A7A0] uppercase min-w-[78px] sm:min-w-[84px] shrink-0 pt-0.5 sm:pt-0">
                   {ch.label}
                 </span>
-                <span className="font-mono text-xs sm:text-sm font-medium truncate text-[#F4F1EA] group-hover:text-[#C6FF3D] transition-colors">
+                <span className="font-mono text-xs sm:text-sm font-medium text-[#F4F1EA] group-hover:text-[#C6FF3D] transition-colors break-words leading-snug">
                   {ch.value}
                 </span>
               </div>

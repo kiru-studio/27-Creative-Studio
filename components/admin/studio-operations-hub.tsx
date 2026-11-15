@@ -670,7 +670,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
               </div>
               <div>
                 <span className="text-[#A9A7A0] block text-[10px] uppercase">LOCATION ADDRESS</span>
-                <span className="text-[#F4F1EA] truncate block">{clientShoot.location_address}</span>
+                <span className="text-[#F4F1EA] break-words block">{clientShoot.location_address}</span>
               </div>
               <div>
                 <span className="text-[#A9A7A0] block text-[10px] uppercase">CREW ASSIGNED</span>
@@ -1524,7 +1524,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                       <span className="text-[#A9A7A0] block text-[10px] uppercase font-bold">LOCATION ADDRESS</span>
                       <p className="text-[#F4F1EA] mt-1 flex items-center gap-1.5 font-bold">
                         <MapPin size={14} className="text-[#EF4444] shrink-0" />
-                        <span className="truncate">{shoot.location_address}</span>
+                        <span className="break-words">{shoot.location_address}</span>
                       </p>
                       {shoot.google_maps_link && (
                         <a

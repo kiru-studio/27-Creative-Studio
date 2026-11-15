@@ -562,7 +562,7 @@ export default function AdminPage() {
                         <span className="font-mono text-xs bg-[#1E1E24] text-[#C6FF3D] px-2 py-0.5 rounded border border-[#333]">
                           #{String(index + 1).padStart(2, "0")}
                         </span>
-                        <span className="font-mono text-xs text-[#FFF] font-semibold truncate max-w-xs sm:max-w-md">
+                        <span className="font-mono text-xs text-[#FFF] font-semibold break-words max-w-xs sm:max-w-md">
                           {reel.title || "Untitled Reel"}
                         </span>
                       </div>

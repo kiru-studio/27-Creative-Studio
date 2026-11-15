@@ -344,7 +344,7 @@ export function CursorPreview({ item, x, y }: CursorPreviewProps) {
         </div>
 
         {/* Bottom case title */}
-        <div className="relative z-10 font-mono text-[10px] text-[var(--paper)] truncate select-none">
+        <div className="relative z-10 font-mono text-[10px] text-[var(--paper)] break-words leading-tight select-none">
           <span className="text-[var(--industry)] mr-1">CASE /</span>
           <span className="font-bold">{item.title}</span>
         </div>
@@ -963,9 +963,9 @@ export function CasesSection() {
                   >
                     {kpi.value}
                   </span>
-                  <div className="h-5 mt-1 overflow-hidden">
+                  <div className="min-h-[2.25rem] mt-1">
                     <span
-                      className={`text-xs block truncate transition-colors duration-200 ${
+                      className={`text-xs block leading-tight break-words transition-colors duration-200 ${
                         isHovered
                           ? "text-[var(--paper,#F4F1EA)] font-medium"
                           : "text-[var(--muted,#A9A7A0)]/75"
