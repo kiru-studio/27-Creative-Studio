@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 import { siteContent, type WorkItem } from "@/lib/site-content";
@@ -20,8 +20,47 @@ export function ReelsSection({
 }: ReelsSectionProps) {
   const [activeReelIndex, setActiveReelIndex] = useState(0);
   const containerRef = useRef<HTMLElement>(null);
+  const gridRef = useRef<HTMLUListElement>(null);
   const isInView = useInView(containerRef, { once: true, amount: 0.15 });
   const shouldReduceMotion = useHydratedReducedMotion();
+
+  // On touch/mobile swipe, synchronize activeReelIndex with the centered reel
+  useEffect(() => {
+    const grid = gridRef.current;
+    if (!grid) return;
+
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const children = Array.from(grid.children) as HTMLElement[];
+          if (!children.length) {
+            ticking = false;
+            return;
+          }
+          const gridCenter = grid.scrollLeft + grid.clientWidth / 2;
+          let closestIndex = 0;
+          let minDistance = Infinity;
+
+          children.forEach((child, index) => {
+            const childCenter = child.offsetLeft + child.offsetWidth / 2;
+            const dist = Math.abs(gridCenter - childCenter);
+            if (dist < minDistance) {
+              minDistance = dist;
+              closestIndex = index;
+            }
+          });
+
+          setActiveReelIndex(closestIndex);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    grid.addEventListener("scroll", handleScroll, { passive: true });
+    return () => grid.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
     if (e.key === "ArrowRight" || e.key === "ArrowDown") {
@@ -54,7 +93,7 @@ export function ReelsSection({
       </motion.div>
 
       {/* Reels Accordion Grid preserving original dimensions */}
-      <ul className="reels-grid">
+      <ul ref={gridRef} className="reels-grid">
         {items.map((item, index) => {
           const isActive = activeReelIndex === index;
           return (
@@ -92,11 +131,9 @@ export function ReelsSection({
                 {/* 2. Darkness Shade Overlay */}
                 <span className="reel-card-shade" aria-hidden="true" />
 
-                {/* 3. L-shaped Lime Viewfinder Brackets (Active card) */}
+                {/* 3. L-shaped Lime Viewfinder Brackets (All cards highlighted with cinema viewfinder framing) */}
                 <span
-                  className={`pointer-events-none absolute inset-0 z-10 p-2 transition-opacity duration-300 ${
-                    isActive ? "opacity-100" : "opacity-0"
-                  }`}
+                  className="pointer-events-none absolute inset-0 z-10 p-2 opacity-100"
                   aria-hidden="true"
                 >
                   <span className="absolute top-2 left-2 w-2.5 h-2.5 border-t-2 border-l-2 border-[var(--industry,#C6FF3D)]" />
