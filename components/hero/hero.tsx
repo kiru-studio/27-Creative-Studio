@@ -29,33 +29,21 @@ export function Hero({ enableViewfinderCursor = false }: HeroProps) {
   const [isMuted, setIsMuted] = useState(true);
   const [isReelModalOpen, setIsReelModalOpen] = useState(false);
   const [isOverCta, setIsOverCta] = useState(false);
-  const [lang, setLang] = useState<"en" | "ta">("en");
 
   const shouldReduceMotion = useHydratedReducedMotion();
 
-  // Tamil copy // TODO(owner): Native Tamil speaker review of copy
-  const TAMIL_COPY = {
-    eyebrow: "// இன்ஸ்டாகிராம் வளர்ச்சி நிறுவனம் · தூத்துக்குடி",
-    titleLines: ["உண்மையான வளர்ச்சி.", "உண்மையான முடிவுகள்."],
-    body: "தூத்துக்குடி உள்ளூர் வணிகங்களை மக்கள் விரும்பும் பிராண்டுகளாக மாற்றுகிறோம். உண்மையான ஃபாலோயர்கள், பார்வைகள் மற்றும் விற்பனை.",
-    cta: "வாட்ஸ்அப்பில் பேசலாம்",
-    secondary: "ரீல்ஸ் பாருங்கள்",
-  };
+  const eyebrow = siteContent.hero?.eyebrow || heroConfig.eyebrow;
 
-  const defaultEyebrow = siteContent.hero?.eyebrow || heroConfig.eyebrow;
-  const eyebrow = lang === "ta" ? TAMIL_COPY.eyebrow : defaultEyebrow;
-
-  const defaultTitleLines = siteContent.hero?.title
+  const titleLines = siteContent.hero?.title
     ? (siteContent.hero.title.includes(".")
         ? siteContent.hero.title.split(/(?<=\.)\s+/).filter(Boolean)
         : [siteContent.hero.title])
     : heroConfig.titleLines;
-  const titleLines = lang === "ta" ? TAMIL_COPY.titleLines : defaultTitleLines;
 
-  const body = lang === "ta" ? TAMIL_COPY.body : (siteContent.hero?.body || heroConfig.body);
-  const ctaText = lang === "ta" ? TAMIL_COPY.cta : (siteContent.hero?.cta || heroConfig.ctaText);
+  const body = siteContent.hero?.body || heroConfig.body;
+  const ctaText = siteContent.hero?.cta || heroConfig.ctaText;
   const ctaHref = heroConfig.ctaHref;
-  const secondaryCtaText = lang === "ta" ? TAMIL_COPY.secondary : (siteContent.hero?.secondary || heroConfig.secondaryCtaText);
+  const secondaryCtaText = siteContent.hero?.secondary || heroConfig.secondaryCtaText;
 
   return (
     <>
@@ -97,25 +85,6 @@ export function Hero({ enableViewfinderCursor = false }: HeroProps) {
               /
             </span>
             <RecIndicator shouldReduceMotion={shouldReduceMotion} />
-            {/* Language Toggle: EN | தமிழ் */}
-            <div className="flex items-center gap-1 bg-[#141419] border border-[#2A2A30] rounded-full p-0.5 text-[11px] font-mono ml-1 sm:ml-2">
-              <button
-                type="button"
-                onClick={() => setLang("en")}
-                className={`px-2 py-0.5 rounded-full transition-colors ${lang === "en" ? "bg-[#D4FF3F] text-[#0B0B0B] font-bold" : "text-[#B9B2A5] hover:text-white"}`}
-                aria-label="Switch to English"
-              >
-                EN
-              </button>
-              <button
-                type="button"
-                onClick={() => setLang("ta")}
-                className={`px-2 py-0.5 rounded-full transition-colors ${lang === "ta" ? "bg-[#D4FF3F] text-[#0B0B0B] font-bold" : "text-[#B9B2A5] hover:text-white"}`}
-                aria-label="Switch to Tamil"
-              >
-                தமிழ்
-              </button>
-            </div>
           </div>
 
           {/* Center: Live 24fps Timecode (Hidden on compact mobile to give breathing room for mobile menu) */}
@@ -153,11 +122,11 @@ export function Hero({ enableViewfinderCursor = false }: HeroProps) {
             {/* 3. FOCUS-PULL INTRO: Masked Headline lines + Lens Focus Blur Pull */}
             <h1
               id="hero-heading"
-              className={`m-0 font-extrabold font-display leading-[0.92] tracking-tight uppercase flex flex-col items-start text-[2.25rem] sm:text-5xl md:text-6xl lg:text-[5.25rem] xl:text-[6rem] w-full ${lang === "ta" ? "font-[family-name:var(--font-next-tamil)] tracking-normal" : ""}`}
+              className="m-0 font-extrabold font-display leading-[0.92] tracking-tight uppercase flex flex-col items-start text-[2.25rem] sm:text-5xl md:text-6xl lg:text-[5.25rem] xl:text-[6rem] w-full"
             >
               <span className="sr-only">Instagram Reels & Growth Agency in Thoothukudi</span>
               <span className="text-xs sm:text-sm font-mono tracking-widest text-[#FF2DA8] mb-2 uppercase block">
-                {lang === "ta" ? "இன்ஸ்டாகிராம் ரீல்ஸ் & வளர்ச்சி நிறுவனம் · தூத்துக்குடி" : "Instagram Reels & Growth Agency · Thoothukudi"}
+                Instagram Reels & Growth Agency · Thoothukudi
               </span>
               {titleLines.map((line, idx) => (
                 <span
