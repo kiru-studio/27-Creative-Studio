@@ -128,8 +128,8 @@ nextjs-portal,
   --control-height-compact: 2.5rem;
   --control-height-large: 3rem;
   --header-height: 4.5rem;
-  --z-header: 60;
-  --z-overlay: 80;
+  --z-header: 70;
+  --z-overlay: 90;
   --z-floating: 10;
 }
 
@@ -1032,12 +1032,12 @@ input[type='range'] { accent-color: var(--industry); }
   position: fixed;
   inset: 0;
   z-index: 65;
-  background: rgba(0, 0, 0, 0.72);
+  background: rgba(0, 0, 0, 0.68);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 300ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @media (min-width: 48.001rem) {
@@ -1050,7 +1050,7 @@ input[type='range'] { accent-color: var(--industry); }
 @media (min-width: 48.001rem) {
   .site-header nav {
     position: fixed;
-    z-index: 70;
+    z-index: 80;
     top: 0;
     right: 0;
     bottom: 0;
@@ -1063,7 +1063,7 @@ input[type='range'] { accent-color: var(--industry); }
     padding: var(--space-4) 0;
     background: transparent;
     font-size: var(--text-sm);
-    transition: width 280ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: width 300ms cubic-bezier(0.16, 1, 0.3, 1);
   }
   .site-header nav:hover,
   .site-header nav[data-wave-active='true'],
@@ -1118,9 +1118,9 @@ input[type='range'] { accent-color: var(--industry); }
     text-transform: uppercase;
     white-space: nowrap;
     opacity: 0;
+    pointer-events: none;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
-    pointer-events: auto;
-    transition: opacity 180ms ease, transform 180ms ease, background 180ms ease, color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    transition: opacity 250ms cubic-bezier(0.16, 1, 0.3, 1), transform 250ms cubic-bezier(0.16, 1, 0.3, 1), background-color 200ms ease, color 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
   }
   .nav-stagger-num {
     font-family: var(--font-mono);
@@ -1128,6 +1128,7 @@ input[type='range'] { accent-color: var(--industry); }
     opacity: 0.65;
     letter-spacing: 0.04em;
     color: inherit;
+    transition: color 200ms ease, opacity 200ms ease;
   }
   .nav-stagger-text {
     letter-spacing: 0.08em;
@@ -1144,19 +1145,26 @@ input[type='range'] { accent-color: var(--industry); }
       var(--track) calc(100% - var(--nav-wave-strength, 0%)),
       var(--industry) var(--nav-wave-strength, 0%)
     );
-    transition: background 180ms ease;
+    transition: background-color 200ms ease, width 200ms cubic-bezier(0.16, 1, 0.3, 1), height 200ms ease;
   }
   .nav-stagger-line[data-nav-tick-size='medium'] { --nav-tick-base-width: var(--nav-tick-medium); }
   .nav-stagger-line[data-nav-tick-size='long'] { --nav-tick-base-width: var(--nav-tick-long); }
+  
+  /* Show all labels ONLY when sidebar is hovered or opened */
   .site-header nav:hover .nav-stagger-label,
+  .site-header nav[data-nav-hovered='true'] .nav-stagger-label,
   .site-header nav[data-wave-active='true'] .nav-stagger-label {
     opacity: 1;
+    pointer-events: auto;
   }
+
   .site-header nav a:hover .nav-stagger-line,
   .site-header nav a[data-stagger-active='true'] .nav-stagger-line {
     background: var(--industry);
     height: 2px;
   }
+
+  /* Active / Hovered link: clean neon green highlight with decreased shadow */
   .site-header nav a:hover .nav-stagger-label,
   .site-header nav a:focus-visible .nav-stagger-label,
   .site-header nav a[data-stagger-active='true'] .nav-stagger-label {
@@ -1164,11 +1172,11 @@ input[type='range'] { accent-color: var(--industry); }
     color: #000000 !important;
     border: 1px solid var(--industry) !important;
     font-weight: 800;
-    opacity: 1;
     transform: translateY(-50%) translateX(-4px);
-    box-shadow: 0 0 16px rgba(198, 255, 61, 0.45), 0 4px 12px rgba(0, 0, 0, 0.8) !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4), 0 0 4px rgba(198, 255, 61, 0.2) !important;
     text-shadow: none;
   }
+
   .site-header nav a:hover .nav-stagger-num,
   .site-header nav a[data-stagger-active='true'] .nav-stagger-num {
     color: #000000;
