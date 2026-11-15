@@ -506,7 +506,7 @@ export function CasePanel({
           {item.googleRating && (
             <div className="p-3 rounded bg-[var(--panel-raised)] border border-[var(--line)]">
               <span className="block text-[9px] sm:text-[10px] uppercase tracking-wider text-[var(--muted)]">Google Rating</span>
-              <span className="block text-lg sm:text-xl font-bold text-[#FFD700] mt-0.5">★ {item.googleRating}</span>
+              <span className="block text-lg sm:text-xl font-bold text-[#0B0B0B] mt-0.5"><span className="text-[#FF2DA8]">★</span> {item.googleRating}</span>
               {item.googleReviews && <span className="block text-[10px] text-[var(--muted)]">{item.googleReviews}</span>}
             </div>
           )}
@@ -817,7 +817,7 @@ export function CasesSection() {
 
   return (
     <section
-      className="cases-section relative overflow-hidden"
+      className="cases-section calm-section relative overflow-hidden bg-[#FAF8F3] text-[#0B0B0B] border-b border-[#0B0B0B]/12 py-20 sm:py-28"
       id="cases"
       ref={sectionRef}
       aria-labelledby="cases-heading"
@@ -912,17 +912,17 @@ export function CasesSection() {
           initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
           transition={{ duration: 0.5, delay: 0.25 }}
-          className="mb-10 sm:mb-12 py-6 sm:py-7 border-y border-[var(--line,#2A2A30)] bg-[var(--panel,#141419)]/30 relative"
+          className="mb-10 sm:mb-12 py-6 sm:py-7 border-y border-[#0B0B0B]/15 bg-white/70 relative"
           onMouseLeave={() => setHoveredKpiIndex(null)}
         >
           {/* Top metadata rule */}
-          <div className="flex flex-wrap items-center justify-between gap-2 pb-4 mb-5 border-b border-[var(--line,#2A2A30)]/60 text-[10px] sm:text-[11px] uppercase tracking-widest text-[var(--muted,#A9A7A0)] font-mono">
+          <div className="flex flex-wrap items-center justify-between gap-2 pb-4 mb-5 border-b border-[#0B0B0B]/10 text-[10px] sm:text-[11px] uppercase tracking-widest text-[#555555] font-mono">
             <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
-              <strong className="font-bold text-[var(--paper,#F4F1EA)]">RESULTS AT A GLANCE</strong>
-              <span className="text-[var(--line,#2A2A30)]" aria-hidden="true">/</span>
+              <strong className="font-bold text-[#0B0B0B]">RESULTS AT A GLANCE</strong>
+              <span className="text-[#FF2DA8]" aria-hidden="true">/</span>
               <span>THOOTHUKUDI CAMPAIGNS</span>
             </span>
-            <span className="hidden sm:inline-block text-[10px] text-[var(--muted,#A9A7A0)]/60 tracking-widest">
+            <span className="hidden sm:inline-block text-[10px] text-[#555555] tracking-widest">
               PORTFOLIO TRACK RECORD
             </span>
           </div>
@@ -943,10 +943,10 @@ export function CasesSection() {
                   onBlur={() => setHoveredKpiIndex(null)}
                   className={`group relative min-w-0 pl-4 sm:pl-5 py-2 border-l outline-none cursor-default select-none transition-colors duration-200 ${
                     isHovered
-                      ? "border-[var(--industry,#C6FF3D)]"
+                      ? "border-[#FF2DA8]"
                       : kpi.accent
-                      ? "border-[var(--industry,#C6FF3D)]/50"
-                      : "border-[var(--line,#2A2A30)]"
+                      ? "border-[#0B0B0B]/40"
+                      : "border-[#0B0B0B]/15"
                   }`}
                   style={{
                     opacity: isOtherHovered ? 0.38 : 1,
@@ -956,8 +956,8 @@ export function CasesSection() {
                   <span
                     className={`text-[11px] uppercase tracking-widest block transition-colors duration-200 ${
                       isHovered || kpi.accent
-                        ? "text-[var(--industry,#C6FF3D)] font-bold"
-                        : "text-[var(--muted,#A9A7A0)] group-hover:text-[var(--paper,#F4F1EA)]"
+                        ? "text-[#FF2DA8] font-bold"
+                        : "text-[#555555] group-hover:text-[#0B0B0B]"
                     }`}
                   >
                     {kpi.label}
@@ -965,10 +965,10 @@ export function CasesSection() {
                   <span
                     className={`text-3xl sm:text-4xl lg:text-5xl font-black font-display block mt-1 transition-colors duration-200 ${
                       kpi.accent
-                        ? "text-[var(--industry,#C6FF3D)]"
+                        ? "text-[#0B0B0B]"
                         : isHovered
-                        ? "text-white"
-                        : "text-[var(--paper,#F4F1EA)]"
+                        ? "text-[#FF2DA8]"
+                        : "text-[#0B0B0B]"
                     }`}
                   >
                     {kpi.value}
@@ -977,8 +977,8 @@ export function CasesSection() {
                     <span
                       className={`text-xs block whitespace-normal leading-snug break-words transition-colors duration-200 ${
                         isHovered
-                          ? "text-[var(--paper,#F4F1EA)] font-medium"
-                          : "text-[var(--muted,#A9A7A0)]/75"
+                          ? "text-[#0B0B0B] font-medium"
+                          : "text-[#555555]"
                       }`}
                     >
                       {isHovered ? kpi.hoverSub : kpi.defaultSub}

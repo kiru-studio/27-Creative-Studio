@@ -31,6 +31,7 @@ import { FaqSection } from "@/components/faq-section";
 import { ReelsSection } from "@/components/reels-section";
 import { ContactSection as ContactSectionComponent } from "@/components/contact";
 import { StickyMobileCta } from "@/components/ui/sticky-mobile-cta";
+import { Ticker } from "@/components/graphics/Ticker";
 import {
   siteContent,
   whatsappHref,
@@ -838,6 +839,7 @@ export default function Page() {
         </div>
       )}
       <Hero />
+      <Ticker />
       <ReelsSection
         onOpenViewer={(index, opener) => {
           viewerOpenerRef.current = opener;

@@ -25,31 +25,31 @@ nextjs-portal,
 
 :root {
   color-scheme: dark;
-  --ink: #0B0B0F;
-  --paper: #F4F1EA;
-  --muted: #A9A7A0;
+  --ink: #0B0B0B;
+  --pink: #FF2DA8;
+  --lime: #D4FF3F;
+  --pearl: #EFE6D8;
+  --ivory: #FAF8F3;
+  --muted: #B9B2A5;
+  --paper: var(--pearl);
   --line: #2A2A30;
   --panel: #141419;
   --panel-raised: #1B1B21;
   --track: #3A3A41;
-  --accent-default: #C6FF3D;
+  --accent-default: var(--lime);
   --rec: #FF3B30;
-  --accent-hotels: #F2B84B;
-  --accent-showrooms: #FF5A3D;
-  --accent-restaurants: #FF9A3D;
-  --accent-clinics: #2DD4BF;
-  --accent-real-estate: #6B9BFF;
-  --industry: var(--accent-default);
+  --industry: var(--lime);
+  --primary: var(--lime);
+  --accent: var(--pink);
   --background: var(--ink);
-  --foreground: var(--paper);
+  --foreground: var(--pearl);
   --border: var(--line);
   --card: var(--panel);
-  --primary: var(--industry);
   --muted-foreground: var(--muted);
-  --text-xs: 0.75rem;
-  --text-2xs: 0.625rem;
+  --text-xs: 0.75rem; /* 12px min */
+  --text-2xs: 0.75rem; /* nothing under 12px */
   --text-sm: 0.875rem;
-  --text-base: 1rem;
+  --text-base: 1rem; /* 16px body */
   --text-lg: 1.125rem;
   --text-xl: 1.375rem;
   --text-2xl: 1.75rem;
@@ -624,6 +624,52 @@ button { min-height: var(--control-height); }
 @keyframes filmstrip-reel-down {
   from { transform: translateY(-50%); }
   to { transform: translateY(0); }
+}
+
+@keyframes tickerSlide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Crew Photos: Black & White with slight contrast */
+.crew-photo-art {
+  filter: grayscale(100%) contrast(108%);
+  transition: filter var(--motion-fast) ease;
+}
+.crew-photo-art:hover {
+  filter: grayscale(0%) contrast(100%);
+}
+
+/* Calm Proof Sections (Cases, Packages, FAQ): Ivory background with Ink text */
+.calm-section {
+  background-color: var(--ivory) !important;
+  color: var(--ink) !important;
+}
+.calm-section .section-intro h2,
+.calm-section h2,
+.calm-section h3,
+.calm-section h4,
+.calm-section strong,
+.calm-section b {
+  color: var(--ink) !important;
+}
+.calm-section .kicker {
+  color: var(--pink) !important;
+}
+.calm-section p:not(.kicker) {
+  color: #2D2D2D !important;
+}
+.calm-section .hairline-divider,
+.calm-section hr {
+  border-color: rgba(11, 11, 11, 0.12) !important;
+}
+.calm-section .mono-label,
+.calm-section .text-\[var\(--muted\)\] {
+  color: #555555 !important;
+}
+.calm-section .btn-lime {
+  background-color: var(--lime) !important;
+  color: var(--ink) !important;
 }
 @media (min-width: 48rem) {
   .filmstrip-stage { grid-template-columns: repeat(2, minmax(0, 1fr)); }

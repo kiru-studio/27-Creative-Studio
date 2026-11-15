@@ -56,7 +56,7 @@ export function PackagesSection({
       ref={sectionRef}
       id="packages"
       aria-labelledby="packages-heading"
-      className={`packages-section relative min-h-screen w-full flex flex-col justify-center py-24 sm:py-32 px-4 sm:px-6 lg:px-8 border-b border-[var(--line)] bg-[var(--ink)] overflow-hidden ${className}`}
+      className={`packages-section calm-section relative min-h-screen w-full flex flex-col justify-center py-24 sm:py-32 px-4 sm:px-6 lg:px-8 border-b border-[#0B0B0B]/12 bg-[#FAF8F3] text-[#0B0B0B] overflow-hidden ${className}`}
     >
       {/* Atmosphere: 4% subtle film-grain overlay */}
       <div className="faq-grain-overlay pointer-events-none" aria-hidden="true" />
@@ -185,14 +185,14 @@ export function PackagesSection({
                       <div className="flex items-stretch h-11 gap-[3px] ml-4.5 mr-1">
                         {/* Chamfer PCB Corner Contact (Pin 9) on dark green substrate */}
                         <div className="w-5 h-7 self-end bg-[#09170E] border border-[#15331F] rounded-[2px] p-[2px] flex items-center justify-center mr-1">
-                          <div className="w-full h-full bg-gradient-to-b from-[#F3D27E] via-[#D8A238] to-[#7D5610] rounded-[1.5px] shadow-[inset_0_1px_1px_rgba(255,255,255,0.45)]" />
+                          <div className="w-full h-full bg-gradient-to-b from-[#FFFFFF] via-[#D4D4D8] to-[#71717A] rounded-[1.5px] shadow-[inset_0_1px_1px_rgba(255,255,255,0.45)]" />
                         </div>
 
-                        {/* 8 Primary Gold Pins with Black Raised Divider Ribs */}
+                        {/* 8 Primary Chrome/Silver Contact Pins with Black Raised Divider Ribs */}
                         <div className="flex-1 flex items-stretch gap-[2.5px] bg-[#08080B] p-[2px] rounded-[2px] border border-[#1A1A22] shadow-[inset_0_2px_4px_rgba(0,0,0,0.8)]">
                           {Array.from({ length: 8 }).map((_, pIdx) => (
                             <React.Fragment key={pIdx}>
-                              <div className="flex-1 bg-gradient-to-b from-[#F3D27E] via-[#D8A238] to-[#7D5610] rounded-[1.5px] shadow-[inset_0_1px_1px_rgba(255,255,255,0.45)] relative overflow-hidden group-hover:brightness-105 transition-all">
+                              <div className="flex-1 bg-gradient-to-b from-[#FFFFFF] via-[#D4D4D8] to-[#71717A] rounded-[1.5px] shadow-[inset_0_1px_1px_rgba(255,255,255,0.45)] relative overflow-hidden group-hover:brightness-105 transition-all">
                                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 pointer-events-none" />
                               </div>
                               {pIdx < 7 && (

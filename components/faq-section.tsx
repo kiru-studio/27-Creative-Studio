@@ -319,7 +319,7 @@ export function FaqSection() {
 
       <section
         ref={sectionRef}
-        className="faq-section relative overflow-hidden py-16 sm:py-24"
+        className="faq-section calm-section relative overflow-hidden py-16 sm:py-24 bg-[#FAF8F3] text-[#0B0B0B] border-b border-[#0B0B0B]/12"
         id="faq"
         aria-labelledby="faq-heading"
       >
