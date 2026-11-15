@@ -55,7 +55,7 @@ const lanyardPeople: LanyardMember[] = siteContent.people.map((person, index) =>
 
 export function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-8% 0px" });
+  const isInView = useInView(sectionRef, { once: true, margin: "50px 0px" });
   const shouldReduceMotion = useHydratedReducedMotion();
   const headingLines = siteContent.ui.aboutHeading.match(/[^.]+\./g) ?? [
     siteContent.ui.aboutHeading,

@@ -99,29 +99,34 @@ export function Hero({ enableViewfinderCursor = false }: HeroProps) {
         <div className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-14 my-auto py-6 sm:py-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Left Column: Eyebrow, Headline, Subline, CTAs (lg:col-span-7) */}
           <div className="lg:col-span-7 flex flex-col items-start z-10 w-full">
-            {/* Mono Eyebrow */}
-            <motion.p
-              initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
+            {/* Brutalist Stickers Cluster */}
+            <motion.div
+              initial={shouldReduceMotion ? false : { opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.5,
-                ease: "easeOut",
-                delay: shouldReduceMotion ? 0 : 0.55,
-              }}
-              className="font-mono text-xs uppercase tracking-widest text-[var(--industry)] m-0 mb-4 sm:mb-5"
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="flex flex-wrap items-center gap-2 mb-5 select-none"
             >
-              {eyebrow}
-            </motion.p>
+              <span className="brutal-sticker-lime">
+                THOOTHUKUDI HQ // 8.8049° N, 78.1460° E
+              </span>
+              <span className="brutal-sticker-pink">
+                SONY FX3 4K 24FPS DCI
+              </span>
+              <span className="hidden sm:inline-flex items-center gap-1 font-mono text-xs text-[#D4FF3F] bg-[#0B0B0B] border-2 border-[#D4FF3F] px-2 py-0.5 font-bold uppercase shadow-[2px_2px_0px_#FF2DA8]">
+                <span>●</span>
+                <span>NO TEMPLATES</span>
+              </span>
+            </motion.div>
 
             {/* 3. FOCUS-PULL INTRO: Masked Headline lines + Lens Focus Blur Pull */}
             <h1
               id="hero-heading"
-              className="m-0 font-extrabold font-display leading-[0.92] tracking-tight uppercase flex flex-col items-start text-[2.25rem] sm:text-5xl md:text-6xl lg:text-[5.25rem] xl:text-[6rem] w-full"
+              className="m-0 font-black font-display leading-[0.88] tracking-tighter uppercase flex flex-col items-start text-[2.75rem] sm:text-6xl md:text-7xl lg:text-[5.75rem] xl:text-[6.75rem] w-full"
             >
               {titleLinesToRender.map((line, idx) => (
                 <span
                   key={idx}
-                  className="overflow-hidden block leading-[0.88] pb-1 sm:pb-2"
+                  className="overflow-hidden block leading-[0.86] pb-1 sm:pb-2"
                 >
                   <motion.span
                     className={`block ${
@@ -164,7 +169,7 @@ export function Hero({ enableViewfinderCursor = false }: HeroProps) {
                 ease: "easeOut",
                 delay: shouldReduceMotion ? 0 : 0.63,
               }}
-              className="text-base sm:text-lg md:text-xl text-[#FF2DA8] mt-5 sm:mt-6 mb-8 sm:mb-10 max-w-xl font-medium leading-relaxed"
+              className="text-base sm:text-lg md:text-xl text-[#FF2DA8] mt-5 sm:mt-6 mb-8 sm:mb-10 max-w-xl font-mono font-bold leading-relaxed"
             >
               {body}
             </motion.p>
@@ -225,6 +230,25 @@ export function Hero({ enableViewfinderCursor = false }: HeroProps) {
           />
         </div>
       </section>
+
+      {/* Colossal Maximum Brutalist Marquee Tape */}
+      <div className="w-full border-y-4 border-[#FF2DA8] bg-[#0B0B0B] py-3.5 overflow-hidden select-none" aria-hidden="true">
+        <div className="flex items-center gap-6 whitespace-nowrap font-display font-black text-lg sm:text-2xl uppercase tracking-tighter text-[#D4FF3F]">
+          <span className="bg-[#FF2DA8] text-[#0B0B0B] px-3 py-0.5 text-xs font-mono font-black -rotate-1">VERIFIED METRICS</span>
+          <span>6,300+ NEW FOLLOWERS</span>
+          <span className="text-[#FF2DA8]">/////</span>
+          <span>SONY FX3 ACTIVE</span>
+          <span className="text-[#FF2DA8]">/////</span>
+          <span>4K 24FPS DCI</span>
+          <span className="text-[#FF2DA8]">/////</span>
+          <span>6.1X PEAK MULTIPLIER</span>
+          <span className="text-[#FF2DA8]">/////</span>
+          <span className="bg-[#D4FF3F] text-[#0B0B0B] px-3 py-0.5 text-xs font-mono font-black rotate-1">TAMIL NADU</span>
+          <span>ZERO FILLER FRAMES</span>
+          <span className="text-[#FF2DA8]">/////</span>
+          <span>THOOTHUKUDI HQ</span>
+        </div>
+      </div>
 
       {/* Fullscreen Reel Modal Player */}
       <ReelModal

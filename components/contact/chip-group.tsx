@@ -102,21 +102,21 @@ export function ChipGroup({
               tabIndex={active || idx === 0 ? 0 : -1}
               onClick={() => handleToggle(option.id)}
               onKeyDown={(e) => handleKeyDown(e, idx)}
-              className={`relative px-3.5 py-2 rounded-lg border text-xs font-mono tracking-wider transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-[#D4FF3F] cursor-pointer min-h-[38px] flex items-center justify-center ${
+              className={`relative px-4 py-2 rounded-none border-2 text-xs font-mono tracking-wider transition-all duration-150 outline-none cursor-pointer min-h-[38px] flex items-center justify-center ${
                 active
-                  ? "border-[#D4FF3F] bg-[#D4FF3F]/15 text-[#D4FF3F] font-bold shadow-[0_0_10px_rgba(198,255,61,0.15)]"
-                  : "border-[#FF2DA8] bg-[#0B0B0B] text-[#D4FF3F] hover:border-[#D4FF3F]/50 hover:text-[#D4FF3F]"
+                  ? "border-[#D4FF3F] bg-[#D4FF3F] !text-[#0B0B0B] font-black shadow-[3px_3px_0px_#FF2DA8]"
+                  : "border-[#FF2DA8] bg-[#0B0B0B] text-[#FF2DA8] font-bold hover:border-[#D4FF3F] hover:text-[#D4FF3F] hover:shadow-[3px_3px_0px_#D4FF3F] active:translate-x-1 active:translate-y-1 active:shadow-none"
               }`}
             >
-              {/* Subtle active border glow */}
+              {/* Subtle active border indicator */}
               {active && !reducedMotion && (
                 <motion.div
                   layoutId={isMulti ? undefined : `active-chip-${label}`}
-                  className="absolute inset-0 rounded-lg border border-[#D4FF3F] pointer-events-none"
+                  className="absolute inset-0 rounded-none border-2 border-[#D4FF3F] pointer-events-none"
                   transition={{ type: "spring", stiffness: 400, damping: 28 }}
                 />
               )}
-              <span className="relative z-10">{option.label}</span>
+              <span className="relative z-10" style={{ color: active ? "#0B0B0B" : undefined }}>{option.label}</span>
             </button>
           );
         })}

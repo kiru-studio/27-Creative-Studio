@@ -46,7 +46,7 @@ export function PackagesSection({
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [showComparison, setShowComparison] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-10% 0px" });
+  const isInView = useInView(sectionRef, { once: true, margin: "50px 0px" });
   const shouldReduceMotion = useHydratedReducedMotion();
 
   return (
@@ -152,7 +152,7 @@ export function PackagesSection({
               >
                 {/* Outer Card Housing */}
                 <div
-                  className="p-[1.5px] bg-[#FF2DA8] group-hover:bg-[#D4FF3F] transition-colors duration-300 shadow-[0_0_25px_rgba(255,45,168,0.25)] group-hover:shadow-[0_0_35px_rgba(212,255,63,0.35)] w-full h-full flex flex-col"
+                  className="p-[3px] bg-[#FF2DA8] group-hover:bg-[#D4FF3F] transition-all duration-150 shadow-[8px_8px_0px_#D4FF3F] group-hover:shadow-[12px_12px_0px_#FF2DA8] w-full h-full flex flex-col"
                   style={{
                     clipPath: sdClipPath,
                   }}
@@ -238,11 +238,11 @@ export function PackagesSection({
                       <div className="pt-2">
                         <a
                           href={siteConfig.contactAnchor || "#contact"}
-                          className="w-full text-center py-3.5 px-6 text-xs font-mono font-black uppercase tracking-widest bg-[#D4FF3F] text-[#0B0B0B] inline-flex items-center justify-center gap-2 hover:bg-[#FF2DA8] hover:text-[#0B0B0B] transition-colors group/cta shadow-[0_0_15px_rgba(212,255,63,0.3)]"
+                          className="w-full text-center py-4 px-6 text-xs font-mono font-black uppercase tracking-widest bg-[#D4FF3F] text-[#0B0B0B] border-2 border-[#0B0B0B] inline-flex items-center justify-center gap-2 shadow-[4px_4px_0px_#FF2DA8] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_#FF2DA8] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all rounded-none select-none cursor-pointer group/cta"
                         >
                           <span>{pkg.cta || "TALK TO US"}</span>
                           <ArrowRight
-                            className="w-4 h-4 transition-transform duration-200 group-hover/cta:translate-x-1.5"
+                            className="w-4 h-4 transition-transform duration-150 group-hover/cta:translate-x-1"
                             aria-hidden="true"
                           />
                         </a>

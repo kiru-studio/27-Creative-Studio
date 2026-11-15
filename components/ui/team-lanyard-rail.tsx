@@ -516,13 +516,13 @@ const BadgeFaces = React.memo(function BadgeFaces({
       {/* ================= FRONT FACE ================= */}
       <div
         data-face="front"
-        className="absolute inset-0 flex flex-col overflow-hidden rounded-[14px] border border-[#FF2DA8]/40 bg-[#0B0B0B] text-[#D4FF3F] shadow-[0_24px_50px_rgba(0,0,0,0.85)] [backface-visibility:hidden]"
+        className="absolute inset-0 flex flex-col overflow-hidden rounded-none border-2 border-[#FF2DA8] bg-[#0B0B0B] text-[#D4FF3F] shadow-[6px_6px_0px_#0B0B0B] [backface-visibility:hidden]"
         style={{ transform: "translateZ(1px)" }}
       >
         {/* Top Header: Left Studio Tag, Center Clear Zone for Hole Punch, Right Pass ID */}
-        <div className="relative h-[2.2em] w-full bg-[#0B0B0B] border-b border-[#FF2DA8]/40 flex items-center justify-between px-2.5 text-[0.56em] font-mono tracking-wider z-10 shrink-0 select-none">
+        <div className="relative h-[2.2em] w-full bg-[#0B0B0B] border-b-2 border-[#FF2DA8] flex items-center justify-between px-2.5 text-[0.56em] font-mono tracking-wider z-10 shrink-0 select-none">
           <div className="flex items-center gap-1.5 font-bold text-[#D4FF3F] shrink-0 whitespace-nowrap">
-            <span className="size-1.5 rounded-full bg-[#D4FF3F] shadow-[0_0_6px_#D4FF3F]" />
+            <span className="size-1.5 bg-[#D4FF3F]" />
             27 STUDIO
           </div>
           {/* Dedicated center clearance where Hole punch sits cleanly */}
@@ -536,7 +536,7 @@ const BadgeFaces = React.memo(function BadgeFaces({
         <Hole />
 
         {/* Tactical Editorial Portrait Frame */}
-        <div className="relative mx-auto mt-[1.05em] w-[84%] aspect-square rounded-[8px] overflow-hidden border border-[#FF2DA8]/40 bg-[#0B0B0B] shadow-inner shrink-0 group">
+        <div className="relative mx-auto mt-[1.05em] w-[84%] aspect-square rounded-none overflow-hidden border-2 border-[#FF2DA8] bg-[#0B0B0B] shadow-inner shrink-0 group">
           {portraitSrc ? (
             <img
               src={portraitSrc}
@@ -639,10 +639,10 @@ const BadgeFaces = React.memo(function BadgeFaces({
         {/* Frosted Plastic Sleeve Overlay: Seam Welt, Glare & Dynamic Specular Sheen */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 rounded-[14px] border border-[#FF2DA8]/40"
+          className="pointer-events-none absolute inset-0 rounded-none border border-[#FF2DA8]/40"
         >
           {/* Inner welded plastic seam welt */}
-          <div className="absolute inset-[3px] rounded-[11px] border border-[#FF2DA8]/40" />
+          <div className="absolute inset-[3px] rounded-none border border-[#FF2DA8]/40" />
           {/* Fixed diagonal glare */}
           <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-[#FF2DA8]/[0.10] to-transparent" />
           {/* Dynamic cursor specular glint */}
@@ -659,11 +659,11 @@ const BadgeFaces = React.memo(function BadgeFaces({
       {/* ================= BACK FACE ================= */}
       <div
         data-face="back"
-        className="absolute inset-0 flex flex-col overflow-hidden rounded-[14px] border border-[#FF2DA8]/40 bg-[#0B0B0B] text-[#D4FF3F] shadow-[0_24px_50px_rgba(0,0,0,0.85)] [backface-visibility:hidden]"
+        className="absolute inset-0 flex flex-col overflow-hidden rounded-none border-2 border-[#FF2DA8] bg-[#0B0B0B] text-[#D4FF3F] shadow-[6px_6px_0px_#0B0B0B] [backface-visibility:hidden]"
         style={{ transform: "rotateY(180deg) translateZ(1px)" }}
       >
         {/* Back Header */}
-        <div className="relative h-[2.2em] w-full bg-[#0B0B0B] border-b border-[#FF2DA8]/40 flex items-center justify-between px-2.5 text-[0.56em] font-mono tracking-wider text-muted-foreground z-10 shrink-0 select-none">
+        <div className="relative h-[2.2em] w-full bg-[#0B0B0B] border-b-2 border-[#FF2DA8] flex items-center justify-between px-2.5 text-[0.56em] font-mono tracking-wider text-muted-foreground z-10 shrink-0 select-none">
           <span className="font-bold text-[#D4FF3F] shrink-0 whitespace-nowrap">CREW DOSSIER</span>
           <div className="w-[2.2em] shrink-0" aria-hidden="true" />
           <span className="text-[0.88em] uppercase tracking-[0.1em] text-[#D4FF3F]/50 shrink-0 whitespace-nowrap">
@@ -2073,7 +2073,7 @@ export function TeamLanyardRail({
                         shadows.current[i] = node;
                       }}
                       data-shadow
-                      className="absolute inset-0 block rounded-[14px] bg-black/60"
+                      className="absolute inset-0 block rounded-none bg-black/60"
                     />
                   </span>
 
@@ -2104,10 +2104,10 @@ export function TeamLanyardRail({
                     aria-describedby={`${uid}-caption`}
                     aria-pressed={isFlipped}
                     aria-expanded={isFlipped}
-                    className={`pointer-events-auto absolute left-0 cursor-pointer rounded-[14px] p-0 text-left outline-none transition-all duration-300 ${
+                    className={`pointer-events-auto absolute left-0 cursor-pointer rounded-none p-0 text-left outline-none transition-all duration-300 ${
                       isSelected
-                        ? "ring-2 ring-[#D4FF3F] shadow-[0_0_24px_rgba(198,255,61,0.22)] z-30"
-                        : "hover:ring-1 hover:ring-[#FF2DA8]/40 z-20"
+                        ? "ring-3 ring-[#D4FF3F] shadow-[6px_6px_0px_#FF2DA8] z-30"
+                        : "hover:ring-2 hover:ring-[#FF2DA8] z-20"
                     } focus-visible:ring-2 focus-visible:ring-[#D4FF3F] focus-visible:ring-offset-4 focus-visible:ring-offset-[#0B0B0B]`}
                     style={{
                       top: cardOffset,
@@ -2200,13 +2200,13 @@ export function TeamLanyardRail({
           {person ? (
             <>
               {/* Active Member Readout */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0B0B0B] border border-[#D4FF3F]/40 shadow-[0_0_14px_rgba(198,255,61,0.18)] mb-2 animate-fadeIn">
-                <span className="w-2 h-2 rounded-full bg-[#D4FF3F] shadow-[0_0_6px_#D4FF3F] animate-pulse" />
-                <span className="text-xs sm:text-sm font-bold text-[#D4FF3F] tracking-wide uppercase">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-none bg-[#0B0B0B] border-2 border-[#D4FF3F] shadow-[3px_3px_0px_#FF2DA8] mb-2 animate-fadeIn">
+                <span className="w-2 h-2 bg-[#D4FF3F] animate-pulse" />
+                <span className="text-xs sm:text-sm font-bold text-[#D4FF3F] tracking-wide uppercase font-mono">
                   {person.name} — {person.role}
                 </span>
               </div>
-              <p className="text-[11px] sm:text-xs text-[#FF2DA8] tracking-wider flex items-center justify-center flex-wrap gap-2 m-0">
+              <p className="text-[11px] sm:text-xs text-[#FF2DA8] tracking-wider flex items-center justify-center flex-wrap gap-2 m-0 font-mono">
                 <span className="text-[#D4FF3F] font-bold">
                   {showingBack ? "DOSSIER ACTIVE" : "PASS SELECTED"}
                 </span>
@@ -2230,11 +2230,11 @@ export function TeamLanyardRail({
           ) : (
             <>
               {/* Default State: Instruction & Discoverability */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0B0B0B] border border-[#FF2DA8]/40 text-[11px] sm:text-xs tracking-wider mb-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#D4FF3F]/80" />
-                <span className="text-[#D4FF3F]/90 font-medium">SELECT A CREW PASS TO VIEW DOSSIER</span>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-none bg-[#0B0B0B] border-2 border-[#FF2DA8] shadow-[3px_3px_0px_#D4FF3F] text-[11px] sm:text-xs tracking-wider mb-2 font-mono font-bold">
+                <span className="w-1.5 h-1.5 bg-[#D4FF3F]" />
+                <span className="text-[#D4FF3F]">SELECT A CREW PASS TO VIEW DOSSIER</span>
               </div>
-              <p className="text-[10px] sm:text-[11px] text-[#FF2DA8] tracking-widest uppercase m-0">
+              <p className="text-[10px] sm:text-[11px] text-[#FF2DA8] tracking-widest uppercase m-0 font-mono">
                 DRAG TO SWING • CLICK TO FLIP • TAB + ENTER FOR KEYBOARD
               </p>
             </>

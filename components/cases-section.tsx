@@ -609,7 +609,11 @@ export function CaseRow({
 
   return (
     <motion.article
-      className={`case-card relative border-b border-[#FF2DA8]/30 py-5 ${isOpen ? "is-open" : ""}`}
+      className={`case-card relative border-3 border-[#FF2DA8] mb-5 p-5 sm:p-7 bg-[#0B0B0B] transition-all rounded-none select-none ${
+        isOpen
+          ? "border-[#D4FF3F] shadow-[8px_8px_0px_#FF2DA8]"
+          : "shadow-[5px_5px_0px_#D4FF3F] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0px_#D4FF3F]"
+      } ${isOpen ? "is-open" : ""}`}
       onMouseEnter={onHoverStart}
       onMouseLeave={onHoverEnd}
       onPointerMove={onPointerMove}
@@ -786,7 +790,7 @@ export function CasesSection() {
   const [hoveredKpiIndex, setHoveredKpiIndex] = useState<number | null>(null);
 
   const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-10% 0px" });
+  const isInView = useInView(sectionRef, { once: true, margin: "50px 0px" });
   const shouldReduceMotion = useHydratedReducedMotion();
   const isTouch = useIsTouchDevice();
 
@@ -919,11 +923,10 @@ export function CasesSection() {
             </span>
           </div>
 
-          {/* 4-column KPI stats grid with focus-pull hover interaction */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 font-mono">
+          {/* 4-column KPI stats grid with heavy brutalist box matrix */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 border-3 border-[#FF2DA8] shadow-[6px_6px_0px_#D4FF3F] bg-[#0B0B0B] font-mono">
             {KPI_STATS.map((kpi, idx) => {
               const isHovered = hoveredKpiIndex === idx;
-              const isOtherHovered = hoveredKpiIndex !== null && !isHovered;
 
               return (
                 <div
@@ -933,48 +936,23 @@ export function CasesSection() {
                   onMouseEnter={() => setHoveredKpiIndex(idx)}
                   onFocus={() => setHoveredKpiIndex(idx)}
                   onBlur={() => setHoveredKpiIndex(null)}
-                  className={`group relative min-w-0 pl-4 sm:pl-5 py-2 border-l outline-none cursor-default select-none transition-colors duration-200 ${
-                    isHovered
-                      ? "border-[#D4FF3F] bg-[#0B0B0B]"
-                      : kpi.accent
-                      ? "border-[#D4FF3F]/60"
-                      : "border-[#FF2DA8]/40"
+                  className={`group relative p-4 sm:p-6 border-b lg:border-b-0 ${idx % 2 === 0 ? "border-r-2" : "lg:border-r-2"} border-[#FF2DA8] outline-none cursor-default select-none transition-colors duration-150 ${
+                    isHovered ? "bg-[#FF2DA8]/10" : "bg-[#0B0B0B]"
                   }`}
-                  style={{
-                    opacity: isOtherHovered ? 0.38 : 1,
-                    transition: "opacity 250ms ease, border-color 200ms ease",
-                  }}
                 >
+                  <div className="flex justify-between items-center text-[10px] uppercase tracking-widest font-mono text-[#D4FF3F] mb-1">
+                    <span>{kpi.label}</span>
+                    <span className="text-[#FF2DA8] font-bold">0{idx + 1}</span>
+                  </div>
                   <span
-                    className={`text-[11px] uppercase tracking-widest block transition-colors duration-200 ${
-                      isHovered || kpi.accent
-                        ? "text-[#D4FF3F] font-bold"
-                        : "text-[#FF2DA8] group-hover:text-[#D4FF3F]"
-                    }`}
-                  >
-                    {kpi.label}
-                  </span>
-                  <span
-                    className={`text-3xl sm:text-4xl lg:text-5xl font-black font-display block mt-1 transition-colors duration-200 ${
-                      kpi.accent
-                        ? "text-[#D4FF3F]"
-                        : isHovered
-                        ? "text-[#D4FF3F]"
-                        : "text-[#FF2DA8]"
+                    className={`text-4xl sm:text-5xl lg:text-6xl font-black font-display block mt-1 tracking-tighter ${
+                      kpi.accent || isHovered ? "text-[#D4FF3F]" : "text-[#FF2DA8]"
                     }`}
                   >
                     {kpi.value}
                   </span>
-                  <div className="h-5 mt-1 overflow-hidden">
-                    <span
-                      className={`text-xs block truncate transition-colors duration-200 ${
-                        isHovered
-                          ? "text-[#D4FF3F] font-bold"
-                          : "text-[#D4FF3F]/70"
-                      }`}
-                    >
-                      {isHovered ? kpi.hoverSub : kpi.defaultSub}
-                    </span>
+                  <div className="mt-2 text-xs font-mono text-[#D4FF3F]/80">
+                    {isHovered ? kpi.hoverSub : kpi.defaultSub}
                   </div>
                 </div>
               );

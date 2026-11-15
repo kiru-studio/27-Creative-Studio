@@ -75,7 +75,7 @@ export function MagneticPrimaryButton({
         onMouseEnter?.();
       }}
       onMouseLeave={handleMouseLeave}
-      className={`group relative inline-flex items-center justify-center gap-2 min-h-[48px] px-8 py-3 bg-[#FF2DA8] !text-[#0B0B0B] font-mono text-xs font-extrabold uppercase tracking-widest transition-all duration-200 hover:shadow-[0_0_24px_#FF2DA8] hover:border-[#D4FF3F] border border-[#FF2DA8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4FF3F] ${className}`}
+      className={`group relative inline-flex items-center justify-center gap-2 min-h-[52px] px-8 py-3.5 bg-[#FF2DA8] !text-[#0B0B0B] font-mono text-xs sm:text-sm font-black uppercase tracking-wider border-2 border-[#0B0B0B] shadow-[5px_5px_0px_#D4FF3F] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0px_#D4FF3F] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all rounded-none select-none cursor-pointer ${className}`}
     >
       <span className="!text-[#0B0B0B] font-extrabold tracking-widest">{text}</span>
       <ArrowUpRight
@@ -113,7 +113,7 @@ export function OutlinedWatchButton({
       onClick={onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className={`group inline-flex items-center justify-center gap-2 min-h-[48px] px-8 py-3 border-2 border-[#D4FF3F] bg-[#0B0B0B] text-[#D4FF3F] hover:bg-[#D4FF3F] hover:text-[#0B0B0B] font-mono text-xs font-bold uppercase tracking-widest transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF2DA8] ${className}`}
+      className={`group inline-flex items-center justify-center gap-2 min-h-[52px] px-8 py-3.5 border-2 border-[#D4FF3F] bg-[#0B0B0B] text-[#D4FF3F] hover:bg-[#D4FF3F] hover:text-[#0B0B0B] font-mono text-xs sm:text-sm font-black uppercase tracking-wider shadow-[5px_5px_0px_#FF2DA8] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0px_#FF2DA8] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all rounded-none select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF2DA8] ${className}`}
     >
       <NeonPlay
         className="size-2.5 inline-block text-[#D4FF3F] group-hover:text-[#0B0B0B] transition-colors duration-150"

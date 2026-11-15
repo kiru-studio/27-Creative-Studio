@@ -667,17 +667,19 @@ export default function Page() {
       <a className="skip-link" href="#hero-heading">
         {siteContent.ui.skipLink}
       </a>
-      <header className="sticky top-0 z-[60] w-full bg-[#0B0B0B] border-b border-[#FF2DA8] flex items-center justify-between px-4 sm:px-8 py-3 select-none">
+      {/* Top Hazard Warning Tape Stripe */}
+      <div className="w-full h-1.5 brutal-hazard-lime" aria-hidden="true" />
+      <header className="sticky top-0 z-[60] w-full bg-[#0B0B0B] border-b-3 border-[#FF2DA8] flex items-center justify-between px-4 sm:px-8 py-3 select-none">
         {/* Left: Brand Lockup */}
         <div className="flex items-center gap-3 shrink-0">
           <BrandLockup href="#top" />
-          <span className="hidden xl:inline-block font-mono text-[11px] text-[#D4FF3F] font-bold tracking-widest px-2 py-0.5 border border-[#D4FF3F]">
+          <span className="hidden xl:inline-block font-mono text-[11px] text-[#0B0B0B] bg-[#D4FF3F] font-black tracking-widest px-2.5 py-0.5 border-2 border-[#0B0B0B] shadow-[2px_2px_0px_#FF2DA8] rotate-[-1.5deg]">
             THOOTHUKUDI HQ
           </span>
         </div>
 
         {/* Center: Running Ticker Marquee (Hidden on mobile/tablet) */}
-        <div className="hidden lg:flex items-center overflow-hidden max-w-lg mx-4 border-x border-[#FF2DA8] px-4 py-1">
+        <div className="hidden lg:flex items-center overflow-hidden max-w-lg mx-4 border-x-2 border-[#FF2DA8] px-4 py-1 bg-[#0B0B0B]">
           <div className="whitespace-nowrap font-mono text-[11px] text-[#D4FF3F] font-bold uppercase tracking-widest flex items-center gap-4">
             <span>SONY FX3 ACTIVE</span>
             <span className="text-[#FF2DA8]">●</span>
@@ -691,12 +693,12 @@ export default function Page() {
 
         {/* Right: Desktop Navigation Links & Action */}
         <div className="hidden md:flex items-center gap-5 shrink-0">
-          <nav className="flex items-center gap-4 font-mono text-xs uppercase tracking-widest" aria-label="Main navigation">
+          <nav className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest" aria-label="Main navigation">
             {["Work", "Films", "Process", "Cases", "Packages", "About", "FAQ", "Contact"].map((item) => (
               <a
                 key={item}
                 href={NAV_ITEM_HREFS[item] || `#${item.toLowerCase()}`}
-                className="text-[#FF2DA8] hover:text-[#D4FF3F] transition-colors py-1 px-1 font-bold"
+                className="text-[#FF2DA8] hover:text-[#D4FF3F] hover:bg-[#D4FF3F]/10 px-2 py-1 font-bold transition-all duration-150"
               >
                 {item}
               </a>
@@ -704,7 +706,7 @@ export default function Page() {
           </nav>
           <a
             href="#contact"
-            className="hidden sm:inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-[#FF2DA8] text-[#0B0B0B] font-mono text-xs font-black uppercase tracking-wider hover:bg-[#D4FF3F] hover:text-[#0B0B0B] transition-colors"
+            className="hidden sm:inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-[#FF2DA8] text-[#0B0B0B] font-mono text-xs font-black uppercase tracking-wider border-2 border-[#0B0B0B] shadow-[4px_4px_0px_#D4FF3F] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[5px_5px_0px_#D4FF3F] active:translate-x-1 active:translate-y-1 active:shadow-none hover:bg-[#D4FF3F] hover:text-[#0B0B0B] transition-all duration-150 cursor-pointer"
           >
             <span>TALK TO US</span>
             <NeonArrow className="size-3 inline-block" />
@@ -713,7 +715,7 @@ export default function Page() {
 
         {/* Mobile Hamburger Trigger */}
         <button
-          className="md:hidden flex items-center gap-2 px-3 py-1.5 border border-[#FF2DA8] bg-[#0B0B0B] text-[#FF2DA8] font-mono text-xs font-bold uppercase tracking-wider"
+          className="md:hidden flex items-center gap-2 px-3 py-1.5 border-2 border-[#FF2DA8] bg-[#0B0B0B] text-[#FF2DA8] font-mono text-xs font-bold uppercase tracking-wider shadow-[3px_3px_0px_#D4FF3F] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0px_#D4FF3F] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all duration-150 cursor-pointer"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}

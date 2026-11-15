@@ -47,10 +47,10 @@ export function CategoryTabs({
               role="tab"
               aria-selected={isActive}
               onClick={() => onSelect(cat)}
-              className={`px-3.5 py-1.5 font-mono text-xs uppercase tracking-wider transition-all whitespace-nowrap snap-start shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4FF3F] ${
+              className={`px-4 py-2 font-mono text-xs uppercase tracking-wider transition-all whitespace-nowrap snap-start shrink-0 focus-visible:outline-none ${
                 isActive
-                  ? "bg-[#D4FF3F] !text-[#0B0B0B] font-bold shadow-[0_0_12px_rgba(212,255,63,0.3)]"
-                  : "border border-[#FF2DA8]/40 text-[#FF2DA8] hover:text-[#D4FF3F] hover:border-[#D4FF3F] bg-[#0B0B0B]"
+                  ? "bg-[#D4FF3F] !text-[#0B0B0B] font-black border-2 border-[#0B0B0B] shadow-[4px_4px_0px_#FF2DA8]"
+                  : "border-2 border-[#FF2DA8] text-[#FF2DA8] bg-[#0B0B0B] font-bold hover:border-[#D4FF3F] hover:text-[#D4FF3F] hover:shadow-[3px_3px_0px_#D4FF3F] active:translate-x-1 active:translate-y-1 active:shadow-none"
               }`}
               style={{
                 color: isActive ? "#0B0B0B" : undefined,
@@ -94,7 +94,13 @@ export function FaqItem({
   const panelId = `faq-panel-${item.id}`;
 
   return (
-    <div className="faq-row-item border-b border-[#FF2DA8]/30">
+    <div
+      className={`faq-row-item border-2 mb-3 bg-[#0B0B0B] transition-all duration-150 ${
+        isOpen
+          ? "border-[#D4FF3F] shadow-[5px_5px_0px_#FF2DA8]"
+          : "border-[#FF2DA8] shadow-[4px_4px_0px_#D4FF3F] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[6px_6px_0px_#D4FF3F]"
+      }`}
+    >
       <h3>
         <button
           ref={buttonRef}
@@ -104,7 +110,7 @@ export function FaqItem({
           aria-controls={panelId}
           onClick={onToggle}
           onKeyDown={onKeyDown}
-          className="w-full flex items-center justify-between gap-4 py-4 sm:py-5 text-left group transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4FF3F] min-h-[48px]"
+          className="w-full flex items-center justify-between gap-4 px-4 sm:px-5 py-4 text-left group transition-colors focus-visible:outline-none min-h-[48px] cursor-pointer"
         >
           <span
             className={`font-display font-bold text-lg sm:text-xl transition-colors leading-snug uppercase tracking-tight ${
@@ -114,24 +120,15 @@ export function FaqItem({
             {item.question}
           </span>
 
-          {/* Rotating Triangle Icon */}
-          <span className="shrink-0 flex items-center justify-center w-6 h-6 select-none">
-            <motion.svg
-              width="10"
-              height="10"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className={isOpen ? "text-[#D4FF3F]" : "text-[#FF2DA8]"}
-              animate={{ rotate: isOpen ? 90 : 0 }}
-              transition={
-                shouldReduceMotion
-                  ? { duration: 0 }
-                  : { duration: 0.25, ease: "easeOut" }
-              }
-              aria-hidden="true"
-            >
-              <polygon points="6,3 18,12 6,21" />
-            </motion.svg>
+          {/* Stark Brutalist Index Indicator */}
+          <span
+            className={`shrink-0 font-mono text-sm font-black px-2 py-0.5 border select-none ${
+              isOpen
+                ? "bg-[#D4FF3F] text-[#0B0B0B] border-[#D4FF3F]"
+                : "border-[#FF2DA8] text-[#FF2DA8] group-hover:border-[#D4FF3F] group-hover:text-[#D4FF3F]"
+            }`}
+          >
+            {isOpen ? "−" : "+"}
           </span>
         </button>
       </h3>
@@ -153,21 +150,7 @@ export function FaqItem({
             }
             style={{ overflow: "hidden" }}
           >
-            <div className="relative pl-5 sm:pl-7 pr-4 pb-6 pt-1">
-              {/* 2px Chartreuse Bar on left edge */}
-              <motion.div
-                className="absolute left-0 top-0 bottom-6 w-[2px] bg-[#D4FF3F] origin-top pointer-events-none shadow-[0_0_8px_#D4FF3F]"
-                initial={shouldReduceMotion ? false : { scaleY: 0 }}
-                animate={{ scaleY: 1 }}
-                exit={{ scaleY: 0 }}
-                transition={
-                  shouldReduceMotion
-                    ? { duration: 0 }
-                    : { duration: 0.35, ease: [0.16, 1, 0.3, 1] as const }
-                }
-                aria-hidden="true"
-              />
-
+            <div className="relative px-4 sm:px-5 pb-5 pt-2 border-t border-[#FF2DA8]/30">
               {/* Answer Text */}
               <motion.p
                 initial={shouldReduceMotion ? false : { y: 8, opacity: 0 }}
@@ -178,7 +161,7 @@ export function FaqItem({
                     ? { duration: 0 }
                     : { duration: 0.3, delay: 0.05, ease: "easeOut" }
                 }
-                className="text-sm sm:text-base text-[#D4FF3F] leading-relaxed max-w-3xl m-0 font-mono"
+                className="font-mono text-xs sm:text-sm text-[#D4FF3F] leading-relaxed"
               >
                 {resolvedAnswer}
               </motion.p>
@@ -200,7 +183,7 @@ export function FaqSection() {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-10% 0px" });
+  const isInView = useInView(sectionRef, { once: true, margin: "50px 0px" });
   const shouldReduceMotion = useHydratedReducedMotion();
 
   const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);

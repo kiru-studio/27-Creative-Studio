@@ -155,6 +155,18 @@ export function MainPlayer({
       role="group"
       aria-label={siteContent.ui.filmPlayerLabel}
     >
+      {/* Top Industrial Telemetry Ribbon */}
+      <div className="flex items-center justify-between px-3 py-1.5 bg-[#0B0B0B] border-b-2 border-[#FF2DA8] font-mono text-[11px] font-bold text-[#D4FF3F] uppercase tracking-widest select-none">
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 bg-[#FF2DA8] animate-pulse" />
+          <span>TELECINE DECK // MASTER 01</span>
+        </div>
+        <div className="flex items-center gap-3">
+          <span className="hidden sm:inline text-[#FF2DA8]">SONY FX3 10-BIT 4:2:2 DCI 4K</span>
+          <span className="px-1.5 py-0.5 bg-[#D4FF3F] text-[#0B0B0B]">MASTER ACTIVE</span>
+        </div>
+      </div>
+
       <div className="film-poster">
         {item.src ? (
           <video
@@ -399,7 +411,7 @@ export function FilmSection() {
   const [pulseKey, setPulseKey] = useState<string | number>(0);
 
   const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-12% 0px" });
+  const isInView = useInView(sectionRef, { once: true, margin: "50px 0px" });
   const shouldReduceMotion = useHydratedReducedMotion();
 
   const activeItem = videos.find((v) => v.id === activeId) ?? videos[0];

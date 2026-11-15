@@ -53,19 +53,19 @@ export function SendBriefButton({
         backgroundColor: "var(--industry, #D4FF3F)",
         color: "var(--ink, #0B0B0B)",
       }}
-      className="group relative flex-1 min-h-[48px] px-6 py-3 rounded-lg font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-[0_0_16px_rgba(198,255,61,0.25)] hover:shadow-[0_0_24px_rgba(198,255,61,0.45)] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed select-none"
+      className="group relative flex-1 min-h-[48px] px-6 py-3 rounded-none font-mono text-xs font-black uppercase tracking-widest border-2 border-[#0B0B0B] shadow-[5px_5px_0px_#FF2DA8] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[7px_7px_0px_#FF2DA8] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed select-none flex items-center justify-center gap-2 cursor-pointer"
     >
       {isLoading ? (
         <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-[#FF2DA8] shadow-[0_0_8px_#FF2DA8] animate-pulse" />
-          <span style={{ color: "#0B0B0B" }}>Recording...</span>
+          <span className="w-2.5 h-2.5 bg-[#FF2DA8] animate-pulse" />
+          <span style={{ color: "#0B0B0B" }}>DISPATCHING BRIEF...</span>
         </div>
       ) : (
         <>
-          <span style={{ color: "#0B0B0B" }}>Send brief</span>
+          <span style={{ color: "#0B0B0B" }}>SEND BRIEF TO STUDIO</span>
           <ArrowUpRight
             size={16}
-            className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1"
             style={{ stroke: "#0B0B0B" }}
             aria-hidden="true"
           />

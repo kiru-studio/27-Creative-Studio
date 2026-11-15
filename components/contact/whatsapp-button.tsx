@@ -55,17 +55,17 @@ export function WhatsAppButton({
           x: reducedMotion ? 0 : smoothX,
           y: reducedMotion ? 0 : smoothY,
         }}
-        className="group relative w-full min-h-[48px] px-6 py-3 rounded-lg border border-[#FF2DA8] bg-[#0B0B0B] font-mono text-xs font-bold uppercase tracking-wider text-[#D4FF3F] hover:border-[#D4FF3F] hover:text-[#D4FF3F] flex items-center justify-center gap-2 cursor-pointer transition-colors duration-200 select-none"
+        className="group relative w-full min-h-[48px] px-6 py-3 rounded-none border-2 border-[#FF2DA8] bg-[#0B0B0B] font-mono text-xs font-bold uppercase tracking-wider text-[#D4FF3F] shadow-[4px_4px_0px_#D4FF3F] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[5px_5px_0px_#D4FF3F] active:translate-x-1 active:translate-y-1 active:shadow-none hover:border-[#D4FF3F] flex items-center justify-center gap-2 cursor-pointer transition-all duration-150 select-none"
       >
         <MessageSquareShare
           size={16}
           className="transition-transform duration-200 group-hover:scale-110 text-[#D4FF3F]"
           aria-hidden="true"
         />
-        <span>Book on WhatsApp</span>
+        <span>BOOK VIA WHATSAPP</span>
       </motion.a>
-      <span className="font-mono text-[10px] text-[#D4FF3F]/70 mt-1 select-none">
-        opens WhatsApp with your details
+      <span className="font-mono text-[10px] text-[#D4FF3F] uppercase tracking-wider mt-1 select-none font-bold">
+        DIRECT TO DIRECTOR // INSTANT DISPATCH
       </span>
     </div>
   );

@@ -80,6 +80,9 @@ export function FilmStripStaggerTestimonials({
     >
       <div className="testimonials-grain-overlay" aria-hidden="true" />
       <div className="section-intro relative z-10 filmstrip-intro mb-12">
+        <div className="inline-block rotate-[2deg] px-3 py-1 bg-[#D4FF3F] text-[#0B0B0B] font-mono text-xs font-black uppercase tracking-widest border-2 border-[#0B0B0B] shadow-[3px_3px_0px_#FF2DA8] mb-3">
+          100% AUTHENTIC CLIENT VERIFICATION
+        </div>
         <p className="font-mono text-xs uppercase tracking-widest text-[#D4FF3F] font-bold block mb-2">
           // {siteContent.ui.testimonialsKicker}
         </p>

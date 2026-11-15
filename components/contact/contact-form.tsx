@@ -185,16 +185,16 @@ export function ContactForm({
       {serverError && (
         <div
           role="alert"
-          className="p-3.5 rounded-lg border border-[#FF2DA8]/40 bg-[#FF2DA8]/10 text-xs font-mono text-[#D4FF3F] flex items-start gap-2.5"
+          className="p-4 rounded-none border-2 border-[#FF2DA8] bg-[#0B0B0B] text-xs font-mono text-[#D4FF3F] flex items-start gap-2.5 shadow-[4px_4px_0px_#FF2DA8]"
         >
           <AlertCircle size={16} className="text-[#FF2DA8] shrink-0 mt-0.5" aria-hidden="true" />
           <div className="flex-1 flex flex-col gap-1">
-            <span>{serverError}</span>
+            <span className="font-bold">{serverError}</span>
             <span className="text-[#D4FF3F] text-[11px]">
               Fallback: email us directly at{" "}
               <a
                 href={`mailto:${siteConfig.recipientEmail || siteConfig.contactEmail}`}
-                className="text-[#D4FF3F] underline"
+                className="text-[#D4FF3F] underline font-bold"
               >
                 {siteConfig.recipientEmail || siteConfig.contactEmail}
               </a>
@@ -229,10 +229,10 @@ export function ContactForm({
               }}
               aria-invalid={hasError}
               aria-describedby={hasError ? "name-error" : undefined}
-              className={`w-full min-h-[48px] px-3.5 py-2.5 rounded-lg border bg-[#0B0B0B] text-base text-[#D4FF3F] outline-none transition-colors font-sans placeholder:text-[#D4FF3F]/40 ${
+              className={`w-full min-h-[48px] px-3.5 py-2.5 rounded-none border-2 bg-[#0B0B0B] text-base text-[#D4FF3F] outline-none font-mono placeholder:text-[#D4FF3F]/40 transition-all ${
                 hasError
-                  ? "border-[#FF2DA8]"
-                  : "border-[#FF2DA8] hover:border-[#D4FF3F]/50 focus:border-[#D4FF3F]"
+                  ? "border-[#FF2DA8] shadow-[4px_4px_0px_#FF2DA8]"
+                  : "border-[#FF2DA8] shadow-[4px_4px_0px_#D4FF3F] focus:border-[#D4FF3F] focus:shadow-[5px_5px_0px_#FF2DA8]"
               }`}
             />
           )}
@@ -263,10 +263,10 @@ export function ContactForm({
               }}
               aria-invalid={hasError}
               aria-describedby={hasError ? "phone-error" : undefined}
-              className={`w-full min-h-[48px] px-3.5 py-2.5 rounded-lg border bg-[#0B0B0B] text-base text-[#D4FF3F] outline-none transition-colors font-sans placeholder:text-[#D4FF3F]/40 ${
+              className={`w-full min-h-[48px] px-3.5 py-2.5 rounded-none border-2 bg-[#0B0B0B] text-base text-[#D4FF3F] outline-none font-mono placeholder:text-[#D4FF3F]/40 transition-all ${
                 hasError
-                  ? "border-[#FF2DA8]"
-                  : "border-[#FF2DA8] hover:border-[#D4FF3F]/50 focus:border-[#D4FF3F]"
+                  ? "border-[#FF2DA8] shadow-[4px_4px_0px_#FF2DA8]"
+                  : "border-[#FF2DA8] shadow-[4px_4px_0px_#D4FF3F] focus:border-[#D4FF3F] focus:shadow-[5px_5px_0px_#FF2DA8]"
               }`}
             />
           )}
@@ -274,7 +274,7 @@ export function ContactForm({
       </div>
 
       {/* ROLL: Deliverables Multi-select Chip Group */}
-      <div className="p-3.5 rounded-lg border border-[#FF2DA8]/80 bg-[#0B0B0B]/40">
+      <div className="p-4 rounded-none border-2 border-[#FF2DA8] bg-[#0B0B0B] shadow-[4px_4px_0px_#D4FF3F]">
         <ChipGroup
           label="What you need"
           slateTag="ROLL"
@@ -316,10 +316,10 @@ export function ContactForm({
             }}
             aria-invalid={hasError}
             aria-describedby={hasError ? "story-error" : undefined}
-            className={`w-full px-3.5 py-3 rounded-lg border bg-[#0B0B0B] text-base text-[#D4FF3F] outline-none transition-colors font-sans placeholder:text-[#D4FF3F]/40 resize-none leading-relaxed ${
+            className={`w-full px-3.5 py-3 rounded-none border-2 bg-[#0B0B0B] text-base text-[#D4FF3F] outline-none font-mono placeholder:text-[#D4FF3F]/40 resize-none leading-relaxed transition-all ${
               hasError
-                ? "border-[#FF2DA8]"
-                : "border-[#FF2DA8] hover:border-[#D4FF3F]/50 focus:border-[#D4FF3F]"
+                ? "border-[#FF2DA8] shadow-[4px_4px_0px_#FF2DA8]"
+                : "border-[#FF2DA8] shadow-[4px_4px_0px_#D4FF3F] focus:border-[#D4FF3F] focus:shadow-[5px_5px_0px_#FF2DA8]"
             }`}
           />
         )}

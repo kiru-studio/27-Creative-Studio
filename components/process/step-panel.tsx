@@ -51,15 +51,15 @@ export function StepPanel({
       role="tabpanel"
       id={`step-panel-${currentStep.id}`}
       aria-labelledby={`step-tab-${currentStep.id}`}
-      className="relative flex items-stretch gap-4 sm:gap-6 w-full"
+      className="relative flex items-stretch gap-4 sm:gap-6 w-full border-3 border-[#FF2DA8] bg-[#0B0B0B] p-6 sm:p-8 shadow-[6px_6px_0px_#D4FF3F]"
     >
       {/* Left Vertical Progress Bar */}
       <div
-        className="relative w-1.5 shrink-0 bg-[#0B0B0B] border border-[#FF2DA8]/30 overflow-hidden"
+        className="relative w-2 shrink-0 bg-[#0B0B0B] border-2 border-[#FF2DA8] overflow-hidden"
         aria-hidden="true"
       >
         <motion.div
-          className="w-full bg-[#D4FF3F] origin-top shadow-[0_0_8px_#D4FF3F]"
+          className="w-full bg-[#D4FF3F] origin-top"
           animate={{
             scaleY: (activeStepIndex + 1) / totalSteps,
           }}
@@ -154,7 +154,7 @@ export function StepPanel({
               {isLastStep ? (
                 <a
                   href="#contact"
-                  className="group inline-flex items-center gap-2 px-6 py-3 bg-[#D4FF3F] text-[#0B0B0B] font-mono text-xs font-black uppercase tracking-widest hover:bg-[#FF2DA8] hover:text-[#0B0B0B] transition-colors shadow-[0_0_20px_rgba(212,255,63,0.3)]"
+                  className="group inline-flex items-center gap-2 px-6 py-3.5 bg-[#D4FF3F] text-[#0B0B0B] font-mono text-xs font-black uppercase tracking-widest border-2 border-[#0B0B0B] shadow-[5px_5px_0px_#FF2DA8] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[7px_7px_0px_#FF2DA8] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all duration-150 cursor-pointer"
                 >
                   <span>BOOK SONY FX3 PRODUCTION</span>
                   <ArrowUpRight
@@ -167,7 +167,7 @@ export function StepPanel({
                 <button
                   type="button"
                   onClick={onNextStep}
-                  className="group inline-flex items-center gap-2 px-5 py-2.5 border border-[#FF2DA8] bg-[#0B0B0B] text-[#D4FF3F] font-mono text-xs font-bold uppercase tracking-wider hover:border-[#D4FF3F] hover:text-[#FF2DA8] transition-all duration-200 cursor-pointer"
+                  className="group inline-flex items-center gap-2 px-6 py-3 border-2 border-[#FF2DA8] bg-[#0B0B0B] text-[#D4FF3F] font-mono text-xs font-bold uppercase tracking-wider shadow-[4px_4px_0px_#D4FF3F] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[5px_5px_0px_#D4FF3F] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all duration-150 cursor-pointer"
                 >
                   <span>NEXT: {nextStep?.title ?? "ADVANCE"}</span>
                   <ArrowUpRight

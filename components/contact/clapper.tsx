@@ -53,7 +53,7 @@ export function Clapper({
     >
       {/* Top Movable Clapper Arm */}
       <motion.div
-        className="relative h-10 w-full rounded-t-lg border border-[#FF2DA8] cursor-pointer overflow-hidden z-20 shadow-[0_6px_18px_rgba(0,0,0,0.6)]"
+        className="relative h-12 w-full rounded-none border-3 border-[#FF2DA8] cursor-pointer overflow-hidden z-20 shadow-[6px_6px_0px_#D4FF3F]"
         style={{
           transformOrigin: "bottom left",
           backgroundColor: "#0B0B0B",
@@ -85,14 +85,14 @@ export function Clapper({
         )}
 
         {/* Hinge Pivot on Top Arm */}
-        <div className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full border border-[#FF2DA8] bg-[#0B0B0B] flex items-center justify-center shadow-md">
-          <div className="w-2 h-2 rounded-full bg-[#D4FF3F]" />
+        <div className="absolute left-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-none border-2 border-[#FF2DA8] bg-[#0B0B0B] flex items-center justify-center shadow-[2px_2px_0px_#D4FF3F]">
+          <div className="w-2.5 h-2.5 rounded-none bg-[#D4FF3F]" />
         </div>
       </motion.div>
 
       {/* Bottom Fixed Clapper Stick */}
       <div
-        className="relative h-10 w-full border border-[#FF2DA8] border-t-0 overflow-hidden z-10"
+        className="relative h-12 w-full border-3 border-[#FF2DA8] border-t-0 overflow-hidden z-10"
         style={{
           backgroundColor: "#0B0B0B",
           backgroundImage:
@@ -100,8 +100,8 @@ export function Clapper({
         }}
       >
         {/* Hinge Pivot on Bottom Bar */}
-        <div className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full border border-[#FF2DA8] bg-[#0B0B0B] flex items-center justify-center shadow-md">
-          <div className="w-2 h-2 rounded-full bg-[#D4FF3F]" />
+        <div className="absolute left-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-none border-2 border-[#FF2DA8] bg-[#0B0B0B] flex items-center justify-center shadow-[2px_2px_0px_#D4FF3F]">
+          <div className="w-2.5 h-2.5 rounded-none bg-[#D4FF3F]" />
         </div>
       </div>
     </div>
