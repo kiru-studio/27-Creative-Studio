@@ -4,6 +4,8 @@ import React, { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 import { siteContent, type WorkItem } from "@/lib/site-content";
+import { Blob } from "@/components/graphics/Blob";
+import { Halftone } from "@/components/graphics/Halftone";
 
 interface ReelsSectionProps {
   kicker?: string;
@@ -83,10 +85,11 @@ export function ReelsSection({
                     loading="lazy"
                   />
                 ) : (
-                  <span
-                    className={`reel-card-art reel-card-art-${index % 4}`}
-                    aria-hidden="true"
-                  />
+                  <div className="absolute inset-0 z-[-2] overflow-hidden bg-[#141419]" aria-hidden="true">
+                    <Blob color={index % 2 === 0 ? "lime" : "pink"} className="w-36 h-36 top-1/3 -right-6 pointer-events-none" opacity={0.2} />
+                    <Halftone opacity={0.12} />
+                    <span className={`reel-card-art reel-card-art-${index % 4}`} />
+                  </div>
                 )}
 
                 {/* 2. Darkness Shade Overlay */}

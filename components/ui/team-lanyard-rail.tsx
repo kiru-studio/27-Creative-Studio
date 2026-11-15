@@ -903,7 +903,15 @@ export function TeamLanyardRail({
 
   React.useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setReduced(media.matches);
+    const checkSaveData = () => {
+      try {
+        const conn = (navigator as any).connection;
+        return Boolean(conn && conn.saveData);
+      } catch {
+        return false;
+      }
+    };
+    const update = () => setReduced(media.matches || checkSaveData());
     update();
     media.addEventListener("change", update);
     return () => media.removeEventListener("change", update);
