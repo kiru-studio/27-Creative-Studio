@@ -639,6 +639,28 @@ button { min-height: var(--control-height); }
 .faq-list details[open] summary { color: var(--industry); }
 .faq-list details p { max-width: var(--copy-width); margin: 0; padding: 0 0 var(--space-5); color: var(--muted); }
 
+/* FAQ Category Tabs Themed Scroller */
+.faq-tags-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--industry, #C6FF3D) #18181D;
+  -webkit-overflow-scrolling: touch;
+}
+.faq-tags-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+.faq-tags-scroll::-webkit-scrollbar-track {
+  background: #18181D;
+  border-radius: 9999px;
+}
+.faq-tags-scroll::-webkit-scrollbar-thumb {
+  background: var(--industry, #C6FF3D);
+  border-radius: 9999px;
+  transition: background var(--motion-fast, 0.2s) ease;
+}
+.faq-tags-scroll::-webkit-scrollbar-thumb:hover {
+  background: #D4FF5E;
+}
+
 .contact-section { padding-bottom: 0; }
 .contact-card-list { display: grid; gap: var(--space-3); margin-top: var(--space-6); }
 .contact-link { min-height: var(--control-height); border-bottom: var(--border-width) solid var(--line); padding: var(--space-2) 0; }

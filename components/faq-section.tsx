@@ -36,17 +36,11 @@ export function CategoryTabs({
 }: CategoryTabsProps) {
   return (
     <div className="relative w-full mb-8">
-      {/* Scrollable container with edge fade masks on mobile */}
+      {/* Scrollable container with theme-styled scrollbar */}
       <div
         role="tablist"
         aria-label="FAQ categories"
-        className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory py-2 px-1 mask-fade-edges"
-        style={{
-          maskImage:
-            "linear-gradient(to right, transparent 0%, black 16px, black calc(100% - 16px), transparent 100%)",
-          WebkitMaskImage:
-            "linear-gradient(to right, transparent 0%, black 16px, black calc(100% - 16px), transparent 100%)",
-        }}
+        className="flex items-center gap-2 overflow-x-auto faq-tags-scroll scroll-smooth snap-x snap-mandatory py-2 pb-3 px-1"
       >
         {categories.map((cat) => {
           const isActive = activeCategory === cat;
@@ -347,7 +341,7 @@ export function FaqSection() {
               }
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
-              the fine print
+              The Fine Print
             </motion.p>
 
             {/* Masked Heading Lines (y: 100% -> 0, 0.1s stagger) */}
