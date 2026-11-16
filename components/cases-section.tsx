@@ -912,9 +912,6 @@ export function CasesSection() {
               <span className="text-[var(--line,#2A2A30)]" aria-hidden="true">/</span>
               <span>THOOTHUKUDI CAMPAIGNS</span>
             </span>
-            <span className="hidden sm:inline-block text-[10px] text-[var(--muted,#A9A7A0)]/60 tracking-widest">
-              PORTFOLIO TRACK RECORD
-            </span>
           </div>
 
           {/* 4-column KPI stats grid with focus-pull hover interaction */}
