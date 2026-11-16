@@ -605,16 +605,23 @@ const BadgeFaces = React.memo(function BadgeFaces({
           </div>
 
           {/* Centered Cutout Crew Member (Rising Above Wave Box with Green Atmospheric Rim Glow) */}
-          <div className="relative z-10 w-[84%] h-full flex items-end justify-center pointer-events-none overflow-visible">
+          <div className="relative z-10 w-[84%] h-full flex items-end justify-center pointer-events-none overflow-visible select-none">
             {portraitSrc ? (
               <img
                 src={portraitSrc}
                 alt={item.name}
-                className="max-w-none w-full h-[112%] -mb-1 object-contain object-bottom filter contrast-110 brightness-100 drop-shadow-[0_0_18px_rgba(57,255,20,0.3)] drop-shadow-[0_12px_24px_rgba(0,0,0,0.9)] pointer-events-auto transition-transform duration-300 hover:scale-[1.04]"
-                style={{
-                  maskImage: "linear-gradient(to bottom, black 86%, transparent 100%)",
-                  WebkitMaskImage: "linear-gradient(to bottom, black 86%, transparent 100%)",
-                }}
+                draggable={false}
+                onDragStart={(e) => e.preventDefault()}
+                className="max-w-none w-full h-[112%] -mb-1 object-contain object-bottom filter contrast-110 brightness-100 drop-shadow-[0_0_18px_rgba(57,255,20,0.3)] drop-shadow-[0_12px_24px_rgba(0,0,0,0.9)] pointer-events-none select-none transition-transform duration-300 hover:scale-[1.04]"
+                style={
+                  {
+                    maskImage: "linear-gradient(to bottom, black 86%, transparent 100%)",
+                    WebkitMaskImage: "linear-gradient(to bottom, black 86%, transparent 100%)",
+                    userSelect: "none",
+                    WebkitUserSelect: "none",
+                    WebkitUserDrag: "none",
+                  } as React.CSSProperties
+                }
               />
             ) : (
               <div className="size-full bg-gradient-to-br from-[#1C1C24] to-[#0A0A0E] flex items-center justify-center text-muted-foreground text-xs font-mono rounded-lg">
@@ -1399,6 +1406,61 @@ export function TeamLanyardRail({
     };
   }, [ready, reduced, count, impulse]);
 
+  // Subtle physical pendulum jiggle & sway when scrolling past the section
+  React.useEffect(() => {
+    if (reduced || !ready || count === 0) return;
+
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+
+      window.requestAnimationFrame(() => {
+        ticking = false;
+        const stage = stageRef.current;
+        if (!stage) return;
+
+        const rect = stage.getBoundingClientRect();
+        const vh = window.innerHeight;
+
+        // Active only when the lanyard rail is in or entering the viewport
+        if (rect.bottom > -80 && rect.top < vh + 80) {
+          const currentScrollY = window.scrollY;
+          const deltaY = currentScrollY - lastScrollY;
+          lastScrollY = currentScrollY;
+
+          // Only react to intentional scroll movement (ignoring micro-jitter)
+          if (Math.abs(deltaY) > 0.4) {
+            const s = sim.current;
+            // Cap speed for smooth, gentle, organic pendulum motion
+            const speed = clamp(deltaY, -30, 30);
+
+            for (let i = 0; i < count; i++) {
+              // Don't disturb a card currently being dragged or pulled
+              if (i === s.drag || i === s.pull) continue;
+
+              // Alternating phase so neighboring cards sway naturally relative to each other
+              const phase = i % 2 === 0 ? 1 : -0.75;
+              const swingKick = -speed * 0.22 * phase;
+              const stretchKick = Math.abs(speed) * 0.12;
+
+              s.vsw[i] = clamp((s.vsw[i] ?? 0) + swingKick, -16, 16);
+              s.vst[i] = clamp((s.vst[i] ?? 0) + stretchKick, -20, 20);
+            }
+            kick();
+          }
+        } else {
+          lastScrollY = window.scrollY;
+        }
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [reduced, ready, count, kick]);
+
   React.useEffect(
     () => () => {
       cancelAnimationFrame(sim.current.raf);
@@ -2121,19 +2183,26 @@ export function TeamLanyardRail({
                     aria-describedby={`${uid}-caption`}
                     aria-pressed={isFlipped}
                     aria-expanded={isFlipped}
-                    className={`pointer-events-auto absolute left-0 cursor-pointer rounded-[14px] p-0 text-left outline-none transition-all duration-300 ${
+                    draggable={false}
+                    onDragStart={(e) => e.preventDefault()}
+                    className={`pointer-events-auto absolute left-0 cursor-grab active:cursor-grabbing select-none rounded-[14px] p-0 text-left outline-none transition-all duration-300 ${
                       isSelected
                         ? "ring-2 ring-[#C6FF3D] shadow-[0_0_24px_rgba(198,255,61,0.22)] z-30"
                         : "hover:ring-1 hover:ring-white/30 z-20"
                     } focus-visible:ring-2 focus-visible:ring-[#C6FF3D] focus-visible:ring-offset-4 focus-visible:ring-offset-[#0B0B0F]`}
-                    style={{
-                      top: cardOffset,
-                      width: W,
-                      height: g.H,
-                      fontSize: base,
-                      opacity: isInactive ? 0.72 : 1,
-                      transform: isSelected ? "scale(1.04) translateZ(20px)" : "scale(1) translateZ(0)",
-                    }}
+                    style={
+                      {
+                        top: cardOffset,
+                        width: W,
+                        height: g.H,
+                        fontSize: base,
+                        opacity: isInactive ? 0.72 : 1,
+                        transform: isSelected ? "scale(1.04) translateZ(20px)" : "scale(1) translateZ(0)",
+                        userSelect: "none",
+                        WebkitUserSelect: "none",
+                        WebkitUserDrag: "none",
+                      } as React.CSSProperties
+                    }
                     onFocus={() => {
                       setFocusIndex(i);
                       if (pointer.current.id < 0) {
