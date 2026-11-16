@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 import { siteConfig } from "@/data/siteConfig";
@@ -48,7 +48,7 @@ export function ContactSection({
   // Live Slate Sync from Form
   const [formValues, setFormValues] = useState<Partial<ContactFormValues>>({
     businessType: "restaurant",
-    needs: ["instagram"],
+    needs: [],
   });
 
   // Derived codes for slate
@@ -86,6 +86,24 @@ export function ContactSection({
 
   const handleFormValuesChange = useCallback((vals: Partial<ContactFormValues>) => {
     setFormValues(vals);
+  }, []);
+
+  // Listen for package selection from packages section to auto-open mobile sheet if on mobile
+  useEffect(() => {
+    const handlePackageEvent = () => {
+      if (typeof window !== "undefined" && window.innerWidth < 1024) {
+        setMobileFormOpen(true);
+      }
+    };
+    const handleCloseSheet = () => {
+      setMobileFormOpen(false);
+    };
+    window.addEventListener("select-package", handlePackageEvent);
+    window.addEventListener("close-mobile-sheet", handleCloseSheet);
+    return () => {
+      window.removeEventListener("select-package", handlePackageEvent);
+      window.removeEventListener("close-mobile-sheet", handleCloseSheet);
+    };
   }, []);
 
   const handleSubmitSuccess = (tc?: string) => {

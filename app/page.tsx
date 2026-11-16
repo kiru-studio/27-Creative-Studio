@@ -313,12 +313,20 @@ function FooterSection() {
   const currentYear = new Date().getFullYear();
   return (
     <footer className="footer" aria-label={siteContent.ui.footerLabel}>
-      <div className="footer-top">
-        <div>
+      {/* Upper Tier: Quote on Left, 27 Creative Studio on Right */}
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 md:gap-12">
+        <div className="flex-1 max-w-xl">
           <p className="footer-line">{siteContent.footer.line}</p>
+        </div>
+        <div className="w-full md:w-[360px] flex items-center justify-start">
           <BrandLockup href="#top" className="footer-brand" />
-          <address className="not-italic mt-3 text-xs font-mono text-[var(--muted)] max-w-sm leading-relaxed">
-            <span className="text-[var(--paper)] font-bold">Studio:</span>{" "}
+        </div>
+      </div>
+
+      {/* Lower Tier: Address on Left, Navigation Grid on Right */}
+      <div className="mt-8 flex flex-col md:flex-row items-start justify-between gap-8 md:gap-12">
+        <div className="flex-1 max-w-xl">
+          <address className="not-italic text-xs font-mono text-[var(--muted)] max-w-sm leading-relaxed">
             Polpettai / Ettayapuram Road, Thoothukudi, Tamil Nadu 628002
             <br />
             <a
@@ -332,15 +340,19 @@ function FooterSection() {
             </a>
           </address>
         </div>
-        <nav className="footer-nav" aria-label={siteContent.ui.footerNavigationLabel}>
-          {siteContent.footer.nav.map((item) => (
-            <a key={item} href={`#${item.toLowerCase()}`}>
-              {item}
-            </a>
-          ))}
-          <a href="/privacy">Privacy</a>
-          <a href="/terms">Terms</a>
-        </nav>
+
+        <div className="w-full md:w-[360px] flex justify-start">
+          <nav
+            className="footer-nav !grid !grid-cols-3 !gap-x-6 !gap-y-3 w-full"
+            aria-label={siteContent.ui.footerNavigationLabel}
+          >
+            {siteContent.footer.nav.map((item) => (
+              <a key={item} href={`#${item.toLowerCase()}`}>
+                {item}
+              </a>
+            ))}
+          </nav>
+        </div>
       </div>
 
       <div className="footer-socials">
@@ -356,9 +368,19 @@ function FooterSection() {
         ))}
       </div>
 
-      <div className="mt-8 pt-6 border-t border-[var(--line)] flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-[var(--muted)] gap-3">
+      <div className="mt-8 pt-6 border-t border-[var(--line)] flex flex-col sm:flex-row items-start sm:items-center justify-between text-[11px] font-mono text-[var(--muted)] gap-3">
         <p>© {currentYear} 27 Creative Studio. All rights reserved.</p>
-        <p>Thoothukudi · Tamil Nadu</p>
+        <p className="footer-legal">
+          Review our{" "}
+          <a href="/terms">
+            Terms of Service
+          </a>{" "}
+          and{" "}
+          <a href="/privacy">
+            Privacy Policy
+          </a>
+          .
+        </p>
       </div>
     </footer>
   );

@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { siteContent } from "@/lib/site-content";
+import { SonarGrid } from "@/components/ui/sonar-grid";
 
 export interface LanyardLink {
   label: string;
@@ -30,6 +31,7 @@ export interface LanyardMember {
   passId?: string;
   access?: string;
   stats?: string;
+  instagram?: string;
 }
 
 export interface TeamLanyardRailLabels {
@@ -350,6 +352,25 @@ function LinkIcon({ label }: { label: string }) {
   );
 }
 
+function InstagramIcon({ className = "size-3.5" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+    </svg>
+  );
+}
+
 function Hole() {
   return (
     <div
@@ -523,100 +544,87 @@ const BadgeFaces = React.memo(function BadgeFaces({
   const portraitSrc = item.portrait || item.image;
   const specialtyText = item.specialty || item.tagline || (item.tags ? item.tags[0] : null);
 
+  const instaLink = (item.links ?? []).find((l) => /instagram|insta/i.test(l.label));
+  const instaHandle =
+    item.instagram ??
+    (instaLink && instaLink.href.includes("instagram.com/")
+      ? `@${instaLink.href.split("instagram.com/")[1]?.replace(/\/.*$/, "")}`
+      : "@27creativestudio");
+  const instaHref = item.instagram
+    ? `https://instagram.com/${item.instagram.replace(/^@/, "")}`
+    : instaLink?.href ?? "https://instagram.com/27creativestudio";
+
   return (
     <>
       {/* ================= FRONT FACE (Dark Neon Green Editorial Credential) ================= */}
       <div
         data-face="front"
-        className="absolute inset-0 flex flex-col justify-between overflow-hidden rounded-[16px] border border-[#39FF14]/20 bg-[#000000] text-white shadow-[0_24px_50px_rgba(0,0,0,0.95)] [backface-visibility:hidden] p-2.5 pt-3"
+        className="absolute inset-0 flex flex-col justify-between overflow-hidden rounded-[16px] border border-[#C6FF3D]/25 bg-black text-white shadow-[0_24px_50px_rgba(0,0,0,0.95)] [backface-visibility:hidden] p-2 pt-3.5"
         style={{
           transform: "translateZ(1px)",
-          background:
-            "radial-gradient(circle at 50% 26%, rgba(20, 100, 30, 0.45) 0%, rgba(6, 30, 10, 0.22) 48%, #000000 82%)",
+          background: "#000000",
         }}
       >
+        {/* Whole Card Sonar Grid Radar Background Effect */}
+        <SonarGrid
+          color="#C6FF3D"
+          spacing={18}
+          dotRadius={1.1}
+          baseOpacity={0.28}
+          speed={180}
+          ringWidth={75}
+          amplitude={2.0}
+          pingEvery={2.4}
+          seedPing={true}
+          pingArea={[0.2, 0.25, 0.8, 0.7]}
+          interactive={false}
+          className="absolute inset-0 size-full pointer-events-none z-0"
+        />
+
         {/* Slot Punch Cutout */}
         <Hole />
 
-        {/* 1. TOP BAR: Date · Audio Waveform Pulse · Studio Name */}
-        <div className="relative z-10 w-full shrink-0 select-none">
-          <div className="flex items-center justify-between text-[0.46em] font-mono tracking-widest text-[#D1FAE5] font-semibold pb-1.5">
-            <span>2026-2027</span>
-
-            {/* Glowing Neon Green Audio Waveform / Pulse Icon */}
-            <div className="flex items-center justify-center text-[#39FF14] drop-shadow-[0_0_8px_rgba(57,255,20,0.8)]">
-              <svg className="h-3 w-14" viewBox="0 0 56 12" fill="none" stroke="currentColor">
-                <line x1="0" y1="6" x2="56" y2="6" strokeWidth="1" strokeOpacity="0.5" />
-                <line x1="14" y1="4" x2="14" y2="8" strokeWidth="1.5" strokeLinecap="round" />
-                <line x1="18" y1="2" x2="18" y2="10" strokeWidth="1.5" strokeLinecap="round" />
-                <line x1="23" y1="0.5" x2="23" y2="11.5" strokeWidth="2" strokeLinecap="round" />
-                <polygon points="28,2 31,6 28,10 25,6" fill="currentColor" stroke="none" />
-                <line x1="33" y1="0.5" x2="33" y2="11.5" strokeWidth="2" strokeLinecap="round" />
-                <line x1="38" y1="2" x2="38" y2="10" strokeWidth="1.5" strokeLinecap="round" />
-                <line x1="42" y1="4" x2="42" y2="8" strokeWidth="1.5" strokeLinecap="round" />
-              </svg>
+        {/* 1. TOP HEADER WRAP */}
+        <div className="relative z-10 w-full shrink-0 select-none mt-1">
+          {/* Top Bar: Crew ID · Sparkle Divider (Centered) · Thoothukudi */}
+          <div className="relative flex items-center justify-between text-[0.38em] font-mono tracking-wider text-[#C6FF3D] pb-1 border-b border-[#C6FF3D]/35 px-1">
+            <span className="whitespace-nowrap shrink-0">{item.passId ? `ID // ${item.passId}` : "ID // 27-CREW"}</span>
+            <div className="absolute left-1/2 -translate-x-1/2 text-[0.9em] tracking-tight text-[#C6FF3D] drop-shadow-[0_0_8px_rgba(198,255,61,0.8)] pointer-events-none">
+              ✦✦✦
             </div>
-
-            <span className="uppercase tracking-wider">27 STUDIO</span>
+            <span className="uppercase tracking-wider whitespace-nowrap shrink-0">THOOTHUKUDI</span>
           </div>
 
-          {/* Thin Hairline Divider */}
-          <div className="w-full h-px bg-[#39FF14]/30 shadow-[0_0_6px_rgba(57,255,20,0.3)]" />
+          {/* Main Brand Header (Single Line): Stylized Geometric 27 Logo + CREATIVE STUDIO */}
+          {/* Centered vertically between the top bar and the subject */}
+          <div className="flex items-center justify-center gap-1.5 pt-[1.5em] pb-[0.6em] select-none">
+            <svg viewBox="0 0 120 110" className="w-[1.22em] h-auto drop-shadow-[0_0_8px_rgba(198,255,61,0.8)] shrink-0">
+              <polygon points="10,18 62,10 62,25 10,33" fill="#C6FF3D"/>
+              <polygon points="68,9 112,2 112,17 68,24" fill="#C6FF3D"/>
+              <path d="M10,45 L60,37 L60,55 L28,82 L62,77 L62,95 L8,103 L8,85 L40,58 L10,62 Z" fill="#C6FF3D"/>
+              <polygon points="68,35 112,28 112,46 84,105 65,108 92,48 68,52" fill="#C6FF3D"/>
+            </svg>
+            <span className="font-extrabold text-[0.72em] tracking-wider text-[#C6FF3D] drop-shadow-[0_0_8px_rgba(198,255,61,0.8)] whitespace-nowrap">
+              CREATIVE STUDIO
+            </span>
+          </div>
         </div>
 
-        {/* 2. CENTER STAGE: Neon Green Optical Wave Box + Overlapping Portrait + Flanking Vertical Text */}
-        <div className="relative flex-1 w-full my-0.5 flex items-center justify-center min-h-[11em] overflow-visible">
-          {/* Background Neon Green & Black Optical Zebra Waves Box */}
-          <div className="absolute inset-x-1.5 top-[28%] bottom-[10%] rounded-md overflow-hidden bg-[#000000] border border-[#39FF14]/50 shadow-[0_0_20px_rgba(57,255,20,0.22)] z-0">
-            <svg className="w-full h-full" viewBox="0 0 300 130" preserveAspectRatio="none" aria-hidden="true">
-              <rect width="300" height="130" fill="#000000" />
-              {/* Undulating Vibrant Neon Waves matching reference exactly */}
-              <path d="M-10,-5 Q60,35 150,10 T310,-5 L310,3 Q220,18 150,18 T-10,3 Z" fill="#39FF14" />
-              <path d="M-10,9 Q60,49 150,24 T310,9 L310,17 Q220,32 150,32 T-10,17 Z" fill="#39FF14" />
-              <path d="M-10,23 Q60,63 150,38 T310,23 L310,31 Q220,46 150,46 T-10,31 Z" fill="#39FF14" />
-              <path d="M-10,37 Q60,77 150,52 T310,37 L310,45 Q220,60 150,60 T-10,45 Z" fill="#39FF14" />
-              <path d="M-10,51 Q60,91 150,66 T310,51 L310,59 Q220,74 150,74 T-10,59 Z" fill="#39FF14" />
-              <path d="M-10,65 Q60,105 150,80 T310,65 L310,73 Q220,88 150,88 T-10,73 Z" fill="#39FF14" />
-              <path d="M-10,79 Q60,119 150,94 T310,79 L310,87 Q220,102 150,102 T-10,87 Z" fill="#39FF14" />
-              <path d="M-10,93 Q60,133 150,108 T310,93 L310,101 Q220,116 150,116 T-10,101 Z" fill="#39FF14" />
-              <path d="M-10,107 Q60,147 150,122 T310,107 L310,115 Q220,130 150,130 T-10,115 Z" fill="#39FF14" />
-              <path d="M-10,121 Q60,161 150,136 T310,121 L310,129 Q220,144 150,144 T-10,129 Z" fill="#39FF14" />
-            </svg>
-          </div>
-
-          {/* Left Vertical Flanking Text */}
-          <div className="absolute left-0 bottom-2 z-20 pointer-events-none select-none">
-            <span
-              className="font-mono text-[0.44em] tracking-[0.24em] uppercase text-white/80 font-bold block"
-              style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
-            >
-              REAL GROWTH · RESULTS
-            </span>
-          </div>
-
-          {/* Right Vertical Flanking Text */}
-          <div className="absolute right-0 bottom-2 z-20 pointer-events-none select-none">
-            <span
-              className="font-mono text-[0.44em] tracking-[0.24em] uppercase text-white/80 font-bold block"
-              style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
-            >
-              COMMERCIAL CINE UNIT
-            </span>
-          </div>
-
-          {/* Centered Cutout Crew Member (Rising Above Wave Box with Green Atmospheric Rim Glow) */}
-          <div className="relative z-10 w-[84%] h-full flex items-end justify-center pointer-events-none overflow-visible select-none">
+        {/* 2. CENTER STAGE: Overlapping Portrait */}
+        <div className="relative flex-1 w-full my-0.5 flex items-center justify-center min-h-[11em] overflow-visible z-10">
+          {/* Centered Cutout Crew Member */}
+          <div className="relative z-10 w-full h-full flex items-end justify-center pointer-events-none overflow-visible select-none">
             {portraitSrc ? (
               <img
                 src={portraitSrc}
                 alt={item.name}
                 draggable={false}
                 onDragStart={(e) => e.preventDefault()}
-                className="max-w-none w-full h-[112%] -mb-1 object-contain object-bottom filter contrast-110 brightness-100 drop-shadow-[0_0_18px_rgba(57,255,20,0.3)] drop-shadow-[0_12px_24px_rgba(0,0,0,0.9)] pointer-events-none select-none transition-transform duration-300 hover:scale-[1.04]"
+                className="max-w-none w-full h-[142%] -mb-2 object-contain object-bottom filter contrast-110 brightness-100 drop-shadow-[0_12px_24px_rgba(0,0,0,0.9)] pointer-events-none select-none transition-transform duration-300 scale-[1.30] origin-bottom hover:scale-[1.34]"
                 style={
                   {
-                    maskImage: "linear-gradient(to bottom, black 86%, transparent 100%)",
-                    WebkitMaskImage: "linear-gradient(to bottom, black 86%, transparent 100%)",
+                    maskImage: "linear-gradient(to bottom, black 84%, transparent 100%)",
+                    WebkitMaskImage: "linear-gradient(to bottom, black 84%, transparent 100%)",
                     userSelect: "none",
                     WebkitUserSelect: "none",
                     WebkitUserDrag: "none",
@@ -624,57 +632,63 @@ const BadgeFaces = React.memo(function BadgeFaces({
                 }
               />
             ) : (
-              <div className="size-full bg-gradient-to-br from-[#1C1C24] to-[#0A0A0E] flex items-center justify-center text-muted-foreground text-xs font-mono rounded-lg">
+              <div className="size-full bg-[#14141C] flex items-center justify-center text-muted-foreground text-xs font-mono rounded-lg">
                 27 / CREW
               </div>
             )}
           </div>
         </div>
 
-        {/* 3. HORIZONTAL DIVIDER RULE & CENTERED 27 STUDIO PILL BADGE */}
-        <div className="relative z-20 w-full flex items-center justify-center shrink-0 my-1 select-none">
-          {/* Continuous Green Line across the card */}
-          <div className="absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-[#39FF14]/60 to-transparent" />
-
-          {/* Centered 27 Studio Pill Badge */}
-          <div className="relative z-10 px-2.5 py-0.5 rounded-full bg-[#050A05] border border-[#39FF14] shadow-[0_0_14px_rgba(57,255,20,0.45)] flex items-center gap-1.5">
-            <span className="font-display font-black text-[0.84em] leading-none text-[#39FF14] tracking-tight drop-shadow-[0_0_6px_rgba(57,255,20,0.8)]">
-              27
+        {/* 3. BOTTOM SECTION: Overlapping Pill Badge & Nameplate */}
+        <div className="relative z-20 w-full bg-[#000000]/90 backdrop-blur-[2px] pt-3 pb-1.5 px-2 text-center flex flex-col items-center justify-center select-none shrink-0 border-t border-[#C6FF3D]/25 rounded-b-[14px]">
+          {/* Overlapping Pill Badge with Mini 27 Geometric Logo */}
+          <div className="absolute -top-[0.82em] left-1/2 -translate-x-1/2 bg-[#060906] border-[1.5px] border-[#C6FF3D] rounded-full px-2.5 py-0.5 flex items-center gap-1.5 shadow-[0_0_15px_rgba(198,255,61,0.4)] z-30">
+            <svg viewBox="0 0 120 110" className="w-[0.8em] h-auto shrink-0">
+              <polygon points="10,18 62,10 62,25 10,33" fill="#C6FF3D"/>
+              <polygon points="68,9 112,2 112,17 68,24" fill="#C6FF3D"/>
+              <path d="M10,45 L60,37 L60,55 L28,82 L62,77 L62,95 L8,103 L8,85 L40,58 L10,62 Z" fill="#C6FF3D"/>
+              <polygon points="68,35 112,28 112,46 84,105 65,108 92,48 68,52" fill="#C6FF3D"/>
+            </svg>
+            <span className="text-[0.32em] font-extrabold leading-tight text-left text-[#C6FF3D]">
+              CREATIVE<br />STUDIO
             </span>
-            <div className="flex flex-col text-[0.38em] font-mono font-bold leading-tight tracking-wider text-[#39FF14]">
-              <span>CREATIVE</span>
-              <span>STUDIO</span>
-            </div>
           </div>
-        </div>
 
-        {/* 4. BOTTOM NAMEPLATE: Member Name in Glowing Serif + Role */}
-        <div className="relative z-20 w-full pb-1 text-center flex flex-col items-center justify-center select-none shrink-0">
-          {/* Member Name in Editorial Serif Display with Luminous Green Glow */}
-          <h3 className="font-serif font-bold text-[1.38em] tracking-[0.06em] uppercase text-[#39FF14] leading-tight truncate max-w-[90%] drop-shadow-[0_0_12px_rgba(57,255,20,0.65)]">
-            {item.name}
-          </h3>
+          {/* Name Row: Person Name in Editorial Cinzel Serif */}
+          <div className="relative flex items-center justify-center w-full px-1 min-w-0">
+            <h3
+              className={`font-serif font-medium tracking-[0.02em] uppercase text-[#C6FF3D] leading-tight truncate drop-shadow-[0_0_12px_rgba(198,255,61,0.75)] whitespace-nowrap ${
+                item.name.length >= 20
+                  ? "text-[0.54em]"
+                  : item.name.length >= 15
+                  ? "text-[0.66em]"
+                  : item.name.length >= 12
+                  ? "text-[0.76em]"
+                  : "text-[0.84em]"
+              }`}
+              style={{ fontFamily: "'Cinzel', serif, var(--font-serif, serif)" }}
+              title={item.name}
+            >
+              {item.name}
+            </h3>
+          </div>
 
-          {/* Subtitle / Role (Matches PUBLIKASI) */}
-          <p className="font-mono text-[0.48em] uppercase tracking-[0.3em] text-[#39FF14]/90 font-bold mt-0.5 leading-none">
+          {/* Role Title */}
+          <p
+            className={`font-sans uppercase tracking-[0.14em] text-[#C6FF3D] font-bold mt-0.5 leading-none truncate whitespace-nowrap ${
+              item.role.length >= 26 ? "text-[0.35em]" : "text-[0.38em]"
+            }`}
+          >
             {item.role}
           </p>
         </div>
 
-        {/* Tactile Lanyard Plastic Sleeve / Specular Overlay */}
+        {/* Tactile Lanyard Plastic Sleeve / Border */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 rounded-[16px] border border-[#39FF14]/20 z-30"
+          className="pointer-events-none absolute inset-0 rounded-[16px] border border-[#C6FF3D]/20 z-30"
         >
           <div className="absolute inset-[3px] rounded-[13px] border border-white/5" />
-          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.05] to-transparent" />
-          <div
-            className="absolute inset-0 opacity-30"
-            style={{
-              background:
-                "radial-gradient(160px circle at var(--gx, 50%) var(--gy, 50%), rgba(57,255,20,0.25), transparent 70%)",
-            }}
-          />
         </div>
       </div>
 
@@ -683,116 +697,62 @@ const BadgeFaces = React.memo(function BadgeFaces({
       {/* ================= BACK FACE ================= */}
       <div
         data-face="back"
-        className="absolute inset-0 flex flex-col overflow-hidden rounded-[14px] border border-white/20 bg-[#0E0E14] text-[#F4F1EA] shadow-[0_24px_50px_rgba(0,0,0,0.85)] [backface-visibility:hidden]"
-        style={{ transform: "rotateY(180deg) translateZ(1px)" }}
+        className="absolute inset-0 flex flex-col justify-between overflow-hidden rounded-[16px] border border-[#C6FF3D]/25 bg-black text-white shadow-[0_24px_50px_rgba(0,0,0,0.95)] [backface-visibility:hidden] p-4 pt-8 pb-5"
+        style={{
+          transform: "rotateY(180deg) translateZ(1px)",
+          background: "#000000",
+        }}
       >
-        {/* Back Header */}
-        <div className="relative h-[2.2em] w-full bg-[#181822] border-b border-white/10 flex items-center justify-between px-2.5 text-[0.56em] font-mono tracking-wider text-muted-foreground z-10 shrink-0 select-none">
-          <span className="font-bold text-[#C6FF3D] shrink-0 whitespace-nowrap">CREW DOSSIER</span>
-          <div className="w-[2.2em] shrink-0" aria-hidden="true" />
-          <span className="text-[0.88em] uppercase tracking-[0.1em] text-white/50 shrink-0 whitespace-nowrap">
-            {item.passId ?? "27-CREW"}
-          </span>
-        </div>
+        {/* Whole Card Sonar Grid Radar Background Effect (Same as Front) */}
+        <SonarGrid
+          color="#C6FF3D"
+          spacing={18}
+          dotRadius={1.1}
+          baseOpacity={0.28}
+          speed={180}
+          ringWidth={75}
+          amplitude={2.0}
+          pingEvery={2.4}
+          seedPing={true}
+          pingArea={[0.2, 0.25, 0.8, 0.7]}
+          interactive={false}
+          className="absolute inset-0 size-full pointer-events-none z-0"
+        />
 
+        {/* Slot Punch Cutout */}
         <Hole />
 
-        {/* Magnetic Security Stripe */}
-        <div className="mt-[1.2em] h-5 w-full bg-[#070709] border-y border-white/15 flex items-center justify-between px-3 shrink-0">
-          <span className="text-[6.5px] font-mono tracking-widest text-white/30">
-            // 27-STUDIO-ENCODED-PASS //
-          </span>
-          <span className="text-[6.5px] font-mono text-[#C6FF3D]/50 font-bold">
-            THOOTHUKUDI
-          </span>
+        {/* Center Content: Statement / Bio Text */}
+        <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-2 my-auto select-none">
+          <p className="font-sans text-[0.62em] leading-[1.72] text-[#F4F1EA] font-normal tracking-[0.01em] drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] max-w-[96%]">
+            {item.bio ??
+              "Directs and shoots high-engagement reels across Thoothukudi. Capturing chef craft, customer handovers, and showroom energy on prime cinema glass."}
+          </p>
         </div>
 
-        {/* Production Credentials & Dossier Info */}
-        <div className="p-3 text-left flex-1 flex flex-col justify-between text-[0.74em]">
-          <div>
-            <div className="mb-2">
-              <span className="block text-[1.02em] font-bold text-[#F4F1EA] leading-tight">
-                {item.name}
-              </span>
-              <span className="block text-[0.72em] font-mono text-[#C6FF3D] uppercase tracking-wide leading-snug">
-                {item.role}
-              </span>
-              {specialtyText && (
-                <span className="block text-[0.66em] text-white/80 font-sans mt-0.5 leading-tight">
-                  {specialtyText}
-                </span>
-              )}
-            </div>
-
-            {/* Gear & Tools */}
-            <div className="mb-2 rounded bg-white/[0.03] border border-white/10 p-1.5">
-              <span className="block text-[0.6em] font-mono uppercase tracking-wider text-white/50">
-                Signature Kit & Gear:
-              </span>
-              <span className="block text-[0.72em] font-mono text-[#F4F1EA] font-semibold mt-0.5">
-                {item.signatureGear ?? item.gear ?? "Cinema Rig · Fast Glass · Pro Gimbal"}
-              </span>
-            </div>
-
-            {/* Signature Aesthetic */}
-            {(item.signatureAesthetic || item.focalLength) && (
-              <div className="mb-2 rounded bg-white/[0.03] border border-white/10 p-1.5">
-                <span className="block text-[0.6em] font-mono uppercase tracking-wider text-white/50">
-                  Signature Aesthetic:
-                </span>
-                <span className="block text-[0.72em] font-mono text-[#C6FF3D] mt-0.5">
-                  {item.signatureAesthetic || item.focalLength}
-                </span>
-              </div>
-            )}
-
-            {/* Bio */}
-            {item.bio && (
-              <p className="text-[0.68em] leading-relaxed text-muted-foreground mt-1 break-words">
-                {item.bio}
-              </p>
-            )}
-          </div>
-
-          {/* Action & Direct Connect Buttons */}
-          <div className="flex flex-col gap-1.5 mt-2 pt-2 border-t border-white/10">
-            {item.featuredWork && (
-              <a
-                href={item.featuredWork}
-                style={{ color: "#0B0B0F" }}
-                className="flex items-center justify-between px-2.5 py-1.5 rounded-[4px] bg-[#C6FF3D] !text-[#0B0B0F] hover:brightness-110 transition-all font-mono text-[0.68em] font-black tracking-wider"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <span style={{ color: "#0B0B0F" }}>VIEW WORK</span>
-                <span style={{ color: "#0B0B0F" }}>→</span>
-              </a>
-            )}
-            {links.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-between px-2.5 py-1.5 rounded-[4px] bg-[#181822] hover:bg-[#C6FF3D] text-[#F4F1EA] hover:text-[#0B0B0F] border border-white/10 transition-colors font-mono text-[0.68em] font-bold tracking-wider"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <span className="flex items-center gap-1.5">
-                  <LinkIcon label={link.label} />
-                  {link.label}
-                </span>
-                <span>↗</span>
-              </a>
-            ))}
-          </div>
+        {/* Bottom Section: Person's Instagram Handle */}
+        <div className="relative z-20 w-full flex items-center justify-center select-none pt-2">
+          <a
+            href={instaHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="group inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#060906]/90 border border-[#C6FF3D]/50 text-[#C6FF3D] hover:bg-[#C6FF3D] hover:text-[#000000] hover:shadow-[0_0_16px_rgba(198,255,61,0.6)] transition-all duration-300 font-mono text-[0.52em] font-bold tracking-wider pointer-events-auto"
+          >
+            <InstagramIcon className="size-3.5 transition-transform duration-300 group-hover:scale-110" />
+            <span className="uppercase tracking-widest">{instaHandle}</span>
+            <span className="text-[1.1em] leading-none transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+              ↗
+            </span>
+          </a>
         </div>
 
-        {/* Frosted Plastic Sleeve Welt on Back Face */}
+        {/* Tactile Lanyard Plastic Sleeve / Border */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 rounded-[14px] border border-white/15"
+          className="pointer-events-none absolute inset-0 rounded-[16px] border border-[#C6FF3D]/20 z-30"
         >
-          <div className="absolute inset-[3px] rounded-[11px] border border-white/10" />
-          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.08] to-transparent" />
+          <div className="absolute inset-[3px] rounded-[13px] border border-white/5" />
         </div>
       </div>
 
@@ -1580,14 +1540,16 @@ export function TeamLanyardRail({
     const y = clientY - box.top;
     const g = live.current.geo;
     const s = sim.current;
-    if (y < g.railY - 14) return null;
     let best = null as number | null;
     let distance = Infinity;
     for (let i = 0; i < live.current.count; i++) {
-      if (y > (g.cardTops[i] ?? 0) + g.H + Math.max(0, s.st[i] ?? 0) + 12)
-        continue;
+      const top = (g.cardTops[i] ?? 0) + Math.max(0, s.st[i] ?? 0);
+      const bottom = top + g.H;
+      // Mouse must be strictly within the vertical bounds of the card
+      if (y < top || y > bottom) continue;
       const d = Math.abs(x - (s.x[i] ?? 0));
-      if (d < g.W / 2 + 8 && d < distance) {
+      // Mouse must be strictly within the horizontal bounds of the card
+      if (d <= g.W / 2 && d < distance) {
         best = i;
         distance = d;
       }
@@ -1713,8 +1675,8 @@ export function TeamLanyardRail({
       impulse(hit, swing);
     }
     p.hoverHit = hit ?? -1;
-    if (hit !== null && hit !== L.active) {
-      stop();
+    if (hit !== L.active) {
+      if (hit !== null) stop();
       setActive(hit);
     }
   };
@@ -1841,6 +1803,19 @@ export function TeamLanyardRail({
     : null;
   const line1 = person ? `${person.name} — ${person.role}` : caption;
   const line2 = person ? (showingBack ? labels.back : labels.flip) : "";
+
+  // Selected state: card is flipped / opened into dossier
+  const selectedIndex = flipped;
+  const selectedPerson = selectedIndex !== null ? items[selectedIndex] ?? null : null;
+
+  // Hovered state: mouse is hovering over a card that isn't already the selected one
+  const hoveredIndex = active !== null && active !== flipped ? active : null;
+  const hoveredPerson = hoveredIndex !== null ? items[hoveredIndex] ?? null : null;
+
+  // Active display person: hover preview takes temporary priority, then selected card
+  const displayPerson = hoveredPerson ?? selectedPerson ?? null;
+  const isHoverState = hoveredPerson !== null;
+  const isSelectedState = !isHoverState && selectedPerson !== null;
 
   return (
     <section
@@ -2058,16 +2033,16 @@ export function TeamLanyardRail({
                         y="50%"
                         fill="#C6FF3D"
                         opacity="0.85"
-                        fontSize={Math.max(6.5, 7.5 * g.u)}
+                        fontSize={Math.max(5.5, 6.2 * g.u)}
                         fontFamily="monospace"
                         fontWeight="bold"
-                        letterSpacing="0.22em"
+                        letterSpacing="0.16em"
                         textAnchor="middle"
                         transform={`rotate(90, ${g.strapW / 2}, ${
                           (strap + 2) / 2
                         })`}
                       >
-                        27 STUDIO // CREW PASS
+                        27 STUDIO
                       </text>
                     </svg>
                   </span>
@@ -2210,6 +2185,16 @@ export function TeamLanyardRail({
                         setActive(i);
                       }
                     }}
+                    onPointerEnter={() => {
+                      if (pointer.current.id < 0) {
+                        setActive(i);
+                      }
+                    }}
+                    onPointerLeave={() => {
+                      if (pointer.current.id < 0) {
+                        setActive(null);
+                      }
+                    }}
                     onKeyDown={(event) => {
                       if (event.key === "Enter" || event.key === " ") {
                         event.preventDefault();
@@ -2283,47 +2268,54 @@ export function TeamLanyardRail({
           aria-live="polite"
           className="font-mono transition-all duration-300 max-w-xl mx-auto flex flex-col items-center"
         >
-          {person ? (
+          {displayPerson ? (
             <>
-              {/* Active Member Readout */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#181822] border border-[#C6FF3D]/40 shadow-[0_0_14px_rgba(198,255,61,0.18)] mb-2 animate-fadeIn">
-                <span className="w-2 h-2 rounded-full bg-[#C6FF3D] shadow-[0_0_6px_#C6FF3D] animate-pulse" />
-                <span className="text-xs sm:text-sm font-bold text-[#F4F1EA] tracking-wide uppercase">
-                  {person.name} — {person.role}
+              {/* Member Readout: Clean text without separate background container */}
+              <div className="mb-1.5 animate-fadeIn">
+                <span className="text-xs sm:text-sm font-bold text-[#F4F1EA] tracking-wider uppercase">
+                  {displayPerson.name} — {displayPerson.role}
                 </span>
               </div>
-              <p className="text-[11px] sm:text-xs text-[#A9A7A0] tracking-wider flex items-center justify-center flex-wrap gap-2 m-0">
-                <span className="text-[#C6FF3D] font-bold">
-                  {showingBack ? "DOSSIER ACTIVE" : "PASS SELECTED"}
-                </span>
-                <span>•</span>
-                <span>SELECT AGAIN TO CLOSE</span>
-                {person.links && person.links.length > 0 && (
-                  <>
-                    <span>•</span>
-                    <a
-                      href={person.links[0].href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[#C6FF3D] hover:underline inline-flex items-center gap-1 font-bold pointer-events-auto"
-                    >
-                      CONNECT ↗
-                    </a>
-                  </>
-                )}
-              </p>
+
+              {isHoverState ? (
+                /* Hover state: Display prompt to select and open dossier */
+                <p className="text-[10px] sm:text-[11px] text-[#A9A7A0] tracking-widest uppercase m-0 flex items-center justify-center gap-2 animate-fadeIn">
+                  <span>SELECT TO OPEN DOSSIER</span>
+                  <span>•</span>
+                  <span>CLICK TO FLIP</span>
+                </p>
+              ) : isSelectedState && selectedIndex !== null ? (
+                /* Selected state: Full controls with persistent CONNECT link */
+                <p className="text-[11px] sm:text-xs text-[#A9A7A0] tracking-wider flex items-center justify-center flex-wrap gap-2 m-0 animate-fadeIn">
+                  <span className="text-[#C6FF3D] font-bold">DOSSIER OPEN</span>
+                  <span>•</span>
+                  <button
+                    type="button"
+                    onClick={() => toggle(selectedIndex)}
+                    className="hover:text-white transition-colors cursor-pointer underline"
+                  >
+                    SELECT AGAIN TO CLOSE
+                  </button>
+                  {displayPerson.links && displayPerson.links.length > 0 && (
+                    <>
+                      <span>•</span>
+                      <a
+                        href={displayPerson.links[0].href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#C6FF3D] hover:underline inline-flex items-center gap-1 font-bold pointer-events-auto"
+                      >
+                        CONNECT ↗
+                      </a>
+                    </>
+                  )}
+                </p>
+              ) : null}
             </>
           ) : (
-            <>
-              {/* Default State: Instruction & Discoverability */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14141C] border border-white/10 text-[11px] sm:text-xs tracking-wider mb-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#C6FF3D]/80" />
-                <span className="text-[#F4F1EA]/90 font-medium">SELECT A CREW PASS TO VIEW DOSSIER</span>
-              </div>
-              <p className="text-[10px] sm:text-[11px] text-[#6E6E78] tracking-widest uppercase m-0">
-                DRAG TO SWING • CLICK TO FLIP • TAB + ENTER FOR KEYBOARD
-              </p>
-            </>
+            <p className="text-[10px] sm:text-[11px] text-[#6E6E78] tracking-widest uppercase m-0">
+              DRAG TO SWING • CLICK TO FLIP • TAB + ENTER FOR KEYBOARD
+            </p>
           )}
         </div>
         {action}

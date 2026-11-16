@@ -49,6 +49,52 @@ export function PackagesSection({
   const isInView = useInView(sectionRef, { once: true, margin: "-10% 0px" });
   const shouldReduceMotion = useHydratedReducedMotion();
 
+  const handleSelectPackage = (pkg: Package, e: React.MouseEvent) => {
+    e.preventDefault();
+
+    let needs: string[] = ["reels"];
+    let storyPrefill = "";
+
+    const id = pkg.id || "";
+    const tier = pkg.tierNumber || "";
+
+    if (id.includes("instagram") || tier.includes("01")) {
+      needs = ["instagram", "reels", "google"];
+      storyPrefill = `I'm interested in ${pkg.tierNumber}: ${pkg.name}. We want full-service Instagram page handling and local follower growth.`;
+    } else if (id.includes("reels") || tier.includes("02")) {
+      needs = ["reels", "strategy"];
+      storyPrefill = `I'm interested in ${pkg.tierNumber}: ${pkg.name}. We need high-impact video reels and campaign production.`;
+    } else if (id.includes("local") || id.includes("dominance") || tier.includes("03")) {
+      needs = ["instagram", "reels", "events", "google", "strategy"];
+      storyPrefill = `I'm interested in ${pkg.tierNumber}: ${pkg.name}. We want end-to-end local dominance across Instagram, multi-accounts, and Google Maps.`;
+    } else {
+      storyPrefill = `I'm interested in ${pkg.tierNumber}: ${pkg.name}.`;
+    }
+
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(
+        new CustomEvent("select-package", {
+          detail: {
+            id: pkg.id,
+            tierNumber: pkg.tierNumber,
+            name: pkg.name,
+            needs,
+            story: storyPrefill,
+          },
+        })
+      );
+
+      const contactEl = document.getElementById("contact");
+      if (contactEl) {
+        contactEl.scrollIntoView({ behavior: "smooth" });
+      }
+
+      try {
+        window.history.replaceState(null, "", `#contact?package=${encodeURIComponent(pkg.id)}`);
+      } catch {}
+    }
+  };
+
   const headingLines = ["Pick the shape", "of the work."];
 
   return (
@@ -144,6 +190,7 @@ export function PackagesSection({
             return (
               <motion.article
                 key={pkg.id}
+                id={pkg.id}
                 role="article"
                 aria-label={pkg.name}
                 className="relative group transition-all duration-300 min-h-[560px] flex flex-col"
@@ -256,9 +303,10 @@ export function PackagesSection({
                       {/* Card Action CTA & Laser-Etched Serial */}
                       <div className="pt-2">
                         <a
-                          href={siteConfig.contactAnchor || "#contact"}
+                          href={`#contact?package=${pkg.id}`}
+                          onClick={(e) => handleSelectPackage(pkg, e)}
                           style={{ color: "#0B0B0F" }}
-                          className="w-full text-center py-3.5 px-6 text-xs font-mono font-black uppercase tracking-wider rounded-md bg-[#C6FF3D] !text-[#0B0B0F] inline-flex items-center justify-center gap-2 hover:brightness-110 hover:scale-[1.01] transition-all group/cta focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C6FF3D]"
+                          className="w-full text-center py-3.5 px-6 text-xs font-mono font-black uppercase tracking-wider rounded-md bg-[#C6FF3D] !text-[#0B0B0F] inline-flex items-center justify-center gap-2 hover:brightness-110 hover:scale-[1.01] transition-all group/cta focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C6FF3D] cursor-pointer"
                         >
                           <span className="!text-[#0B0B0F]" style={{ color: "#0B0B0F" }}>
                             {pkg.cta || "TALK TO US"}
@@ -412,24 +460,27 @@ export function PackagesSection({
                         </td>
                         <td className="py-4 px-3 text-center">
                           <a
-                            href={siteConfig.contactAnchor || "#contact"}
-                            className="inline-block py-2 px-3 text-[11px] font-mono font-bold uppercase tracking-wider rounded bg-[var(--panel)] border border-[var(--line)] text-[var(--paper)] hover:border-[var(--industry)] hover:text-[var(--industry)] transition-colors"
+                            href={`#contact?package=${activePackages[0]?.id || "instagram-handling"}`}
+                            onClick={(e) => activePackages[0] && handleSelectPackage(activePackages[0], e)}
+                            className="inline-block py-2 px-3 text-[11px] font-mono font-bold uppercase tracking-wider rounded bg-[var(--panel)] border border-[var(--line)] text-[var(--paper)] hover:border-[var(--industry)] hover:text-[var(--industry)] transition-colors cursor-pointer"
                           >
                             Select Starter
                           </a>
                         </td>
                         <td className="py-4 px-3 text-center">
                           <a
-                            href={siteConfig.contactAnchor || "#contact"}
-                            className="inline-block py-2 px-3 text-[11px] font-mono font-bold uppercase tracking-wider rounded bg-[var(--panel)] border border-[var(--line)] text-[var(--paper)] hover:border-[var(--industry)] hover:text-[var(--industry)] transition-colors"
+                            href={`#contact?package=${activePackages[1]?.id || "reels-sprint"}`}
+                            onClick={(e) => activePackages[1] && handleSelectPackage(activePackages[1], e)}
+                            className="inline-block py-2 px-3 text-[11px] font-mono font-bold uppercase tracking-wider rounded bg-[var(--panel)] border border-[var(--line)] text-[var(--paper)] hover:border-[var(--industry)] hover:text-[var(--industry)] transition-colors cursor-pointer"
                           >
                             Select Recommended
                           </a>
                         </td>
                         <td className="py-4 px-3 text-center">
                           <a
-                            href={siteConfig.contactAnchor || "#contact"}
-                            className="inline-block py-2 px-3 text-[11px] font-mono font-bold uppercase tracking-wider rounded bg-[var(--panel)] border border-[var(--line)] text-[var(--paper)] hover:border-[var(--industry)] hover:text-[var(--industry)] transition-colors"
+                            href={`#contact?package=${activePackages[2]?.id || "local-growth"}`}
+                            onClick={(e) => activePackages[2] && handleSelectPackage(activePackages[2], e)}
+                            className="inline-block py-2 px-3 text-[11px] font-mono font-bold uppercase tracking-wider rounded bg-[var(--panel)] border border-[var(--line)] text-[var(--paper)] hover:border-[var(--industry)] hover:text-[var(--industry)] transition-colors cursor-pointer"
                           >
                             Select Full Growth
                           </a>

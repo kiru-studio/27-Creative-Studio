@@ -1,6 +1,6 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Big_Shoulders, Figtree, Martian_Mono } from 'next/font/google'
+import { Big_Shoulders, Figtree, Martian_Mono, Cinzel } from 'next/font/google'
 import { siteContent, getSiteBaseUrl } from '@/lib/site-content'
 import { CookieBanner } from '@/components/ui/cookie-banner'
 import { AnalyticsTracker } from '@/components/analytics-tracker'
@@ -23,6 +23,12 @@ const monoFont = Martian_Mono({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-next-mono',
+})
+
+const cinzelFont = Cinzel({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-cinzel',
 })
 
 const siteUrl = getSiteBaseUrl()
@@ -131,7 +137,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable} antialiased`}>
+      <body className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable} ${cinzelFont.variable} antialiased`}>
         {children}
         <CookieBanner />
         <AnalyticsTracker />

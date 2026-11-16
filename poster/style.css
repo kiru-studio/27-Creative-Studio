@@ -1,0 +1,201 @@
+:root {
+  --bg-black: #070a07;
+  --neon-green: #C6FF3D;
+  --neon-glow: 0 0 12px rgba(198, 255, 61, 0.75), 0 0 28px rgba(198, 255, 61, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Main Poster Canvas (5:8 Portrait Ratio) */
+.poster {
+  position: relative;
+  width: 540px;
+  height: 864px;
+  background: radial-gradient(circle at 50% 42%, #1a260c 0%, var(--bg-black) 68%);
+  color: var(--neon-green);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid #1c2b18;
+}
+
+/* 1. Top Metadata Bar */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 28px 10px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  border-bottom: 1px solid rgba(198, 255, 61, 0.35);
+  margin: 0 20px;
+  z-index: 4;
+}
+
+.sparkle-divider {
+  letter-spacing: -2px;
+  font-size: 14px;
+  text-shadow: var(--neon-glow);
+}
+
+/* 2. Single-Line Brand Header */
+.brand-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 22px 24px 0;
+  z-index: 4;
+}
+
+.neon-svg {
+  width: 78px;
+  height: auto;
+  filter: drop-shadow(0 0 8px rgba(198, 255, 61, 0.8));
+}
+
+.brand-title {
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-shadow: var(--neon-glow);
+  white-space: nowrap;
+}
+
+/* 3. Wavy Neon Stripes Box */
+.wave-box {
+  position: absolute;
+  top: 295px;
+  left: 30px;
+  right: 30px;
+  height: 270px;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.wave-box svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* 4. Portrait Subject Layer */
+.subject-wrapper {
+  position: absolute;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 440px;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+}
+
+.subject-img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* 5. Vertical Side Texts */
+.side-text {
+  position: absolute;
+  bottom: 165px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 1px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  z-index: 4;
+  opacity: 0.9;
+}
+
+.left-text {
+  left: 32px;
+}
+
+.right-text {
+  right: 32px;
+}
+
+/* 6. Bottom Black Bar & Nameplate */
+.bottom-section {
+  position: relative;
+  background: #030403;
+  padding: 36px 24px 26px;
+  text-align: center;
+  z-index: 5;
+  border-top: 1px solid rgba(198, 255, 61, 0.25);
+}
+
+/* Overlapping Pill Badge */
+.pill-badge {
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #060906;
+  border: 1.5px solid var(--neon-green);
+  border-radius: 24px;
+  padding: 6px 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 0 15px rgba(198, 255, 61, 0.4);
+}
+
+.mini-logo {
+  width: 30px;
+  height: auto;
+}
+
+.pill-badge span {
+  font-size: 10px;
+  font-weight: 800;
+  text-align: left;
+  line-height: 1.1;
+}
+
+.name-row {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.person-name {
+  font-family: 'Cinzel', serif;
+  font-size: 38px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-shadow: var(--neon-glow);
+}
+
+.star-accent {
+  position: absolute;
+  right: 18px;
+  font-size: 34px;
+  color: #6b726b;
+}
+
+.role-title {
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}

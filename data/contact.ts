@@ -95,6 +95,7 @@ export const channels: ContactChannel[] = [
 export interface ContactFormValues {
   name: string;
   phone: string;
+  package?: string;
   businessName?: string;
   businessType?: string;
   customBusinessType?: string;
@@ -110,6 +111,10 @@ export interface ContactFormValues {
  */
 export function buildWhatsAppMessage(values: Partial<ContactFormValues>): string {
   const parts: string[] = ["*New Growth Brief · 27 CREATIVE STUDIO*"];
+
+  if (values.package) {
+    parts.push(`*Selected Tier:* ${values.package}`);
+  }
 
   if (values.name?.trim()) {
     parts.push(`*Name:* ${values.name.trim()}`);

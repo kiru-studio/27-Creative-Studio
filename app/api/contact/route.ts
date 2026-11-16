@@ -25,11 +25,24 @@ function checkRateLimit(ip: string): boolean {
 
 const contactSchema = z.object({
   name: z.string().trim().min(2, "Please enter your name."),
-  phone: z.string().trim().min(5, "Please enter a valid phone or email."),
+  phone: z
+    .string()
+    .trim()
+    .min(5, "Please enter a valid phone or email.")
+    .refine(
+      (val) => {
+        // Email check
+        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) return true;
+        // Phone check: accept any format (only numbers, with country code, spaces, dashes)
+        const digits = val.replace(/\D/g, "");
+        return digits.length >= 7 && digits.length <= 16;
+      },
+      { message: "Please enter a valid phone number or email address." }
+    ),
   businessName: z.string().trim().optional(),
   businessType: z.string().trim().optional(),
   customBusinessType: z.string().trim().optional(),
-  needs: z.array(z.string()).min(1, "Please select at least one deliverable."),
+  needs: z.array(z.string()).optional().default([]),
   story: z
     .string()
     .trim()
@@ -91,7 +104,7 @@ export async function POST(req: NextRequest) {
         ? data.customBusinessType || "Other"
         : data.businessType;
 
-    const emailSubject = `[27 STUDIO BRIEF] ${data.name}${resolvedBusiness ? ` - ${resolvedBusiness}` : ""}`;
+    const emailSubject = `[27 CREATIVE STUDIO BRIEF] ${data.name}${resolvedBusiness ? ` - ${resolvedBusiness}` : ""}`;
     const emailBody = [
       `New brief received from ${data.name}:`,
       ``,

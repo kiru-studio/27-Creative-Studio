@@ -19,6 +19,7 @@ scratch/
 *.tsbuildinfo
 __pycache__/
 *.py[cod]
+*.zip
 # gstack (global install)
 .amazonq/rules/gstack.md
 

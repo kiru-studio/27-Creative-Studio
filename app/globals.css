@@ -213,7 +213,6 @@ button { min-height: var(--control-height); }
   text-transform: uppercase;
   transition: color var(--motion-fast) ease;
 }
-.footer-brand { margin-top: var(--space-2); }
 .site-header nav { display: flex; align-items: center; gap: var(--space-8); font-size: var(--text-sm); }
 .site-header nav a:not(.header-cta) { color: var(--muted); }
 .site-header nav a:hover { color: var(--industry); }
@@ -885,11 +884,45 @@ button { min-height: var(--control-height); }
 .footer { margin-top: var(--section-space); border-top: var(--border-width) solid var(--line); padding-top: var(--space-8); padding-bottom: var(--space-8); }
 .footer-top { display: flex; align-items: end; justify-content: space-between; gap: var(--space-8); }
 .footer-line { color: var(--industry); font-size: var(--display-md); }
-.footer-brand { color: var(--muted); }
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(0.75rem, 1.25vw, 1.125rem);
+  color: var(--paper);
+  text-decoration: none;
+  margin-top: 0;
+}
+.footer-brand .brand-mark {
+  width: clamp(4.25rem, 6vw, 5.75rem);
+  height: auto;
+  aspect-ratio: 1.09;
+  flex: none;
+}
+.footer-brand .brand-descriptor {
+  max-width: clamp(9rem, 14vw, 13rem);
+  color: var(--paper);
+  font: 800 clamp(1.125rem, 1.6vw, 1.45rem)/1.1 var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: color var(--motion-fast) ease;
+}
+.footer-brand:hover .brand-descriptor {
+  color: var(--industry);
+}
 .footer-nav, .footer-socials { display: flex; flex-wrap: wrap; gap: var(--space-5); }
 .footer-nav a, .footer-socials a { color: var(--muted); font-size: var(--text-sm); }
 .footer-nav a:hover, .footer-socials a:hover { color: var(--industry); }
 .footer-socials { margin-top: var(--space-6); }
+.footer-legal a {
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: color var(--motion-fast) ease;
+}
+.footer-legal a:hover {
+  color: var(--industry) !important;
+}
 
 .preloader { position: fixed; z-index: var(--z-overlay); inset: 0; display: grid; place-items: center; background: var(--ink); color: var(--industry); }
 .preloader-count { font: 800 var(--display-lg)/1 var(--font-display); }

@@ -28,19 +28,22 @@ export function SlateHeader({
   onTimecodeUpdate,
   reducedMotion = false,
 }: SlateHeaderProps) {
-  const displayProd = businessName?.trim() ? businessName.trim() : "27 STUDIO";
+  const displayProd = businessName?.trim() ? businessName.trim() : "27 CREATIVE STUDIO";
 
   return (
     <div className="clapper-slate-header flex flex-wrap items-center justify-between gap-3 pb-4 mb-6 border-b border-[#2A2A30] font-mono text-xs uppercase tracking-wider">
-      {/* PROD: Displays business name as typed with fallback REC + red dot */}
-      <div className="flex items-center gap-2 max-w-[240px] sm:max-w-[320px]">
-        <span className="text-[#A9A7A0] shrink-0">PROD.</span>
-        <div className="flex items-center gap-1.5 min-w-0">
-          <span className="text-[#F4F1EA] font-bold break-words">{displayProd}</span>
-          <span
-            className="w-2 h-2 rounded-full bg-[#FF3B30] shadow-[0_0_8px_#FF3B30] shrink-0 animate-pulse"
-            aria-hidden="true"
+      {/* PROD: Displays 27 Logo then Creative Studio with REC + red dot */}
+      <div className="flex items-center gap-2 shrink-0">
+        <span className="text-[#A9A7A0] shrink-0 font-mono text-xs">PROD.</span>
+        <div className="flex items-center gap-1.5 shrink-0">
+          <img
+            src="/images/27-studio-symbol.png"
+            alt="27"
+            className="h-3.5 sm:h-4 w-auto object-contain brightness-125 select-none pointer-events-none shrink-0"
           />
+          <span className="text-[#F4F1EA] font-bold tracking-wider font-mono text-xs uppercase shrink-0">
+            CREATIVE STUDIO
+          </span>
         </div>
       </div>
 

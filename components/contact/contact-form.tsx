@@ -32,9 +32,77 @@ export function ContactForm({
   // Form State
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [needs, setNeeds] = useState<string[]>(["reels"]);
+  const [needs, setNeeds] = useState<string[]>([]);
   const [story, setStory] = useState("");
   const [website, setWebsite] = useState(""); // Honeypot
+  const [selectedPackage, setSelectedPackage] = useState<{
+    id: string;
+    tierNumber: string;
+    name: string;
+  } | null>(null);
+
+  // Listen for package selection from PackagesSection
+  useEffect(() => {
+    const handleSelectPackageEvent = (e: Event) => {
+      const customEvent = e as CustomEvent<{
+        id: string;
+        tierNumber: string;
+        name: string;
+        needs?: string[];
+        story?: string;
+      }>;
+      const detail = customEvent.detail;
+      if (detail) {
+        setSelectedPackage({
+          id: detail.id,
+          tierNumber: detail.tierNumber,
+          name: detail.name,
+        });
+
+        if (detail.needs && detail.needs.length > 0) {
+          setNeeds(detail.needs);
+        }
+
+        if (detail.story) {
+          setStory(detail.story);
+        }
+
+        setTimeout(() => {
+          const nameInput = document.getElementById("name") as HTMLInputElement | null;
+          if (nameInput) {
+            nameInput.focus();
+          }
+        }, 400);
+      }
+    };
+
+    window.addEventListener("select-package", handleSelectPackageEvent);
+
+    // Initial check from URL hash if user navigated with #contact?package=...
+    try {
+      const hash = window.location.hash;
+      if (hash.includes("package=")) {
+        const pkgId = hash.split("package=")[1]?.split("&")[0];
+        if (pkgId === "instagram-handling" || pkgId?.includes("01")) {
+          setSelectedPackage({ id: "instagram-handling", tierNumber: "WAY / 01", name: "Instagram Page Handling" });
+          setNeeds(["instagram", "reels", "google"]);
+          setStory("I'm interested in WAY / 01: Instagram Page Handling. We want full-service Instagram page handling and local follower growth.");
+        } else if (pkgId === "reels-sprint" || pkgId?.includes("02")) {
+          setSelectedPackage({ id: "reels-sprint", tierNumber: "WAY / 02", name: "Reels & Video Sprint" });
+          setNeeds(["reels", "strategy"]);
+          setStory("I'm interested in WAY / 02: Reels & Video Sprint. We need high-impact video reels and campaign production.");
+        } else if (pkgId === "local-growth" || pkgId?.includes("03")) {
+          setSelectedPackage({ id: "local-growth", tierNumber: "WAY / 03", name: "Full Local Dominance" });
+          setNeeds(["instagram", "reels", "events", "google", "strategy"]);
+          setStory("I'm interested in WAY / 03: Full Local Dominance. We want end-to-end local dominance across Instagram, multi-accounts, and Google Maps.");
+        }
+      }
+    } catch {}
+
+    return () => {
+      window.removeEventListener("select-package", handleSelectPackageEvent);
+    };
+  }, []);
 
   // Validation Errors
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -47,12 +115,14 @@ export function ContactForm({
       phone,
       needs,
       story,
+      package: selectedPackage ? `${selectedPackage.tierNumber} — ${selectedPackage.name}` : undefined,
     });
   }, [
     name,
     phone,
     needs,
     story,
+    selectedPackage,
     onFormValuesChange,
   ]);
 
@@ -63,12 +133,17 @@ export function ContactForm({
         if (!name.trim()) return "Please add your name.";
         if (name.trim().length < 2) return "Name must be at least 2 characters.";
         return null;
-      case "phone":
-        if (!phone.trim()) return "Please provide a phone number or email.";
-        if (phone.trim().length < 5) return "Please enter a valid phone or email.";
-        return null;
+      case "phone": {
+        const trimmed = phone.trim();
+        if (!trimmed) return "Please provide a phone number or email.";
+        // Accept valid email format
+        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) return null;
+        // Accept all phone number formats: only numbers, with country code (+91, etc.), spaces, dashes, parens
+        const digits = trimmed.replace(/\D/g, "");
+        if (digits.length >= 7 && digits.length <= 16) return null;
+        return "Please enter a valid phone number or email address.";
+      }
       case "needs":
-        if (!needs || needs.length === 0) return "Please select at least one deliverable.";
         return null;
       case "story":
         if (!story.trim()) return "Tell us what we are making.";
@@ -156,6 +231,42 @@ export function ContactForm({
     }
   };
 
+  const handleChangePackage = (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("close-mobile-sheet"));
+
+      setTimeout(() => {
+        const pkgEl = selectedPackage?.id
+          ? document.getElementById(selectedPackage.id) || document.getElementById("packages")
+          : document.getElementById("packages");
+
+        if (pkgEl) {
+          pkgEl.scrollIntoView({ behavior: "smooth", block: "center" });
+        } else {
+          window.location.hash = "packages";
+        }
+
+        try {
+          window.history.pushState(null, "", `#${selectedPackage?.id || "packages"}`);
+        } catch {}
+      }, 50);
+    }
+  };
+
+  const handleRemovePackage = () => {
+    setSelectedPackage(null);
+    setStory("");
+    setNeeds([]);
+    setErrors((prev) => {
+      const next = { ...prev };
+      delete next.story;
+      delete next.needs;
+      return next;
+    });
+  };
+
   const deliverableOptions = deliverablesList.map((d) => ({ id: d.id, label: d.label }));
 
   const currentFormValues: ContactFormValues = {
@@ -199,6 +310,45 @@ export function ContactForm({
                 {siteConfig.recipientEmail || siteConfig.contactEmail}
               </a>
             </span>
+          </div>
+        </div>
+      )}
+
+      {/* Selected Package Field (Cinema Slate HUD) */}
+      {selectedPackage && (
+        <div className="flex flex-col gap-1.5 animate-in fade-in slide-in-from-top-1 duration-200">
+          <div className="flex items-center justify-between text-xs">
+            <div className="flex items-center gap-1.5 font-medium text-[#F4F1EA]">
+              <span className="font-mono text-[#C6FF3D] font-bold">TIER.</span>
+              <span>Selected Package</span>
+            </div>
+            <button
+              type="button"
+              onClick={handleRemovePackage}
+              className="font-mono text-[10px] text-[#A9A7A0] hover:text-[#FF5A3D] transition-colors uppercase tracking-wider cursor-pointer"
+              title="Remove selected package"
+            >
+              [ REMOVE ]
+            </button>
+          </div>
+          <div className="relative min-h-[48px] px-3.5 py-2.5 rounded-lg border border-[#2A2A30] bg-[#141419] flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <span className="font-mono text-xs font-bold text-[#C6FF3D] tracking-wide shrink-0">
+                {selectedPackage.tierNumber}
+              </span>
+              <span className="text-[#A9A7A0]/40 font-mono text-xs shrink-0">—</span>
+              <span className="text-sm font-medium text-[#F4F1EA] truncate">
+                {selectedPackage.name}
+              </span>
+            </div>
+            <a
+              href="#packages"
+              onClick={handleChangePackage}
+              className="font-mono text-[10px] tracking-widest text-[#C6FF3D] uppercase px-2.5 py-1 rounded border border-[#C6FF3D]/40 bg-[#C6FF3D]/10 hover:bg-[#C6FF3D] hover:text-[#0B0B0F] transition-all cursor-pointer select-none shrink-0"
+              title="Go to packages section to change tier"
+            >
+              CHANGE
+            </a>
           </div>
         </div>
       )}
@@ -250,12 +400,21 @@ export function ContactForm({
             <input
               id="phone"
               name="phone"
-              type="tel"
-              inputMode="tel"
-              autoComplete="tel"
-              placeholder="+00 000 000 0000"
+              type="text"
+              inputMode="text"
+              autoComplete="email tel"
+              placeholder="Phone number or email"
               value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              onChange={(e) => {
+                setPhone(e.target.value);
+                if (errors.phone) {
+                  setErrors((prev) => {
+                    const next = { ...prev };
+                    delete next.phone;
+                    return next;
+                  });
+                }
+              }}
               onFocus={onFocus}
               onBlur={() => {
                 onBlur();

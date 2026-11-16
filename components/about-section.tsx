@@ -38,6 +38,7 @@ const lanyardPeople: LanyardMember[] = siteContent.people.map((person, index) =>
     passId: person.passId ?? `27-PASS-0${index + 1}`,
     access: person.access ?? "ALL ACCESS // VIP",
     stats: person.stats,
+    instagram: (person as any).instagram ?? siteContent.contact.instagram,
     links: [
       {
         label: "WHATSAPP",
