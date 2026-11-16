@@ -1134,16 +1134,13 @@ input[type='range'] { accent-color: var(--industry); }
   }
 
   /* Only highlight lines when hovering! Never when not hovering! */
-  .site-header nav:hover a:hover .nav-stagger-line,
   .site-header nav:hover a[data-stagger-active='true'] .nav-stagger-line,
   .site-header nav[data-nav-hovered='true'] a[data-stagger-active='true'] .nav-stagger-line {
     background: var(--industry);
     height: 2px;
   }
 
-  /* Active / Hovered link: clean neon green highlight with decreased shadow, ONLY when nav is hovered */
-  .site-header nav:hover a:hover .nav-stagger-label,
-  .site-header nav:hover a:focus-visible .nav-stagger-label,
+  /* Active link: clean neon green highlight ONLY for the single active item when nav is hovered */
   .site-header nav:hover a[data-stagger-active='true'] .nav-stagger-label,
   .site-header nav[data-nav-hovered='true'] a[data-stagger-active='true'] .nav-stagger-label {
     background: var(--industry) !important;

@@ -434,14 +434,29 @@ export default function Page() {
 
       // Track active section for sidebar ruler / scroll spy
       const sectionIds = ["work", "films", "process", "cases", "about", "faq", "contact"];
+      
+      // If near or at the bottom of the page, activate the last section (Contact)
+      const isAtBottom =
+        window.innerHeight + currentScrollY >=
+        document.documentElement.scrollHeight - 80;
+      if (isAtBottom) {
+        setScrolledNavIndex(sectionIds.length - 1);
+        return;
+      }
+
       const scrollPosition = currentScrollY + window.innerHeight * 0.35;
+      let matchedIndex = 0;
       for (let i = sectionIds.length - 1; i >= 0; i--) {
         const el = document.getElementById(sectionIds[i]);
-        if (el && el.offsetTop <= scrollPosition) {
-          setScrolledNavIndex(i);
-          break;
+        if (el) {
+          const top = el.getBoundingClientRect().top + currentScrollY;
+          if (top <= scrollPosition) {
+            matchedIndex = i;
+            break;
+          }
         }
       }
+      setScrolledNavIndex(matchedIndex);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -774,6 +789,9 @@ export default function Page() {
                 key={label}
                 href={href}
                 data-stagger-active={isItemActive}
+                onMouseEnter={() => {
+                  setActiveNavIndex(navIndex);
+                }}
                 onFocus={(event) => {
                   const navBounds = navRef.current?.getBoundingClientRect();
                   if (navBounds) {
@@ -784,7 +802,24 @@ export default function Page() {
                   }
                 }}
                 onBlur={resetNavWave}
-                onClick={() => setMenuOpen(false)}
+                onClick={(event) => {
+                  if (href && href.startsWith("#")) {
+                    event.preventDefault();
+                    event.currentTarget.blur();
+                    const targetId = href.slice(1);
+                    const targetEl = document.getElementById(targetId);
+                    if (targetEl) {
+                      setActiveNavIndex(null);
+                      setScrolledNavIndex(navIndex);
+                      targetEl.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                      });
+                      window.history.pushState(null, "", href);
+                    }
+                  }
+                  setMenuOpen(false);
+                }}
               >
                 {rulerTick}
                 <span className="nav-stagger-label">{label}</span>
@@ -880,7 +915,21 @@ export default function Page() {
                 key={item.name}
                 href={item.href}
                 className="mobile-drawer-item group"
-                onClick={() => setMenuOpen(false)}
+                onClick={(event) => {
+                  if (item.href.startsWith("#")) {
+                    event.preventDefault();
+                    const targetId = item.href.slice(1);
+                    const targetEl = document.getElementById(targetId);
+                    if (targetEl) {
+                      targetEl.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                      });
+                      window.history.pushState(null, "", item.href);
+                    }
+                  }
+                  setMenuOpen(false);
+                }}
               >
                 <div className="flex items-baseline">
                   <span className="mobile-drawer-num">{item.num} //</span>

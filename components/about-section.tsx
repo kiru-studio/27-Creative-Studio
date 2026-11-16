@@ -64,12 +64,12 @@ export function AboutSection() {
   return (
     <section
       className="about-section relative overflow-hidden py-20 sm:py-28"
-      id="crew"
+      id="about"
       ref={sectionRef}
       aria-labelledby="about-heading"
     >
+      <div id="crew" className="sr-only" />
       <div id="team" className="sr-only" />
-      <div id="about" className="sr-only" />
       <div className="about-grain-overlay" aria-hidden="true" />
 
       <div className="about-copy relative z-10 max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-8">
