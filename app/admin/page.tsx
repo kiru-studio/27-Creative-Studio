@@ -892,7 +892,7 @@ export default function AdminPage() {
                       workLabel: "grips + lights",
                       specialty: "Set Lighting & Technical Grip",
                       tagline: "Lights the scene. Moves the glass.",
-                      photoSrc: "/images/team/crew-lead.webp",
+                      photoSrc: "/images/team/crew-lead-cutout.webp",
                       gear: "Aputure 300d · Nanlite Pavotubes · Rode Wireless Pro",
                       focalLength: "50mm T1.5 Cine Prime",
                       passId: `27-CREW-0${(content.people?.length || 0) + 1}`,

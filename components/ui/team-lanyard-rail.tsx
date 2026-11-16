@@ -525,108 +525,69 @@ const BadgeFaces = React.memo(function BadgeFaces({
 
   return (
     <>
-      {/* ================= FRONT FACE (Editorial Credential Style from Image) ================= */}
+      {/* ================= FRONT FACE (Dark Neon Green Editorial Credential) ================= */}
       <div
         data-face="front"
-        className="absolute inset-0 flex flex-col justify-between overflow-hidden rounded-[16px] border border-black/15 bg-gradient-to-b from-[#FAF9FD] via-[#F1F0F7] to-[#E5E4EE] text-[#0E0E14] shadow-[0_24px_50px_rgba(0,0,0,0.85)] [backface-visibility:hidden] p-2.5 pt-3"
-        style={{ transform: "translateZ(1px)" }}
+        className="absolute inset-0 flex flex-col justify-between overflow-hidden rounded-[16px] border border-[#39FF14]/20 bg-[#000000] text-white shadow-[0_24px_50px_rgba(0,0,0,0.95)] [backface-visibility:hidden] p-2.5 pt-3"
+        style={{
+          transform: "translateZ(1px)",
+          background:
+            "radial-gradient(circle at 50% 26%, rgba(20, 100, 30, 0.45) 0%, rgba(6, 30, 10, 0.22) 48%, #000000 82%)",
+        }}
       >
         {/* Slot Punch Cutout */}
         <Hole />
 
-        {/* 1. TOP BAR: Date · Symmetrical Sparkle Stars Row · Studio Name */}
+        {/* 1. TOP BAR: Date · Audio Waveform Pulse · Studio Name */}
         <div className="relative z-10 w-full shrink-0 select-none">
-          <div className="flex items-center justify-between text-[0.48em] font-mono tracking-widest text-[#0E0E14] font-semibold pb-1">
+          <div className="flex items-center justify-between text-[0.46em] font-mono tracking-widest text-[#D1FAE5] font-semibold pb-1.5">
             <span>2026-2027</span>
-            <div className="flex items-center gap-[2px] text-[#0E0E14] scale-90">
-              <span>✦</span>
-              <span>✦</span>
-              <span>✦</span>
-              <span>✦</span>
-              <span>✦</span>
-              <span>✦</span>
-              <span>✦</span>
+
+            {/* Glowing Neon Green Audio Waveform / Pulse Icon */}
+            <div className="flex items-center justify-center text-[#39FF14] drop-shadow-[0_0_8px_rgba(57,255,20,0.8)]">
+              <svg className="h-3 w-14" viewBox="0 0 56 12" fill="none" stroke="currentColor">
+                <line x1="0" y1="6" x2="56" y2="6" strokeWidth="1" strokeOpacity="0.5" />
+                <line x1="14" y1="4" x2="14" y2="8" strokeWidth="1.5" strokeLinecap="round" />
+                <line x1="18" y1="2" x2="18" y2="10" strokeWidth="1.5" strokeLinecap="round" />
+                <line x1="23" y1="0.5" x2="23" y2="11.5" strokeWidth="2" strokeLinecap="round" />
+                <polygon points="28,2 31,6 28,10 25,6" fill="currentColor" stroke="none" />
+                <line x1="33" y1="0.5" x2="33" y2="11.5" strokeWidth="2" strokeLinecap="round" />
+                <line x1="38" y1="2" x2="38" y2="10" strokeWidth="1.5" strokeLinecap="round" />
+                <line x1="42" y1="4" x2="42" y2="8" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
             </div>
-            <span>27 STUDIO</span>
+
+            <span className="uppercase tracking-wider">27 STUDIO</span>
           </div>
-          <div className="w-full h-px bg-[#0E0E14]/15" />
+
+          {/* Thin Hairline Divider */}
+          <div className="w-full h-px bg-[#39FF14]/30 shadow-[0_0_6px_rgba(57,255,20,0.3)]" />
         </div>
 
-        {/* 2. UPPER BRANDING & BADGES ROW (Matches UNIDA GONTOR / GenBI / Bank Indonesia) */}
-        <div className="relative z-10 w-full pt-1.5 shrink-0 select-none">
-          {/* Top Row: Left Unit Name / Right Brand Mark */}
-          <div className="flex items-start justify-between">
-            {/* Left Header Block */}
-            <div className="flex flex-col text-left">
-              <span className="text-[0.46em] font-mono uppercase tracking-wider text-[#0E0E14]/70 font-bold flex items-center gap-1">
-                THOOTHUKUDI UNIT <span className="text-[0.8em]">✦</span>
-              </span>
-              <span className="font-display font-black text-[1.12em] tracking-tight uppercase leading-none text-[#0E0E14] mt-0.5">
-                27 STUDIO
-              </span>
-              <span className="text-[0.42em] font-mono uppercase tracking-wider text-[#0E0E14]/60 font-semibold mt-0.5">
-                TAMIL NADU - INDIA
-              </span>
-            </div>
-
-            {/* Right Header Block: Editorial Brand Title */}
-            <div className="flex flex-col items-end text-right">
-              <div className="font-display font-black text-[1.65em] tracking-tight leading-none text-[#0E0E14]">
-                27<span className="font-serif italic font-normal text-[0.9em] ml-0.5">Cine</span>
-              </div>
-              <span className="text-[0.46em] font-mono uppercase tracking-widest text-[#0E0E14]/75 font-bold flex items-center gap-1 mt-0.5">
-                <span className="text-[0.8em]">✦</span> PRODUCTION
-              </span>
-            </div>
-          </div>
-
-          {/* Sub-Row: Emblem on Left / Dual Badges on Right */}
-          <div className="flex items-center justify-between mt-1.5 pt-1 border-t border-[#0E0E14]/10">
-            {/* Left: 27 Studio Emblem */}
-            <div className="flex items-center gap-1.5">
-              <div className="size-4 rounded-full border border-[#0E0E14] flex items-center justify-center font-display font-black text-[0.62em] leading-none text-[#0E0E14] bg-white/40 shadow-xs">
-                27
-              </div>
-              <div className="flex flex-col text-[0.44em] font-mono leading-none tracking-wider text-[#0E0E14] font-bold">
-                <span>CREATIVE</span>
-                <span className="text-[#0E0E14]/65">STUDIO</span>
-              </div>
-            </div>
-
-            {/* Right: Dual Crest Seals */}
-            <div className="flex items-center gap-1.5">
-              <div className="w-3.5 h-4 border border-[#0E0E14] rounded-t-xs rounded-b-md flex flex-col items-center justify-center p-0.5 text-[5px] font-mono leading-none text-[#0E0E14] bg-white/40">
-                <span className="font-bold">FX3</span>
-                <span className="text-[3.5px] scale-90 text-[#0E0E14]/70">CINE</span>
-              </div>
-              <div className="size-4 rounded-full border border-dashed border-[#0E0E14] flex items-center justify-center text-[4px] font-mono font-bold leading-none text-[#0E0E14] bg-white/40">
-                PASS
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* 3. CENTER STAGE: Wavy Zebra Box + Overlapping Portrait + Side Vertical Text */}
-        <div className="relative flex-1 w-full my-1 flex items-center justify-center min-h-[9.5em] overflow-visible">
-          {/* Background Optical Zebra Waves Box (Matches Reference Rectangle Behind Subject) */}
-          <div className="absolute inset-x-1.5 top-[18%] bottom-[12%] rounded-md overflow-hidden bg-[#0A0A0E] border border-[#0E0E14]/20 shadow-inner z-0">
-            <svg className="w-full h-full" viewBox="0 0 240 90" preserveAspectRatio="none" aria-hidden="true">
-              <rect width="240" height="90" fill="#0A0A0E" />
-              {/* Undulating Optical Waves */}
-              <path d="M0,6 Q60,20 120,6 T240,6 L240,12 Q180,-2 120,12 T0,12 Z" fill="#F4F1EA" />
-              <path d="M0,18 Q60,36 120,18 T240,18 L240,24 Q180,6 120,24 T0,24 Z" fill="#F4F1EA" />
-              <path d="M0,30 Q60,50 120,30 T240,30 L240,36 Q180,16 120,36 T0,36 Z" fill="#F4F1EA" />
-              <path d="M0,42 Q60,64 120,42 T240,42 L240,48 Q180,26 120,48 T0,48 Z" fill="#F4F1EA" />
-              <path d="M0,54 Q60,76 120,54 T240,54 L240,60 Q180,38 120,60 T0,60 Z" fill="#F4F1EA" />
-              <path d="M0,66 Q60,88 120,66 T240,66 L240,72 Q180,48 120,72 T0,72 Z" fill="#F4F1EA" />
-              <path d="M0,78 Q60,98 120,78 T240,78 L240,84 Q180,60 120,84 T0,84 Z" fill="#F4F1EA" />
+        {/* 2. CENTER STAGE: Neon Green Optical Wave Box + Overlapping Portrait + Flanking Vertical Text */}
+        <div className="relative flex-1 w-full my-0.5 flex items-center justify-center min-h-[11em] overflow-visible">
+          {/* Background Neon Green & Black Optical Zebra Waves Box */}
+          <div className="absolute inset-x-1.5 top-[28%] bottom-[10%] rounded-md overflow-hidden bg-[#000000] border border-[#39FF14]/50 shadow-[0_0_20px_rgba(57,255,20,0.22)] z-0">
+            <svg className="w-full h-full" viewBox="0 0 300 130" preserveAspectRatio="none" aria-hidden="true">
+              <rect width="300" height="130" fill="#000000" />
+              {/* Undulating Vibrant Neon Waves matching reference exactly */}
+              <path d="M-10,-5 Q60,35 150,10 T310,-5 L310,3 Q220,18 150,18 T-10,3 Z" fill="#39FF14" />
+              <path d="M-10,9 Q60,49 150,24 T310,9 L310,17 Q220,32 150,32 T-10,17 Z" fill="#39FF14" />
+              <path d="M-10,23 Q60,63 150,38 T310,23 L310,31 Q220,46 150,46 T-10,31 Z" fill="#39FF14" />
+              <path d="M-10,37 Q60,77 150,52 T310,37 L310,45 Q220,60 150,60 T-10,45 Z" fill="#39FF14" />
+              <path d="M-10,51 Q60,91 150,66 T310,51 L310,59 Q220,74 150,74 T-10,59 Z" fill="#39FF14" />
+              <path d="M-10,65 Q60,105 150,80 T310,65 L310,73 Q220,88 150,88 T-10,73 Z" fill="#39FF14" />
+              <path d="M-10,79 Q60,119 150,94 T310,79 L310,87 Q220,102 150,102 T-10,87 Z" fill="#39FF14" />
+              <path d="M-10,93 Q60,133 150,108 T310,93 L310,101 Q220,116 150,116 T-10,101 Z" fill="#39FF14" />
+              <path d="M-10,107 Q60,147 150,122 T310,107 L310,115 Q220,130 150,130 T-10,115 Z" fill="#39FF14" />
+              <path d="M-10,121 Q60,161 150,136 T310,121 L310,129 Q220,144 150,144 T-10,129 Z" fill="#39FF14" />
             </svg>
           </div>
 
           {/* Left Vertical Flanking Text */}
-          <div className="absolute left-0 bottom-1 z-20 pointer-events-none select-none">
+          <div className="absolute left-0 bottom-2 z-20 pointer-events-none select-none">
             <span
-              className="font-mono text-[0.44em] tracking-[0.24em] uppercase text-[#0E0E14] font-bold block"
+              className="font-mono text-[0.44em] tracking-[0.24em] uppercase text-white/80 font-bold block"
               style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
             >
               REAL GROWTH · RESULTS
@@ -634,25 +595,25 @@ const BadgeFaces = React.memo(function BadgeFaces({
           </div>
 
           {/* Right Vertical Flanking Text */}
-          <div className="absolute right-0 bottom-1 z-20 pointer-events-none select-none">
+          <div className="absolute right-0 bottom-2 z-20 pointer-events-none select-none">
             <span
-              className="font-mono text-[0.44em] tracking-[0.24em] uppercase text-[#0E0E14] font-bold block"
+              className="font-mono text-[0.44em] tracking-[0.24em] uppercase text-white/80 font-bold block"
               style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
             >
               COMMERCIAL CINE UNIT
             </span>
           </div>
 
-          {/* Centered Crew Member Portrait (Overlapping the Wave Box) */}
-          <div className="relative z-10 w-[78%] h-full flex items-end justify-center pointer-events-none">
+          {/* Centered Cutout Crew Member (Rising Above Wave Box with Green Atmospheric Rim Glow) */}
+          <div className="relative z-10 w-[84%] h-full flex items-end justify-center pointer-events-none overflow-visible">
             {portraitSrc ? (
               <img
                 src={portraitSrc}
                 alt={item.name}
-                className="w-full h-[96%] object-cover object-top filter contrast-115 brightness-100 drop-shadow-[0_12px_24px_rgba(0,0,0,0.5)] pointer-events-auto transition-transform duration-300 hover:scale-[1.03] rounded-lg"
+                className="max-w-none w-full h-[112%] -mb-1 object-contain object-bottom filter contrast-110 brightness-100 drop-shadow-[0_0_18px_rgba(57,255,20,0.3)] drop-shadow-[0_12px_24px_rgba(0,0,0,0.9)] pointer-events-auto transition-transform duration-300 hover:scale-[1.04]"
                 style={{
-                  maskImage: "linear-gradient(to bottom, black 82%, transparent 100%)",
-                  WebkitMaskImage: "linear-gradient(to bottom, black 82%, transparent 100%)",
+                  maskImage: "linear-gradient(to bottom, black 86%, transparent 100%)",
+                  WebkitMaskImage: "linear-gradient(to bottom, black 86%, transparent 100%)",
                 }}
               />
             ) : (
@@ -663,29 +624,32 @@ const BadgeFaces = React.memo(function BadgeFaces({
           </div>
         </div>
 
-        {/* 4. BOTTOM NAMEPLATE: Sparkles + Member Name + Role */}
-        <div className="relative z-20 w-full pt-1.5 pb-1 text-center flex flex-col items-center justify-center select-none bg-gradient-to-t from-white/95 via-white/80 to-transparent shrink-0">
-          <div className="flex items-center justify-center gap-2 w-full">
-            {/* Left Sparkles */}
-            <div className="flex items-center gap-0.5 text-[#0E0E14] shrink-0">
-              <span className="text-[7.5px] leading-none">✦</span>
-              <span className="text-[11px] leading-none -mt-1 font-bold">✦</span>
-            </div>
+        {/* 3. HORIZONTAL DIVIDER RULE & CENTERED 27 STUDIO PILL BADGE */}
+        <div className="relative z-20 w-full flex items-center justify-center shrink-0 my-1 select-none">
+          {/* Continuous Green Line across the card */}
+          <div className="absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-[#39FF14]/60 to-transparent" />
 
-            {/* Member Name */}
-            <h3 className="font-display font-black text-[1.28em] tracking-[0.06em] uppercase text-[#0E0E14] leading-none truncate max-w-[76%]">
-              {item.name}
-            </h3>
-
-            {/* Right Sparkles */}
-            <div className="flex items-center gap-0.5 text-[#0E0E14] shrink-0">
-              <span className="text-[11px] leading-none -mt-1 font-bold">✦</span>
-              <span className="text-[7.5px] leading-none">✦</span>
+          {/* Centered 27 Studio Pill Badge */}
+          <div className="relative z-10 px-2.5 py-0.5 rounded-full bg-[#050A05] border border-[#39FF14] shadow-[0_0_14px_rgba(57,255,20,0.45)] flex items-center gap-1.5">
+            <span className="font-display font-black text-[0.84em] leading-none text-[#39FF14] tracking-tight drop-shadow-[0_0_6px_rgba(57,255,20,0.8)]">
+              27
+            </span>
+            <div className="flex flex-col text-[0.38em] font-mono font-bold leading-tight tracking-wider text-[#39FF14]">
+              <span>CREATIVE</span>
+              <span>STUDIO</span>
             </div>
           </div>
+        </div>
+
+        {/* 4. BOTTOM NAMEPLATE: Member Name in Glowing Serif + Role */}
+        <div className="relative z-20 w-full pb-1 text-center flex flex-col items-center justify-center select-none shrink-0">
+          {/* Member Name in Editorial Serif Display with Luminous Green Glow */}
+          <h3 className="font-serif font-bold text-[1.38em] tracking-[0.06em] uppercase text-[#39FF14] leading-tight truncate max-w-[90%] drop-shadow-[0_0_12px_rgba(57,255,20,0.65)]">
+            {item.name}
+          </h3>
 
           {/* Subtitle / Role (Matches PUBLIKASI) */}
-          <p className="font-mono text-[0.48em] uppercase tracking-[0.28em] text-[#0E0E14]/75 font-bold mt-1 leading-none">
+          <p className="font-mono text-[0.48em] uppercase tracking-[0.3em] text-[#39FF14]/90 font-bold mt-0.5 leading-none">
             {item.role}
           </p>
         </div>
@@ -693,15 +657,15 @@ const BadgeFaces = React.memo(function BadgeFaces({
         {/* Tactile Lanyard Plastic Sleeve / Specular Overlay */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 rounded-[16px] border border-black/10 z-30"
+          className="pointer-events-none absolute inset-0 rounded-[16px] border border-[#39FF14]/20 z-30"
         >
-          <div className="absolute inset-[3px] rounded-[13px] border border-black/5" />
-          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.12] to-transparent" />
+          <div className="absolute inset-[3px] rounded-[13px] border border-white/5" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.05] to-transparent" />
           <div
-            className="absolute inset-0 opacity-40"
+            className="absolute inset-0 opacity-30"
             style={{
               background:
-                "radial-gradient(160px circle at var(--gx, 50%) var(--gy, 50%), rgba(255,255,255,0.4), transparent 70%)",
+                "radial-gradient(160px circle at var(--gx, 50%) var(--gy, 50%), rgba(57,255,20,0.25), transparent 70%)",
             }}
           />
         </div>
