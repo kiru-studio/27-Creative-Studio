@@ -123,9 +123,9 @@ export function ProcessSection({
             : "relative min-h-screen py-16"
         }`}
       >
-        {/* Top Content: Eyebrow, Heading, and HUD status */}
+        {/* Top Content: Eyebrow and Heading */}
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-[#2A2A30]">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-2">
             <div>
               <div className="overflow-mask-inline">
                 <motion.p
@@ -165,13 +165,6 @@ export function ProcessSection({
                   {heading}
                 </motion.h2>
               </div>
-            </div>
-
-            {/* HUD scene timecode indicator */}
-            <div className="flex items-center gap-4 text-xs font-mono text-[#A9A7A0]">
-              <span className="tracking-widest text-[11px] text-[#A9A7A0]/60">
-                SCENE 0{activeStepIndex + 1} // 0{totalSteps}
-              </span>
             </div>
           </div>
         </div>
