@@ -27,8 +27,8 @@ interface ContactSectionProps {
 export function ContactSection({
   kicker = "Say Hello",
   heading = "Let's grow your brand.",
-  subline = "Your business could be our next success story. Call 83004 78244 or send your brief below.",
-  serviceAreaNote = "Serving businesses across Thoothukudi, Tirunelveli, and Tamil Nadu.",
+  subline = "Your business could be our next success story.",
+  serviceAreaNote = "",
 }: ContactSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.15 });
@@ -213,16 +213,20 @@ export function ContactSection({
                   >
                     {heading}
                   </h2>
-                  <p className="mt-3 text-sm text-[#A9A7A0] leading-relaxed max-w-md">
-                    {subline}
-                  </p>
+                  {subline ? (
+                    <p className="mt-3 text-sm text-[#A9A7A0] leading-relaxed max-w-md">
+                      {subline}
+                    </p>
+                  ) : null}
                 </div>
 
                 <ChannelList channels={channels} reducedMotion={reducedMotion} />
 
-                <p className="text-xs font-mono text-[#A9A7A0]/60 leading-relaxed mt-2">
-                  {serviceAreaNote}
-                </p>
+                {serviceAreaNote ? (
+                  <p className="text-xs font-mono text-[#A9A7A0]/60 leading-relaxed mt-2">
+                    {serviceAreaNote}
+                  </p>
+                ) : null}
               </div>
 
               {/* Right Column: Interactive Contact Form or SuccessWrap State */}
