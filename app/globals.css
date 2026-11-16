@@ -396,7 +396,7 @@ button { min-height: var(--control-height); }
 .case-detail { display: grid; grid-template-columns: minmax(var(--content-track-min), 0.8fr) 1fr; gap: var(--space-3) var(--space-6); padding: 0 0 var(--space-6); color: var(--muted); }
 .case-detail p { margin: 0; }
 .case-detail strong { color: var(--paper); }
-.case-video { position: relative; display: flex; min-height: var(--case-media-min); grid-row: span 3; align-items: end; overflow: hidden; padding: var(--space-4); border-left: var(--space-1) solid var(--industry); background: var(--panel); color: var(--paper); font: var(--text-xs) var(--font-mono); }
+.case-video { position: relative; display: flex; min-height: var(--case-media-min); grid-row: span 3; align-items: end; overflow: hidden; padding: var(--space-4); border: 0; background: var(--panel); color: var(--paper); font: var(--text-xs) var(--font-mono); }
 .case-video-media, .case-video-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .case-video span { position: relative; z-index: 1; }
 .packages-table { border-top: var(--border-width) solid var(--line); }

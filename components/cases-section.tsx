@@ -384,16 +384,6 @@ export function CasePanel({
         className="case-video relative overflow-hidden bg-[var(--panel)]"
         style={{ borderLeft: 0, willChange: "transform, opacity" }}
       >
-        {/* Lime left border draws top to bottom (scaleY 0 -> 1, origin top, ~0.5s) */}
-        <motion.div
-          className="absolute top-0 bottom-0 left-0 w-[var(--space-1)] bg-[var(--industry)] z-10"
-          initial={shouldReduceMotion ? { scaleY: 1 } : { scaleY: 0 }}
-          animate={{ scaleY: 1 }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          style={{ transformOrigin: "top", willChange: "transform" }}
-          aria-hidden="true"
-        />
-
         {/* Four small lime viewfinder corner brackets animate inward (~0.35s) */}
         <FilmFrameCornerBrackets
           isAnimated={isOpen}
@@ -473,31 +463,31 @@ export function CasePanel({
 
       {/* Growth Metric Stat Cards (From PDF Pages 3-6) */}
       {item.growthMultiplier && (
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 my-3 font-mono">
-          <div className="p-3 rounded bg-[var(--panel-raised)] border border-[var(--line)]">
-            <span className="block text-[9px] sm:text-[10px] uppercase tracking-wider text-[var(--muted)]">Follower Growth</span>
-            <span className="block text-xl sm:text-2xl font-black text-[var(--industry)]">{item.growthMultiplier}</span>
-            {item.newFollowers && <span className="block text-[11px] text-[var(--paper)] font-semibold">{item.newFollowers} new</span>}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5 my-3 font-mono">
+          <div className="p-2 sm:p-2.5 lg:p-3 rounded bg-[var(--panel-raised)] border border-[var(--line)] min-w-0 flex flex-col justify-between">
+            <span className="block text-[9px] sm:text-[10px] uppercase tracking-wider text-[var(--muted)] whitespace-nowrap overflow-hidden">Follower Growth</span>
+            <span className="block text-lg sm:text-xl lg:text-2xl font-black text-[var(--industry)] whitespace-nowrap tabular-nums leading-tight mt-0.5">{item.growthMultiplier}</span>
+            {item.newFollowers && <span className="block text-[10px] sm:text-[11px] text-[var(--paper)] font-semibold whitespace-nowrap tabular-nums mt-0.5">{item.newFollowers} new</span>}
           </div>
           {item.followersStart && item.followersNow && (
-            <div className="p-3 rounded bg-[var(--panel-raised)] border border-[var(--line)]">
-              <span className="block text-[9px] sm:text-[10px] uppercase tracking-wider text-[var(--muted)]">Trajectory</span>
-              <span className="block text-sm sm:text-base font-bold text-[var(--paper)] mt-0.5">{item.followersStart} → {item.followersNow}</span>
-              <span className="block text-[10px] text-[var(--muted)]">start &gt; now</span>
+            <div className="p-2 sm:p-2.5 lg:p-3 rounded bg-[var(--panel-raised)] border border-[var(--line)] min-w-0 flex flex-col justify-between">
+              <span className="block text-[9px] sm:text-[10px] uppercase tracking-wider text-[var(--muted)] whitespace-nowrap overflow-hidden">Trajectory</span>
+              <span className="block text-[11px] sm:text-xs md:text-sm font-bold text-[var(--paper)] mt-0.5 whitespace-nowrap tabular-nums tracking-tight leading-tight">{item.followersStart} → {item.followersNow}</span>
+              <span className="block text-[10px] text-[var(--muted)] whitespace-nowrap mt-0.5">start &gt; now</span>
             </div>
           )}
           {item.topViews && (
-            <div className="p-3 rounded bg-[var(--panel-raised)] border border-[var(--line)]">
-              <span className="block text-[9px] sm:text-[10px] uppercase tracking-wider text-[var(--muted)]">Top Reel Views</span>
-              <span className="block text-lg sm:text-xl font-bold text-[var(--paper)] mt-0.5">{item.topViews}</span>
-              {item.postsCount && <span className="block text-[10px] text-[var(--muted)]">{item.postsCount} posts</span>}
+            <div className="p-2 sm:p-2.5 lg:p-3 rounded bg-[var(--panel-raised)] border border-[var(--line)] min-w-0 flex flex-col justify-between">
+              <span className="block text-[9px] sm:text-[10px] uppercase tracking-wider text-[var(--muted)] whitespace-nowrap overflow-hidden">Top Reel Views</span>
+              <span className="block text-base sm:text-lg lg:text-xl font-bold text-[var(--paper)] mt-0.5 whitespace-nowrap tabular-nums leading-tight">{item.topViews}</span>
+              {item.postsCount && <span className="block text-[10px] text-[var(--muted)] whitespace-nowrap tabular-nums mt-0.5">{item.postsCount} posts</span>}
             </div>
           )}
           {item.googleRating && (
-            <div className="p-3 rounded bg-[var(--panel-raised)] border border-[var(--line)]">
-              <span className="block text-[9px] sm:text-[10px] uppercase tracking-wider text-[var(--muted)]">Google Rating</span>
-              <span className="block text-lg sm:text-xl font-bold text-[#FFD700] mt-0.5">★ {item.googleRating}</span>
-              {item.googleReviews && <span className="block text-[10px] text-[var(--muted)]">{item.googleReviews}</span>}
+            <div className="p-2 sm:p-2.5 lg:p-3 rounded bg-[var(--panel-raised)] border border-[var(--line)] min-w-0 flex flex-col justify-between">
+              <span className="block text-[9px] sm:text-[10px] uppercase tracking-wider text-[var(--muted)] whitespace-nowrap overflow-hidden">Google Rating</span>
+              <span className="block text-xs sm:text-sm md:text-base font-bold text-[#FFD700] mt-0.5 whitespace-nowrap tabular-nums tracking-tight leading-tight">★ {item.googleRating}</span>
+              {item.googleReviews && <span className="block text-[10px] text-[var(--muted)] whitespace-nowrap mt-0.5">{item.googleReviews}</span>}
             </div>
           )}
         </div>
