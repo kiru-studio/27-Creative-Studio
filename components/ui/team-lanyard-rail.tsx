@@ -525,193 +525,189 @@ const BadgeFaces = React.memo(function BadgeFaces({
 
   return (
     <>
-      {/* ================= FRONT FACE (Editorial Event Credential Style) ================= */}
+      {/* ================= FRONT FACE (Editorial Credential Style from Image) ================= */}
       <div
         data-face="front"
-        className="absolute inset-0 flex flex-row overflow-hidden rounded-[16px] border border-white/20 bg-[#0E0E14] text-[#F4F1EA] shadow-[0_24px_50px_rgba(0,0,0,0.85)] [backface-visibility:hidden]"
+        className="absolute inset-0 flex flex-col justify-between overflow-hidden rounded-[16px] border border-black/15 bg-gradient-to-b from-[#FAF9FD] via-[#F1F0F7] to-[#E5E4EE] text-[#0E0E14] shadow-[0_24px_50px_rgba(0,0,0,0.85)] [backface-visibility:hidden] p-2.5 pt-3"
         style={{ transform: "translateZ(1px)" }}
       >
         {/* Slot Punch Cutout */}
         <Hole />
 
-        {/* 1. LEFT VERTICAL RAIL (Event Credential Side-Strip from Image 2) */}
-        <div className="w-[20%] max-w-[2.4em] bg-[#161622] border-r border-white/15 flex flex-col items-center justify-between py-2 shrink-0 select-none relative z-10">
-          {/* Top studio mark */}
-          <div className="flex flex-col items-center gap-0.5 pt-1">
-            <span className="size-1.5 rounded-full bg-[#C6FF3D] shadow-[0_0_6px_#C6FF3D]" />
-            <span className="text-[0.44em] font-mono text-white/50 tracking-tighter">27</span>
+        {/* 1. TOP BAR: Date · Symmetrical Sparkle Stars Row · Studio Name */}
+        <div className="relative z-10 w-full shrink-0 select-none">
+          <div className="flex items-center justify-between text-[0.48em] font-mono tracking-widest text-[#0E0E14] font-semibold pb-1">
+            <span>2026-2027</span>
+            <div className="flex items-center gap-[2px] text-[#0E0E14] scale-90">
+              <span>✦</span>
+              <span>✦</span>
+              <span>✦</span>
+              <span>✦</span>
+              <span>✦</span>
+              <span>✦</span>
+              <span>✦</span>
+            </div>
+            <span>27 STUDIO</span>
+          </div>
+          <div className="w-full h-px bg-[#0E0E14]/15" />
+        </div>
+
+        {/* 2. UPPER BRANDING & BADGES ROW (Matches UNIDA GONTOR / GenBI / Bank Indonesia) */}
+        <div className="relative z-10 w-full pt-1.5 shrink-0 select-none">
+          {/* Top Row: Left Unit Name / Right Brand Mark */}
+          <div className="flex items-start justify-between">
+            {/* Left Header Block */}
+            <div className="flex flex-col text-left">
+              <span className="text-[0.46em] font-mono uppercase tracking-wider text-[#0E0E14]/70 font-bold flex items-center gap-1">
+                THOOTHUKUDI UNIT <span className="text-[0.8em]">✦</span>
+              </span>
+              <span className="font-display font-black text-[1.12em] tracking-tight uppercase leading-none text-[#0E0E14] mt-0.5">
+                27 STUDIO
+              </span>
+              <span className="text-[0.42em] font-mono uppercase tracking-wider text-[#0E0E14]/60 font-semibold mt-0.5">
+                TAMIL NADU - INDIA
+              </span>
+            </div>
+
+            {/* Right Header Block: Editorial Brand Title */}
+            <div className="flex flex-col items-end text-right">
+              <div className="font-display font-black text-[1.65em] tracking-tight leading-none text-[#0E0E14]">
+                27<span className="font-serif italic font-normal text-[0.9em] ml-0.5">Cine</span>
+              </div>
+              <span className="text-[0.46em] font-mono uppercase tracking-widest text-[#0E0E14]/75 font-bold flex items-center gap-1 mt-0.5">
+                <span className="text-[0.8em]">✦</span> PRODUCTION
+              </span>
+            </div>
           </div>
 
-          {/* Member Name in Rotated Vertical Typography */}
-          <div
-            className="flex-1 flex items-center justify-center my-1"
-            style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
-          >
-            <span className="font-display font-black text-[0.88em] uppercase tracking-[0.18em] text-[#F4F1EA] whitespace-nowrap drop-shadow-sm">
-              {item.name}
-            </span>
-          </div>
+          {/* Sub-Row: Emblem on Left / Dual Badges on Right */}
+          <div className="flex items-center justify-between mt-1.5 pt-1 border-t border-[#0E0E14]/10">
+            {/* Left: 27 Studio Emblem */}
+            <div className="flex items-center gap-1.5">
+              <div className="size-4 rounded-full border border-[#0E0E14] flex items-center justify-center font-display font-black text-[0.62em] leading-none text-[#0E0E14] bg-white/40 shadow-xs">
+                27
+              </div>
+              <div className="flex flex-col text-[0.44em] font-mono leading-none tracking-wider text-[#0E0E14] font-bold">
+                <span>CREATIVE</span>
+                <span className="text-[#0E0E14]/65">STUDIO</span>
+              </div>
+            </div>
 
-          {/* Bottom Pass Code */}
-          <div className="pb-1 text-center">
-            <span className="font-mono text-[0.46em] font-bold text-[#C6FF3D] tracking-widest block uppercase">
-              {item.passId?.replace("27-", "") ?? "PASS"}
-            </span>
+            {/* Right: Dual Crest Seals */}
+            <div className="flex items-center gap-1.5">
+              <div className="w-3.5 h-4 border border-[#0E0E14] rounded-t-xs rounded-b-md flex flex-col items-center justify-center p-0.5 text-[5px] font-mono leading-none text-[#0E0E14] bg-white/40">
+                <span className="font-bold">FX3</span>
+                <span className="text-[3.5px] scale-90 text-[#0E0E14]/70">CINE</span>
+              </div>
+              <div className="size-4 rounded-full border border-dashed border-[#0E0E14] flex items-center justify-center text-[4px] font-mono font-bold leading-none text-[#0E0E14] bg-white/40">
+                PASS
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* 2. MAIN BADGE BODY (Right Side) */}
-        <div className="flex-1 flex flex-col justify-between p-2 pt-2.5 min-w-0 relative overflow-hidden bg-gradient-to-b from-[#14141C] via-[#0E0E14] to-[#09090D]">
-          {/* Background Ambient SVG Curves & Optical Waves from Image 2 */}
-          <svg
-            className="absolute inset-0 w-full h-full pointer-events-none opacity-20 z-0"
-            viewBox="0 0 100 140"
-            preserveAspectRatio="none"
-            aria-hidden="true"
-          >
-            <path d="M0,25 Q50,5 100,25 T200,25" fill="none" stroke="white" strokeWidth="0.8" />
-            <path d="M0,40 Q60,18 100,40 T200,40" fill="none" stroke="white" strokeWidth="0.5" />
-            <path d="M-10,95 Q50,75 110,105" fill="none" stroke="#C6FF3D" strokeWidth="0.6" />
-            <circle cx="85" cy="22" r="28" fill="none" stroke="white" strokeWidth="0.5" opacity="0.6" />
-            <circle cx="85" cy="22" r="16" fill="none" stroke="white" strokeWidth="0.4" opacity="0.4" />
-          </svg>
-
-          {/* Top Event Header Badge (Matches JUDUL EVENT from Image 2) */}
-          <div className="relative z-10 w-full rounded-md bg-white/[0.08] border border-white/15 px-2 py-1 flex items-center justify-between shadow-sm shrink-0 mt-0.5 select-none">
-            <span className="font-display font-black text-[0.84em] uppercase tracking-wider text-[#F4F1EA] whitespace-nowrap">
-              27 CREATIVE STUDIO
-            </span>
-            <span className="flex items-center gap-1 font-mono text-[0.52em] text-[#C6FF3D] font-bold">
-              <span className="size-1 rounded-full bg-[#C6FF3D] animate-pulse" />
-              4K
-            </span>
+        {/* 3. CENTER STAGE: Wavy Zebra Box + Overlapping Portrait + Side Vertical Text */}
+        <div className="relative flex-1 w-full my-1 flex items-center justify-center min-h-[9.5em] overflow-visible">
+          {/* Background Optical Zebra Waves Box (Matches Reference Rectangle Behind Subject) */}
+          <div className="absolute inset-x-1.5 top-[18%] bottom-[12%] rounded-md overflow-hidden bg-[#0A0A0E] border border-[#0E0E14]/20 shadow-inner z-0">
+            <svg className="w-full h-full" viewBox="0 0 240 90" preserveAspectRatio="none" aria-hidden="true">
+              <rect width="240" height="90" fill="#0A0A0E" />
+              {/* Undulating Optical Waves */}
+              <path d="M0,6 Q60,20 120,6 T240,6 L240,12 Q180,-2 120,12 T0,12 Z" fill="#F4F1EA" />
+              <path d="M0,18 Q60,36 120,18 T240,18 L240,24 Q180,6 120,24 T0,24 Z" fill="#F4F1EA" />
+              <path d="M0,30 Q60,50 120,30 T240,30 L240,36 Q180,16 120,36 T0,36 Z" fill="#F4F1EA" />
+              <path d="M0,42 Q60,64 120,42 T240,42 L240,48 Q180,26 120,48 T0,48 Z" fill="#F4F1EA" />
+              <path d="M0,54 Q60,76 120,54 T240,54 L240,60 Q180,38 120,60 T0,60 Z" fill="#F4F1EA" />
+              <path d="M0,66 Q60,88 120,66 T240,66 L240,72 Q180,48 120,72 T0,72 Z" fill="#F4F1EA" />
+              <path d="M0,78 Q60,98 120,78 T240,78 L240,84 Q180,60 120,84 T0,84 Z" fill="#F4F1EA" />
+            </svg>
           </div>
 
-          {/* Center Stage: Background Outlined Stencil CREW + Portrait + Overlapping Title */}
-          <div className="relative z-10 flex-1 my-1 flex flex-col items-center justify-center min-h-0 overflow-visible">
-            {/* Background Repeating Stencil Outline Typography (Matches PANITIA from Image 2) */}
-            <div
-              className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex flex-col items-center justify-center pointer-events-none select-none z-0"
-              aria-hidden="true"
+          {/* Left Vertical Flanking Text */}
+          <div className="absolute left-0 bottom-1 z-20 pointer-events-none select-none">
+            <span
+              className="font-mono text-[0.44em] tracking-[0.24em] uppercase text-[#0E0E14] font-bold block"
+              style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
             >
-              <span
-                className="font-display font-black text-[2.4em] leading-[0.82] tracking-widest uppercase"
-                style={{ WebkitTextStroke: "1px rgba(255,255,255,0.18)", color: "transparent" }}
-              >
-                CREW
-              </span>
-              <span
-                className="font-display font-black text-[2.4em] leading-[0.82] tracking-widest uppercase"
-                style={{ WebkitTextStroke: "1px rgba(198,255,61,0.22)", color: "transparent" }}
-              >
-                CREW
-              </span>
-              <span
-                className="font-display font-black text-[2.4em] leading-[0.82] tracking-widest uppercase"
-                style={{ WebkitTextStroke: "1px rgba(255,255,255,0.14)", color: "transparent" }}
-              >
-                CREW
-              </span>
-            </div>
-
-            {/* Tactical Portrait with Crisp White Border & Viewfinder HUD */}
-            <div className="relative z-10 w-[82%] aspect-[0.94/1] rounded-[10px] overflow-hidden border-2 border-white/80 bg-[#09090D] shadow-[0_12px_28px_rgba(0,0,0,0.85)] group shrink-0">
-              {portraitSrc ? (
-                <img
-                  src={portraitSrc}
-                  alt={item.name}
-                  className="size-full object-cover grayscale contrast-125 brightness-95 transition-all duration-300 ease-out group-hover:grayscale-0 group-hover:contrast-105 group-hover:scale-105"
-                />
-              ) : (
-                <div className="size-full bg-gradient-to-br from-[#1C1C24] to-[#0A0A0E] flex items-center justify-center text-muted-foreground text-xs font-mono">
-                  27 / CREW
-                </div>
-              )}
-
-              {/* Viewfinder Corner Brackets */}
-              <div className="absolute inset-1 pointer-events-none z-10" aria-hidden="true">
-                <span className="absolute top-0 left-0 size-2 border-t-2 border-l-2 border-[#C6FF3D]" />
-                <span className="absolute top-0 right-0 size-2 border-t-2 border-r-2 border-[#C6FF3D]" />
-                <span className="absolute bottom-0 left-0 size-2 border-b-2 border-l-2 border-[#C6FF3D]" />
-                <span className="absolute bottom-0 right-0 size-2 border-b-2 border-r-2 border-[#C6FF3D]" />
-              </div>
-
-              {/* Live Camera HUD Tags */}
-              <div className="absolute inset-x-1.5 top-1 flex items-center justify-between text-[6.5px] font-mono leading-none pointer-events-none z-10">
-                <span className="flex items-center gap-0.5 text-[#FF3B30] font-bold">
-                  <span className="size-1 rounded-full bg-[#FF3B30] animate-pulse" />
-                  REC
-                </span>
-                <span className="text-white/60">24FPS</span>
-              </div>
-              <div className="absolute inset-x-1.5 bottom-1 flex items-center justify-between text-[6.5px] font-mono leading-none pointer-events-none z-10 text-white/60">
-                <span>ISO 400</span>
-                <span className="text-[#C6FF3D]">F1.8</span>
-              </div>
-            </div>
-
-            {/* Solid Title Overlapping Bottom of Portrait (Matches solid PANITIA from Image 2) */}
-            <div className="relative z-20 -mt-[0.55em] text-center w-full select-none">
-              <span className="font-display font-black text-[1.45em] uppercase tracking-wider text-[#F4F1EA] block leading-none drop-shadow-[0_4px_12px_rgba(0,0,0,0.95)]">
-                CREW
-              </span>
-              <span className="font-mono text-[0.52em] font-bold text-[#C6FF3D] uppercase tracking-wide block mt-0.5 whitespace-nowrap">
-                {item.role}
-              </span>
-            </div>
-          </div>
-
-          {/* Bottom Dock Pill (Matches @instagram Pill from Image 2) */}
-          <div className="relative z-10 w-full rounded-full bg-white/[0.08] border border-white/15 py-1 px-2.5 flex items-center justify-between gap-1 shadow-sm shrink-0 select-none">
-            <div className="flex items-center gap-1.5 min-w-0">
-              <svg
-                className="size-2.5 text-[#C6FF3D] shrink-0"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-              </svg>
-              <span className="font-mono text-[0.5em] text-[#F4F1EA] font-semibold truncate">
-                @27creativestudio
-              </span>
-            </div>
-            <span className="font-mono text-[0.46em] font-bold text-[#C6FF3D] uppercase tracking-wider shrink-0">
-              {item.access ?? "VIP"}
+              REAL GROWTH · RESULTS
             </span>
           </div>
 
-          {/* Bottom Credential Barcode / Tag */}
-          <div className="text-[5.5px] font-mono tracking-widest text-white/35 text-center mt-0.5 uppercase shrink-0">
-            27-THOOTHUKUDI · {item.passId ?? "CREW-01"}
+          {/* Right Vertical Flanking Text */}
+          <div className="absolute right-0 bottom-1 z-20 pointer-events-none select-none">
+            <span
+              className="font-mono text-[0.44em] tracking-[0.24em] uppercase text-[#0E0E14] font-bold block"
+              style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+            >
+              COMMERCIAL CINE UNIT
+            </span>
+          </div>
+
+          {/* Centered Crew Member Portrait (Overlapping the Wave Box) */}
+          <div className="relative z-10 w-[78%] h-full flex items-end justify-center pointer-events-none">
+            {portraitSrc ? (
+              <img
+                src={portraitSrc}
+                alt={item.name}
+                className="w-full h-[96%] object-cover object-top filter contrast-115 brightness-100 drop-shadow-[0_12px_24px_rgba(0,0,0,0.5)] pointer-events-auto transition-transform duration-300 hover:scale-[1.03] rounded-lg"
+                style={{
+                  maskImage: "linear-gradient(to bottom, black 82%, transparent 100%)",
+                  WebkitMaskImage: "linear-gradient(to bottom, black 82%, transparent 100%)",
+                }}
+              />
+            ) : (
+              <div className="size-full bg-gradient-to-br from-[#1C1C24] to-[#0A0A0E] flex items-center justify-center text-muted-foreground text-xs font-mono rounded-lg">
+                27 / CREW
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Frosted Plastic Sleeve Overlay: Seam Welt, Glare & Dynamic Specular Sheen */}
+        {/* 4. BOTTOM NAMEPLATE: Sparkles + Member Name + Role */}
+        <div className="relative z-20 w-full pt-1.5 pb-1 text-center flex flex-col items-center justify-center select-none bg-gradient-to-t from-white/95 via-white/80 to-transparent shrink-0">
+          <div className="flex items-center justify-center gap-2 w-full">
+            {/* Left Sparkles */}
+            <div className="flex items-center gap-0.5 text-[#0E0E14] shrink-0">
+              <span className="text-[7.5px] leading-none">✦</span>
+              <span className="text-[11px] leading-none -mt-1 font-bold">✦</span>
+            </div>
+
+            {/* Member Name */}
+            <h3 className="font-display font-black text-[1.28em] tracking-[0.06em] uppercase text-[#0E0E14] leading-none truncate max-w-[76%]">
+              {item.name}
+            </h3>
+
+            {/* Right Sparkles */}
+            <div className="flex items-center gap-0.5 text-[#0E0E14] shrink-0">
+              <span className="text-[11px] leading-none -mt-1 font-bold">✦</span>
+              <span className="text-[7.5px] leading-none">✦</span>
+            </div>
+          </div>
+
+          {/* Subtitle / Role (Matches PUBLIKASI) */}
+          <p className="font-mono text-[0.48em] uppercase tracking-[0.28em] text-[#0E0E14]/75 font-bold mt-1 leading-none">
+            {item.role}
+          </p>
+        </div>
+
+        {/* Tactile Lanyard Plastic Sleeve / Specular Overlay */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 rounded-[16px] border border-white/15 z-30"
+          className="pointer-events-none absolute inset-0 rounded-[16px] border border-black/10 z-30"
         >
-          {/* Inner welded plastic seam welt */}
-          <div className="absolute inset-[3px] rounded-[13px] border border-white/10" />
-          {/* Fixed diagonal glare */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.06] to-transparent" />
-          {/* Dynamic cursor specular glint */}
+          <div className="absolute inset-[3px] rounded-[13px] border border-black/5" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.12] to-transparent" />
           <div
-            className="absolute inset-0 opacity-70"
+            className="absolute inset-0 opacity-40"
             style={{
               background:
-                "radial-gradient(160px circle at var(--gx, 50%) var(--gy, 50%), rgba(255,255,255,0.16), transparent 70%)",
+                "radial-gradient(160px circle at var(--gx, 50%) var(--gy, 50%), rgba(255,255,255,0.4), transparent 70%)",
             }}
           />
         </div>
       </div>
+
+
 
       {/* ================= BACK FACE ================= */}
       <div
