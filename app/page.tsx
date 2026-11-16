@@ -358,11 +358,7 @@ function FooterSection() {
 
       <div className="mt-8 pt-6 border-t border-[var(--line)] flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-[var(--muted)] gap-3">
         <p>© {currentYear} 27 Creative Studio. All rights reserved.</p>
-        <p className="flex items-center gap-2">
-          <span>Thoothukudi · Tamil Nadu</span>
-          <span className="text-[var(--industry)]">●</span>
-          <span>4K · 24fps Production</span>
-        </p>
+        <p>Thoothukudi · Tamil Nadu</p>
       </div>
     </footer>
   );
