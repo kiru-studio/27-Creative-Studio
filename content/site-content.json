@@ -462,15 +462,16 @@
   "people": [
     {
       "name": "Pravin Kumar",
-      "role": "Direction & Cinematography",
-      "bio": "Directs and shoots high-engagement reels across Thoothukudi. Capturing chef craft, customer handovers, and showroom energy on prime cinema glass.",
+      "role": "Data Engineer",
+      "bio": " Data Engineer with hands-on experience in Python, SQL, and ETL pipeline development. Skilled in data extraction, transformation, validation, and database management using PostgreSQL and MongoDB. Passionate about building reliable data pipelines and developing efficient data solutions.",
       "workLabel": "shoots + directs",
-      "photoSrc": "https://lh3.googleusercontent.com/d/1R7aPHexvlekR7YQPVpBtrYSbquExSTMW=w1920",
-      "gear": "Sony FX3 · 24-70 GM · DJI RS3 Pro",
-      "focalLength": "35mm T1.5 Cine Prime",
+      "photoSrc": "https://lh3.googleusercontent.com/d/1UZ8AwMFhX3v4RSj5GDuwHhRw3CI62RBs=w1920",
+      "gear": "Turning Raw Data into Reliable Data Pipelines.",
+      "focalLength": "Data Flow + Minimal Tech",
       "passId": "27-DIR-01",
       "access": "ALL ACCESS // VIP",
-      "stats": "5.8x Peak Client Growth"
+      "stats": "Python · SQL · ETL · PostgreSQL · MongoDB",
+      "tagline": "Curious by Nature. Analytical by Mind. Engineer by Passion."
     },
     {
       "name": "27 Growth Strategist",
