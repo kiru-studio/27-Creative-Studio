@@ -132,8 +132,8 @@ function geometry(W: number, items: LanyardMember[]) {
     H / 2 -
     pivotY;
   const bottom = Math.max(0, ...cardTops.map((top) => top + H));
-  // Safe physics buffer: 48 * u + 28px clearance
-  const height = Math.ceil(bottom + 48 * u + 28);
+  // Safe physics buffer with 1.25x flip zoom clearance: 72 * u + 56px clearance
+  const height = Math.ceil(bottom + 72 * u + 56);
   return {
     W,
     H,
@@ -552,58 +552,87 @@ function MetallicLobsterClasp({ u }: { u: number }) {
 }
 
 function getCanvaCardData(item: LanyardMember) {
-  const nameLower = (item.name || "").toLowerCase();
-  const isPravin = nameLower.includes("pravin");
-  const isStrategist = nameLower.includes("strategist") || nameLower.includes("growth");
-  const isEditor = nameLower.includes("editor") || nameLower.includes("motion") || nameLower.includes("post");
+  const rawName = (item.name || "").trim();
+  const rawRole = (item.role || "").trim();
 
-  let roleBig = "DIRECTION";
-  let roleSmall = "CINEMATOGRAPHY";
-  let firstName = "PRAVIN";
-  let lastName = "KUMAR";
-  let passId = item.passId || "27-DIR-01";
-  let teamBig = "CINEMA";
-  let teamSmall = "DIRECTION & CAMERA";
-  let tags = ["Direction", "Sony FX3", "Reels"];
+  // Strip leading "27 " brand prefix if present (e.g. "27 Growth Strategist" -> "Growth Strategist")
+  const cleanName = rawName.replace(/^27\s+/i, "");
 
-  if (isPravin) {
-    roleBig = "DIRECTION";
-    roleSmall = "CINEMATOGRAPHY";
-    firstName = "PRAVIN";
-    lastName = "KUMAR";
-    passId = item.passId || "27-DIR-01";
-    teamBig = "CINEMA";
-    teamSmall = "DIRECTION & CAMERA";
-    tags = ["Direction", "Sony FX3", "Reels"];
-  } else if (isStrategist) {
-    roleBig = "GROWTH";
-    roleSmall = "STRATEGY & LOCAL SEO";
-    firstName = "GROWTH";
-    lastName = "STRATEGIST";
-    passId = item.passId || "27-STR-02";
-    teamBig = "GROWTH";
-    teamSmall = "MARKETING & SEO";
-    tags = ["Strategy", "Local SEO", "Scale"];
-  } else if (isEditor) {
-    roleBig = "POST-PROD";
-    roleSmall = "SOUND DESIGN & COLOR";
-    firstName = "POST LEAD";
-    lastName = "EDITOR";
-    passId = item.passId || "27-EDT-03";
-    teamBig = "POST-PROD";
-    teamSmall = "EDITING & SOUND";
-    tags = ["DaVinci", "Sound FX", "48h Turnaround"];
+  // 1. Dynamic Name splitting (Handles 1 word, 2 words, or multi-word admin names)
+  let firstName = "";
+  let lastName = "";
+  if (cleanName) {
+    const parts = cleanName.split(/\s+/);
+    if (parts.length === 1) {
+      firstName = parts[0].toUpperCase();
+      lastName = "";
+    } else {
+      firstName = parts[0].toUpperCase();
+      lastName = parts.slice(1).join(" ").toUpperCase();
+    }
   } else {
-    const parts = (item.name || "").trim().split(/\s+/);
-    firstName = (parts[0] || "CREW").toUpperCase();
-    lastName = (parts.slice(1).join(" ") || "MEMBER").toUpperCase();
-    const roleParts = (item.role || "").split(/&|\/|,/);
-    roleBig = (roleParts[0] || "CREW").trim().toUpperCase();
-    roleSmall = (roleParts.slice(1).join(" & ") || "SPECIALIST").trim().toUpperCase();
-    passId = item.passId || "27-CREW-01";
-    teamBig = roleBig;
-    teamSmall = "CREW TEAM";
-    tags = item.tags && item.tags.length > 0 ? item.tags.slice(0, 3) : ["Production", "Cinema", "27 Crew"];
+    firstName = "CREW";
+    lastName = "MEMBER";
+  }
+
+  // 2. Intelligent Role parsing: Primary discipline header + specific specialty subtitle
+  let roleBig = "";
+  let roleSmall = "";
+  if (rawRole) {
+    const roleLower = rawRole.toLowerCase();
+    if (roleLower.includes("growth") || roleLower.includes("strateg")) {
+      roleBig = "GROWTH";
+      roleSmall = "STRATEGY & LOCAL SEO";
+    } else if (roleLower.includes("post") || roleLower.includes("edit") || roleLower.includes("motion")) {
+      roleBig = "POST-PROD";
+      roleSmall = "SOUND DESIGN & COLOR";
+    } else if (roleLower.includes("direct") || roleLower.includes("cinema")) {
+      roleBig = "DIRECTION";
+      roleSmall = "CINEMATOGRAPHY";
+    } else {
+      // General dynamic fallback for arbitrary admin roles:
+      if (rawRole.includes("&")) {
+        const parts = rawRole.split("&");
+        const leftWords = parts[0].trim().split(/\s+/);
+        roleBig = leftWords[0].toUpperCase();
+        roleSmall = (leftWords.slice(1).join(" ") + (leftWords.length > 1 ? " & " : "") + parts.slice(1).join("&").trim()).trim().toUpperCase();
+      } else if (rawRole.includes(",")) {
+        const parts = rawRole.split(",");
+        roleBig = parts[0].trim().toUpperCase();
+        roleSmall = parts.slice(1).join(", ").trim().toUpperCase();
+      } else if (rawRole.includes("/")) {
+        const parts = rawRole.split("/");
+        roleBig = parts[0].trim().toUpperCase();
+        roleSmall = parts.slice(1).join("/").trim().toUpperCase();
+      } else {
+        const words = rawRole.split(/\s+/);
+        if (words.length > 1) {
+          roleBig = words[0].toUpperCase();
+          roleSmall = words.slice(1).join(" ").toUpperCase();
+        } else {
+          roleBig = rawRole.toUpperCase();
+          roleSmall = "27 CREATIVE STUDIO";
+        }
+      }
+    }
+  } else {
+    roleBig = "CREW";
+    roleSmall = "CINEMA SPECIALIST";
+  }
+
+  // 3. Team header for back face
+  const teamBig = roleBig;
+  const teamSmall = roleSmall || "DIRECTION & CAMERA";
+
+  // 4. Pass ID
+  const passId = item.passId || "27-CREW-01";
+
+  // 5. Dynamic Tags
+  let tags: string[] = [];
+  if (item.tags && item.tags.length > 0) {
+    tags = item.tags.map((t) => String(t).trim()).filter(Boolean);
+  } else {
+    tags = ["Direction", "Story PD", "Camera"];
   }
 
   return {
@@ -638,26 +667,27 @@ const BadgeFaces = React.memo(function BadgeFaces({
 
   const bioText =
     item.bio ??
-    "Directs and shoots high-engagement reels across Thoothukudi. Capturing chef craft, customer handovers, and showroom energy on prime cinema glass.";
+    "Directs and shoots high engagement reels across Thoothukudi. Capturing chef craft, customer handovers, and showroom energy on prime cinema glass.";
 
   const cardVars = {
     "--p": "0.1692cqw",
-    "--card-bg": "#d2d2d2",
-    "--hex-back": "#c6c6c6",
-    "--hex-front": "#bdbdbd",
-    "--strip": "#505050",
-    "--panel": "#cbcbcb",
-    "--panel-hex": "#c0c0c0",
-    "--ink": "#0b0b0b",
-    "--grey": "#575757",
-    "--name-grey": "#575757",
+    "--card-bg": "linear-gradient(175deg, #222530 0%, #161822 45%, #0e1015 100%)",
+    "--hex-back": "rgba(255, 255, 255, 0.035)",
+    "--hex-front": "rgba(255, 255, 255, 0.065)",
+    "--strip": "linear-gradient(180deg, #0e0f14 0%, #07080b 100%)",
+    "--panel": "linear-gradient(180deg, #242735 0%, #191b24 50%, #111218 100%)",
+    "--panel-hex": "rgba(255, 255, 255, 0.025)",
+    "--ink": "#FFFFFF",
+    "--grey": "#9CA3AF",
+    "--name-grey": "#FFFFFF",
+    "--accent": "#C6FF3D",
     "--display": '"Bebas Neue", Impact, sans-serif',
     "--sans": '"Poppins", "Helvetica Neue", Arial, sans-serif',
   } as React.CSSProperties;
 
   return (
     <>
-      {/* ================= FRONT FACE (Canva ID Badge Architecture) ================= */}
+      {/* ================= FRONT FACE (Dark Cinema Titanium Architecture) ================= */}
       <div
         data-face="front"
         className="absolute inset-0 overflow-hidden select-none [backface-visibility:hidden]"
@@ -666,9 +696,19 @@ const BadgeFaces = React.memo(function BadgeFaces({
           containerType: "inline-size",
           transform: "translateZ(1px)",
           background: "var(--card-bg)",
-          boxShadow: "0 24px 50px rgba(0,0,0,0.65), 0 2px 6px rgba(0,0,0,0.3)",
+          boxShadow: "0 28px 70px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.08)",
         }}
       >
+        {/* Fine Brushed Metal Texture Simulation */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 opacity-40 mix-blend-overlay"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(90deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 4px)",
+          }}
+        />
+
         {/* Background Hex Watermarks */}
         <div
           className="pointer-events-none absolute"
@@ -700,8 +740,9 @@ const BadgeFaces = React.memo(function BadgeFaces({
             left: 0,
             top: 0,
             width: "calc(177 * var(--p))",
-            height: "calc(760 * var(--p))",
+            height: "100%",
             background: "var(--strip)",
+            borderRight: "1px solid rgba(255,255,255,0.08)",
             zIndex: 10,
           }}
         />
@@ -727,7 +768,7 @@ const BadgeFaces = React.memo(function BadgeFaces({
 
         {/* Vertical Brand Name */}
         <p
-          className="pointer-events-none absolute font-bold whitespace-nowrap text-[#f4f4f4]"
+          className="pointer-events-none absolute font-bold whitespace-nowrap text-[#9CA3AF]"
           style={{
             left: "calc(88 * var(--p))",
             top: "calc(410 * var(--p))",
@@ -736,7 +777,7 @@ const BadgeFaces = React.memo(function BadgeFaces({
             fontFamily: "var(--sans)",
             fontSize: "calc(42 * var(--p))",
             lineHeight: 1,
-            letterSpacing: "0.12em",
+            letterSpacing: "0.14em",
             zIndex: 25,
           }}
         >
@@ -746,27 +787,145 @@ const BadgeFaces = React.memo(function BadgeFaces({
         {/* Slot Punch Hole */}
         <Hole />
 
-        {/* Center Crew Member Cutout Portrait */}
-        {portraitSrc ? (
-          <img
-            src={portraitSrc}
-            alt={item.name}
-            draggable={false}
-            onDragStart={(e) => e.preventDefault()}
-            className="pointer-events-none select-none absolute"
+        {/* Top-Right Department Role Title (Bounded: wide 320px clearance, perfectly sized fonts) */}
+        <div
+          className="pointer-events-none absolute flex flex-col items-end text-right"
+          style={{
+            right: "calc(44 * var(--p))",
+            top: "calc(50 * var(--p))",
+            maxWidth: "calc(325 * var(--p))",
+            zIndex: 25,
+          }}
+        >
+          <p
+            className="w-full text-right font-display leading-none tracking-[0.04em] text-white truncate"
             style={{
-              left: "calc(130 * var(--p))",
-              top: "calc(160 * var(--p))",
-              width: "calc(460 * var(--p))",
-              height: "calc(550 * var(--p))",
-              objectFit: "contain",
-              objectPosition: "bottom center",
-              transform: "scale(1.15)",
-              transformOrigin: "bottom center",
-              zIndex: 15,
-              filter: "contrast(1.08) brightness(1.02)",
+              fontFamily: "var(--display)",
+              fontSize:
+                canva.roleBig.length > 14
+                  ? "calc(56 * var(--p))"
+                  : canva.roleBig.length > 9
+                  ? "calc(70 * var(--p))"
+                  : "calc(82 * var(--p))",
+              lineHeight: 1,
+            }}
+            title={canva.roleBig}
+          >
+            {canva.roleBig}
+          </p>
+          <p
+            className="w-full text-right font-bold text-[#9CA3AF]"
+            style={{
+              marginTop: "calc(6 * var(--p))",
+              fontFamily: "var(--sans)",
+              fontSize:
+                canva.roleSmall.length > 22
+                  ? "calc(19 * var(--p))"
+                  : "calc(23 * var(--p))",
+              lineHeight: 1.2,
+              letterSpacing: "0.06em",
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+              wordBreak: "break-word",
+            }}
+            title={canva.roleSmall}
+          >
+            {canva.roleSmall}
+          </p>
+        </div>
+
+        {/* Behind-Portrait Cinema Viewfinder Frame */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute overflow-hidden"
+          style={{
+            left: "calc(200 * var(--p))",
+            top: "calc(195 * var(--p))",
+            width: "calc(355 * var(--p))",
+            height: "calc(445 * var(--p))",
+            background: "rgba(10, 11, 16, 0.45)",
+            border: "1px solid rgba(255, 255, 255, 0.08)",
+            borderRadius: "calc(8 * var(--p))",
+            zIndex: 12,
+          }}
+        >
+          {/* Viewfinder Corner Crosshairs */}
+          <span
+            className="absolute border-t-2 border-l-2 border-[#C6FF3D]/60"
+            style={{
+              top: "calc(10 * var(--p))",
+              left: "calc(10 * var(--p))",
+              width: "calc(14 * var(--p))",
+              height: "calc(14 * var(--p))",
             }}
           />
+          <span
+            className="absolute border-t-2 border-r-2 border-[#C6FF3D]/60"
+            style={{
+              top: "calc(10 * var(--p))",
+              right: "calc(10 * var(--p))",
+              width: "calc(14 * var(--p))",
+              height: "calc(14 * var(--p))",
+            }}
+          />
+          <span
+            className="absolute border-b-2 border-l-2 border-[#C6FF3D]/60"
+            style={{
+              bottom: "calc(10 * var(--p))",
+              left: "calc(10 * var(--p))",
+              width: "calc(14 * var(--p))",
+              height: "calc(14 * var(--p))",
+            }}
+          />
+          <span
+            className="absolute border-b-2 border-r-2 border-[#C6FF3D]/60"
+            style={{
+              bottom: "calc(10 * var(--p))",
+              right: "calc(10 * var(--p))",
+              width: "calc(14 * var(--p))",
+              height: "calc(14 * var(--p))",
+            }}
+          />
+          {/* Subtle Grid Dots */}
+          <div
+            className="absolute inset-[15%] opacity-25"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px)",
+              backgroundSize: "calc(24 * var(--p)) calc(24 * var(--p))",
+            }}
+          />
+        </div>
+
+        {/* Center Crew Member Cutout Portrait (Strictly bounded so it never clips top header) */}
+        {portraitSrc ? (
+          <div
+            className="pointer-events-none absolute overflow-hidden"
+            style={{
+              left: "calc(120 * var(--p))",
+              top: "calc(175 * var(--p))",
+              width: "calc(460 * var(--p))",
+              height: "calc(485 * var(--p))",
+              zIndex: 15,
+            }}
+          >
+            <img
+              src={portraitSrc}
+              alt={item.name}
+              draggable={false}
+              onDragStart={(e) => e.preventDefault()}
+              className="pointer-events-none select-none w-full h-full"
+              style={{
+                objectFit: "contain",
+                objectPosition: "bottom center",
+                transform: "scale(1.12)",
+                transformOrigin: "bottom center",
+                filter: "contrast(1.08) brightness(1.02)",
+              }}
+            />
+          </div>
         ) : null}
 
         {/* Lower Stepped Angled Panel */}
@@ -783,6 +942,7 @@ const BadgeFaces = React.memo(function BadgeFaces({
             zIndex: 20,
           }}
         >
+          {/* Inner Panel Hex Watermarks */}
           <i
             className="pointer-events-none absolute"
             style={{
@@ -807,117 +967,207 @@ const BadgeFaces = React.memo(function BadgeFaces({
           />
         </div>
 
-        {/* Top-Right Department Role Title */}
-        <p
-          className="pointer-events-none absolute whitespace-nowrap text-right"
-          style={{
-            right: "calc(52 * var(--p))",
-            top: "calc(56 * var(--p))",
-            fontFamily: "var(--display)",
-            fontSize: "calc(93 * var(--p))",
-            lineHeight: 1,
-            color: "var(--ink)",
-            WebkitTextStroke: "calc(1.5 * var(--p)) var(--ink)",
-            zIndex: 25,
-          }}
-        >
-          {canva.roleBig}
-        </p>
-        <p
-          className="pointer-events-none absolute whitespace-nowrap text-right font-bold"
-          style={{
-            right: "calc(52 * var(--p))",
-            top: "calc(140 * var(--p))",
-            fontFamily: "var(--sans)",
-            fontSize: "calc(27 * var(--p))",
-            lineHeight: 1,
-            color: "var(--ink)",
-            zIndex: 25,
-          }}
-        >
-          {canva.roleSmall}
-        </p>
-
-        {/* Member Name on Lower Panel */}
-        <h3
-          className="pointer-events-none absolute whitespace-nowrap"
+        {/* Member Name on Lower Panel (Bounded: maxWidth 340, dynamic scaling, zero collision with ID) */}
+        <div
+          className="pointer-events-none absolute flex flex-col justify-end"
           style={{
             left: "calc(64 * var(--p))",
-            top: "calc(748 * var(--p))",
-            fontFamily: "var(--display)",
-            fontSize: "calc(118 * var(--p))",
-            lineHeight: 1,
-            color: "var(--name-grey)",
+            top: "calc(730 * var(--p))",
+            maxWidth: "calc(340 * var(--p))",
+            height: "calc(190 * var(--p))",
             zIndex: 30,
           }}
         >
-          {canva.firstName}
-        </h3>
-        <p
-          className="pointer-events-none absolute whitespace-nowrap font-bold italic"
-          style={{
-            left: "calc(64 * var(--p))",
-            top: "calc(852 * var(--p))",
-            fontFamily: "var(--sans)",
-            fontSize: "calc(52 * var(--p))",
-            lineHeight: 1,
-            color: "var(--ink)",
-            zIndex: 30,
-          }}
-        >
-          {canva.lastName}
-        </p>
+          <h3
+            className="w-full font-display leading-none tracking-[0.02em] text-white truncate"
+            style={{
+              fontFamily: "var(--display)",
+              fontSize:
+                canva.firstName.length > 14
+                  ? "calc(64 * var(--p))"
+                  : canva.firstName.length > 10
+                  ? "calc(80 * var(--p))"
+                  : canva.firstName.length > 7
+                  ? "calc(96 * var(--p))"
+                  : "calc(112 * var(--p))",
+              lineHeight: 0.95,
+            }}
+            title={canva.firstName}
+          >
+            {canva.firstName}
+          </h3>
+          {canva.lastName ? (
+            <p
+              className="w-full font-bold italic text-[#9CA3AF] truncate"
+              style={{
+                marginTop: "calc(6 * var(--p))",
+                fontFamily: "var(--sans)",
+                fontSize:
+                  canva.lastName.length > 16
+                    ? "calc(28 * var(--p))"
+                    : canva.lastName.length > 12
+                    ? "calc(36 * var(--p))"
+                    : "calc(44 * var(--p))",
+                lineHeight: 1,
+              }}
+              title={canva.lastName}
+            >
+              {canva.lastName}
+            </p>
+          ) : null}
+        </div>
 
-        {/* Pass ID on Lower Panel */}
-        <p
-          className="pointer-events-none absolute whitespace-nowrap text-right"
+        {/* Tally Indicator Ticks */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute flex items-center gap-[3px]"
           style={{
-            right: "calc(59 * var(--p))",
-            top: "calc(923 * var(--p))",
-            fontFamily: "var(--sans)",
-            fontSize: "calc(14 * var(--p))",
-            lineHeight: 1,
-            letterSpacing: "0.1em",
-            color: "#1a1a1a",
+            right: "calc(44 * var(--p))",
+            top: "calc(880 * var(--p))",
             zIndex: 30,
           }}
         >
-          ID NUMBER:
-        </p>
-        <p
-          className="pointer-events-none absolute whitespace-nowrap text-right"
+          <span
+            className="inline-block transform -skew-x-[20deg]"
+            style={{
+              width: "calc(4 * var(--p))",
+              height: "calc(12 * var(--p))",
+              background: "var(--accent)",
+            }}
+          />
+          <span
+            className="inline-block transform -skew-x-[20deg]"
+            style={{
+              width: "calc(4 * var(--p))",
+              height: "calc(12 * var(--p))",
+              background: "var(--accent)",
+            }}
+          />
+          <span
+            className="inline-block transform -skew-x-[20deg]"
+            style={{
+              width: "calc(4 * var(--p))",
+              height: "calc(12 * var(--p))",
+              background: "var(--accent)",
+            }}
+          />
+        </div>
+
+        {/* Pass ID on Lower Panel (Roomy 160px width, fits all IDs) */}
+        <div
+          className="pointer-events-none absolute flex flex-col items-end text-right"
           style={{
-            right: "calc(59 * var(--p))",
-            top: "calc(938 * var(--p))",
-            fontFamily: "var(--sans)",
-            fontSize: "calc(28 * var(--p))",
-            lineHeight: 1,
-            letterSpacing: "0.03em",
-            color: "#1a1a1a",
+            right: "calc(44 * var(--p))",
+            top: "calc(915 * var(--p))",
+            maxWidth: "calc(160 * var(--p))",
             zIndex: 30,
           }}
         >
-          {canva.passId}
-        </p>
+          <p
+            className="w-full font-sans uppercase tracking-[0.12em] text-white/45 truncate"
+            style={{
+              fontFamily: "var(--sans)",
+              fontSize: "calc(13 * var(--p))",
+              lineHeight: 1,
+            }}
+          >
+            ID NUMBER:
+          </p>
+          <p
+            className="w-full font-sans font-bold tracking-[0.04em] text-white truncate"
+            style={{
+              marginTop: "calc(4 * var(--p))",
+              fontFamily: "var(--sans)",
+              fontSize:
+                canva.passId.length > 12
+                  ? "calc(20 * var(--p))"
+                  : "calc(24 * var(--p))",
+              lineHeight: 1,
+            }}
+            title={canva.passId}
+          >
+            {canva.passId}
+          </p>
+        </div>
+
+        {/* Neon Lime Chamfer Corner Accents & Accent Bars */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute z-35"
+          style={{
+            top: 0,
+            right: 0,
+            width: "calc(120 * var(--p))",
+            height: "calc(6 * var(--p))",
+            background: "var(--accent)",
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute z-35"
+          style={{
+            top: 0,
+            right: 0,
+            width: "calc(6 * var(--p))",
+            height: "calc(34 * var(--p))",
+            background: "var(--accent)",
+          }}
+        />
+
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute z-35"
+          style={{
+            bottom: 0,
+            left: 0,
+            width: "calc(100 * var(--p))",
+            height: "calc(6 * var(--p))",
+            background: "var(--accent)",
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute z-35"
+          style={{
+            bottom: 0,
+            left: 0,
+            width: "calc(6 * var(--p))",
+            height: "calc(34 * var(--p))",
+            background: "var(--accent)",
+          }}
+        />
+
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute z-35"
+          style={{
+            bottom: 0,
+            left: "calc(230 * var(--p))",
+            width: "calc(140 * var(--p))",
+            height: "calc(5 * var(--p))",
+            background: "var(--accent)",
+            borderRadius: "calc(2 * var(--p)) calc(2 * var(--p)) 0 0",
+          }}
+        />
 
         {/* Sleeve Gloss Border */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 z-40"
           style={{
-            border: "1px solid rgba(0,0,0,0.12)",
+            border: "1px solid rgba(255,255,255,0.14)",
           }}
         >
           <div
             className="absolute inset-[2px]"
             style={{
-              border: "1px solid rgba(255,255,255,0.25)",
+              border: "1px solid rgba(255,255,255,0.06)",
             }}
           />
         </div>
       </div>
 
-      {/* ================= BACK FACE (Exact Canva Back ID Card Architecture) ================= */}
+      {/* ================= BACK FACE (Dark Cinema Titanium Architecture) ================= */}
       <div
         data-face="back"
         className="absolute inset-0 overflow-hidden select-none [backface-visibility:hidden]"
@@ -926,9 +1176,19 @@ const BadgeFaces = React.memo(function BadgeFaces({
           containerType: "inline-size",
           transform: "rotateY(180deg) translateZ(1px)",
           background: "var(--card-bg)",
-          boxShadow: "0 24px 50px rgba(0,0,0,0.65), 0 2px 6px rgba(0,0,0,0.3)",
+          boxShadow: "0 28px 70px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.08)",
         }}
       >
+        {/* Fine Brushed Metal Texture Simulation */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 opacity-40 mix-blend-overlay"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(90deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 4px)",
+          }}
+        />
+
         {/* Background Hex Watermarks */}
         <div
           className="pointer-events-none absolute"
@@ -960,8 +1220,9 @@ const BadgeFaces = React.memo(function BadgeFaces({
             left: 0,
             top: 0,
             width: "calc(177 * var(--p))",
-            height: "calc(760 * var(--p))",
+            height: "100%",
             background: "var(--strip)",
+            borderRight: "1px solid rgba(255,255,255,0.08)",
             zIndex: 10,
           }}
         />
@@ -987,7 +1248,7 @@ const BadgeFaces = React.memo(function BadgeFaces({
 
         {/* Vertical Brand Name */}
         <p
-          className="pointer-events-none absolute font-bold whitespace-nowrap text-[#f4f4f4]"
+          className="pointer-events-none absolute font-bold whitespace-nowrap text-[#9CA3AF]"
           style={{
             left: "calc(88 * var(--p))",
             top: "calc(410 * var(--p))",
@@ -996,7 +1257,7 @@ const BadgeFaces = React.memo(function BadgeFaces({
             fontFamily: "var(--sans)",
             fontSize: "calc(42 * var(--p))",
             lineHeight: 1,
-            letterSpacing: "0.12em",
+            letterSpacing: "0.14em",
             zIndex: 25,
           }}
         >
@@ -1006,99 +1267,201 @@ const BadgeFaces = React.memo(function BadgeFaces({
         {/* Slot Punch Hole */}
         <Hole />
 
-        {/* Team + Role Summary */}
-        <p
-          className="pointer-events-none absolute whitespace-nowrap text-right"
+        {/* Top-Right Department Role Title (Bounded: wide clearance) */}
+        <div
+          className="pointer-events-none absolute flex flex-col items-end text-right"
           style={{
-            right: "calc(61 * var(--p))",
-            top: "calc(59 * var(--p))",
-            fontFamily: "var(--display)",
-            fontSize: "calc(93 * var(--p))",
-            lineHeight: 1,
-            color: "var(--ink)",
-            WebkitTextStroke: "calc(1.5 * var(--p)) var(--ink)",
+            right: "calc(44 * var(--p))",
+            top: "calc(50 * var(--p))",
+            maxWidth: "calc(325 * var(--p))",
             zIndex: 25,
           }}
         >
-          {canva.teamBig}
-        </p>
-        <p
-          className="pointer-events-none absolute whitespace-nowrap text-right font-bold"
-          style={{
-            right: "calc(61 * var(--p))",
-            top: "calc(142 * var(--p))",
-            fontFamily: "var(--sans)",
-            fontSize: "calc(30 * var(--p))",
-            lineHeight: 1,
-            color: "var(--ink)",
-            zIndex: 25,
-          }}
-        >
-          {canva.teamSmall}
-        </p>
+          <p
+            className="w-full text-right font-display leading-none tracking-[0.04em] text-white truncate"
+            style={{
+              fontFamily: "var(--display)",
+              fontSize:
+                canva.teamBig.length > 14
+                  ? "calc(56 * var(--p))"
+                  : canva.teamBig.length > 9
+                  ? "calc(70 * var(--p))"
+                  : "calc(82 * var(--p))",
+              lineHeight: 1,
+            }}
+            title={canva.teamBig}
+          >
+            {canva.teamBig}
+          </p>
+          <p
+            className="w-full text-right font-bold text-[#9CA3AF]"
+            style={{
+              marginTop: "calc(6 * var(--p))",
+              fontFamily: "var(--sans)",
+              fontSize:
+                canva.teamSmall.length > 22
+                  ? "calc(19 * var(--p))"
+                  : "calc(23 * var(--p))",
+              lineHeight: 1.2,
+              letterSpacing: "0.06em",
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+              wordBreak: "break-word",
+            }}
+            title={canva.teamSmall}
+          >
+            {canva.teamSmall}
+          </p>
+        </div>
 
-        {/* About Title & Summary */}
-        <h2
-          className="pointer-events-none absolute whitespace-nowrap"
+        {/* High-Tech Dossier Container ("WHAT I DO") */}
+        <div
+          className="pointer-events-none absolute flex flex-col justify-between overflow-hidden"
           style={{
-            left: "calc(215 * var(--p))",
-            top: "calc(232 * var(--p))",
-            fontFamily: "var(--display)",
-            fontSize: "calc(50 * var(--p))",
-            lineHeight: 1,
-            color: "var(--grey)",
+            left: "calc(200 * var(--p))",
+            top: "calc(205 * var(--p))",
+            width: "calc(355 * var(--p))",
+            height: "calc(430 * var(--p))",
+            background: "rgba(10, 11, 16, 0.65)",
+            border: "1px solid rgba(255, 255, 255, 0.12)",
+            borderRadius: "calc(10 * var(--p))",
+            padding: "calc(18 * var(--p))",
             zIndex: 25,
           }}
         >
-          WHAT I DO
-        </h2>
-        <p
-          className="pointer-events-none absolute"
-          style={{
-            left: "calc(215 * var(--p))",
-            top: "calc(300 * var(--p))",
-            width: "calc(318 * var(--p))",
-            fontFamily: "var(--sans)",
-            fontSize: "calc(21 * var(--p))",
-            lineHeight: 1.55,
-            color: "#1c1c1c",
-            zIndex: 25,
-          }}
-        >
-          {bioText}
-        </p>
+          {/* Tech Box Corner Crosshairs */}
+          <span
+            className="absolute border-t-2 border-l-2 border-[#C6FF3D]/60"
+            style={{
+              top: "-1px",
+              left: "-1px",
+              width: "calc(12 * var(--p))",
+              height: "calc(12 * var(--p))",
+            }}
+          />
+          <span
+            className="absolute border-t-2 border-r-2 border-[#C6FF3D]/60"
+            style={{
+              top: "-1px",
+              right: "-1px",
+              width: "calc(12 * var(--p))",
+              height: "calc(12 * var(--p))",
+            }}
+          />
+          <span
+            className="absolute border-b-2 border-l-2 border-[#C6FF3D]/60"
+            style={{
+              bottom: "-1px",
+              left: "-1px",
+              width: "calc(12 * var(--p))",
+              height: "calc(12 * var(--p))",
+            }}
+          />
+          <span
+            className="absolute border-b-2 border-r-2 border-[#C6FF3D]/60"
+            style={{
+              bottom: "-1px",
+              right: "-1px",
+              width: "calc(12 * var(--p))",
+              height: "calc(12 * var(--p))",
+            }}
+          />
 
-        {/* Tags */}
-        <ul
-          className="pointer-events-none absolute flex items-center"
-          style={{
-            left: "calc(215 * var(--p))",
-            top: "calc(580 * var(--p))",
-            gap: "calc(10 * var(--p))",
-            padding: 0,
-            margin: 0,
-            listStyle: "none",
-            zIndex: 25,
-          }}
-        >
-          {canva.tags.map((tag, idx) => (
-            <li
-              key={idx}
+          {/* Bio text area */}
+          <div className="w-full flex-1 min-h-0 overflow-hidden flex flex-col justify-start">
+            <h2
+              className="shrink-0 tracking-[0.04em] text-[#C6FF3D]"
               style={{
-                padding: "calc(8 * var(--p)) calc(16 * var(--p))",
-                borderRadius: "calc(40 * var(--p))",
-                background: "var(--strip)",
-                color: "#f4f4f4",
-                fontFamily: "var(--sans)",
-                fontWeight: 600,
-                fontSize: "calc(15 * var(--p))",
+                margin: 0,
+                fontFamily: "var(--display)",
+                fontSize: "calc(46 * var(--p))",
                 lineHeight: 1,
               }}
             >
-              {tag}
-            </li>
-          ))}
-        </ul>
+              WHAT I DO
+            </h2>
+            <p
+              className="w-full text-[#E5E7EB]"
+              style={{
+                marginTop: "calc(10 * var(--p))",
+                fontFamily: "var(--sans)",
+                fontSize:
+                  bioText.length > 200
+                    ? "calc(16 * var(--p))"
+                    : bioText.length > 130
+                    ? "calc(17.5 * var(--p))"
+                    : "calc(19 * var(--p))",
+                lineHeight: 1.48,
+                display: "-webkit-box",
+                WebkitLineClamp: 6,
+                WebkitBoxOrient: "vertical",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                wordBreak: "break-word",
+              }}
+              title={bioText}
+            >
+              {bioText}
+            </p>
+          </div>
+
+          {/* Bottom Tags & Tally Row (Generous readable size, wraps up to 2 rows cleanly) */}
+          <div className="shrink-0 w-full flex items-end justify-between pt-[calc(6*var(--p))]">
+            <ul
+              className="flex items-center flex-wrap gap-[calc(6*var(--p))] p-0 m-0 list-none overflow-hidden"
+              style={{ maxWidth: "calc(275 * var(--p))", maxHeight: "calc(74 * var(--p))" }}
+            >
+              {canva.tags.slice(0, 3).map((tag, idx) => (
+                <li
+                  key={idx}
+                  className="truncate font-sans font-semibold text-white tracking-wide"
+                  style={{
+                    padding: "calc(5 * var(--p)) calc(12 * var(--p))",
+                    borderRadius: "calc(6 * var(--p))",
+                    background: "rgba(255, 255, 255, 0.08)",
+                    border: "1px solid rgba(255, 255, 255, 0.16)",
+                    fontSize: "calc(15 * var(--p))",
+                    lineHeight: 1.2,
+                    maxWidth: "calc(255 * var(--p))",
+                  }}
+                  title={tag}
+                >
+                  {tag}
+                </li>
+              ))}
+            </ul>
+
+            {/* Neon Lime Tally Marks */}
+            <div className="flex items-center gap-[3px] shrink-0 pb-[calc(2*var(--p))]">
+              <span
+                className="inline-block transform -skew-x-[20deg]"
+                style={{
+                  width: "calc(3 * var(--p))",
+                  height: "calc(10 * var(--p))",
+                  background: "var(--accent)",
+                }}
+              />
+              <span
+                className="inline-block transform -skew-x-[20deg]"
+                style={{
+                  width: "calc(3 * var(--p))",
+                  height: "calc(10 * var(--p))",
+                  background: "var(--accent)",
+                }}
+              />
+              <span
+                className="inline-block transform -skew-x-[20deg]"
+                style={{
+                  width: "calc(3 * var(--p))",
+                  height: "calc(10 * var(--p))",
+                  background: "var(--accent)",
+                }}
+              />
+            </div>
+          </div>
+        </div>
 
         {/* Lower Stepped Angled Panel */}
         <div
@@ -1114,6 +1477,7 @@ const BadgeFaces = React.memo(function BadgeFaces({
             zIndex: 20,
           }}
         >
+          {/* Inner Panel Hex Watermarks */}
           <i
             className="pointer-events-none absolute"
             style={{
@@ -1140,35 +1504,41 @@ const BadgeFaces = React.memo(function BadgeFaces({
 
         {/* Instagram Header on Lower Panel */}
         <h2
-          className="pointer-events-none absolute whitespace-nowrap"
+          className="pointer-events-none absolute whitespace-nowrap text-[#9CA3AF] tracking-[0.04em]"
           style={{
-            left: "calc(77 * var(--p))",
+            left: "calc(64 * var(--p))",
             top: "calc(748 * var(--p))",
+            maxWidth: "calc(320 * var(--p))",
             fontFamily: "var(--display)",
-            fontSize: "calc(60 * var(--p))",
+            fontSize: "calc(54 * var(--p))",
             lineHeight: 1,
-            color: "var(--grey)",
             zIndex: 30,
           }}
         >
           FIND ME ON INSTAGRAM
         </h2>
 
-        {/* Instagram Icon + Handle */}
+        {/* Instagram Button (Optimized sizing: fits handle cleanly, never overlaps Pass ID) */}
         <a
           href={instaHref}
           target="_blank"
           rel="noopener noreferrer"
           onClick={(e) => e.stopPropagation()}
-          className="group absolute flex items-center pointer-events-auto"
+          className="group absolute flex items-center pointer-events-auto transition-all duration-300 hover:border-[#C6FF3D] hover:shadow-[0_0_15px_rgba(198,255,61,0.25)]"
           style={{
-            left: "calc(77 * var(--p))",
-            top: "calc(826 * var(--p))",
-            gap: "calc(16 * var(--p))",
+            left: "calc(64 * var(--p))",
+            top: "calc(818 * var(--p))",
+            maxWidth: "calc(340 * var(--p))",
+            gap: "calc(10 * var(--p))",
+            padding: "calc(9 * var(--p)) calc(14 * var(--p))",
+            background: "rgba(255, 255, 255, 0.05)",
+            border: "1px solid rgba(198, 255, 61, 0.35)",
+            borderRadius: "calc(10 * var(--p))",
             textDecoration: "none",
-            color: "var(--ink)",
+            color: "#FFFFFF",
             zIndex: 30,
           }}
+          title={instaHandle}
         >
           <svg
             viewBox="0 0 24 24"
@@ -1176,11 +1546,11 @@ const BadgeFaces = React.memo(function BadgeFaces({
             stroke="currentColor"
             strokeWidth="1.8"
             aria-hidden="true"
-            className="transition-transform duration-300 group-hover:scale-110"
+            className="shrink-0 transition-transform duration-300 group-hover:scale-110"
             style={{
-              width: "calc(64 * var(--p))",
-              height: "calc(64 * var(--p))",
-              color: "var(--ink)",
+              width: "calc(34 * var(--p))",
+              height: "calc(34 * var(--p))",
+              color: "#FFFFFF",
             }}
           >
             <rect x="3" y="3" width="18" height="18" rx="5.2" />
@@ -1188,63 +1558,133 @@ const BadgeFaces = React.memo(function BadgeFaces({
             <circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none" />
           </svg>
           <span
-            className="font-bold italic transition-opacity group-hover:opacity-80"
+            className="font-bold transition-opacity group-hover:opacity-90 flex items-center gap-1 min-w-0"
             style={{
               fontFamily: "var(--sans)",
-              fontSize: "calc(36 * var(--p))",
+              fontSize:
+                instaHandle.length > 24
+                  ? "calc(19 * var(--p))"
+                  : instaHandle.length > 18
+                  ? "calc(22 * var(--p))"
+                  : "calc(21 * var(--p))",
               lineHeight: 1,
-              color: "var(--ink)",
-              whiteSpace: "nowrap",
+              color: "#FFFFFF",
             }}
           >
-            {instaHandle} ↗
+            <span className="truncate">{instaHandle}</span>
+            <span className="shrink-0" style={{ color: "var(--accent)" }}>↗</span>
           </span>
         </a>
 
-        {/* Pass ID on Lower Panel */}
-        <p
-          className="pointer-events-none absolute whitespace-nowrap text-right"
+        {/* Pass ID on Lower Panel (Roomy 160px width) */}
+        <div
+          className="pointer-events-none absolute flex flex-col items-end text-right"
           style={{
-            right: "calc(59 * var(--p))",
-            top: "calc(923 * var(--p))",
-            fontFamily: "var(--sans)",
-            fontSize: "calc(14 * var(--p))",
-            lineHeight: 1,
-            letterSpacing: "0.1em",
-            color: "#1a1a1a",
+            right: "calc(44 * var(--p))",
+            top: "calc(915 * var(--p))",
+            maxWidth: "calc(160 * var(--p))",
             zIndex: 30,
           }}
         >
-          ID NUMBER:
-        </p>
-        <p
-          className="pointer-events-none absolute whitespace-nowrap text-right"
+          <p
+            className="w-full font-sans uppercase tracking-[0.12em] text-white/45 truncate"
+            style={{
+              fontFamily: "var(--sans)",
+              fontSize: "calc(13 * var(--p))",
+              lineHeight: 1,
+            }}
+          >
+            ID NUMBER:
+          </p>
+          <p
+            className="w-full font-sans font-bold tracking-[0.04em] text-white truncate"
+            style={{
+              marginTop: "calc(4 * var(--p))",
+              fontFamily: "var(--sans)",
+              fontSize:
+                canva.passId.length > 12
+                  ? "calc(20 * var(--p))"
+                  : "calc(24 * var(--p))",
+              lineHeight: 1,
+            }}
+            title={canva.passId}
+          >
+            {canva.passId}
+          </p>
+        </div>
+
+        {/* Neon Lime Chamfer Corner Accents & Accent Bars */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute z-35"
           style={{
-            right: "calc(59 * var(--p))",
-            top: "calc(938 * var(--p))",
-            fontFamily: "var(--sans)",
-            fontSize: "calc(28 * var(--p))",
-            lineHeight: 1,
-            letterSpacing: "0.03em",
-            color: "#1a1a1a",
-            zIndex: 30,
+            top: 0,
+            right: 0,
+            width: "calc(120 * var(--p))",
+            height: "calc(6 * var(--p))",
+            background: "var(--accent)",
           }}
-        >
-          {canva.passId}
-        </p>
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute z-35"
+          style={{
+            top: 0,
+            right: 0,
+            width: "calc(6 * var(--p))",
+            height: "calc(34 * var(--p))",
+            background: "var(--accent)",
+          }}
+        />
+
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute z-35"
+          style={{
+            bottom: 0,
+            left: 0,
+            width: "calc(100 * var(--p))",
+            height: "calc(6 * var(--p))",
+            background: "var(--accent)",
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute z-35"
+          style={{
+            bottom: 0,
+            left: 0,
+            width: "calc(6 * var(--p))",
+            height: "calc(34 * var(--p))",
+            background: "var(--accent)",
+          }}
+        />
+
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute z-35"
+          style={{
+            bottom: 0,
+            left: "calc(230 * var(--p))",
+            width: "calc(140 * var(--p))",
+            height: "calc(5 * var(--p))",
+            background: "var(--accent)",
+            borderRadius: "calc(2 * var(--p)) calc(2 * var(--p)) 0 0",
+          }}
+        />
 
         {/* Sleeve Gloss Border */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 z-40"
           style={{
-            border: "1px solid rgba(0,0,0,0.12)",
+            border: "1px solid rgba(255,255,255,0.14)",
           }}
         >
           <div
             className="absolute inset-[2px]"
             style={{
-              border: "1px solid rgba(255,255,255,0.25)",
+              border: "1px solid rgba(255,255,255,0.06)",
             }}
           />
         </div>
@@ -2461,7 +2901,7 @@ export function TeamLanyardRail({
               style={{
                 width: W,
                 height: g.height,
-                zIndex: isFlipped ? 40 : isActive ? 30 : 10 + i,
+                zIndex: isFlipped ? 60 : isActive ? 30 : 10 + i,
                 transform: `translate3d(${((sim.current.x[i] ?? 0) - W / 2).toFixed(
                   2
                 )}px,0,0)`,
@@ -2665,8 +3105,18 @@ export function TeamLanyardRail({
                         width: W,
                         height: g.H,
                         fontSize: base,
-                        opacity: isInactive ? 0.72 : 1,
-                        transform: isSelected ? "scale(1.04) translateZ(20px)" : "scale(1) translateZ(0)",
+                        opacity: isInactive ? 0.5 : 1,
+                        transform: isFlipped
+                          ? "scale(1.3) translateZ(50px)"
+                          : isActive
+                          ? "scale(1.04) translateZ(12px)"
+                          : "scale(1) translateZ(0)",
+                        transformOrigin: "center 25%",
+                        boxShadow: isFlipped
+                          ? "0 35px 85px rgba(0,0,0,0.95), 0 0 35px rgba(198,255,61,0.3)"
+                          : undefined,
+                        transition:
+                          "transform 0.48s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, box-shadow 0.35s ease",
                         userSelect: "none",
                         WebkitUserSelect: "none",
                         WebkitUserDrag: "none",
