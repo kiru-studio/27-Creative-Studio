@@ -471,7 +471,13 @@
       "passId": "27-DIR-01",
       "access": "ALL ACCESS // VIP",
       "stats": "Python · SQL · ETL · PostgreSQL · MongoDB",
-      "tagline": "Curious by Nature. Analytical by Mind. Engineer by Passion."
+      "tagline": "Curious by Nature. Analytical by Mind. Engineer by Passion.",
+      "instagram": "@pravinkumar.cinema",
+      "tags": [
+        "shoots + directs",
+        "Python & SQL",
+        "ETL Pipelines"
+      ]
     },
     {
       "name": "27 Growth Strategist",
@@ -483,7 +489,13 @@
       "focalLength": "Viral Hook Architecture",
       "passId": "27-STR-02",
       "access": "ALL ACCESS // VIP",
-      "stats": "6,300+ New Followers"
+      "stats": "6,300+ New Followers",
+      "instagram": "@27growth",
+      "tags": [
+        "scales + optimizes",
+        "Growth Strategy",
+        "6,300+ Followers"
+      ]
     },
     {
       "name": "27 Post & Motion Lead",
@@ -495,7 +507,13 @@
       "focalLength": "Film Print Emulation (2383)",
       "passId": "27-EDT-03",
       "access": "ALL ACCESS // VIP",
-      "stats": "48h Fast Cut Turnaround"
+      "stats": "48h Fast Cut Turnaround",
+      "instagram": "@27postlead",
+      "tags": [
+        "edits + sound",
+        "Sound Design",
+        "Filmic Color"
+      ]
     }
   ],
   "testimonials": [

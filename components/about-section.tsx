@@ -30,7 +30,7 @@ const lanyardPeople: LanyardMember[] = siteContent.people.map((person, index) =>
     image: person.photoSrc ?? "",
     portrait: person.photoSrc ?? "",
     bio: person.bio,
-    tags: [person.workLabel, person.stats ?? "ALL ACCESS"],
+    tags: person.tags ?? [person.workLabel, person.stats ?? "ALL ACCESS"],
     gear: person.gear,
     signatureGear: person.gear,
     focalLength: person.focalLength,
@@ -38,7 +38,7 @@ const lanyardPeople: LanyardMember[] = siteContent.people.map((person, index) =>
     passId: person.passId ?? `27-PASS-0${index + 1}`,
     access: person.access ?? "ALL ACCESS // VIP",
     stats: person.stats,
-    instagram: (person as any).instagram ?? siteContent.contact.instagram,
+    instagram: (person as any).instagram ?? (index === 0 ? "@pravinkumar.cinema" : index === 1 ? "@27growth" : "@27postlead"),
     links: [
       {
         label: "WHATSAPP",
@@ -48,7 +48,7 @@ const lanyardPeople: LanyardMember[] = siteContent.people.map((person, index) =>
       },
       {
         label: "INSTAGRAM",
-        href: `https://instagram.com/${siteContent.contact.instagram.replace("@", "")}`,
+        href: `https://instagram.com/${((person as any).instagram ?? (index === 0 ? "pravinkumar.cinema" : index === 1 ? "27growth" : "27postlead")).replace("@", "")}`,
       },
     ],
   };

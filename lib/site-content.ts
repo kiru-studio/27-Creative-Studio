@@ -102,6 +102,8 @@ export type SiteContent = {
     passId?: string;
     access?: string;
     stats?: string;
+    instagram?: string;
+    tags?: string[];
   }[];
   turnaround: string[];
   testimonials: { quote: string; name: string; role: string }[];

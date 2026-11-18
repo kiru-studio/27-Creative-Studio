@@ -1064,6 +1064,23 @@ export default function AdminPage() {
                           className="w-full bg-[#18181F] border border-[#2A2A30] rounded px-3 py-1.5 text-xs font-mono text-[#F4F1EA]"
                         />
                       </div>
+                      <div>
+                        <label className="font-mono text-[11px] text-[#A9A7A0] uppercase">Instagram Handle</label>
+                        <input
+                          type="text"
+                          value={person.instagram || ""}
+                          placeholder="@handle"
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            update((p) => {
+                              const next = [...p.people];
+                              next[index] = { ...next[index], instagram: val };
+                              return { ...p, people: next };
+                            });
+                          }}
+                          className="w-full bg-[#18181F] border border-[#2A2A30] rounded px-3 py-1.5 text-xs font-mono text-[#F4F1EA]"
+                        />
+                      </div>
                     </div>
 
                     <div>

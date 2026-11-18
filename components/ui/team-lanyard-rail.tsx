@@ -627,11 +627,24 @@ function getCanvaCardData(item: LanyardMember) {
   // 4. Pass ID
   const passId = item.passId || "27-CREW-01";
 
-  // 5. Dynamic Tags
+  // 5. Dynamic Tags (Strictly max 3 tags, split composite tags cleanly)
   let tags: string[] = [];
   if (item.tags && item.tags.length > 0) {
-    tags = item.tags.map((t) => String(t).trim()).filter(Boolean);
-  } else {
+    const rawList: string[] = [];
+    item.tags.forEach((t) => {
+      const str = String(t).trim();
+      if (/[·•|]|,\s+[a-zA-Z]/.test(str)) {
+        str.split(/\s*[·•|]\s*|,\s+(?=[a-zA-Z])/).forEach((part) => {
+          const clean = part.trim();
+          if (clean) rawList.push(clean);
+        });
+      } else if (str) {
+        rawList.push(str);
+      }
+    });
+    tags = rawList.slice(0, 3);
+  }
+  if (tags.length === 0) {
     tags = ["Direction", "Story PD", "Camera"];
   }
 
@@ -656,18 +669,27 @@ const BadgeFaces = React.memo(function BadgeFaces({
   const canva = getCanvaCardData(item);
 
   const instaLink = (item.links ?? []).find((l) => /instagram|insta/i.test(l.label));
-  const instaHandle =
+  const rawInsta =
     item.instagram ??
     (instaLink && instaLink.href.includes("instagram.com/")
       ? `@${instaLink.href.split("instagram.com/")[1]?.replace(/\/.*$/, "")}`
-      : "@27CREATIVESTUDIO");
-  const instaHref = item.instagram
-    ? `https://instagram.com/${item.instagram.replace(/^@/, "")}`
-    : instaLink?.href ?? "https://instagram.com/27creativestudio";
+      : "@27creativestudio");
+  const instaHandle = rawInsta.startsWith("@") ? rawInsta : `@${rawInsta}`;
+  const instaHref = `https://instagram.com/${instaHandle.replace(/^@/, "")}`;
 
   const bioText =
-    item.bio ??
+    (item.bio ?? "").trim() ||
     "Directs and shoots high engagement reels across Thoothukudi. Capturing chef craft, customer handovers, and showroom energy on prime cinema glass.";
+  const bioClamp = bioText.length > 250 ? 9 : bioText.length > 180 ? 8 : 7;
+  const bioSize =
+    bioText.length > 250
+      ? "calc(13.8 * var(--p))"
+      : bioText.length > 180
+      ? "calc(15.2 * var(--p))"
+      : bioText.length > 110
+      ? "calc(16.8 * var(--p))"
+      : "calc(18.5 * var(--p))";
+  const bioLineHeight = bioText.length > 250 ? 1.36 : 1.44;
 
   const cardVars = {
     "--p": "0.1692cqw",
@@ -771,18 +793,37 @@ const BadgeFaces = React.memo(function BadgeFaces({
           className="pointer-events-none absolute font-bold whitespace-nowrap text-[#9CA3AF]"
           style={{
             left: "calc(88 * var(--p))",
-            top: "calc(410 * var(--p))",
+            top: "calc(365 * var(--p))",
             transform: "translate(-50%, -50%) rotate(180deg)",
             writingMode: "vertical-rl",
             fontFamily: "var(--sans)",
-            fontSize: "calc(42 * var(--p))",
+            fontSize: "calc(40 * var(--p))",
             lineHeight: 1,
-            letterSpacing: "0.14em",
+            letterSpacing: "0.18em",
             zIndex: 25,
           }}
         >
-          27 CREATIVE STUDIO
+          CREATIVE STUDIO
         </p>
+
+        {/* Lower Spine Brand Mark (Replaces plain 27 text with official logo) */}
+        <svg
+          viewBox="0 0 120 110"
+          aria-hidden="true"
+          className="pointer-events-none absolute"
+          style={{
+            left: "calc(57 * var(--p))",
+            top: "calc(600 * var(--p))",
+            width: "calc(63 * var(--p))",
+            height: "calc(72 * var(--p))",
+            zIndex: 25,
+          }}
+        >
+          <polygon points="10,18 62,10 62,25 10,33" fill="#ffffff" />
+          <polygon points="68,9 112,2 112,17 68,24" fill="#ffffff" />
+          <path d="M10,45 L60,37 L60,55 L28,82 L62,77 L62,95 L8,103 L8,85 L40,58 L10,62 Z" fill="#ffffff" />
+          <polygon points="68,35 112,28 112,46 84,105 65,108 92,48 68,52" fill="#ffffff" />
+        </svg>
 
         {/* Slot Punch Hole */}
         <Hole />
@@ -1251,18 +1292,37 @@ const BadgeFaces = React.memo(function BadgeFaces({
           className="pointer-events-none absolute font-bold whitespace-nowrap text-[#9CA3AF]"
           style={{
             left: "calc(88 * var(--p))",
-            top: "calc(410 * var(--p))",
+            top: "calc(365 * var(--p))",
             transform: "translate(-50%, -50%) rotate(180deg)",
             writingMode: "vertical-rl",
             fontFamily: "var(--sans)",
-            fontSize: "calc(42 * var(--p))",
+            fontSize: "calc(40 * var(--p))",
             lineHeight: 1,
-            letterSpacing: "0.14em",
+            letterSpacing: "0.18em",
             zIndex: 25,
           }}
         >
-          27 CREATIVE STUDIO
+          CREATIVE STUDIO
         </p>
+
+        {/* Lower Spine Brand Mark (Replaces plain 27 text with official logo) */}
+        <svg
+          viewBox="0 0 120 110"
+          aria-hidden="true"
+          className="pointer-events-none absolute"
+          style={{
+            left: "calc(57 * var(--p))",
+            top: "calc(600 * var(--p))",
+            width: "calc(63 * var(--p))",
+            height: "calc(72 * var(--p))",
+            zIndex: 25,
+          }}
+        >
+          <polygon points="10,18 62,10 62,25 10,33" fill="#ffffff" />
+          <polygon points="68,9 112,2 112,17 68,24" fill="#ffffff" />
+          <path d="M10,45 L60,37 L60,55 L28,82 L62,77 L62,95 L8,103 L8,85 L40,58 L10,62 Z" fill="#ffffff" />
+          <polygon points="68,35 112,28 112,46 84,105 65,108 92,48 68,52" fill="#ffffff" />
+        </svg>
 
         {/* Slot Punch Hole */}
         <Hole />
@@ -1387,15 +1447,10 @@ const BadgeFaces = React.memo(function BadgeFaces({
               style={{
                 marginTop: "calc(10 * var(--p))",
                 fontFamily: "var(--sans)",
-                fontSize:
-                  bioText.length > 200
-                    ? "calc(16 * var(--p))"
-                    : bioText.length > 130
-                    ? "calc(17.5 * var(--p))"
-                    : "calc(19 * var(--p))",
-                lineHeight: 1.48,
+                fontSize: bioSize,
+                lineHeight: bioLineHeight,
                 display: "-webkit-box",
-                WebkitLineClamp: 6,
+                WebkitLineClamp: bioClamp,
                 WebkitBoxOrient: "vertical",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
@@ -1407,58 +1462,98 @@ const BadgeFaces = React.memo(function BadgeFaces({
             </p>
           </div>
 
-          {/* Bottom Tags & Tally Row (Generous readable size, wraps up to 2 rows cleanly) */}
-          <div className="shrink-0 w-full flex items-end justify-between pt-[calc(6*var(--p))]">
-            <ul
-              className="flex items-center flex-wrap gap-[calc(6*var(--p))] p-0 m-0 list-none overflow-hidden"
-              style={{ maxWidth: "calc(275 * var(--p))", maxHeight: "calc(74 * var(--p))" }}
-            >
-              {canva.tags.slice(0, 3).map((tag, idx) => (
-                <li
-                  key={idx}
-                  className="truncate font-sans font-semibold text-white tracking-wide"
+          {/* Bottom Tags & Tally (Structured 3-Box Reference Layout) */}
+          <div className="shrink-0 w-full flex flex-col gap-[calc(6*var(--p))] pt-[calc(6*var(--p))]">
+            {/* Row 1: Chip 1 (left) & Chip 2 (right) */}
+            <div className="flex items-center gap-[calc(6*var(--p))] w-full">
+              {canva.tags[0] && (
+                <span
+                  className="truncate font-sans font-semibold text-white tracking-wide text-center"
                   style={{
-                    padding: "calc(5 * var(--p)) calc(12 * var(--p))",
+                    flex: "1 1 0",
+                    minWidth: 0,
+                    padding: "calc(5 * var(--p)) calc(8 * var(--p))",
                     borderRadius: "calc(6 * var(--p))",
                     background: "rgba(255, 255, 255, 0.08)",
                     border: "1px solid rgba(255, 255, 255, 0.16)",
-                    fontSize: "calc(15 * var(--p))",
+                    fontSize: "calc(14 * var(--p))",
                     lineHeight: 1.2,
-                    maxWidth: "calc(255 * var(--p))",
                   }}
-                  title={tag}
+                  title={canva.tags[0]}
                 >
-                  {tag}
-                </li>
-              ))}
-            </ul>
+                  {canva.tags[0]}
+                </span>
+              )}
+              {canva.tags[1] && (
+                <span
+                  className="truncate font-sans font-semibold text-white tracking-wide text-center"
+                  style={{
+                    flex: "1 1 0",
+                    minWidth: 0,
+                    padding: "calc(5 * var(--p)) calc(8 * var(--p))",
+                    borderRadius: "calc(6 * var(--p))",
+                    background: "rgba(255, 255, 255, 0.08)",
+                    border: "1px solid rgba(255, 255, 255, 0.16)",
+                    fontSize: "calc(14 * var(--p))",
+                    lineHeight: 1.2,
+                  }}
+                  title={canva.tags[1]}
+                >
+                  {canva.tags[1]}
+                </span>
+              )}
+            </div>
 
-            {/* Neon Lime Tally Marks */}
-            <div className="flex items-center gap-[3px] shrink-0 pb-[calc(2*var(--p))]">
-              <span
-                className="inline-block transform -skew-x-[20deg]"
-                style={{
-                  width: "calc(3 * var(--p))",
-                  height: "calc(10 * var(--p))",
-                  background: "var(--accent)",
-                }}
-              />
-              <span
-                className="inline-block transform -skew-x-[20deg]"
-                style={{
-                  width: "calc(3 * var(--p))",
-                  height: "calc(10 * var(--p))",
-                  background: "var(--accent)",
-                }}
-              />
-              <span
-                className="inline-block transform -skew-x-[20deg]"
-                style={{
-                  width: "calc(3 * var(--p))",
-                  height: "calc(10 * var(--p))",
-                  background: "var(--accent)",
-                }}
-              />
+            {/* Row 2: Chip 3 (left) + Neon Lime Tally Marks (right) */}
+            <div className="flex items-center justify-between gap-[calc(6*var(--p))] w-full">
+              {canva.tags[2] ? (
+                <span
+                  className="truncate font-sans font-semibold text-white tracking-wide text-center"
+                  style={{
+                    maxWidth: "calc(250 * var(--p))",
+                    minWidth: 0,
+                    padding: "calc(5 * var(--p)) calc(10 * var(--p))",
+                    borderRadius: "calc(6 * var(--p))",
+                    background: "rgba(255, 255, 255, 0.08)",
+                    border: "1px solid rgba(255, 255, 255, 0.16)",
+                    fontSize: "calc(14 * var(--p))",
+                    lineHeight: 1.2,
+                  }}
+                  title={canva.tags[2]}
+                >
+                  {canva.tags[2]}
+                </span>
+              ) : (
+                <div />
+              )}
+
+              {/* Neon Lime Tally Marks */}
+              <div className="flex items-center gap-[3px] shrink-0 pb-[calc(1*var(--p))]">
+                <span
+                  className="inline-block transform -skew-x-[20deg]"
+                  style={{
+                    width: "calc(3 * var(--p))",
+                    height: "calc(10 * var(--p))",
+                    background: "var(--accent)",
+                  }}
+                />
+                <span
+                  className="inline-block transform -skew-x-[20deg]"
+                  style={{
+                    width: "calc(3 * var(--p))",
+                    height: "calc(10 * var(--p))",
+                    background: "var(--accent)",
+                  }}
+                />
+                <span
+                  className="inline-block transform -skew-x-[20deg]"
+                  style={{
+                    width: "calc(3 * var(--p))",
+                    height: "calc(10 * var(--p))",
+                    background: "var(--accent)",
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -1528,9 +1623,9 @@ const BadgeFaces = React.memo(function BadgeFaces({
           style={{
             left: "calc(64 * var(--p))",
             top: "calc(818 * var(--p))",
-            maxWidth: "calc(340 * var(--p))",
-            gap: "calc(10 * var(--p))",
-            padding: "calc(9 * var(--p)) calc(14 * var(--p))",
+            maxWidth: "calc(355 * var(--p))",
+            gap: "calc(8 * var(--p))",
+            padding: "calc(8 * var(--p)) calc(12 * var(--p))",
             background: "rgba(255, 255, 255, 0.05)",
             border: "1px solid rgba(198, 255, 61, 0.35)",
             borderRadius: "calc(10 * var(--p))",
@@ -1548,8 +1643,8 @@ const BadgeFaces = React.memo(function BadgeFaces({
             aria-hidden="true"
             className="shrink-0 transition-transform duration-300 group-hover:scale-110"
             style={{
-              width: "calc(34 * var(--p))",
-              height: "calc(34 * var(--p))",
+              width: "calc(32 * var(--p))",
+              height: "calc(32 * var(--p))",
               color: "#FFFFFF",
             }}
           >
@@ -1562,11 +1657,11 @@ const BadgeFaces = React.memo(function BadgeFaces({
             style={{
               fontFamily: "var(--sans)",
               fontSize:
-                instaHandle.length > 24
-                  ? "calc(19 * var(--p))"
-                  : instaHandle.length > 18
-                  ? "calc(22 * var(--p))"
-                  : "calc(21 * var(--p))",
+                instaHandle.length > 22
+                  ? "calc(16.5 * var(--p))"
+                  : instaHandle.length > 17
+                  ? "calc(18 * var(--p))"
+                  : "calc(20.5 * var(--p))",
               lineHeight: 1,
               color: "#FFFFFF",
             }}
