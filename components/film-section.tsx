@@ -9,6 +9,7 @@ import {
 } from "framer-motion";
 import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 import { siteContent } from "@/lib/site-content";
+import { getMediaStreamUrl } from "@/lib/media-utils";
 
 export type FilmVideoItem = {
   id: string;
@@ -37,7 +38,7 @@ export const filmsData: FilmVideoItem[] = siteContent.films.map(
     format: film.format ?? "",
     duration: film.meta,
     label: film.label,
-    src: film.videoSrc,
+    src: getMediaStreamUrl(film.videoSrc),
     posterSrc: film.posterSrc,
     caption: `${film.client ?? ""} · ${film.type}`,
   }),

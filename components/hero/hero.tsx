@@ -224,6 +224,8 @@ export function Hero({ enableViewfinderCursor = false }: HeroProps) {
         isOpen={isReelModalOpen}
         onClose={() => setIsReelModalOpen(false)}
         returnFocusTo={reelTriggerRef.current}
+        videoSrc={siteContent.hero?.videoSrc || heroConfig.videoSrc}
+        posterSrc={siteContent.hero?.posterSrc || heroConfig.posterSrc}
       />
     </>
   );

@@ -36,7 +36,7 @@ export function extractGoogleDriveId(url: string): string | null {
 /**
  * Formats a Google Drive link into direct usable URLs:
  * - For images: high-resolution direct thumbnail (`lh3.googleusercontent.com/d/ID=w1920`)
- * - For videos: direct download/stream URL (`drive.google.com/uc?export=download&id=ID`)
+ * - For videos: internal streaming proxy (`/api/media/stream?id=ID`) to bypass CORP
  */
 export function parseMediaUrl(url: string, explicitType?: "video" | "image"): ParsedMediaUrl {
   const trimmed = (url || "").trim();
@@ -45,7 +45,7 @@ export function parseMediaUrl(url: string, explicitType?: "video" | "image"): Pa
   if (driveId) {
     const isVideo = explicitType === "video" || /video/i.test(trimmed);
     const streamUrl = isVideo
-      ? `https://drive.google.com/uc?export=download&id=${driveId}`
+      ? `/api/media/stream?id=${encodeURIComponent(driveId)}`
       : `https://lh3.googleusercontent.com/d/${driveId}=w1920`;
 
     return {
@@ -78,6 +78,23 @@ export function parseMediaUrl(url: string, explicitType?: "video" | "image"): Pa
     posterSuggestionUrl: posterSuggestion,
     type: isVideo ? "video" : "image",
   };
+}
+
+/**
+ * Converts any media URL into a playable stream URL.
+ * If the URL is a Google Drive video link, routes it through our internal
+ * high-performance streaming proxy (`/api/media/stream?id=...`) to bypass
+ * browser CORP (Cross-Origin Resource Policy) restrictions and enable
+ * seamless HTTP 206 range-based inline streaming.
+ */
+export function getMediaStreamUrl(rawUrl?: string): string {
+  if (!rawUrl || typeof rawUrl !== "string") return "";
+  const trimmed = rawUrl.trim();
+  const driveId = extractGoogleDriveId(trimmed);
+  if (driveId) {
+    return `/api/media/stream?id=${encodeURIComponent(driveId)}`;
+  }
+  return trimmed;
 }
 
 /**

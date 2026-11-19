@@ -17,6 +17,7 @@ import {
 } from "framer-motion";
 import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 import { siteContent } from "@/lib/site-content";
+import { getMediaStreamUrl } from "@/lib/media-utils";
 
 // ==========================================
 // 0. TYPES & DATA ARRAY
@@ -421,7 +422,7 @@ export function CasePanel({
         {item.videoSrc ? (
           <video
             className="case-video-media"
-            src={item.videoSrc}
+            src={getMediaStreamUrl(item.videoSrc)}
             poster={item.posterSrc}
             controls
             muted

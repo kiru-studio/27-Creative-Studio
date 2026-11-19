@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { heroConfig } from "@/data/hero";
 import { siteContent } from "@/lib/site-content";
+import { getMediaStreamUrl } from "@/lib/media-utils";
 
 interface VideoWindowProps {
   isMuted?: boolean;
@@ -106,7 +107,7 @@ export function VideoWindow({
         {siteContent.hero?.videoSrc || heroConfig.videoSrc ? (
           <video
             ref={videoRef}
-            src={siteContent.hero?.videoSrc || heroConfig.videoSrc}
+            src={getMediaStreamUrl(siteContent.hero?.videoSrc || heroConfig.videoSrc)}
             poster={siteContent.hero?.posterSrc || heroConfig.posterSrc || undefined}
             autoPlay
             loop

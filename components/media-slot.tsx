@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { getMediaStreamUrl } from '@/lib/media-utils'
 
 type MediaSlotProps = {
   label: string
@@ -36,7 +37,7 @@ export function MediaSlot({
         <video
           ref={videoRef}
           className="media-video"
-          src={src}
+          src={getMediaStreamUrl(src)}
           controls
           muted
           loop={loop}

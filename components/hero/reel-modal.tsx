@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Volume2, VolumeX, X } from "lucide-react";
 import { heroConfig } from "@/data/hero";
+import { getMediaStreamUrl } from "@/lib/media-utils";
 import { HudCorners } from "./hud-corners";
 
 interface ReelModalProps {
@@ -113,7 +114,7 @@ export function ReelModal({
               {videoSrc ? (
                 <video
                   ref={videoRef}
-                  src={videoSrc}
+                  src={getMediaStreamUrl(videoSrc)}
                   poster={posterSrc || undefined}
                   autoPlay
                   playsInline
