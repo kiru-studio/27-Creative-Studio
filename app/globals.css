@@ -172,8 +172,15 @@ button { min-height: var(--control-height); }
   padding: var(--space-3) var(--space-4);
   background: var(--industry);
   color: var(--ink);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease, top 200ms ease;
 }
-.skip-link:focus { top: var(--space-4); }
+.skip-link:focus, .skip-link:focus-visible {
+  top: var(--space-4);
+  opacity: 1;
+  pointer-events: auto;
+}
 .site-header {
   position: absolute;
   z-index: var(--z-header);
@@ -1492,4 +1499,13 @@ input[type='range'] { accent-color: var(--industry); }
 }
 .sd-card-label {
   clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 0 100%);
+}
+
+/* 4K TV & Ultra-Wide Cinema Display Immersion (>= 2560px) */
+@media (min-width: 160rem) {
+  :root {
+    --container-max: 120rem;
+    --content-width: 112rem;
+    font-size: 19px;
+  }
 }

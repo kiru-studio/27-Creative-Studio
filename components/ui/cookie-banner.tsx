@@ -33,7 +33,7 @@ export function CookieBanner() {
   return (
     <aside
       aria-label="Cookie consent banner"
-      className="fixed bottom-16 sm:bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-50 animate-in fade-in slide-in-from-bottom-4 duration-300 pointer-events-auto"
+      className="fixed bottom-[calc(env(safe-area-inset-bottom,0px)+12px)] sm:bottom-4 left-3 right-3 sm:left-auto sm:right-6 sm:max-w-md z-50 animate-in fade-in slide-in-from-bottom-4 duration-300 pointer-events-auto"
     >
       <div className="relative p-4 sm:p-5 rounded-2xl bg-[#141419]/95 backdrop-blur-md border border-[#2A2A30] shadow-[0_20px_50px_rgba(0,0,0,0.9)] text-[#F4F1EA]">
         {/* L-shaped corner brackets */}

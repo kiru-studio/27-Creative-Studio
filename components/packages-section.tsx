@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useRef, useState, useMemo } from "react";
+import React, { useRef, useState, useMemo, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { Check, Minus, SlidersHorizontal, ArrowRight } from "lucide-react";
+import { Check, Minus, SlidersHorizontal, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 import {
   Package,
@@ -44,10 +44,88 @@ export function PackagesSection({
   }, [packageList]);
 
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [activeMobileCardIndex, setActiveMobileCardIndex] = useState(0);
   const [showComparison, setShowComparison] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLElement | null)[]>([]);
   const isInView = useInView(sectionRef, { once: true, margin: "-10% 0px" });
   const shouldReduceMotion = useHydratedReducedMotion();
+
+  // Synchronize active card on mobile horizontal swipe/scroll
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const cards = cardRefs.current.filter(Boolean) as HTMLElement[];
+          if (!cards.length) {
+            ticking = false;
+            return;
+          }
+          const containerRect = container.getBoundingClientRect();
+          const containerCenter = containerRect.left + containerRect.width / 2;
+          let closestIndex = 0;
+          let minDistance = Infinity;
+
+          cards.forEach((card, index) => {
+            const cardRect = card.getBoundingClientRect();
+            const cardCenter = cardRect.left + cardRect.width / 2;
+            const dist = Math.abs(containerCenter - cardCenter);
+            if (dist < minDistance) {
+              minDistance = dist;
+              closestIndex = index;
+            }
+          });
+
+          setActiveMobileCardIndex(closestIndex);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    container.addEventListener("scroll", handleScroll, { passive: true });
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, [activePackages.length]);
+
+  const scrollToCard = (index: number) => {
+    const container = scrollContainerRef.current;
+    const target = cardRefs.current[index];
+    if (container && target) {
+      const containerRect = container.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+      const scrollOffset =
+        container.scrollLeft +
+        (targetRect.left - containerRect.left) -
+        (containerRect.width - targetRect.width) / 2;
+      container.scrollTo({
+        left: scrollOffset,
+        behavior: "smooth",
+      });
+      setActiveMobileCardIndex(index);
+    } else if (target) {
+      target.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
+      setActiveMobileCardIndex(index);
+    }
+  };
+
+  const handlePrevCard = () => {
+    const prev = Math.max(0, activeMobileCardIndex - 1);
+    scrollToCard(prev);
+  };
+
+  const handleNextCard = () => {
+    const next = Math.min(activePackages.length - 1, activeMobileCardIndex + 1);
+    scrollToCard(next);
+  };
 
   const handleSelectPackage = (pkg: Package, e: React.MouseEvent) => {
     e.preventDefault();
@@ -173,15 +251,19 @@ export function PackagesSection({
 
         {/* ------------------------------------------ */}
         {/* 3-CARD CINEMATIC SD-CARD GRID (Unified)   */}
+        {/* Horizontal swipeable on phone/tablet,      */}
+        {/* 3-column grid on desktop (lg: 1024px+).    */}
         {/* ------------------------------------------ */}
         <div
+          ref={scrollContainerRef}
           role="region"
           aria-label="Ways of working"
-          className="flex flex-col gap-8 md:grid md:grid-cols-3 md:gap-7 lg:gap-8 items-stretch pt-2"
+          className="flex flex-row overflow-x-auto snap-x snap-mandatory scroll-smooth scroll-px-4 sm:scroll-px-6 lg:scroll-px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] gap-4 sm:gap-6 md:gap-6 lg:gap-8 items-stretch pt-2 pb-6 lg:pb-2 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-3 lg:overflow-visible"
         >
           {activePackages.map((pkg, index) => {
             const isHovered = hoveredId === pkg.id;
             const isOtherHovered = hoveredId !== null && !isHovered;
+            const isActiveMobile = activeMobileCardIndex === index;
 
             // SD card mechanical silhouette clip path
             const sdClipPath =
@@ -191,14 +273,25 @@ export function PackagesSection({
               <motion.article
                 key={pkg.id}
                 id={pkg.id}
+                ref={(el) => {
+                  cardRefs.current[index] = el;
+                }}
                 role="article"
                 aria-label={pkg.name}
-                className="relative group transition-all duration-300 min-h-[560px] flex flex-col"
+                className="relative group transition-all duration-300 min-h-[560px] flex flex-col w-[85vw] max-w-[340px] md:w-[46vw] md:max-w-[380px] shrink-0 snap-always snap-center lg:w-auto lg:max-w-none lg:shrink lg:snap-align-none"
                 style={{
                   opacity: isOtherHovered && !shouldReduceMotion ? 0.65 : 1,
                 }}
-                onMouseEnter={() => setHoveredId(pkg.id)}
-                onMouseLeave={() => setHoveredId((curr) => (curr === pkg.id ? null : curr))}
+                onMouseEnter={() => {
+                  if (typeof window !== "undefined" && window.matchMedia("(hover: hover)").matches) {
+                    setHoveredId(pkg.id);
+                  }
+                }}
+                onMouseLeave={() => {
+                  if (typeof window !== "undefined" && window.matchMedia("(hover: hover)").matches) {
+                    setHoveredId((curr) => (curr === pkg.id ? null : curr));
+                  }
+                }}
                 initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
                 animate={{
                   opacity: isOtherHovered && !shouldReduceMotion ? 0.65 : 1,
@@ -212,7 +305,11 @@ export function PackagesSection({
               >
                 {/* Outer Card Housing (SD Card Shape with Chamfer and Side Notches) */}
                 <div
-                  className="p-[1px] bg-[#26262E] group-hover:bg-[#C6FF3D] transition-colors duration-300 shadow-xl w-full h-full flex flex-col"
+                  className={`p-[1px] transition-colors duration-300 shadow-xl w-full h-full flex flex-col ${
+                    isActiveMobile
+                      ? "bg-[#C6FF3D] lg:bg-[#26262E] lg:group-hover:bg-[#C6FF3D]"
+                      : "bg-[#26262E] group-hover:bg-[#C6FF3D]"
+                  }`}
                   style={{
                     clipPath: sdClipPath,
                   }}
@@ -261,14 +358,32 @@ export function PackagesSection({
                       <div>
                         {/* Header: WAY / 01 with Status Pin Dot */}
                         <div className="flex items-center justify-between mb-3 select-none">
-                          <span className="font-mono text-xs tracking-widest uppercase text-[#8E8D88] group-hover:text-[#C6FF3D] transition-colors">
+                          <span
+                            className={`font-mono text-xs tracking-widest uppercase transition-colors ${
+                              isActiveMobile
+                                ? "text-[#C6FF3D] lg:text-[#8E8D88] lg:group-hover:text-[#C6FF3D]"
+                                : "text-[#8E8D88] group-hover:text-[#C6FF3D]"
+                            }`}
+                          >
                             {pkg.tierNumber}
                           </span>
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#3A3A44] group-hover:bg-[#C6FF3D] group-hover:shadow-[0_0_6px_#C6FF3D] transition-all" />
+                          <span
+                            className={`w-1.5 h-1.5 rounded-full transition-all ${
+                              isActiveMobile
+                                ? "bg-[#C6FF3D] shadow-[0_0_6px_#C6FF3D] lg:bg-[#3A3A44] lg:group-hover:bg-[#C6FF3D] lg:group-hover:shadow-[0_0_6px_#C6FF3D]"
+                                : "bg-[#3A3A44] group-hover:bg-[#C6FF3D] group-hover:shadow-[0_0_6px_#C6FF3D]"
+                            }`}
+                          />
                         </div>
 
                         {/* Service Name */}
-                        <h3 className="font-display font-black uppercase text-2xl sm:text-3xl md:text-[22px] lg:text-3xl xl:text-4xl text-[var(--paper)] m-0 leading-[1.08] tracking-tight group-hover:text-[#C6FF3D] transition-colors break-words">
+                        <h3
+                          className={`font-display font-black uppercase text-2xl sm:text-3xl md:text-[22px] lg:text-3xl xl:text-4xl text-[var(--paper)] m-0 leading-[1.08] tracking-tight transition-colors break-words ${
+                            isActiveMobile
+                              ? "text-[#C6FF3D] lg:text-[var(--paper)] lg:group-hover:text-[#C6FF3D]"
+                              : "group-hover:text-[#C6FF3D]"
+                          }`}
+                        >
                           {pkg.name}
                         </h3>
 
@@ -278,7 +393,13 @@ export function PackagesSection({
                         </p>
 
                         {/* Hairline Divider */}
-                        <div className="h-px w-full bg-[var(--line)] group-hover:bg-[#C6FF3D]/30 transition-colors my-4" />
+                        <div
+                          className={`h-px w-full transition-colors my-4 ${
+                            isActiveMobile
+                              ? "bg-[#C6FF3D]/40 lg:bg-[var(--line)] lg:group-hover:bg-[#C6FF3D]/30"
+                              : "bg-[var(--line)] group-hover:bg-[#C6FF3D]/30"
+                          }`}
+                        />
 
                         {/* Deliverables Section: SCOPE */}
                         <div className="font-mono text-[10px] uppercase tracking-widest text-[#7E7D78] font-bold mb-3 select-none">
@@ -306,7 +427,7 @@ export function PackagesSection({
                           href={`#contact?package=${pkg.id}`}
                           onClick={(e) => handleSelectPackage(pkg, e)}
                           style={{ color: "#0B0B0F" }}
-                          className="w-full text-center py-3.5 px-6 text-xs font-mono font-black uppercase tracking-wider rounded-md bg-[#C6FF3D] !text-[#0B0B0F] inline-flex items-center justify-center gap-2 hover:brightness-110 hover:scale-[1.01] transition-all group/cta focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C6FF3D] cursor-pointer"
+                          className="w-full text-center py-3.5 px-3 min-[380px]:px-6 text-[11px] min-[380px]:text-xs font-mono font-black uppercase tracking-wider rounded-md bg-[#C6FF3D] !text-[#0B0B0F] inline-flex items-center justify-center gap-2 whitespace-nowrap shrink-0 hover:brightness-110 hover:scale-[1.01] transition-all group/cta focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C6FF3D] cursor-pointer"
                         >
                           <span className="!text-[#0B0B0F]" style={{ color: "#0B0B0F" }}>
                             {pkg.cta || "TALK TO US"}
@@ -332,6 +453,63 @@ export function PackagesSection({
               </motion.article>
             );
           })}
+        </div>
+
+        {/* ------------------------------------------ */}
+        {/* MOBILE & TABLET SWIPE INDICATORS / NAV     */}
+        {/* ------------------------------------------ */}
+        <div className="flex lg:hidden items-center justify-between mt-4 px-1 select-none">
+          {/* Swipe indicator with pulse */}
+          <div className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#C6FF3D] animate-pulse" />
+            <span className="font-mono text-[11px] tracking-wider text-[var(--paper)]/60 uppercase">
+              SWIPE CARDS
+            </span>
+          </div>
+
+          {/* Dots Indicator & Arrow Controls with accessible 44px touch targets */}
+          <div className="flex items-center gap-2">
+            <div className="flex items-center">
+              {activePackages.map((pkg, idx) => (
+                <button
+                  key={pkg.id}
+                  type="button"
+                  onClick={() => scrollToCard(idx)}
+                  aria-label={`Go to ${pkg.name}`}
+                  className="min-w-[36px] min-h-[44px] flex items-center justify-center p-1.5 cursor-pointer focus-visible:outline-none"
+                >
+                  <span
+                    className={`h-2 transition-all duration-300 rounded-full ${
+                      activeMobileCardIndex === idx
+                        ? "w-7 bg-[#C6FF3D] shadow-[0_0_8px_rgba(198,255,61,0.6)]"
+                        : "w-2 bg-white/20 hover:bg-white/40"
+                    }`}
+                  />
+                </button>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-1.5 ml-1">
+              <button
+                type="button"
+                onClick={handlePrevCard}
+                disabled={activeMobileCardIndex === 0}
+                aria-label="Previous card"
+                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full border border-[var(--line)] bg-[var(--panel)] flex items-center justify-center text-[var(--paper)]/70 disabled:opacity-25 disabled:cursor-not-allowed hover:border-[#C6FF3D] hover:text-[#C6FF3D] transition-colors cursor-pointer"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={handleNextCard}
+                disabled={activeMobileCardIndex === activePackages.length - 1}
+                aria-label="Next card"
+                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full border border-[var(--line)] bg-[var(--panel)] flex items-center justify-center text-[var(--paper)]/70 disabled:opacity-25 disabled:cursor-not-allowed hover:border-[#C6FF3D] hover:text-[#C6FF3D] transition-colors cursor-pointer"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* ------------------------------------------ */}

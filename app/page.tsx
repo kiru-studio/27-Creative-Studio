@@ -878,9 +878,9 @@ export default function Page() {
             <BrandLockup href="#top" onClick={() => menuOpen && setMenuOpen(false)} />
           </div>
 
-          {/* Center: Live Timecode Timer (Fixed in place across both collapsed and exploded states) */}
+          {/* Center: Live Timecode Timer (Only shown on viewports with sufficient width to avoid colliding with brand mark) */}
           <div
-            className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center font-mono text-xs text-[var(--muted,#A9A7A0)] tracking-widest tabular-nums select-none pointer-events-none"
+            className="absolute left-1/2 -translate-x-1/2 hidden min-[540px]:flex items-center justify-center font-mono text-xs text-[var(--muted,#A9A7A0)] tracking-widest tabular-nums select-none pointer-events-none"
             aria-live="off"
           >
             {timecode}
@@ -968,8 +968,8 @@ export default function Page() {
           {/* Bottom HUD Footer Bar */}
           <div className="mobile-drawer-footer">
             <div className="flex flex-col">
-              <span className="mobile-drawer-loc-label">LOCATION</span>
-              <span className="mobile-drawer-loc-val">THOOTHUKUDI, TN</span>
+              <span className="mobile-drawer-loc-label">LOCATION // 24FPS</span>
+              <span className="mobile-drawer-loc-val">THOOTHUKUDI, TN • {timecode}</span>
             </div>
             <a
               href="#contact"

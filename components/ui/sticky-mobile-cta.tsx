@@ -6,6 +6,20 @@ import { siteConfig } from "@/data/siteConfig";
 
 export function StickyMobileCta() {
   const [isVisible, setIsVisible] = useState(false);
+  const [cookieConsentResolved, setCookieConsentResolved] = useState(true);
+
+  useEffect(() => {
+    try {
+      if (typeof window !== "undefined") {
+        const consent = localStorage.getItem("27studio_cookie_consent");
+        setCookieConsentResolved(Boolean(consent));
+      }
+    } catch {}
+
+    const handleConsent = () => setCookieConsentResolved(true);
+    window.addEventListener("cookie-consent-updated", handleConsent);
+    return () => window.removeEventListener("cookie-consent-updated", handleConsent);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,7 +45,8 @@ export function StickyMobileCta() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  if (!isVisible) return null;
+  // Avoid dual-stacking on mobile screens while cookie consent is unresolved
+  if (!isVisible || !cookieConsentResolved) return null;
 
   return (
     <aside
