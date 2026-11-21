@@ -370,7 +370,6 @@ export function CasePanel({
   shouldReduceMotion,
 }: CasePanelProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [videoTime, setVideoTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isBuffering, setIsBuffering] = useState(false);
 
@@ -386,16 +385,6 @@ export function CasePanel({
       setIsBuffering(false);
     }
   }, [isOpen]);
-
-  const formatCinemaTimecode = (seconds: number) => {
-    if (isNaN(seconds) || seconds < 0) return "00:00:00:00";
-    const totalSecs = Math.floor(seconds);
-    const hrs = String(Math.floor(totalSecs / 3600)).padStart(2, "0");
-    const mins = String(Math.floor((totalSecs % 3600) / 60)).padStart(2, "0");
-    const secs = String(totalSecs % 60).padStart(2, "0");
-    const frames = String(Math.floor((seconds % 1) * 24)).padStart(2, "0");
-    return `${hrs}:${mins}:${secs}:${frames}`;
-  };
 
   return (
     <div className="case-detail pt-2 pb-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start lg:items-center">
@@ -422,40 +411,6 @@ export function CasePanel({
 
           <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden bg-black border border-[var(--line,#2A2A30)] shadow-2xl flex items-center justify-center">
 
-          {/* Top HUD: Video-Synced Timecode & Playback State */}
-          <div
-            className="absolute top-2.5 left-3 right-3 z-20 flex items-center justify-between font-mono text-[11px] pointer-events-none select-none tracking-widest"
-            aria-hidden="true"
-          >
-            <div className="flex items-center gap-1.5 px-2 py-0.5 rounded bg-black/80 backdrop-blur-sm border border-white/10">
-              <span
-                className={`w-1.5 h-1.5 rounded-full ${
-                  isPlaying
-                    ? "bg-[#FF3B30] animate-pulse"
-                    : isBuffering
-                    ? "bg-[#F2B84B] animate-ping"
-                    : "bg-[#C6FF3D]"
-                }`}
-              />
-              <span
-                className={
-                  isPlaying
-                    ? "text-[#FF3B30] font-bold"
-                    : isBuffering
-                    ? "text-[#F2B84B] font-bold"
-                    : "text-[#C6FF3D] font-bold"
-                }
-              >
-                {isPlaying ? "REC // 24FPS" : isBuffering ? "BUFFERING" : "STANDBY"}
-              </span>
-            </div>
-
-            <div className="px-2 py-0.5 rounded bg-black/80 backdrop-blur-sm border border-white/10 text-[var(--paper,#F4F1EA)] tabular-nums">
-              {formatCinemaTimecode(videoTime)}
-            </div>
-          </div>
-
-
           {/* Video element with standard 16:9 dimension & custom non-downloadable player */}
           {item.videoSrc ? (
             <VideoPlayer
@@ -465,7 +420,6 @@ export function CasePanel({
               className="w-full h-full"
               objectFit="contain"
               preload={isOpen ? "auto" : "none"}
-              onTimeUpdate={(e) => setVideoTime(e.currentTarget.currentTime)}
               onPlay={() => {
                 setIsPlaying(true);
                 setIsBuffering(false);
