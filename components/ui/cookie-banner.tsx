@@ -2,12 +2,17 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ShieldCheck, X } from "lucide-react";
 
 export function CookieBanner() {
+  const pathname = usePathname();
   const [show, setShow] = useState(false);
 
   useEffect(() => {
+    if (pathname?.startsWith("/admin") || pathname?.startsWith("/team")) {
+      return;
+    }
     try {
       const consent = localStorage.getItem("27studio_cookie_consent");
       if (!consent) {
@@ -18,7 +23,7 @@ export function CookieBanner() {
     } catch {
       // LocalStorage unavailable
     }
-  }, []);
+  }, [pathname]);
 
   const handleChoice = (choice: "accepted" | "essential") => {
     try {
@@ -28,7 +33,7 @@ export function CookieBanner() {
     setShow(false);
   };
 
-  if (!show) return null;
+  if (!show || pathname?.startsWith("/admin") || pathname?.startsWith("/team")) return null;
 
   return (
     <aside

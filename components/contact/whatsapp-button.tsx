@@ -61,7 +61,7 @@ export function WhatsAppButton({
         className="transition-transform duration-200 group-hover:scale-110 text-[#C6FF3D]"
         aria-hidden="true"
       />
-      <span>Book on WhatsApp</span>
+      <span>BOOK ON WHATSAPP</span>
     </motion.a>
   );
 }

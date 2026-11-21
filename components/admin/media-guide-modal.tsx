@@ -19,7 +19,7 @@ export function MediaGuideModal({ isOpen, onClose }: MediaGuideModalProps) {
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-[#C6FF3D] animate-pulse" />
             <h2 className="font-mono text-sm uppercase tracking-wider text-[#F4F1EA] font-semibold">
-              Free Media Storage &amp; Hosting Guide
+              Studio Media &amp; Storage Specs
             </h2>
           </div>
           <button
@@ -60,7 +60,10 @@ export function MediaGuideModal({ isOpen, onClose }: MediaGuideModalProps) {
                 <Cloud size={16} />
                 <span>Method 2: Cloudinary Free Tier (Recommended for Smooth Videos)</span>
               </div>
-              <span className="text-[10px] bg-[#C6FF3D] text-[#0B0B0F] px-2 py-0.5 rounded font-bold">
+              <span
+                className="text-[10px] bg-[#C6FF3D] !text-[#0B0B0F] px-2 py-0.5 rounded font-black tracking-wider uppercase shrink-0"
+                style={{ color: "#0B0B0F" }}
+              >
                 BEST PERFORMANCE
               </span>
             </div>
@@ -79,14 +82,14 @@ export function MediaGuideModal({ isOpen, onClose }: MediaGuideModalProps) {
                   Create Free Account <ExternalLink size={11} />
                 </a>
               </div>
-              <ul className="space-y-1 text-[#A9A7A0]">
-                <li className="flex items-center gap-1.5">
-                  <CheckCircle2 size={13} className="text-[#C6FF3D] shrink-0" />
-                  Smooth video scrub on mobile &amp; low-end PCs (no 403 quota errors).
+              <ul className="space-y-1.5 text-[#A9A7A0]">
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={14} className="text-[#C6FF3D] shrink-0 mt-0.5" />
+                  <span>Smooth video scrub on mobile &amp; low-end PCs (no 403 quota errors).</span>
                 </li>
-                <li className="flex items-center gap-1.5">
-                  <CheckCircle2 size={13} className="text-[#C6FF3D] shrink-0" />
-                  <strong>Instant Video Poster:</strong> Replace <code>.mp4</code> with <code>.jpg</code> at the end of the URL to automatically extract a poster frame!
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={14} className="text-[#C6FF3D] shrink-0 mt-0.5" />
+                  <span><strong>Instant Video Poster:</strong> Replace <code>.mp4</code> with <code>.jpg</code> at the end of the URL to automatically extract a poster frame.</span>
                 </li>
               </ul>
             </div>
@@ -109,7 +112,8 @@ export function MediaGuideModal({ isOpen, onClose }: MediaGuideModalProps) {
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-1.5 rounded bg-[#C6FF3D] text-[#0B0B0F] font-bold font-mono text-xs hover:bg-[#b0f025] transition-colors"
+            className="px-4 py-1.5 rounded bg-[#C6FF3D] !text-[#0B0B0F] font-black font-mono text-xs hover:bg-[#b0f025] transition-colors shadow-sm"
+            style={{ color: "#0B0B0F" }}
           >
             GOT IT // CLOSE
           </button>

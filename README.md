@@ -127,8 +127,8 @@ Instant UI reload                      Automatic Vercel Build Triggered
 - **CSRF State Verification:** Cryptographically random `state` token verified via HTTP-only cookie to prevent cross-site request forgery.
 - **Reverse-Proxy Resilient:** Dynamically constructs OAuth callback URLs by inspecting `x-forwarded-proto` and `x-forwarded-host`, preventing protocol mismatches between local dev and Vercel edge networks.
 
-### 2. Studio Master Password Fallback
-- Dual authentication fallback allows signing in with a master `ADMIN_PASSWORD`.
+### 2. Studio Fast Direct Entry & Operative Authentication
+- 1-click passwordless direct entry into the Studio Control Room (`/admin`) and Team Operations Station (`/team`).
 - Session tokens are cryptographically signed using HMAC-SHA256 (`ADMIN_SESSION_SECRET`) and stored in secure, `SameSite=Lax`, `HttpOnly` cookies.
 
 ---
@@ -223,7 +223,6 @@ Create a `.env.local` file for local development, and configure these variables 
 
 | Variable | Description | Example / Note |
 | :--- | :--- | :--- |
-| `ADMIN_PASSWORD` | Password for admin fallback login | Strong random password |
 | `ADMIN_SESSION_SECRET` | 32+ character key for signing session cookies | Random hex / base64 string |
 | `GITHUB_OWNER` | Owner of the GitHub repository | `kiru-studio` |
 | `GITHUB_REPO` | Repository name | `27-Creative-Studio` |

@@ -399,12 +399,9 @@ button { min-height: var(--control-height); }
 .case-card > button span { color: var(--muted); font: var(--text-xs) var(--font-mono); }
 .case-card > button strong { font: 700 var(--text-2xl)/var(--leading-tight) var(--font-display); }
 .case-card > button b { color: var(--industry); font-size: var(--text-sm); }
-.case-detail { display: grid; grid-template-columns: minmax(var(--content-track-min), 0.8fr) 1fr; gap: var(--space-3) var(--space-6); padding: 0 0 var(--space-6); color: var(--muted); }
+.case-detail { color: var(--muted); }
 .case-detail p { margin: 0; }
 .case-detail strong { color: var(--paper); }
-.case-video { position: relative; display: flex; min-height: var(--case-media-min); grid-row: span 3; align-items: end; overflow: hidden; padding: var(--space-4); border: 0; background: var(--panel); color: var(--paper); font: var(--text-xs) var(--font-mono); }
-.case-video-media, .case-video-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.case-video span { position: relative; z-index: 1; }
 .packages-table { border-top: var(--border-width) solid var(--line); }
 .package-labels, .package-row { display: grid; grid-template-columns: 1.5fr repeat(3, 0.75fr) 1.4fr; gap: var(--space-4); align-items: start; }
 .package-labels { padding: var(--space-3) 0; color: var(--muted); font: var(--text-xs) var(--font-mono, monospace); }
@@ -1427,8 +1424,6 @@ input[type='range'] { accent-color: var(--industry); }
   .film-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .case-card > button { grid-template-columns: 1fr auto; }
   .case-card > button span { grid-column: 1 / -1; }
-  .case-detail { grid-template-columns: 1fr; }
-  .case-video { min-height: var(--case-media-min-mobile); grid-row: auto; }
   .package-labels { display: none; }
   .package-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .package-row > div { grid-column: 1 / -1; }
@@ -1508,4 +1503,17 @@ input[type='range'] { accent-color: var(--industry); }
     --content-width: 112rem;
     font-size: 19px;
   }
+}
+
+/* Contrast Safety: Enforce pure dark ink text on all solid neon lime surfaces */
+[class~="bg-[#C6FF3D]"],
+[class*="bg-[#C6FF3D]"]:not([class*="bg-[#C6FF3D]/"]),
+button[class*="bg-[#C6FF3D]"]:not([class*="bg-[#C6FF3D]/"]),
+.button-primary {
+  color: #0B0B0F !important;
+}
+[class~="bg-[#C6FF3D]"] *,
+[class*="bg-[#C6FF3D]"]:not([class*="bg-[#C6FF3D]/"]) *,
+button[class*="bg-[#C6FF3D]"]:not([class*="bg-[#C6FF3D]/"]) * {
+  color: #0B0B0F !important;
 }

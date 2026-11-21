@@ -711,16 +711,16 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
       {/* ======================================================== */}
       {/* 1. OPERATIONS HEADER & UNIFIED CONTROL BAR               */}
       {/* ======================================================== */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-white/[0.08]">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[#232326]">
         {/* Left: Studio Identity & Cinema Rec Chip */}
         <div className="flex items-center gap-3 flex-wrap">
           <div>
             <div className="flex items-center gap-2">
               <span className="font-mono text-[11px] font-bold text-[#C6FF3D] uppercase tracking-wider flex items-center gap-1.5">
                 <Film size={13} className="text-[#C6FF3D]" />
-                <span>STUDIO OPERATIONS CONSOLE</span>
+                <span>STUDIO OPERATIONS</span>
               </span>
-              <span className="font-mono text-[9px] px-1.5 py-0.5 rounded bg-white/[0.06] text-[#A9A7A0] border border-white/[0.08] tracking-widest font-semibold uppercase">
+              <span className="font-mono text-[9px] px-1.5 py-0.5 rounded bg-[#16161D] text-[#A9A7A0] border border-[#2A2A30] tracking-widest font-semibold uppercase">
                 24FPS DCI
               </span>
             </div>
@@ -730,17 +730,15 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
           </div>
 
           {/* Minimal Cinema Rec Pill */}
-          <div className="hidden xl:flex items-center gap-2 px-3 py-1 rounded-full bg-black/60 border border-white/[0.08] font-mono text-[11px] text-[#A9A7A0] shadow-inner ml-2">
+          <div className="hidden xl:flex items-center gap-2 px-3 py-1 rounded-lg bg-[#0E0E14] border border-[#232326] font-mono text-[11px] text-[#A9A7A0] shadow-inner ml-2">
             <span className="flex items-center gap-1.5 text-[#EF4444] font-bold tracking-wider">
               <span className="w-1.5 h-1.5 rounded-full bg-[#EF4444] animate-pulse" />
               REC
             </span>
-            <span className="text-white/40">•</span>
+            <span className="text-[#2A2A30]">•</span>
             <span className="text-[#F4F1EA] font-semibold">SONY FX3 4K</span>
-            <span className="text-white/40">•</span>
-            <span className="text-[#38BDF8]">S-Cinetone / S-Log3</span>
-            <span className="text-white/40">•</span>
-            <span className="text-[#FBBF24]">180.0° SHUTTER</span>
+            <span className="text-[#2A2A30]">•</span>
+            <span className="text-[#38BDF8]">S-Log3 / S-Cinetone</span>
           </div>
         </div>
 
@@ -750,10 +748,10 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
           <button
             type="button"
             onClick={() => setShowSchemaModal(true)}
-            className={`px-3 py-1.5 rounded-full font-mono text-[11px] font-bold uppercase tracking-wider inline-flex items-center gap-1.5 transition-all border cursor-pointer ${
+            className={`h-8 px-3 rounded-lg font-mono text-[11px] font-bold uppercase tracking-wider inline-flex items-center gap-1.5 transition-all border cursor-pointer ${
               isCloudConfigured
-                ? "bg-[#0c1929] text-[#38BDF8] border-[#38BDF8]/40 hover:border-[#38BDF8] hover:bg-[#0c1929]/80 shadow-sm"
-                : "bg-[#1c1917] text-[#FBBF24] border-[#FBBF24]/40 hover:border-[#FBBF24]"
+                ? "bg-[#38BDF8]/10 text-[#38BDF8] border-[#38BDF8]/40 hover:border-[#38BDF8] hover:bg-[#38BDF8]/20"
+                : "bg-[#FBBF24]/10 text-[#FBBF24] border-[#FBBF24]/40 hover:border-[#FBBF24]"
             }`}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-current animate-ping" />
@@ -762,7 +760,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
           </button>
 
           {/* Authenticated Operative Capsule */}
-          <div className="flex items-center gap-2.5 bg-[#12131A] border border-white/[0.1] rounded-full px-3 py-1 font-mono text-xs shadow-sm">
+          <div className="h-8 flex items-center gap-2.5 bg-[#16161D] border border-[#2A2A30] rounded-lg px-3 font-mono text-xs shadow-sm">
             <div
               className="w-5 h-5 rounded-full flex items-center justify-center font-bold text-[10px] text-[#0B0B0F]"
               style={{ backgroundColor: getRoleAccent(activeRole) }}
@@ -797,13 +795,13 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
       {/* 2. UNIFIED LINEAR-GRADE TELEMETRY RIBBON                 */}
       {/* ======================================================== */}
       {analytics && (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-px p-1 rounded-2xl bg-white/[0.06] border border-white/[0.08] backdrop-blur-md overflow-hidden shadow-2xl">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
           {/* Metric 1: Pipeline Value */}
-          <div className="p-3.5 bg-[#0C0D13] hover:bg-[#12131B] transition-colors flex flex-col justify-between rounded-xl">
-            <span className="font-mono text-[10px] text-[#8E8D9A] uppercase tracking-wider font-semibold">
+          <div className="p-4 rounded-xl border border-[#232326] bg-[#121217] hover:border-[#2F2F38] transition-colors flex flex-col justify-between">
+            <span className="font-mono text-[10px] text-[#A9A7A0] uppercase tracking-wider font-semibold">
               PIPELINE ESTIMATE
             </span>
-            <div className="my-1">
+            <div className="my-1.5">
               {permissions.canViewFinancials ? (
                 <span className="font-display font-black text-2xl text-[#FBBF24]">
                   ₹{analytics.pipelineValue.toLocaleString("en-IN")}
@@ -814,17 +812,17 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                 </span>
               )}
             </div>
-            <span className="font-mono text-[10px] text-[#8E8D9A] flex items-center gap-1">
+            <span className="font-mono text-[10px] text-[#A9A7A0]">
               Active commercial deals
             </span>
           </div>
 
           {/* Metric 2: Closed Revenue */}
-          <div className="p-3.5 bg-[#0C0D13] hover:bg-[#12131B] transition-colors flex flex-col justify-between rounded-xl">
-            <span className="font-mono text-[10px] text-[#8E8D9A] uppercase tracking-wider font-semibold">
+          <div className="p-4 rounded-xl border border-[#232326] bg-[#121217] hover:border-[#2F2F38] transition-colors flex flex-col justify-between">
+            <span className="font-mono text-[10px] text-[#A9A7A0] uppercase tracking-wider font-semibold">
               CLOSED REVENUE
             </span>
-            <div className="my-1">
+            <div className="my-1.5">
               {permissions.canViewFinancials ? (
                 <span className="font-display font-black text-2xl text-[#4ADE80]">
                   ₹{analytics.wonRevenue.toLocaleString("en-IN")}
@@ -835,21 +833,21 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                 </span>
               )}
             </div>
-            <span className="font-mono text-[10px] text-[#4ADE80] font-semibold flex items-center gap-1">
+            <span className="font-mono text-[10px] text-[#4ADE80] font-semibold">
               Delivered + retained
             </span>
           </div>
 
           {/* Metric 3: Conversion Rate */}
-          <div className="p-3.5 bg-[#0C0D13] hover:bg-[#12131B] transition-colors flex flex-col justify-between rounded-xl">
-            <span className="font-mono text-[10px] text-[#8E8D9A] uppercase tracking-wider font-semibold">
-              CONVERSION VELOCITY
+          <div className="p-4 rounded-xl border border-[#232326] bg-[#121217] hover:border-[#2F2F38] transition-colors flex flex-col justify-between">
+            <span className="font-mono text-[10px] text-[#A9A7A0] uppercase tracking-wider font-semibold">
+              CONVERSION RATE
             </span>
-            <div className="flex items-baseline gap-1.5 my-1">
+            <div className="flex items-baseline gap-1.5 my-1.5">
               <span className="font-display font-black text-2xl text-[#C6FF3D]">
                 {analytics.conversionRate}%
               </span>
-              <span className="font-mono text-[11px] text-[#8E8D9A]">
+              <span className="font-mono text-[11px] text-[#A9A7A0]">
                 ({analytics.shootsBooked}/{analytics.totalInquiries})
               </span>
             </div>
@@ -859,15 +857,15 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
           </div>
 
           {/* Metric 4: Scheduled Shoots */}
-          <div className="p-3.5 bg-[#0C0D13] hover:bg-[#12131B] transition-colors flex flex-col justify-between rounded-xl">
-            <span className="font-mono text-[10px] text-[#8E8D9A] uppercase tracking-wider font-semibold">
+          <div className="p-4 rounded-xl border border-[#232326] bg-[#121217] hover:border-[#2F2F38] transition-colors flex flex-col justify-between">
+            <span className="font-mono text-[10px] text-[#A9A7A0] uppercase tracking-wider font-semibold">
               ON-LOCATION SHOOTS
             </span>
-            <div className="flex items-baseline gap-1.5 my-1">
+            <div className="flex items-baseline gap-1.5 my-1.5">
               <span className="font-display font-black text-2xl text-[#38BDF8]">
                 {analytics.activeShootsCount}
               </span>
-              <span className="font-mono text-[11px] text-[#8E8D9A]">booked</span>
+              <span className="font-mono text-[11px] text-[#A9A7A0]">booked</span>
             </div>
             <span className="font-mono text-[10px] text-[#38BDF8] flex items-center gap-1 font-semibold">
               <Video size={11} /> Sony FX3 Rigs
@@ -875,11 +873,11 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
           </div>
 
           {/* Metric 5: Total Inquiries */}
-          <div className="p-3.5 bg-[#0C0D13] hover:bg-[#12131B] transition-colors flex flex-col justify-between rounded-xl col-span-2 sm:col-span-1">
-            <span className="font-mono text-[10px] text-[#8E8D9A] uppercase tracking-wider font-semibold">
+          <div className="p-4 rounded-xl border border-[#232326] bg-[#121217] hover:border-[#2F2F38] transition-colors flex flex-col justify-between col-span-2 sm:col-span-1">
+            <span className="font-mono text-[10px] text-[#A9A7A0] uppercase tracking-wider font-semibold">
               INCOMING INQUIRIES
             </span>
-            <div className="flex items-baseline gap-2 my-1">
+            <div className="flex items-baseline gap-2 my-1.5">
               <span className="font-display font-black text-2xl text-[#F4F1EA]">
                 {analytics.totalInquiries}
               </span>
@@ -887,8 +885,8 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                 +{analytics.newLeads} NEW
               </span>
             </div>
-            <span className="font-mono text-[10px] text-[#8E8D9A] flex items-center gap-1">
-              <Zap size={11} className="text-[#FBBF24]" /> Website briefs &amp; leads
+            <span className="font-mono text-[10px] text-[#A9A7A0] flex items-center gap-1">
+              <Zap size={11} className="text-[#FBBF24]" /> Client briefs logged
             </span>
           </div>
         </div>
@@ -898,18 +896,18 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
       {/* 3. WORKSPACE NAVIGATION & COMMAND TOOLBAR               */}
       {/* ======================================================== */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 pt-1">
-        {/* Workspace Segmented Tabs (Clean no-scrollbar pill) */}
-        <div className="flex items-center p-1 rounded-xl bg-[#0C0D13] border border-white/[0.08] overflow-x-auto shrink-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        {/* Workspace Segmented Tabs */}
+        <div className="flex items-center p-1 rounded-xl bg-[#0E0E14] border border-[#232326] overflow-x-auto shrink-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           <button
             type="button"
             onClick={() => setActiveSubTab("pipeline")}
-            className={`px-3.5 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap ${
+            className={`px-3.5 py-1.5 rounded-lg text-xs font-mono font-semibold tracking-wide transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap ${
               activeSubTab === "pipeline"
-                ? "bg-[#1E1F2C] text-white border border-white/20 shadow-md"
-                : "text-[#8E8D9A] hover:text-[#F4F1EA] hover:bg-white/[0.03]"
+                ? "bg-[#181820] text-[#F4F1EA] border border-[#2F2F38] shadow-sm"
+                : "text-[#A9A7A0] hover:text-[#F4F1EA] hover:bg-[#121217]"
             }`}
           >
-            <Film size={14} className={activeSubTab === "pipeline" ? "text-[#C6FF3D]" : "text-[#8E8D9A]"} />
+            <Film size={14} className={activeSubTab === "pipeline" ? "text-[#C6FF3D]" : "text-[#A9A7A0]"} />
             <span>{activeRole === "editor" ? "Post Queue" : "Production"}</span>
             <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-mono font-bold ${
               activeSubTab === "pipeline" ? "bg-[#C6FF3D]/20 text-[#C6FF3D]" : "bg-white/[0.06] text-[#8E8D9A]"
@@ -922,13 +920,13 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
             <button
               type="button"
               onClick={() => setActiveSubTab("clients")}
-              className={`px-3.5 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap ${
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-mono font-semibold tracking-wide transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap ${
                 activeSubTab === "clients"
-                  ? "bg-[#1E1F2C] text-white border border-white/20 shadow-md"
-                  : "text-[#8E8D9A] hover:text-[#F4F1EA] hover:bg-white/[0.03]"
+                  ? "bg-[#181820] text-[#F4F1EA] border border-[#2F2F38] shadow-sm"
+                  : "text-[#A9A7A0] hover:text-[#F4F1EA] hover:bg-[#121217]"
               }`}
             >
-              <TrendingUp size={14} className={activeSubTab === "clients" ? "text-[#38BDF8]" : "text-[#8E8D9A]"} />
+              <TrendingUp size={14} className={activeSubTab === "clients" ? "text-[#38BDF8]" : "text-[#A9A7A0]"} />
               <span>Clients &amp; Reach</span>
               <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-mono font-bold ${
                 activeSubTab === "clients" ? "bg-[#38BDF8]/20 text-[#38BDF8]" : "bg-white/[0.06] text-[#8E8D9A]"
@@ -941,13 +939,13 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
           <button
             type="button"
             onClick={() => setActiveSubTab("shoots")}
-            className={`px-3.5 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap ${
+            className={`px-3.5 py-1.5 rounded-lg text-xs font-mono font-semibold tracking-wide transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap ${
               activeSubTab === "shoots"
-                ? "bg-[#1E1F2C] text-white border border-white/20 shadow-md"
-                : "text-[#8E8D9A] hover:text-[#F4F1EA] hover:bg-white/[0.03]"
+                ? "bg-[#181820] text-[#F4F1EA] border border-[#2F2F38] shadow-sm"
+                : "text-[#A9A7A0] hover:text-[#F4F1EA] hover:bg-[#121217]"
             }`}
           >
-            <Camera size={14} className={activeSubTab === "shoots" ? "text-[#FBBF24]" : "text-[#8E8D9A]"} />
+            <Camera size={14} className={activeSubTab === "shoots" ? "text-[#FBBF24]" : "text-[#A9A7A0]"} />
             <span>Shoots &amp; Gear</span>
             <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-mono font-bold ${
               activeSubTab === "shoots" ? "bg-[#FBBF24]/20 text-[#FBBF24]" : "bg-white/[0.06] text-[#8E8D9A]"
@@ -960,13 +958,13 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
             <button
               type="button"
               onClick={() => setActiveSubTab("rbac")}
-              className={`px-3.5 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap ${
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-mono font-semibold tracking-wide transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap ${
                 activeSubTab === "rbac"
-                  ? "bg-[#1E1F2C] text-white border border-white/20 shadow-md"
-                  : "text-[#8E8D9A] hover:text-[#F4F1EA] hover:bg-white/[0.03]"
+                  ? "bg-[#181820] text-[#F4F1EA] border border-[#2F2F38] shadow-sm"
+                  : "text-[#A9A7A0] hover:text-[#F4F1EA] hover:bg-[#121217]"
               }`}
             >
-              <Users size={14} className={activeSubTab === "rbac" ? "text-[#E879F9]" : "text-[#8E8D9A]"} />
+              <Users size={14} className={activeSubTab === "rbac" ? "text-[#E879F9]" : "text-[#A9A7A0]"} />
               <span>Roster &amp; RBAC</span>
               <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-mono font-bold ${
                 activeSubTab === "rbac" ? "bg-[#E879F9]/20 text-[#E879F9]" : "bg-white/[0.06] text-[#8E8D9A]"
@@ -986,9 +984,9 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
               placeholder="Search leads, brands, dates…"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="bg-[#0C0D13] border border-white/[0.08] rounded-xl pl-9 pr-8 py-2 text-xs text-[#F4F1EA] placeholder-[#666] focus:outline-none focus:border-[#C6FF3D] w-44 sm:w-56 lg:w-64 transition-all"
+              className="h-9 bg-[#16161D] border border-[#2A2A30] focus:border-[#C6FF3D] focus:ring-1 focus:ring-[#C6FF3D] rounded-lg pl-9 pr-8 text-xs font-mono text-[#F4F1EA] placeholder-[#666] outline-none transition-colors w-44 sm:w-56 lg:w-64"
             />
-            <span className="absolute right-2.5 top-2 font-mono text-[9px] text-[#555] px-1 py-0.5 rounded bg-white/[0.04] border border-white/[0.06] hidden sm:inline">
+            <span className="absolute right-2.5 top-2.5 font-mono text-[9px] text-[#666] px-1 py-0.5 rounded bg-[#121217] border border-[#2A2A30] hidden sm:inline">
               ⌘K
             </span>
           </div>
@@ -997,10 +995,10 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
             <button
               type="button"
               onClick={() => setShowAddLeadModal(true)}
-              className="px-3.5 py-2 rounded-xl bg-[#C6FF3D] hover:bg-[#b0f025] !text-[#0B0B0F] font-semibold text-xs inline-flex items-center gap-1.5 cursor-pointer shrink-0 shadow-lg shadow-[#C6FF3D]/10 transition-all hover:scale-[1.02]"
+              className="h-9 px-4 rounded-lg bg-[#C6FF3D] hover:bg-[#b0f025] !text-[#0B0B0F] font-mono text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 cursor-pointer shrink-0 shadow-md shadow-[#C6FF3D]/10 hover:scale-[1.01] transition-all"
               style={{ color: "#0B0B0F" }}
             >
-              <Plus size={15} style={{ color: "#0B0B0F" }} />
+              <Plus size={14} style={{ color: "#0B0B0F" }} />
               <span style={{ color: "#0B0B0F" }}>New Lead</span>
             </button>
           )}
@@ -1009,10 +1007,10 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
             <button
               type="button"
               onClick={() => setShowAddClientModal(true)}
-              className="px-3.5 py-2 rounded-xl bg-[#C6FF3D] hover:bg-[#b0f025] !text-[#0B0B0F] font-semibold text-xs inline-flex items-center gap-1.5 cursor-pointer shrink-0 shadow-lg shadow-[#C6FF3D]/10 transition-all hover:scale-[1.02]"
+              className="h-9 px-4 rounded-lg bg-[#C6FF3D] hover:bg-[#b0f025] !text-[#0B0B0F] font-mono text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 cursor-pointer shrink-0 shadow-md shadow-[#C6FF3D]/10 hover:scale-[1.01] transition-all"
               style={{ color: "#0B0B0F" }}
             >
-              <Plus size={15} style={{ color: "#0B0B0F" }} />
+              <Plus size={14} style={{ color: "#0B0B0F" }} />
               <span style={{ color: "#0B0B0F" }}>Add Client</span>
             </button>
           )}
@@ -1021,10 +1019,10 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
             <button
               type="button"
               onClick={() => setShowAddShootModal(true)}
-              className="px-3.5 py-2 rounded-xl bg-[#C6FF3D] hover:bg-[#b0f025] !text-[#0B0B0F] font-semibold text-xs inline-flex items-center gap-1.5 cursor-pointer shrink-0 shadow-lg shadow-[#C6FF3D]/10 transition-all hover:scale-[1.02]"
+              className="h-9 px-4 rounded-lg bg-[#C6FF3D] hover:bg-[#b0f025] !text-[#0B0B0F] font-mono text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 cursor-pointer shrink-0 shadow-md shadow-[#C6FF3D]/10 hover:scale-[1.01] transition-all"
               style={{ color: "#0B0B0F" }}
             >
-              <Plus size={15} style={{ color: "#0B0B0F" }} />
+              <Plus size={14} style={{ color: "#0B0B0F" }} />
               <span style={{ color: "#0B0B0F" }}>Schedule Shoot</span>
             </button>
           )}
@@ -1033,10 +1031,10 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
             <button
               type="button"
               onClick={() => setShowAddMemberModal(true)}
-              className="px-3.5 py-2 rounded-xl bg-[#C6FF3D] hover:bg-[#b0f025] !text-[#0B0B0F] font-semibold text-xs inline-flex items-center gap-1.5 cursor-pointer shrink-0 shadow-lg shadow-[#C6FF3D]/10 transition-all hover:scale-[1.02]"
+              className="h-9 px-4 rounded-lg bg-[#C6FF3D] hover:bg-[#b0f025] !text-[#0B0B0F] font-mono text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 cursor-pointer shrink-0 shadow-md shadow-[#C6FF3D]/10 hover:scale-[1.01] transition-all"
               style={{ color: "#0B0B0F" }}
             >
-              <Plus size={15} style={{ color: "#0B0B0F" }} />
+              <Plus size={14} style={{ color: "#0B0B0F" }} />
               <span style={{ color: "#0B0B0F" }}>Onboard Operative</span>
             </button>
           )}
@@ -1065,19 +1063,19 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                 return (
                   <div
                     key={stage.id}
-                    className="w-[330px] shrink-0 bg-[#0A0B10] border border-white/[0.08] rounded-2xl p-4 flex flex-col min-h-[560px] shadow-xl"
+                    className="w-[320px] shrink-0 bg-[#0E0E14] border border-[#232326] rounded-xl p-4 flex flex-col min-h-[540px] shadow-sm"
                   >
                     {/* Column Header */}
-                    <div className="flex items-center justify-between pb-3 mb-3.5 border-b border-white/[0.06]">
+                    <div className="flex items-center justify-between pb-3 mb-3.5 border-b border-[#232326]">
                       <div className="flex items-center gap-2">
                         <span
-                          className={`w-2.5 h-2.5 rounded-full ${stage.id === "in_production" || stage.id === "in_edit" ? "animate-pulse" : ""}`}
+                          className={`w-2 h-2 rounded-full ${stage.id === "in_production" || stage.id === "in_edit" ? "animate-pulse" : ""}`}
                           style={{ backgroundColor: stage.accent }}
                         />
                         <span className="font-semibold text-xs text-[#F4F1EA] tracking-wide">
                           {stage.label}
                         </span>
-                        <span className="font-mono text-[10px] bg-white/[0.06] text-[#A9A7A0] px-2 py-0.5 rounded-full border border-white/[0.08]">
+                        <span className="font-mono text-[10px] bg-[#16161D] text-[#A9A7A0] px-2 py-0.5 rounded-full border border-[#2A2A30]">
                           {stageInquiries.length}
                         </span>
                       </div>
@@ -1092,8 +1090,8 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                     {/* Column Cards */}
                     <div className="space-y-3 flex-1">
                       {stageInquiries.length === 0 ? (
-                        <div className="h-32 border border-dashed border-white/[0.08] rounded-xl flex flex-col items-center justify-center text-xs text-[#555] gap-1 bg-[#07070B]/50">
-                          <span className="text-base text-[#444]">∅</span>
+                        <div className="h-32 border border-dashed border-[#232326] rounded-xl flex flex-col items-center justify-center text-xs text-[#666] gap-1 bg-[#121217]">
+                          <span className="text-base text-[#555]">∅</span>
                           <span className="font-mono text-[11px]">No active projects</span>
                         </div>
                       ) : (
@@ -1101,21 +1099,21 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                           <div
                             key={inq.id}
                             onClick={() => setSelectedInquiry(inq)}
-                            className="p-4 rounded-xl bg-[#0F1017] hover:bg-[#141520] border border-white/[0.08] hover:border-white/[0.22] hover:-translate-y-0.5 transition-all duration-200 space-y-3 shadow-md hover:shadow-2xl group cursor-pointer relative"
+                            className="p-4 rounded-xl bg-[#121217] hover:bg-[#16161D] border border-[#232326] hover:border-[#2F2F38] hover:-translate-y-0.5 transition-all duration-200 space-y-3 shadow-sm hover:shadow-md group cursor-pointer relative"
                           >
                             {/* Card Film Slate Header */}
-                            <div className="flex items-center justify-between text-[10px] pb-2 border-b border-white/[0.06]">
+                            <div className="flex items-center justify-between text-[10px] pb-2 border-b border-[#232326]">
                               <div className="flex items-center gap-2 font-mono">
                                 <span className="font-bold text-[#F59E0B] tracking-wider">
                                   #{inq.id.replace(/[^0-9]/g, "").slice(-2) || "01"}
                                 </span>
-                                <span className="text-white/20">•</span>
+                                <span className="text-[#2A2A30]">•</span>
                                 <span className="text-[#38BDF8] font-bold flex items-center gap-1">
                                   <span className="w-1.5 h-2.5 border border-current rounded-[1px] inline-block" />
                                   9:16 REEL
                                 </span>
                               </div>
-                              <span className="font-mono text-[9px] px-1.5 py-0.5 rounded bg-white/[0.06] text-[#A9A7A0] border border-white/[0.08] uppercase font-semibold">
+                              <span className="font-mono text-[9px] px-1.5 py-0.5 rounded bg-[#16161D] text-[#A9A7A0] border border-[#2A2A30] uppercase font-semibold">
                                 SONY FX3
                               </span>
                             </div>
@@ -1140,7 +1138,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                                   </span>
                                 )
                               ) : (
-                                <span className="font-mono text-[10px] text-[#666] bg-black/40 px-1.5 py-0.5 rounded">
+                                <span className="font-mono text-[10px] text-[#666] bg-[#0E0E14] px-1.5 py-0.5 rounded border border-[#232326]">
                                   [CONFIDENTIAL]
                                 </span>
                               )}
@@ -1152,7 +1150,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                                 {inq.deliverables.map((d, idx) => (
                                   <span
                                     key={idx}
-                                    className="font-mono text-[10px] bg-[#161726] text-[#38BDF8] px-2 py-0.5 rounded-md border border-[#38BDF8]/20 font-semibold"
+                                    className="font-mono text-[10px] bg-[#16161D] text-[#38BDF8] px-2 py-0.5 rounded-md border border-[#38BDF8]/20 font-semibold"
                                   >
                                     {d.replace("Reels & video content", "Vertical Reels")}
                                   </span>
@@ -1162,7 +1160,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
 
                             {/* Story / Hook Brief Preview */}
                             {inq.story && (
-                              <div className="p-2.5 rounded-lg bg-[#08080E] border border-white/[0.05] text-xs text-[#C0BFBA] leading-relaxed relative">
+                              <div className="p-2.5 rounded-lg bg-[#0E0E14] border border-[#232326] text-xs text-[#C0BFBA] leading-relaxed relative">
                                 <span className="text-[#C6FF3D]/60 select-none mr-1 font-serif text-sm">“</span>
                                 {inq.story}
                                 <span className="text-[#C6FF3D]/60 select-none ml-1 font-serif text-sm">”</span>
@@ -1192,7 +1190,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                                       key={s.id}
                                       className="h-1 rounded-full transition-all duration-300"
                                       style={{
-                                        backgroundColor: isDone ? stage.accent : "#1F1F2B",
+                                        backgroundColor: isDone ? stage.accent : "#232326",
                                       }}
                                       title={s.label}
                                     />
@@ -1202,7 +1200,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                             </div>
 
                             {/* Quick Actions & Contact Shortcuts (stops propagation) */}
-                            <div className="flex items-center justify-between pt-2 border-t border-white/[0.06] text-xs">
+                            <div className="flex items-center justify-between pt-2 border-t border-[#232326] text-xs">
                               <div className="flex items-center gap-3">
                                 <a
                                   href={`https://wa.me/${inq.contact.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(
@@ -1238,7 +1236,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                                         e.stopPropagation();
                                         handleStepStage(inq.id, inq.status, "prev");
                                       }}
-                                      className="p-1 rounded bg-white/[0.06] hover:bg-white/[0.12] disabled:opacity-20 text-[#A9A7A0] hover:text-white transition-colors cursor-pointer"
+                                      className="p-1 rounded bg-[#16161D] hover:bg-[#20202A] border border-[#2A2A30] disabled:opacity-20 text-[#A9A7A0] hover:text-white transition-colors cursor-pointer"
                                       title="Previous Stage"
                                     >
                                       <ChevronLeft size={13} />
@@ -1250,7 +1248,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                                         e.stopPropagation();
                                         handleStepStage(inq.id, inq.status, "next");
                                       }}
-                                      className="p-1 rounded bg-white/[0.06] hover:bg-white/[0.12] disabled:opacity-20 text-[#A9A7A0] hover:text-white transition-colors cursor-pointer"
+                                      className="p-1 rounded bg-[#16161D] hover:bg-[#20202A] border border-[#2A2A30] disabled:opacity-20 text-[#A9A7A0] hover:text-white transition-colors cursor-pointer"
                                       title="Advance Stage"
                                     >
                                       <ChevronRight size={13} />
@@ -1261,7 +1259,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                                         e.stopPropagation();
                                         handleDeleteLead(inq.id);
                                       }}
-                                      className="text-[#555] hover:text-[#FF5C5C] p-1 transition-colors cursor-pointer"
+                                      className="text-[#666] hover:text-[#FF5C5C] p-1 transition-colors cursor-pointer"
                                       title="Delete brief"
                                     >
                                       <Trash2 size={13} />
@@ -1288,41 +1286,29 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
       {/* ======================================================== */}
       {activeSubTab === "clients" && permissions.canViewAllClients && (
         <div className="space-y-5">
-          <div className="p-5 rounded-2xl border border-[#20202E] bg-gradient-to-b from-[#14141E] to-[#0A0A10] flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-lg">
+          <div className="p-5 sm:p-6 rounded-xl border border-[#232326] bg-[#121217] flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="font-mono text-xs text-[#38BDF8] font-bold uppercase tracking-widest flex items-center gap-1.5">
+                <span className="font-mono text-xs text-[#38BDF8] font-bold uppercase tracking-wider flex items-center gap-1.5">
                   <TrendingUp size={13} />
-                  <span>Commercial Growth Division</span>
-                </span>
-                <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-[#1A1A26] text-[#A9A7A0] border border-[#2A2A3C]">
-                  REEL METRICS LIVE
+                  <span>Commercial Growth</span>
                 </span>
               </div>
-              <h3 className="font-display font-black text-2xl text-[#F4F1EA]">
-                Commercial Client Portfolio &amp; Viral Reach
+              <h3 className="font-display font-black text-xl sm:text-2xl text-[#F4F1EA]">
+                Client Portfolio &amp; Reach
               </h3>
               <p className="font-mono text-xs text-[#A9A7A0] mt-0.5">
-                Real-time tracking of follower acquisition velocity, viral shortform reach, and Google Business reputation.
+                Audience acquisition velocity, viral shortform reel views, and Google Business reputation.
               </p>
             </div>
-            <span className="font-mono text-xs text-[#38BDF8] bg-[#14202B] px-3.5 py-2 rounded-xl border border-[#38BDF8]/30 font-bold flex items-center gap-2 shrink-0 self-start sm:self-auto">
-              <Zap size={14} className="text-[#38BDF8]" />
-              <span>LIVE SOCIAL TELEMETRY</span>
-            </span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredClients.map((client) => (
               <div
                 key={client.id}
-                className="relative p-6 rounded-2xl border border-[#20202E] bg-gradient-to-b from-[#12121A] to-[#0A0A10] hover:border-[#38BDF8]/40 transition-all space-y-4 shadow-xl group overflow-hidden"
+                className="p-5 sm:p-6 rounded-xl border border-[#232326] bg-[#121217] hover:border-[#2F2F38] transition-all space-y-4 shadow-sm group"
               >
-                <div className="absolute top-1.5 left-2 font-mono text-[8px] text-[#38BDF8]/30 select-none pointer-events-none">⌜</div>
-                <div className="absolute top-1.5 right-2 font-mono text-[8px] text-[#38BDF8]/30 select-none pointer-events-none">⌝</div>
-                <div className="absolute bottom-1.5 left-2 font-mono text-[8px] text-[#38BDF8]/30 select-none pointer-events-none">⌞</div>
-                <div className="absolute bottom-1.5 right-2 font-mono text-[8px] text-[#38BDF8]/30 select-none pointer-events-none">⌟</div>
-
                 {/* Header */}
                 <div className="flex items-start justify-between">
                   <div>
@@ -1337,14 +1323,14 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                     </p>
                   </div>
                   {permissions.canViewFinancials && (
-                    <span className="font-mono text-xs text-[#4ADE80] font-black bg-[#142410] px-2.5 py-1 rounded-lg border border-[#4ADE80]/30 shadow-sm">
+                    <span className="font-mono text-xs text-[#4ADE80] font-black bg-[#4ADE80]/10 px-2.5 py-1 rounded-md border border-[#4ADE80]/30 shadow-sm">
                       ₹{client.total_revenue.toLocaleString("en-IN")}
                     </span>
                   )}
                 </div>
 
                 {/* Social Growth Telemetry Box */}
-                <div className="grid grid-cols-2 gap-3 p-3.5 rounded-xl bg-[#09090E] border border-[#1E1E2C] font-mono">
+                <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-[#0E0E14] border border-[#232326] font-mono">
                   <div>
                     <span className="text-[10px] text-[#A9A7A0] block uppercase font-bold">INSTAGRAM AUDIENCE</span>
                     <div className="flex items-baseline gap-1 mt-1">
@@ -1383,13 +1369,13 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex items-center gap-2 pt-2 border-t border-[#20202E] font-mono text-xs">
+                <div className="flex items-center gap-2 pt-2 border-t border-[#232326] font-mono text-xs">
                   {client.instagram_handle && (
                     <a
                       href={`https://instagram.com/${client.instagram_handle.replace("@", "")}`}
                       target="_blank"
                       rel="noreferrer"
-                      className="px-3 py-1.5 rounded-lg bg-[#14141E] hover:bg-[#1E1E2C] text-[#F4F1EA] text-xs inline-flex items-center gap-1.5 transition-colors border border-[#242434]"
+                      className="h-8 px-3 rounded-lg bg-[#16161D] hover:bg-[#20202A] text-[#F4F1EA] text-xs font-mono inline-flex items-center gap-1.5 transition-colors border border-[#2A2A30]"
                     >
                       <InstagramIcon size={13} /> {client.instagram_handle} ↗
                     </a>
@@ -1399,7 +1385,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                     type="button"
                     onClick={() => handleSyncSocials(client.id, client.brand_name)}
                     disabled={syncingClientId === client.id}
-                    className="ml-auto px-3.5 py-1.5 rounded-lg border border-[#38BDF8]/40 bg-[#38BDF8]/10 hover:bg-[#38BDF8]/20 text-[#38BDF8] text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer transition-colors"
+                    className="ml-auto h-8 px-3.5 rounded-lg border border-[#38BDF8]/40 bg-[#38BDF8]/10 hover:bg-[#38BDF8]/20 text-[#38BDF8] text-xs font-mono font-bold uppercase inline-flex items-center gap-1.5 cursor-pointer transition-colors"
                   >
                     <RefreshCw size={12} className={syncingClientId === client.id ? "animate-spin" : ""} />
                     <span>{syncingClientId === client.id ? "SYNCING…" : "SYNC LIVE"}</span>
@@ -1416,34 +1402,27 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
       {/* ======================================================== */}
       {activeSubTab === "shoots" && (
         <div className="space-y-5">
-          <div className="p-5 rounded-2xl border border-[#20202E] bg-gradient-to-b from-[#14141E] to-[#0A0A10] flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-lg">
+          <div className="p-5 sm:p-6 rounded-xl border border-[#232326] bg-[#121217] flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="font-mono text-xs text-[#C6FF3D] font-bold uppercase tracking-widest flex items-center gap-1.5">
+                <span className="font-mono text-xs text-[#C6FF3D] font-bold uppercase tracking-wider flex items-center gap-1.5">
                   <Camera size={13} />
                   <span>Cinematography Division</span>
                 </span>
-                <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-[#1A1A26] text-[#A9A7A0] border border-[#2A2A3C]">
-                  SONY FX3 RIGGED
-                </span>
               </div>
-              <h3 className="font-display font-black text-2xl text-[#F4F1EA]">
-                Production Shoot Master Schedule &amp; Call Sheets
+              <h3 className="font-display font-black text-xl sm:text-2xl text-[#F4F1EA]">
+                Shoot Schedule &amp; Call Sheets
               </h3>
               <p className="font-mono text-xs text-[#A9A7A0] mt-0.5">
                 On-location commercial shoots, coastal lighting conditions, crew logistics, and flight case check-off.
               </p>
             </div>
-            <span className="font-mono text-xs px-3.5 py-2 rounded-xl bg-[#1A1A26] text-[#C6FF3D] border border-[#C6FF3D]/30 font-bold flex items-center gap-2 shrink-0 self-start sm:self-auto">
-              <Film size={14} />
-              <span>4K 24FPS DCI PIPELINE</span>
-            </span>
           </div>
 
           {/* Tamil Nadu Coastal Shoot Telemetry */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-4 rounded-xl bg-[#08080D] border border-[#1E1E2C] font-mono text-xs shadow-inner">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-4 rounded-xl bg-[#0E0E14] border border-[#232326] font-mono text-xs">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-[#F59E0B]/10 border border-[#F59E0B]/30 flex items-center justify-center text-[#F59E0B] shrink-0">
+              <div className="w-9 h-9 rounded-lg bg-[#F59E0B]/10 border border-[#F59E0B]/30 flex items-center justify-center text-[#F59E0B] shrink-0">
                 <Sunrise size={18} />
               </div>
               <div>
@@ -1454,7 +1433,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-[#FB923C]/10 border border-[#FB923C]/30 flex items-center justify-center text-[#FB923C] shrink-0">
+              <div className="w-9 h-9 rounded-lg bg-[#FB923C]/10 border border-[#FB923C]/30 flex items-center justify-center text-[#FB923C] shrink-0">
                 <Sunset size={18} />
               </div>
               <div>
@@ -1465,7 +1444,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-[#38BDF8]/10 border border-[#38BDF8]/30 flex items-center justify-center text-[#38BDF8] shrink-0">
+              <div className="w-9 h-9 rounded-lg bg-[#38BDF8]/10 border border-[#38BDF8]/30 flex items-center justify-center text-[#38BDF8] shrink-0">
                 <Crosshair size={18} />
               </div>
               <div>
@@ -1486,15 +1465,15 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
               return (
                 <div
                   key={shoot.id}
-                  className="p-6 rounded-2xl border border-[#20202E] bg-gradient-to-b from-[#12121A] to-[#0A0A10] hover:border-[#38BDF8]/40 transition-all space-y-4 shadow-xl"
+                  className="p-5 sm:p-6 rounded-xl border border-[#232326] bg-[#121217] hover:border-[#2F2F38] transition-all space-y-4 shadow-sm"
                 >
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3.5 border-b border-[#20202E]">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3.5 border-b border-[#232326]">
                     <div>
                       <div className="flex items-center gap-2">
                         <span className="font-mono text-xs text-[#C6FF3D] font-bold tracking-wider">
                           CALL SHEET // {shoot.shoot_date}
                         </span>
-                        <span className="font-mono text-xs px-2.5 py-0.5 rounded-full bg-[#1A1A26] text-[#F59E0B] font-bold border border-[#F59E0B]/30">
+                        <span className="font-mono text-xs px-2.5 py-0.5 rounded-md bg-[#16161D] text-[#F59E0B] font-bold border border-[#F59E0B]/30">
                           CALL: {shoot.call_time}
                         </span>
                       </div>
@@ -1507,7 +1486,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                       <select
                         value={shoot.status}
                         onChange={(e) => handleUpdateShootStatus(shoot.id, e.target.value as ShootStatus)}
-                        className="bg-[#161622] border border-[#2A2A3C] rounded-lg px-3 py-1.5 font-mono text-xs text-[#C6FF3D] font-bold uppercase focus:outline-none focus:border-[#C6FF3D] cursor-pointer"
+                        className="h-8 bg-[#16161D] border border-[#2A2A30] rounded-lg px-3 font-mono text-xs text-[#C6FF3D] font-bold uppercase focus:outline-none focus:border-[#C6FF3D] cursor-pointer"
                       >
                         <option value="scheduled">Scheduled</option>
                         <option value="shooting">Filming on Location</option>
@@ -1520,7 +1499,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
 
                   {/* Shoot Details Grid */}
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
-                    <div className="p-3.5 rounded-xl bg-[#09090E] border border-[#1A1A26]">
+                    <div className="p-3.5 rounded-lg bg-[#0E0E14] border border-[#232326]">
                       <span className="text-[#A9A7A0] block text-[10px] uppercase font-bold">LOCATION ADDRESS</span>
                       <p className="text-[#F4F1EA] mt-1 flex items-center gap-1.5 font-bold">
                         <MapPin size={14} className="text-[#EF4444] shrink-0" />
@@ -1538,7 +1517,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                       )}
                     </div>
 
-                    <div className="p-3.5 rounded-xl bg-[#09090E] border border-[#1A1A26]">
+                    <div className="p-3.5 rounded-lg bg-[#0E0E14] border border-[#232326]">
                       <span className="text-[#A9A7A0] block text-[10px] uppercase font-bold">CREW ASSIGNED</span>
                       <p className="text-[#F4F1EA] mt-1 flex items-center gap-1.5 font-bold">
                         <Users size={14} className="text-[#C6FF3D] shrink-0" />
@@ -1549,7 +1528,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                       </span>
                     </div>
 
-                    <div className="p-3.5 rounded-xl bg-[#09090E] border border-[#1A1A26]">
+                    <div className="p-3.5 rounded-lg bg-[#0E0E14] border border-[#232326]">
                       <span className="text-[#A9A7A0] block text-[10px] uppercase font-bold">DELIVERABLES TARGET</span>
                       <p className="text-[#F4F1EA] mt-1 font-bold">
                         {shoot.deliverable_reels} Vertical Reels + {shoot.deliverable_films} Brand Film
@@ -1562,7 +1541,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
 
                   {/* Interactive Flight Case Gear Checklist */}
                   {permissions.canManageGear && shoot.gear_checklist && (
-                    <div className="p-4 rounded-xl bg-[#08080D] border border-[#1E1E2C] space-y-3">
+                    <div className="p-4 rounded-xl bg-[#0E0E14] border border-[#232326] space-y-3">
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
                         <span className="font-mono text-xs text-[#C6FF3D] font-bold flex items-center gap-2">
                           <Camera size={14} />
@@ -1574,7 +1553,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                       </div>
 
                       {/* Progress bar */}
-                      <div className="w-full bg-[#1A1A26] h-2 rounded-full overflow-hidden">
+                      <div className="w-full bg-[#16161D] h-2 rounded-full overflow-hidden">
                         <div
                           className="bg-[#C6FF3D] h-full transition-all duration-300"
                           style={{ width: `${progressPct}%` }}
@@ -1589,14 +1568,14 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                               key={idx}
                               type="button"
                               onClick={() => handleToggleShootGear(shoot.id, gear)}
-                              className={`px-3 py-1.5 rounded-lg font-mono text-xs transition-all flex items-center gap-2 border cursor-pointer ${
+                              className={`h-8 px-3 rounded-lg font-mono text-xs transition-all flex items-center gap-2 border cursor-pointer ${
                                 isPacked
-                                  ? "bg-[#1E2E16] text-[#C6FF3D] border-[#C6FF3D]/40 line-through opacity-85"
-                                  : "bg-[#12121A] text-[#F4F1EA] border-[#2A2A3A] hover:border-[#38BDF8]"
+                                  ? "bg-[#C6FF3D]/15 text-[#C6FF3D] border-[#C6FF3D]/40 line-through opacity-85"
+                                  : "bg-[#16161D] text-[#F4F1EA] border-[#2A2A30] hover:border-[#38BDF8]"
                               }`}
                             >
-                              <span className={`w-4 h-4 rounded-sm border flex items-center justify-center text-xs ${
-                                isPacked ? "bg-[#C6FF3D] text-[#0B0B0F] border-[#C6FF3D] font-bold" : "border-[#555]"
+                              <span className={`w-3.5 h-3.5 rounded-sm border flex items-center justify-center text-[10px] ${
+                                isPacked ? "bg-[#C6FF3D] text-[#0B0B0F] border-[#C6FF3D] font-bold" : "border-[#444]"
                               }`}>
                                 {isPacked ? "✓" : ""}
                               </span>
@@ -1619,7 +1598,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
       {/* ======================================================== */}
       {activeSubTab === "rbac" && permissions.canManageTeam && (
         <div className="space-y-6">
-          <div className="p-5 rounded-xl border border-[#232326] bg-[#121217] flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="p-5 sm:p-6 rounded-xl border border-[#232326] bg-[#121217] flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
               <h3 className="font-display font-bold text-xl text-[#F4F1EA]">
                 Studio Roster &amp; Role-Based Access Control (RBAC)
@@ -1631,11 +1610,11 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
             <button
               type="button"
               onClick={() => setShowAddMemberModal(true)}
-              className="px-4 py-2 rounded-lg bg-[#C6FF3D] hover:bg-[#b0f025] !text-[#0B0B0F] font-mono text-xs font-bold uppercase inline-flex items-center gap-2 cursor-pointer self-start md:self-auto shadow-lg shadow-[#C6FF3D]/10"
+              className="h-9 px-4 rounded-lg bg-[#C6FF3D] hover:bg-[#b0f025] !text-[#0B0B0F] font-mono text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 cursor-pointer self-start md:self-auto shadow-md shadow-[#C6FF3D]/10 hover:scale-[1.01] transition-all"
               style={{ color: "#0B0B0F" }}
             >
               <Plus size={14} style={{ color: "#0B0B0F" }} />
-              <span>ONBOARD OPERATIVE</span>
+              <span style={{ color: "#0B0B0F" }}>Onboard Operative</span>
             </button>
           </div>
 
@@ -1649,7 +1628,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
               {teamMembers.map((member) => (
                 <div
                   key={member.id}
-                  className="p-5 rounded-xl border border-[#232326] bg-[#121217] space-y-3.5 hover:border-[#333] transition-all shadow-sm"
+                  className="p-5 rounded-xl border border-[#232326] bg-[#121217] space-y-3.5 hover:border-[#2F2F38] transition-all shadow-sm"
                 >
                   <div className="flex items-start justify-between">
                     <div>
@@ -1678,7 +1657,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                     <select
                       value={member.role}
                       onChange={(e) => handleUpdateMemberRole(member.id, e.target.value as TeamRole)}
-                      className="bg-[#18181F] border border-[#2A2A30] rounded-lg px-2.5 py-1 font-mono text-xs text-[#F4F1EA] uppercase focus:outline-none focus:border-[#C6FF3D]"
+                      className="h-8 bg-[#16161D] border border-[#2A2A30] rounded-lg px-2.5 font-mono text-xs text-[#F4F1EA] uppercase focus:outline-none focus:border-[#C6FF3D]"
                     >
                       <option value="principal">Principal (Studio Head)</option>
                       <option value="producer">Producer (Operations)</option>
@@ -1690,7 +1669,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                     <button
                       type="button"
                       onClick={() => handleDeleteMember(member.id)}
-                      className="text-[#666] hover:text-[#FF5C5C] p-1.5 transition-colors"
+                      className="text-[#666] hover:text-[#FF5C5C] p-1.5 transition-colors cursor-pointer"
                       title="Remove member"
                     >
                       <Trash2 size={14} />
@@ -1708,7 +1687,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                         if (member.role === "editor") setActiveSubTab("pipeline");
                         flashMessage(`Entered audit mode as ${member.name} (${member.role.toUpperCase()})`);
                       }}
-                      className="w-full py-1.5 rounded-lg bg-[#18181F] hover:bg-[#22222C] text-[#A9A7A0] hover:text-[#F4F1EA] font-mono text-xs uppercase text-center transition-colors border border-[#2A2A30] flex items-center justify-center gap-1.5 cursor-pointer"
+                      className="w-full h-8 rounded-lg bg-[#16161D] hover:bg-[#20202A] text-[#A9A7A0] hover:text-[#F4F1EA] font-mono text-xs uppercase text-center transition-colors border border-[#2A2A30] flex items-center justify-center gap-1.5 cursor-pointer"
                     >
                       <Shield size={12} className="text-[#FBBF24]" />
                       <span>Audit View as {member.name.split(" ")[0]} ({member.role})</span>
@@ -1720,7 +1699,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
           </div>
 
           {/* Granular Security Matrix Table */}
-          <div className="p-5 rounded-xl border border-[#232326] bg-[#121217] space-y-4">
+          <div className="p-5 sm:p-6 rounded-xl border border-[#232326] bg-[#121217] space-y-4">
             <div>
               <h4 className="font-display font-bold text-lg text-[#F4F1EA]">
                 Granular Security &amp; Access Matrix
@@ -1799,8 +1778,8 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
       {/* MODAL: ADD MANUAL BRIEF */}
       {showAddLeadModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs">
-          <div className="w-full max-w-lg bg-[#121217] border border-[#232326] rounded-xl p-6 space-y-4">
-            <div className="flex items-center justify-between border-b border-[#232326] pb-3">
+          <div className="w-full max-w-lg bg-[#121217] border border-[#232326] rounded-2xl p-6 sm:p-7 space-y-4 shadow-2xl">
+            <div className="flex items-center justify-between border-b border-[#232326] pb-3.5">
               <h3 className="font-display font-bold text-lg text-[#F4F1EA]">
                 Record New Client Brief / Lead
               </h3>
@@ -1815,57 +1794,57 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
 
             <form onSubmit={handleCreateLead} className="space-y-3 font-mono text-xs">
               <div>
-                <label className="text-[#A9A7A0] block mb-1">CLIENT / CONTACT NAME *</label>
+                <label className="text-[#A9A7A0] block text-[11px] uppercase tracking-wider mb-1 font-semibold">CLIENT / CONTACT NAME *</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Ramesh Kumar"
                   value={newLead.client_name}
                   onChange={(e) => setNewLead({ ...newLead, client_name: e.target.value })}
-                  className="w-full bg-[#18181F] border border-[#2A2A30] rounded-lg px-3 py-2 text-[#F4F1EA] focus:outline-none focus:border-[#C6FF3D]"
+                  className="w-full h-9 bg-[#16161D] border border-[#2A2A30] focus:border-[#C6FF3D] focus:ring-1 focus:ring-[#C6FF3D] rounded-lg px-3 text-[#F4F1EA] placeholder-[#666] outline-none transition-colors"
                 />
               </div>
 
               <div>
-                <label className="text-[#A9A7A0] block mb-1">PHONE NUMBER OR EMAIL *</label>
+                <label className="text-[#A9A7A0] block text-[11px] uppercase tracking-wider mb-1 font-semibold">PHONE NUMBER OR EMAIL *</label>
                 <input
                   type="text"
                   required
                   placeholder="+91 98421 XXXXX"
                   value={newLead.contact}
                   onChange={(e) => setNewLead({ ...newLead, contact: e.target.value })}
-                  className="w-full bg-[#18181F] border border-[#2A2A30] rounded-lg px-3 py-2 text-[#F4F1EA] focus:outline-none focus:border-[#C6FF3D]"
+                  className="w-full h-9 bg-[#16161D] border border-[#2A2A30] focus:border-[#C6FF3D] focus:ring-1 focus:ring-[#C6FF3D] rounded-lg px-3 text-[#F4F1EA] placeholder-[#666] outline-none transition-colors"
                 />
               </div>
 
               <div>
-                <label className="text-[#A9A7A0] block mb-1">BUSINESS / BRAND NAME</label>
+                <label className="text-[#A9A7A0] block text-[11px] uppercase tracking-wider mb-1 font-semibold">BUSINESS / BRAND NAME</label>
                 <input
                   type="text"
                   placeholder="e.g. Pearl City Cafe"
                   value={newLead.business_name}
                   onChange={(e) => setNewLead({ ...newLead, business_name: e.target.value })}
-                  className="w-full bg-[#18181F] border border-[#2A2A30] rounded-lg px-3 py-2 text-[#F4F1EA] focus:outline-none focus:border-[#C6FF3D]"
+                  className="w-full h-9 bg-[#16161D] border border-[#2A2A30] focus:border-[#C6FF3D] focus:ring-1 focus:ring-[#C6FF3D] rounded-lg px-3 text-[#F4F1EA] placeholder-[#666] outline-none transition-colors"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-[#A9A7A0] block mb-1">ESTIMATED DEAL (₹)</label>
+                  <label className="text-[#A9A7A0] block text-[11px] uppercase tracking-wider mb-1 font-semibold">ESTIMATED DEAL (₹)</label>
                   <input
                     type="number"
                     value={newLead.deal_value}
                     onChange={(e) => setNewLead({ ...newLead, deal_value: Number(e.target.value) })}
-                    className="w-full bg-[#18181F] border border-[#2A2A30] rounded-lg px-3 py-2 text-[#F4F1EA] focus:outline-none focus:border-[#C6FF3D]"
+                    className="w-full h-9 bg-[#16161D] border border-[#2A2A30] focus:border-[#C6FF3D] focus:ring-1 focus:ring-[#C6FF3D] rounded-lg px-3 text-[#F4F1EA] placeholder-[#666] outline-none transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label className="text-[#A9A7A0] block mb-1">ASSIGN LEAD TO</label>
+                  <label className="text-[#A9A7A0] block text-[11px] uppercase tracking-wider mb-1 font-semibold">ASSIGN LEAD TO</label>
                   <select
                     value={newLead.assigned_to}
                     onChange={(e) => setNewLead({ ...newLead, assigned_to: e.target.value })}
-                    className="w-full bg-[#18181F] border border-[#2A2A30] rounded-lg px-3 py-2 text-[#F4F1EA] focus:outline-none focus:border-[#C6FF3D]"
+                    className="w-full h-9 bg-[#16161D] border border-[#2A2A30] focus:border-[#C6FF3D] focus:ring-1 focus:ring-[#C6FF3D] rounded-lg px-3 text-[#F4F1EA] outline-none transition-colors"
                   >
                     {teamMembers.map((m) => (
                       <option key={m.id} value={m.name}>
@@ -1877,13 +1856,13 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
               </div>
 
               <div>
-                <label className="text-[#A9A7A0] block mb-1">STORY / BRIEF CONCEPT</label>
+                <label className="text-[#A9A7A0] block text-[11px] uppercase tracking-wider mb-1 font-semibold">STORY / BRIEF CONCEPT</label>
                 <textarea
                   rows={3}
                   placeholder="Describe client goals, deliverables needed, or campaign angle…"
                   value={newLead.story}
                   onChange={(e) => setNewLead({ ...newLead, story: e.target.value })}
-                  className="w-full bg-[#18181F] border border-[#2A2A30] rounded-lg px-3 py-2 text-[#F4F1EA] focus:outline-none focus:border-[#C6FF3D]"
+                  className="w-full bg-[#16161D] border border-[#2A2A30] focus:border-[#C6FF3D] focus:ring-1 focus:ring-[#C6FF3D] rounded-lg p-3 text-[#F4F1EA] placeholder-[#666] outline-none transition-colors"
                 />
               </div>
 
@@ -1891,16 +1870,16 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                 <button
                   type="button"
                   onClick={() => setShowAddLeadModal(false)}
-                  className="px-4 py-2 rounded-lg bg-[#18181F] text-[#A9A7A0] hover:text-[#F4F1EA] cursor-pointer"
+                  className="h-9 px-4 rounded-lg bg-[#16161D] border border-[#2A2A30] text-[#A9A7A0] hover:text-[#F4F1EA] font-mono text-xs uppercase transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-lg bg-[#C6FF3D] hover:bg-[#b0f025] !text-[#0B0B0F] font-bold cursor-pointer"
+                  className="h-9 px-4 rounded-lg bg-[#C6FF3D] hover:bg-[#b0f025] !text-[#0B0B0F] font-mono text-xs font-bold uppercase tracking-wider inline-flex items-center justify-center gap-1.5 shadow-md shadow-[#C6FF3D]/10 hover:scale-[1.01] transition-all cursor-pointer"
                   style={{ color: "#0B0B0F" }}
                 >
-                  Record Brief
+                  <span style={{ color: "#0B0B0F" }}>Record Brief</span>
                 </button>
               </div>
             </form>
@@ -1911,8 +1890,8 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
       {/* MODAL: ADD CLIENT */}
       {showAddClientModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs">
-          <div className="w-full max-w-lg bg-[#121217] border border-[#232326] rounded-xl p-6 space-y-4">
-            <div className="flex items-center justify-between border-b border-[#232326] pb-3">
+          <div className="w-full max-w-lg bg-[#121217] border border-[#232326] rounded-2xl p-6 sm:p-7 space-y-4 shadow-2xl">
+            <div className="flex items-center justify-between border-b border-[#232326] pb-3.5">
               <h3 className="font-display font-bold text-lg text-[#F4F1EA]">
                 Add Client to Portfolio
               </h3>
@@ -1927,24 +1906,24 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
 
             <form onSubmit={handleCreateClient} className="space-y-3 font-mono text-xs">
               <div>
-                <label className="text-[#A9A7A0] block mb-1">BRAND NAME *</label>
+                <label className="text-[#A9A7A0] block text-[11px] uppercase tracking-wider mb-1 font-semibold">BRAND NAME *</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Royal Bakes"
                   value={newClient.brand_name}
                   onChange={(e) => setNewClient({ ...newClient, brand_name: e.target.value })}
-                  className="w-full bg-[#18181F] border border-[#2A2A30] rounded-lg px-3 py-2 text-[#F4F1EA] focus:outline-none focus:border-[#C6FF3D]"
+                  className="w-full h-9 bg-[#16161D] border border-[#2A2A30] focus:border-[#C6FF3D] focus:ring-1 focus:ring-[#C6FF3D] rounded-lg px-3 text-[#F4F1EA] placeholder-[#666] outline-none transition-colors"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-[#A9A7A0] block mb-1">BUSINESS CATEGORY</label>
+                  <label className="text-[#A9A7A0] block text-[11px] uppercase tracking-wider mb-1 font-semibold">BUSINESS CATEGORY</label>
                   <select
                     value={newClient.business_type}
                     onChange={(e) => setNewClient({ ...newClient, business_type: e.target.value })}
-                    className="w-full bg-[#18181F] border border-[#2A2A30] rounded-lg px-3 py-2 text-[#F4F1EA] focus:outline-none focus:border-[#C6FF3D]"
+                    className="w-full h-9 bg-[#16161D] border border-[#2A2A30] focus:border-[#C6FF3D] focus:ring-1 focus:ring-[#C6FF3D] rounded-lg px-3 text-[#F4F1EA] outline-none transition-colors"
                   >
                     <option value="restaurant">Restaurant / Cafe</option>
                     <option value="showroom">Automotive Showroom</option>
@@ -1956,37 +1935,37 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                 </div>
 
                 <div>
-                  <label className="text-[#A9A7A0] block mb-1">PRIMARY CONTACT</label>
+                  <label className="text-[#A9A7A0] block text-[11px] uppercase tracking-wider mb-1 font-semibold">PRIMARY CONTACT</label>
                   <input
                     type="text"
                     placeholder="Owner / Manager"
                     value={newClient.primary_contact}
                     onChange={(e) => setNewClient({ ...newClient, primary_contact: e.target.value })}
-                    className="w-full bg-[#18181F] border border-[#2A2A30] rounded-lg px-3 py-2 text-[#F4F1EA] focus:outline-none focus:border-[#C6FF3D]"
+                    className="w-full h-9 bg-[#16161D] border border-[#2A2A30] focus:border-[#C6FF3D] focus:ring-1 focus:ring-[#C6FF3D] rounded-lg px-3 text-[#F4F1EA] placeholder-[#666] outline-none transition-colors"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-[#A9A7A0] block mb-1">PHONE NUMBER</label>
+                  <label className="text-[#A9A7A0] block text-[11px] uppercase tracking-wider mb-1 font-semibold">PHONE NUMBER</label>
                   <input
                     type="text"
                     placeholder="+91 94431 XXXXX"
                     value={newClient.phone}
                     onChange={(e) => setNewClient({ ...newClient, phone: e.target.value })}
-                    className="w-full bg-[#18181F] border border-[#2A2A30] rounded-lg px-3 py-2 text-[#F4F1EA] focus:outline-none focus:border-[#C6FF3D]"
+                    className="w-full h-9 bg-[#16161D] border border-[#2A2A30] focus:border-[#C6FF3D] focus:ring-1 focus:ring-[#C6FF3D] rounded-lg px-3 text-[#F4F1EA] placeholder-[#666] outline-none transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label className="text-[#A9A7A0] block mb-1">INSTAGRAM HANDLE</label>
+                  <label className="text-[#A9A7A0] block text-[11px] uppercase tracking-wider mb-1 font-semibold">INSTAGRAM HANDLE</label>
                   <input
                     type="text"
                     placeholder="@royalbakes_tuti"
                     value={newClient.instagram_handle}
                     onChange={(e) => setNewClient({ ...newClient, instagram_handle: e.target.value })}
-                    className="w-full bg-[#18181F] border border-[#2A2A30] rounded-lg px-3 py-2 text-[#F4F1EA] focus:outline-none focus:border-[#C6FF3D]"
+                    className="w-full h-9 bg-[#16161D] border border-[#2A2A30] focus:border-[#C6FF3D] focus:ring-1 focus:ring-[#C6FF3D] rounded-lg px-3 text-[#F4F1EA] placeholder-[#666] outline-none transition-colors"
                   />
                 </div>
               </div>
@@ -1995,16 +1974,16 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                 <button
                   type="button"
                   onClick={() => setShowAddClientModal(false)}
-                  className="px-4 py-2 rounded-lg bg-[#18181F] text-[#A9A7A0] hover:text-[#F4F1EA] cursor-pointer"
+                  className="h-9 px-4 rounded-lg bg-[#16161D] border border-[#2A2A30] text-[#A9A7A0] hover:text-[#F4F1EA] font-mono text-xs uppercase transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-lg bg-[#C6FF3D] hover:bg-[#b0f025] !text-[#0B0B0F] font-bold cursor-pointer"
+                  className="h-9 px-4 rounded-lg bg-[#C6FF3D] hover:bg-[#b0f025] !text-[#0B0B0F] font-mono text-xs font-bold uppercase tracking-wider inline-flex items-center justify-center gap-1.5 shadow-md shadow-[#C6FF3D]/10 hover:scale-[1.01] transition-all cursor-pointer"
                   style={{ color: "#0B0B0F" }}
                 >
-                  Save Client
+                  <span style={{ color: "#0B0B0F" }}>Save Client</span>
                 </button>
               </div>
             </form>
@@ -2015,8 +1994,8 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
       {/* MODAL: ONBOARD OPERATIVE */}
       {showAddMemberModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs">
-          <div className="w-full max-w-md bg-[#121217] border border-[#232326] rounded-xl p-6 space-y-4">
-            <div className="flex items-center justify-between border-b border-[#232326] pb-3">
+          <div className="w-full max-w-md bg-[#121217] border border-[#232326] rounded-2xl p-6 sm:p-7 space-y-4 shadow-2xl">
+            <div className="flex items-center justify-between border-b border-[#232326] pb-3.5">
               <h3 className="font-display font-bold text-lg text-[#F4F1EA]">
                 Onboard Team Operative
               </h3>
@@ -2031,23 +2010,23 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
 
             <form onSubmit={handleCreateMember} className="space-y-3 font-mono text-xs">
               <div>
-                <label className="text-[#A9A7A0] block mb-1">OPERATIVE NAME *</label>
+                <label className="text-[#A9A7A0] block text-[11px] uppercase tracking-wider mb-1 font-semibold">OPERATIVE NAME *</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Ramesh V"
                   value={newMember.name}
                   onChange={(e) => setNewMember({ ...newMember, name: e.target.value })}
-                  className="w-full bg-[#18181F] border border-[#2A2A30] rounded-lg px-3 py-2 text-[#F4F1EA] focus:outline-none focus:border-[#C6FF3D]"
+                  className="w-full h-9 bg-[#16161D] border border-[#2A2A30] focus:border-[#C6FF3D] focus:ring-1 focus:ring-[#C6FF3D] rounded-lg px-3 text-[#F4F1EA] placeholder-[#666] outline-none transition-colors"
                 />
               </div>
 
               <div>
-                <label className="text-[#A9A7A0] block mb-1">STUDIO ROLE *</label>
+                <label className="text-[#A9A7A0] block text-[11px] uppercase tracking-wider mb-1 font-semibold">STUDIO ROLE *</label>
                 <select
                   value={newMember.role}
                   onChange={(e) => setNewMember({ ...newMember, role: e.target.value as TeamRole })}
-                  className="w-full bg-[#18181F] border border-[#2A2A30] rounded-lg px-3 py-2 text-[#F4F1EA] focus:outline-none focus:border-[#C6FF3D]"
+                  className="w-full h-9 bg-[#16161D] border border-[#2A2A30] focus:border-[#C6FF3D] focus:ring-1 focus:ring-[#C6FF3D] rounded-lg px-3 text-[#F4F1EA] outline-none transition-colors"
                 >
                   <option value="crew">Cinematographer / Crew</option>
                   <option value="producer">Producer / Studio Head</option>
@@ -2058,24 +2037,24 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
               </div>
 
               <div>
-                <label className="text-[#A9A7A0] block mb-1">PRODUCTION TITLE</label>
+                <label className="text-[#A9A7A0] block text-[11px] uppercase tracking-wider mb-1 font-semibold">PRODUCTION TITLE</label>
                 <input
                   type="text"
                   placeholder="e.g. Drone Pilot / Colorist"
                   value={newMember.title}
                   onChange={(e) => setNewMember({ ...newMember, title: e.target.value })}
-                  className="w-full bg-[#18181F] border border-[#2A2A30] rounded-lg px-3 py-2 text-[#F4F1EA] focus:outline-none focus:border-[#C6FF3D]"
+                  className="w-full h-9 bg-[#16161D] border border-[#2A2A30] focus:border-[#C6FF3D] focus:ring-1 focus:ring-[#C6FF3D] rounded-lg px-3 text-[#F4F1EA] placeholder-[#666] outline-none transition-colors"
                 />
               </div>
 
               <div>
-                <label className="text-[#A9A7A0] block mb-1">EMAIL ADDRESS</label>
+                <label className="text-[#A9A7A0] block text-[11px] uppercase tracking-wider mb-1 font-semibold">EMAIL ADDRESS</label>
                 <input
                   type="email"
                   placeholder="ramesh@27creativestudio.com"
                   value={newMember.email}
                   onChange={(e) => setNewMember({ ...newMember, email: e.target.value })}
-                  className="w-full bg-[#18181F] border border-[#2A2A30] rounded-lg px-3 py-2 text-[#F4F1EA] focus:outline-none focus:border-[#C6FF3D]"
+                  className="w-full h-9 bg-[#16161D] border border-[#2A2A30] focus:border-[#C6FF3D] focus:ring-1 focus:ring-[#C6FF3D] rounded-lg px-3 text-[#F4F1EA] placeholder-[#666] outline-none transition-colors"
                 />
               </div>
 
@@ -2083,16 +2062,16 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                 <button
                   type="button"
                   onClick={() => setShowAddMemberModal(false)}
-                  className="px-4 py-2 rounded-lg bg-[#18181F] text-[#A9A7A0] hover:text-[#F4F1EA] cursor-pointer"
+                  className="h-9 px-4 rounded-lg bg-[#16161D] border border-[#2A2A30] text-[#A9A7A0] hover:text-[#F4F1EA] font-mono text-xs uppercase transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-lg bg-[#C6FF3D] hover:bg-[#b0f025] !text-[#0B0B0F] font-bold cursor-pointer"
+                  className="h-9 px-4 rounded-lg bg-[#C6FF3D] hover:bg-[#b0f025] !text-[#0B0B0F] font-mono text-xs font-bold uppercase tracking-wider inline-flex items-center justify-center gap-1.5 shadow-md shadow-[#C6FF3D]/10 hover:scale-[1.01] transition-all cursor-pointer"
                   style={{ color: "#0B0B0F" }}
                 >
-                  Add Operative
+                  <span style={{ color: "#0B0B0F" }}>Add Operative</span>
                 </button>
               </div>
             </form>
@@ -2103,8 +2082,8 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
       {/* MODAL: SCHEDULE SHOOT */}
       {showAddShootModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs">
-          <div className="w-full max-w-lg bg-[#121217] border border-[#232326] rounded-xl p-6 space-y-4">
-            <div className="flex items-center justify-between border-b border-[#232326] pb-3">
+          <div className="w-full max-w-lg bg-[#121217] border border-[#232326] rounded-2xl p-6 sm:p-7 space-y-4 shadow-2xl">
+            <div className="flex items-center justify-between border-b border-[#232326] pb-3.5">
               <h3 className="font-display font-bold text-lg text-[#F4F1EA]">
                 Schedule Production Shoot
               </h3>
@@ -2119,46 +2098,46 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
 
             <form onSubmit={handleCreateShoot} className="space-y-3 font-mono text-xs">
               <div>
-                <label className="text-[#A9A7A0] block mb-1">CLIENT NAME *</label>
+                <label className="text-[#A9A7A0] block text-[11px] uppercase tracking-wider mb-1 font-semibold">CLIENT NAME *</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Anand Milk Sweets"
                   value={newShoot.client_name}
                   onChange={(e) => setNewShoot({ ...newShoot, client_name: e.target.value })}
-                  className="w-full bg-[#18181F] border border-[#2A2A30] rounded-lg px-3 py-2 text-[#F4F1EA] focus:outline-none focus:border-[#C6FF3D]"
+                  className="w-full h-9 bg-[#16161D] border border-[#2A2A30] focus:border-[#C6FF3D] focus:ring-1 focus:ring-[#C6FF3D] rounded-lg px-3 text-[#F4F1EA] placeholder-[#666] outline-none transition-colors"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-[#A9A7A0] block mb-1">SHOOT DATE</label>
+                  <label className="text-[#A9A7A0] block text-[11px] uppercase tracking-wider mb-1 font-semibold">SHOOT DATE</label>
                   <input
                     type="date"
                     value={newShoot.shoot_date}
                     onChange={(e) => setNewShoot({ ...newShoot, shoot_date: e.target.value })}
-                    className="w-full bg-[#18181F] border border-[#2A2A30] rounded-lg px-3 py-2 text-[#F4F1EA] focus:outline-none focus:border-[#C6FF3D]"
+                    className="w-full h-9 bg-[#16161D] border border-[#2A2A30] focus:border-[#C6FF3D] focus:ring-1 focus:ring-[#C6FF3D] rounded-lg px-3 text-[#F4F1EA] outline-none transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label className="text-[#A9A7A0] block mb-1">CALL TIME</label>
+                  <label className="text-[#A9A7A0] block text-[11px] uppercase tracking-wider mb-1 font-semibold">CALL TIME</label>
                   <input
                     type="text"
                     value={newShoot.call_time}
                     onChange={(e) => setNewShoot({ ...newShoot, call_time: e.target.value })}
-                    className="w-full bg-[#18181F] border border-[#2A2A30] rounded-lg px-3 py-2 text-[#F4F1EA] focus:outline-none focus:border-[#C6FF3D]"
+                    className="w-full h-9 bg-[#16161D] border border-[#2A2A30] focus:border-[#C6FF3D] focus:ring-1 focus:ring-[#C6FF3D] rounded-lg px-3 text-[#F4F1EA] placeholder-[#666] outline-none transition-colors"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-[#A9A7A0] block mb-1">LOCATION ADDRESS</label>
+                <label className="text-[#A9A7A0] block text-[11px] uppercase tracking-wider mb-1 font-semibold">LOCATION ADDRESS</label>
                 <input
                   type="text"
                   value={newShoot.location_address}
                   onChange={(e) => setNewShoot({ ...newShoot, location_address: e.target.value })}
-                  className="w-full bg-[#18181F] border border-[#2A2A30] rounded-lg px-3 py-2 text-[#F4F1EA] focus:outline-none focus:border-[#C6FF3D]"
+                  className="w-full h-9 bg-[#16161D] border border-[#2A2A30] focus:border-[#C6FF3D] focus:ring-1 focus:ring-[#C6FF3D] rounded-lg px-3 text-[#F4F1EA] placeholder-[#666] outline-none transition-colors"
                 />
               </div>
 
@@ -2166,16 +2145,16 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                 <button
                   type="button"
                   onClick={() => setShowAddShootModal(false)}
-                  className="px-4 py-2 rounded-lg bg-[#18181F] text-[#A9A7A0] hover:text-[#F4F1EA] cursor-pointer"
+                  className="h-9 px-4 rounded-lg bg-[#16161D] border border-[#2A2A30] text-[#A9A7A0] hover:text-[#F4F1EA] font-mono text-xs uppercase transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-lg bg-[#C6FF3D] hover:bg-[#b0f025] !text-[#0B0B0F] font-bold cursor-pointer"
+                  className="h-9 px-4 rounded-lg bg-[#C6FF3D] hover:bg-[#b0f025] !text-[#0B0B0F] font-mono text-xs font-bold uppercase tracking-wider inline-flex items-center justify-center gap-1.5 shadow-md shadow-[#C6FF3D]/10 hover:scale-[1.01] transition-all cursor-pointer"
                   style={{ color: "#0B0B0F" }}
                 >
-                  Schedule Shoot
+                  <span style={{ color: "#0B0B0F" }}>Schedule Shoot</span>
                 </button>
               </div>
             </form>
@@ -2186,8 +2165,8 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
       {/* MODAL: SUPABASE CLOUD STATUS */}
       {showSchemaModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs">
-          <div className="w-full max-w-xl bg-[#121217] border border-[#232326] rounded-xl p-6 space-y-4">
-            <div className="flex items-center justify-between border-b border-[#232326] pb-3">
+          <div className="w-full max-w-xl bg-[#121217] border border-[#232326] rounded-2xl p-6 sm:p-7 space-y-4 shadow-2xl">
+            <div className="flex items-center justify-between border-b border-[#232326] pb-3.5">
               <h3 className="font-display font-bold text-lg text-[#F4F1EA] flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#38BDF8] animate-ping" />
                 <span>Supabase Cloud Integration Active</span>
@@ -2204,11 +2183,11 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
             <div className="font-mono text-xs text-[#A9A7A0] space-y-3">
               <p>
                 Connected to live Supabase project:
-                <code className="text-[#38BDF8] bg-[#18181F] px-1 py-0.5 rounded ml-1">
+                <code className="text-[#38BDF8] bg-[#16161D] border border-[#2A2A30] px-1.5 py-0.5 rounded ml-1">
                   https://hokddcrcgeexnyswnerv.supabase.co
                 </code>
               </p>
-              <div className="p-3 bg-[#18181F] rounded-lg border border-[#2A2A30] space-y-1">
+              <div className="p-3 bg-[#0E0E14] rounded-lg border border-[#232326] space-y-1">
                 <p className="text-[#F4F1EA] font-bold">Live PostgreSQL Tables Synchronized:</p>
                 <p className="text-[#4ADE80]">✓ public.clients — Client portfolio, live Instagram metrics &amp; Google rating</p>
                 <p className="text-[#4ADE80]">✓ public.inquiries — Send Brief leads, deal values, deliverables &amp; stages</p>
@@ -2221,10 +2200,10 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
               <button
                 type="button"
                 onClick={() => setShowSchemaModal(false)}
-                className="px-4 py-2 rounded-lg bg-[#C6FF3D] !text-[#0B0B0F] font-bold font-mono text-xs uppercase cursor-pointer"
+                className="h-9 px-4 rounded-lg bg-[#C6FF3D] hover:bg-[#b0f025] !text-[#0B0B0F] font-mono text-xs font-bold uppercase tracking-wider cursor-pointer shadow-md shadow-[#C6FF3D]/10"
                 style={{ color: "#0B0B0F" }}
               >
-                Got It
+                <span style={{ color: "#0B0B0F" }}>Got It</span>
               </button>
             </div>
           </div>
@@ -2235,15 +2214,15 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
       {/* ======================================================== */}
       {selectedInquiry && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in">
-          <div className="w-full max-w-3xl bg-[#0F1017] border border-white/[0.12] rounded-2xl p-6 sm:p-7 space-y-6 shadow-2xl overflow-y-auto max-h-[90vh]">
+          <div className="w-full max-w-3xl bg-[#121217] border border-[#232326] rounded-2xl p-6 sm:p-7 space-y-6 shadow-2xl overflow-y-auto max-h-[90vh]">
             {/* Modal Header */}
-            <div className="flex items-start justify-between border-b border-white/[0.08] pb-4">
+            <div className="flex items-start justify-between border-b border-[#232326] pb-4">
               <div>
                 <div className="flex items-center gap-2 font-mono text-xs">
                   <span className="font-bold text-[#F59E0B]">SCENE #{selectedInquiry.id.replace(/[^0-9]/g, "").slice(-2) || "01"}</span>
-                  <span className="text-white/20">•</span>
+                  <span className="text-[#2A2A30]">•</span>
                   <span className="text-[#38BDF8] font-bold">SONY FX3 4K CINE-EI</span>
-                  <span className="text-white/20">•</span>
+                  <span className="text-[#2A2A30]">•</span>
                   <span className="text-[#C6FF3D] font-bold">9:16 VERTICAL REEL</span>
                 </div>
                 <h2 className="font-display font-black text-2xl text-[#F4F1EA] mt-1">
@@ -2260,7 +2239,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                 <button
                   type="button"
                   onClick={() => setSelectedInquiry(null)}
-                  className="w-8 h-8 rounded-full bg-white/[0.06] hover:bg-white/[0.12] text-[#A9A7A0] hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+                  className="w-8 h-8 rounded-lg bg-[#16161D] hover:bg-[#20202A] text-[#A9A7A0] hover:text-white flex items-center justify-center transition-colors border border-[#2A2A30] cursor-pointer"
                 >
                   <X size={16} />
                 </button>
@@ -2276,7 +2255,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                   <span className="text-[11px] font-mono text-[#A9A7A0] uppercase font-bold block mb-1.5">
                     CREATIVE CONCEPT &amp; HOOK BRIEF
                   </span>
-                  <div className="p-3.5 rounded-xl bg-[#07080E] border border-white/[0.06] text-xs text-[#E2E1DD] leading-relaxed">
+                  <div className="p-3.5 rounded-xl bg-[#0E0E14] border border-[#232326] text-xs text-[#E2E1DD] leading-relaxed">
                     {selectedInquiry.story || "No concept notes logged yet."}
                   </div>
                 </div>
@@ -2290,7 +2269,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                     {selectedInquiry.deliverables?.map((d, i) => (
                       <span
                         key={i}
-                        className="px-2.5 py-1 rounded-lg bg-[#141524] text-[#38BDF8] border border-[#38BDF8]/30 font-mono text-xs font-semibold"
+                        className="px-2.5 py-1 rounded-lg bg-[#16161D] text-[#38BDF8] border border-[#38BDF8]/30 font-mono text-xs font-semibold"
                       >
                         ✓ {d}
                       </span>
@@ -2299,7 +2278,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                 </div>
 
                 {/* Cinema Camera Specs */}
-                <div className="p-3.5 rounded-xl bg-[#07080E] border border-white/[0.06] font-mono text-xs space-y-2">
+                <div className="p-3.5 rounded-xl bg-[#0E0E14] border border-[#232326] font-mono text-xs space-y-2">
                   <span className="text-[#C6FF3D] font-bold block text-[11px] uppercase">
                     CAMERA &amp; COLOR PROFILE SPEC
                   </span>
@@ -2328,7 +2307,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
               <div className="space-y-4">
                 {/* Financials Box */}
                 {permissions.canViewFinancials && (
-                  <div className="p-4 rounded-xl bg-[#0A1208] border border-[#C6FF3D]/30 space-y-2">
+                  <div className="p-4 rounded-xl bg-[#0E0E14] border border-[#C6FF3D]/30 space-y-2">
                     <span className="font-mono text-[10px] text-[#A9A7A0] uppercase font-bold block">
                       COMMERCIAL CONTRACT VALUE
                     </span>
@@ -2352,7 +2331,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                 )}
 
                 {/* Pipeline Stage Controller */}
-                <div className="p-3.5 rounded-xl bg-[#07080E] border border-white/[0.06] space-y-2.5 font-mono text-xs">
+                <div className="p-3.5 rounded-xl bg-[#0E0E14] border border-[#232326] space-y-2.5 font-mono text-xs">
                   <span className="text-[#A9A7A0] uppercase font-bold block text-[11px]">
                     PRODUCTION STAGE CLEARANCE
                   </span>
@@ -2363,7 +2342,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                       handleUpdateLeadStatus(selectedInquiry.id, newStatus);
                       setSelectedInquiry({ ...selectedInquiry, status: newStatus });
                     }}
-                    className="w-full bg-[#12131F] border border-white/[0.12] rounded-lg px-3 py-2 text-xs text-[#C6FF3D] font-bold focus:outline-none focus:border-[#C6FF3D]"
+                    className="w-full h-9 bg-[#16161D] border border-[#2A2A30] rounded-lg px-3 text-xs text-[#C6FF3D] font-bold focus:outline-none focus:border-[#C6FF3D]"
                   >
                     {PIPELINE_STAGES.map((s) => (
                       <option key={s.id} value={s.id}>
@@ -2383,7 +2362,7 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                           setSelectedInquiry({ ...selectedInquiry, status: PIPELINE_STAGES[curIdx - 1].id });
                         }
                       }}
-                      className="flex-1 py-1.5 rounded-lg bg-white/[0.06] hover:bg-white/[0.1] disabled:opacity-20 text-xs font-semibold text-[#F4F1EA] transition-colors cursor-pointer"
+                      className="flex-1 h-9 rounded-lg bg-[#16161D] hover:bg-[#20202A] border border-[#2A2A30] disabled:opacity-20 text-xs font-semibold text-[#F4F1EA] transition-colors cursor-pointer"
                     >
                       ← Previous Stage
                     </button>
@@ -2397,15 +2376,16 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                           setSelectedInquiry({ ...selectedInquiry, status: PIPELINE_STAGES[curIdx + 1].id });
                         }
                       }}
-                      className="flex-1 py-1.5 rounded-lg bg-[#C6FF3D] hover:bg-[#b0f025] disabled:opacity-20 text-xs font-bold text-[#0B0B0F] transition-colors cursor-pointer"
+                      className="flex-1 h-9 rounded-lg bg-[#C6FF3D] hover:bg-[#b0f025] disabled:opacity-20 text-xs font-bold !text-[#0B0B0F] transition-colors cursor-pointer shadow-md shadow-[#C6FF3D]/10"
+                      style={{ color: "#0B0B0F" }}
                     >
-                      Advance Stage →
+                      <span style={{ color: "#0B0B0F" }}>Advance Stage →</span>
                     </button>
                   </div>
                 </div>
 
                 {/* Direct Communications Hub */}
-                <div className="p-3.5 rounded-xl bg-[#07080E] border border-white/[0.06] space-y-2">
+                <div className="p-3.5 rounded-xl bg-[#0E0E14] border border-[#232326] space-y-2">
                   <span className="font-mono text-[11px] text-[#A9A7A0] uppercase font-bold block">
                     DIRECT CLIENT COMMUNICATIONS
                   </span>
@@ -2416,14 +2396,14 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                       )}`}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex-1 py-2 px-3 rounded-lg bg-[#22C55E]/10 hover:bg-[#22C55E]/20 text-[#22C55E] border border-[#22C55E]/30 font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors"
+                      className="flex-1 h-9 px-3 rounded-lg bg-[#22C55E]/10 hover:bg-[#22C55E]/20 text-[#22C55E] border border-[#22C55E]/30 font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors"
                     >
                       <MessageSquare size={14} />
                       <span>Open WhatsApp Chat ↗</span>
                     </a>
                     <a
                       href={`tel:${selectedInquiry.contact}`}
-                      className="py-2 px-4 rounded-lg bg-white/[0.06] hover:bg-white/[0.1] text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors"
+                      className="h-9 px-4 rounded-lg bg-[#16161D] hover:bg-[#20202A] border border-[#2A2A30] text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors"
                     >
                       <Phone size={13} />
                       <span>Call Client</span>
@@ -2434,14 +2414,14 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
             </div>
 
             {/* Modal Footer */}
-            <div className="flex items-center justify-between pt-4 border-t border-white/[0.08] font-mono text-xs">
+            <div className="flex items-center justify-between pt-4 border-t border-[#232326] font-mono text-xs">
               <span className="text-[#8E8D9A]">
-                Inquiry ID: <code className="text-white/60">{selectedInquiry.id}</code>
+                Inquiry ID: <code className="text-white/60 bg-[#16161D] px-1 py-0.5 rounded border border-[#2A2A30]">{selectedInquiry.id}</code>
               </span>
               <button
                 type="button"
                 onClick={() => setSelectedInquiry(null)}
-                className="px-5 py-2 rounded-xl bg-white/[0.08] hover:bg-white/[0.15] text-[#F4F1EA] font-semibold text-xs transition-colors cursor-pointer"
+                className="h-9 px-4 rounded-lg bg-[#16161D] hover:bg-[#20202A] border border-[#2A2A30] text-[#F4F1EA] font-semibold text-xs transition-colors cursor-pointer"
               >
                 Close Inspector
               </button>

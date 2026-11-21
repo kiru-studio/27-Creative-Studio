@@ -17,7 +17,7 @@ import {
 } from "framer-motion";
 import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 import { siteContent } from "@/lib/site-content";
-import { getMediaStreamUrl } from "@/lib/media-utils";
+import { getMediaStreamUrl, parseMediaUrl } from "@/lib/media-utils";
 
 // ==========================================
 // 0. TYPES & DATA ARRAY
@@ -50,6 +50,9 @@ export const caseStudiesData: CaseStudyItem[] = siteContent.caseStudies.map(
   (item, index) => {
     const category =
       item.label.replace(/^CASE\s*\/\s*/i, "").trim() || "CASE";
+    const parsedMedia = item.videoSrc ? parseMediaUrl(item.videoSrc) : null;
+    const effectivePoster = item.posterSrc || parsedMedia?.posterSuggestionUrl || "";
+
     return {
       id: `case-${index}-${(item.client || item.title)
         .toLowerCase()
@@ -60,7 +63,7 @@ export const caseStudiesData: CaseStudyItem[] = siteContent.caseStudies.map(
       goal: item.goal,
       shot: item.shot,
       result: item.result,
-      posterSrc: item.posterSrc,
+      posterSrc: effectivePoster,
       videoSrc: item.videoSrc,
       client: item.client,
       handle: item.handle,
@@ -108,8 +111,7 @@ export function FilmFrameCornerBrackets({
     delay: 0.38,
   };
 
-  const size = 18;
-  const inset = 8;
+  const size = 20;
   const borderWidth = 2;
 
   return (
@@ -128,11 +130,11 @@ export function FilmFrameCornerBrackets({
         transition={bracketSpring}
         style={{
           position: "absolute",
-          top: `${inset}px`,
-          left: `${inset}px`,
+          top: 0,
+          left: 0,
           width: `${size}px`,
           height: `${size}px`,
-          borderColor: "var(--industry)",
+          borderColor: "var(--industry, #C6FF3D)",
           borderStyle: "solid",
           borderWidth: `${borderWidth}px 0 0 ${borderWidth}px`,
           willChange: "transform, opacity",
@@ -149,11 +151,11 @@ export function FilmFrameCornerBrackets({
         transition={bracketSpring}
         style={{
           position: "absolute",
-          top: `${inset}px`,
-          right: `${inset}px`,
+          top: 0,
+          right: 0,
           width: `${size}px`,
           height: `${size}px`,
-          borderColor: "var(--industry)",
+          borderColor: "var(--industry, #C6FF3D)",
           borderStyle: "solid",
           borderWidth: `${borderWidth}px ${borderWidth}px 0 0`,
           willChange: "transform, opacity",
@@ -170,11 +172,11 @@ export function FilmFrameCornerBrackets({
         transition={bracketSpring}
         style={{
           position: "absolute",
-          bottom: `${inset}px`,
-          left: `${inset}px`,
+          bottom: 0,
+          left: 0,
           width: `${size}px`,
           height: `${size}px`,
-          borderColor: "var(--industry)",
+          borderColor: "var(--industry, #C6FF3D)",
           borderStyle: "solid",
           borderWidth: `0 0 ${borderWidth}px ${borderWidth}px`,
           willChange: "transform, opacity",
@@ -191,11 +193,11 @@ export function FilmFrameCornerBrackets({
         transition={bracketSpring}
         style={{
           position: "absolute",
-          bottom: `${inset}px`,
-          right: `${inset}px`,
+          bottom: 0,
+          right: 0,
           width: `${size}px`,
           height: `${size}px`,
-          borderColor: "var(--industry)",
+          borderColor: "var(--industry, #C6FF3D)",
           borderStyle: "solid",
           borderWidth: `0 ${borderWidth}px ${borderWidth}px 0`,
           willChange: "transform, opacity",
@@ -302,13 +304,17 @@ export interface CursorPreviewProps {
 }
 
 export function CursorPreview({ item, x, y }: CursorPreviewProps) {
+  const effectivePoster =
+    item.posterSrc ||
+    (item.videoSrc ? parseMediaUrl(item.videoSrc).posterSuggestionUrl : undefined);
+
   return (
     <motion.div
-      className="pointer-events-none fixed top-0 left-0 z-50 overflow-hidden rounded-[var(--radius-control)] border border-[var(--line)] border-l-2 border-l-[var(--industry)] bg-[var(--panel-raised)] shadow-2xl"
+      className="pointer-events-none fixed top-0 left-0 z-50 overflow-hidden rounded-xl border border-[#2A2A30] border-l-2 border-l-[#C6FF3D] bg-[#141419] shadow-2xl"
       style={{
         x,
         y,
-        width: 220,
+        width: 240,
         aspectRatio: "16 / 9",
         transform: "translateZ(0)",
         willChange: "transform, opacity",
@@ -319,35 +325,28 @@ export function CursorPreview({ item, x, y }: CursorPreviewProps) {
       transition={{ duration: 0.2, ease: "easeOut" }}
       aria-hidden="true"
     >
-      <div className="relative w-full h-full p-3 flex flex-col justify-between overflow-hidden bg-[var(--ink)]">
-        {item.posterSrc ? (
-          <img
-            src={item.posterSrc}
-            alt={`${item.client || "Case study"} — ${item.title}`}
-            className="absolute inset-0 w-full h-full object-cover opacity-60"
-          />
+      <div className="relative w-full h-full p-3 flex flex-col justify-end overflow-hidden bg-[#0B0B0F]">
+        {effectivePoster ? (
+          <>
+            <img
+              src={effectivePoster}
+              alt={item.title}
+              className="absolute inset-0 w-full h-full object-cover opacity-60"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+          </>
         ) : (
-          <div className="absolute inset-0 bg-[var(--panel)] flex items-center justify-center">
-            <span className="text-[var(--line)] text-2xl font-mono select-none">
+          <div className="absolute inset-0 bg-[#121217] flex items-center justify-center">
+            <span className="text-[#2A2A30] text-2xl font-mono select-none">
               ⌖
             </span>
           </div>
         )}
 
-        {/* Top-left mono PREVIEW label */}
-        <div className="relative z-10 flex items-center justify-between font-mono text-[9px] tracking-widest text-[var(--paper)]">
-          <span className="text-[var(--industry)] font-semibold uppercase">
-            PREVIEW
-          </span>
-          <span className="text-[var(--muted)] text-[8px] uppercase tracking-wider">
-            {item.category}
-          </span>
-        </div>
-
-        {/* Bottom case title */}
-        <div className="relative z-10 font-mono text-[10px] text-[var(--paper)] break-words leading-tight select-none">
-          <span className="text-[var(--industry)] mr-1">CASE /</span>
-          <span className="font-bold">{item.title}</span>
+        {/* Minimal Tag: CASE / CATEGORY only */}
+        <div className="relative z-10 font-mono text-[11px] tracking-widest select-none uppercase">
+          <span className="text-[#C6FF3D] font-bold mr-1">CASE /</span>
+          <span className="text-white font-bold">{item.category}</span>
         </div>
       </div>
     </motion.div>
@@ -369,9 +368,37 @@ export function CasePanel({
   isOpen,
   shouldReduceMotion,
 }: CasePanelProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoTime, setVideoTime] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isBuffering, setIsBuffering] = useState(false);
+
+  const effectivePoster =
+    item.posterSrc ||
+    (item.videoSrc ? parseMediaUrl(item.videoSrc).posterSuggestionUrl : undefined);
+
+  // When accordion closes, pause video and reset states
+  useEffect(() => {
+    if (!isOpen && videoRef.current) {
+      videoRef.current.pause();
+      setIsPlaying(false);
+      setIsBuffering(false);
+    }
+  }, [isOpen]);
+
+  const formatCinemaTimecode = (seconds: number) => {
+    if (isNaN(seconds) || seconds < 0) return "00:00:00:00";
+    const totalSecs = Math.floor(seconds);
+    const hrs = String(Math.floor(totalSecs / 3600)).padStart(2, "0");
+    const mins = String(Math.floor((totalSecs % 3600) / 60)).padStart(2, "0");
+    const secs = String(totalSecs % 60).padStart(2, "0");
+    const frames = String(Math.floor((seconds % 1) * 24)).padStart(2, "0");
+    return `${hrs}:${mins}:${secs}:${frames}`;
+  };
+
   return (
-    <div className="case-detail pt-2 pb-6">
-      {/* Film Frame: fades/slides in from left (x: -16 -> 0) */}
+    <div className="case-detail pt-2 pb-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start lg:items-center">
+      {/* 1. Standard 16:9 Cinema Widescreen Viewport (lg:col-span-5) - Vertically Centered */}
       <motion.div
         initial={
           shouldReduceMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -16 }
@@ -382,178 +409,251 @@ export function CasePanel({
           ease: [0.16, 1, 0.3, 1],
           delay: shouldReduceMotion ? 0 : 0.08,
         }}
-        className="case-video relative overflow-hidden bg-[var(--panel)]"
-        style={{ borderLeft: 0, willChange: "transform, opacity" }}
+        className="lg:col-span-5 w-full self-center my-auto"
       >
-        {/* Four small lime viewfinder corner brackets animate inward (~0.35s) */}
-        <FilmFrameCornerBrackets
-          isAnimated={isOpen}
-          shouldReduceMotion={shouldReduceMotion}
-        />
+        {/* Outer Viewfinder: 4 focus corner brackets positioned outside the video frame */}
+        <div className="relative p-2.5 sm:p-3">
+          {/* Four lime focus corner brackets framing the video from outside */}
+          <FilmFrameCornerBrackets
+            isAnimated={isOpen}
+            shouldReduceMotion={shouldReduceMotion}
+          />
 
-        {/* Top-left: mono "● REC" with blinking dot (opacity loop, ~1.2s) */}
-        {!shouldReduceMotion && (
+          <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden bg-black border border-[var(--line,#2A2A30)] shadow-2xl flex items-center justify-center">
+
+          {/* Top HUD: Video-Synced Timecode & Playback State */}
           <div
-            className="absolute top-3 left-4 z-20 flex items-center gap-1.5 font-mono text-[var(--text-xs)] tracking-widest text-[var(--paper)] pointer-events-none uppercase select-none"
+            className="absolute top-2.5 left-3 right-3 z-20 flex items-center justify-between font-mono text-[11px] pointer-events-none select-none tracking-widest"
             aria-hidden="true"
           >
-            <motion.span
-              className="inline-block w-2 h-2 rounded-full bg-[var(--industry)]"
-              animate={{ opacity: [1, 0.2, 1] }}
-              transition={{
-                duration: 1.2,
-                repeat: Infinity,
-                ease: "easeInOut",
+            <div className="flex items-center gap-1.5 px-2 py-0.5 rounded bg-black/80 backdrop-blur-sm border border-white/10">
+              <span
+                className={`w-1.5 h-1.5 rounded-full ${
+                  isPlaying
+                    ? "bg-[#FF3B30] animate-pulse"
+                    : isBuffering
+                    ? "bg-[#F2B84B] animate-ping"
+                    : "bg-[#C6FF3D]"
+                }`}
+              />
+              <span
+                className={
+                  isPlaying
+                    ? "text-[#FF3B30] font-bold"
+                    : isBuffering
+                    ? "text-[#F2B84B] font-bold"
+                    : "text-[#C6FF3D] font-bold"
+                }
+              >
+                {isPlaying ? "REC // 24FPS" : isBuffering ? "BUFFERING" : "STANDBY"}
+              </span>
+            </div>
+
+            <div className="px-2 py-0.5 rounded bg-black/80 backdrop-blur-sm border border-white/10 text-[var(--paper,#F4F1EA)] tabular-nums">
+              {formatCinemaTimecode(videoTime)}
+            </div>
+          </div>
+
+          {/* Buffering Stream Overlay */}
+          {isBuffering && (
+            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 bg-black/60 backdrop-blur-[2px] pointer-events-none">
+              <div className="w-8 h-8 border-2 border-[#C6FF3D]/20 border-t-[#C6FF3D] rounded-full animate-spin" />
+              <span className="font-mono text-[10px] text-[#C6FF3D] tracking-widest uppercase">
+                BUFFERING STREAM // 24FPS
+              </span>
+            </div>
+          )}
+
+          {/* Video element with standard 16:9 dimension & responsive fit */}
+          {item.videoSrc ? (
+            <video
+              ref={videoRef}
+              src={getMediaStreamUrl(item.videoSrc)}
+              poster={effectivePoster}
+              className="w-full h-full object-contain bg-black"
+              controls
+              playsInline
+              preload={isOpen ? "auto" : "none"}
+              onTimeUpdate={(e) => setVideoTime(e.currentTarget.currentTime)}
+              onPlay={() => {
+                setIsPlaying(true);
+                setIsBuffering(false);
               }}
+              onPause={() => setIsPlaying(false)}
+              onWaiting={() => setIsBuffering(true)}
+              onPlaying={() => setIsBuffering(false)}
+              onSeeked={(e) => setVideoTime(e.currentTarget.currentTime)}
+              aria-label={item.title}
             />
-            <span className="font-semibold text-[var(--industry)]">REC</span>
-          </div>
-        )}
-
-        {/* Top-right: running timecode (00:00:00, increments every second while open, resets on close) */}
-        <div
-          className="absolute top-3 right-4 z-20 font-mono text-[var(--text-xs)] text-[var(--muted)] pointer-events-none select-none tracking-widest"
-          aria-hidden="true"
-        >
-          <FilmTimecode isActive={isOpen && !shouldReduceMotion} />
+          ) : effectivePoster ? (
+            <img
+              className="w-full h-full object-cover"
+              src={effectivePoster}
+              alt={`${item.client || "Case study"} media — ${item.title}`}
+            />
+          ) : (
+            <div className="w-full h-full flex flex-col items-center justify-center font-mono text-[var(--text-xs)] text-[var(--muted)] select-none bg-[#141419] p-4 text-center">
+              <span className="text-[#C6FF3D] text-xl mb-1">⌖</span>
+              <span className="text-white font-bold mb-0.5">{item.client || item.title}</span>
+              <span className="text-[10px] text-[#A9A7A0]">{siteContent.ui.caseFilmPlaceholder}</span>
+            </div>
+          )}
         </div>
-
-        {/* Video, poster or film placeholder */}
-        {item.videoSrc ? (
-          <video
-            className="case-video-media"
-            src={getMediaStreamUrl(item.videoSrc)}
-            poster={item.posterSrc}
-            controls
-            muted
-            playsInline
-            preload="none"
-            aria-label={item.title}
-          />
-        ) : item.posterSrc ? (
-          <img
-            className="case-video-image"
-            src={item.posterSrc}
-            alt={`${item.client || "Case study"} media — ${item.title}`}
-          />
-        ) : (
-          <div className="w-full h-full min-h-[140px] flex items-end justify-start font-mono text-[var(--text-xs)] text-[var(--muted)] select-none">
-            <span className="relative z-10">
-              {siteContent.ui.caseFilmPlaceholder}
-            </span>
-          </div>
-        )}
+        </div>
       </motion.div>
 
-      {/* Client Meta (Location & Instagram Handle) */}
-      {(item.location || item.handle) && (
-        <div className="flex flex-wrap items-center gap-3 pt-3 pb-1 font-mono text-xs">
-          {item.location && (
-            <span className="inline-flex items-center gap-1.5 text-[var(--paper)]">
-              <span className="text-[var(--industry)]">📍</span>
-              {item.location}
-            </span>
-          )}
-          {item.handle && (
-            <span className="text-[var(--industry)] font-semibold">
-              {item.handle}
-            </span>
-          )}
-        </div>
-      )}
-
-      {/* Growth Metric Stat Cards (From PDF Pages 3-6) */}
-      {item.growthMultiplier && (
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5 my-3 font-mono">
-          <div className="p-2 sm:p-2.5 lg:p-3 rounded bg-[var(--panel-raised)] border border-[var(--line)] min-w-0 flex flex-col justify-between">
-            <span className="block text-[9px] sm:text-[10px] uppercase tracking-wider text-[var(--muted)] whitespace-nowrap overflow-hidden">Follower Growth</span>
-            <span className="block text-lg sm:text-xl lg:text-2xl font-black text-[var(--industry)] whitespace-nowrap tabular-nums leading-tight mt-0.5">{item.growthMultiplier}</span>
-            {item.newFollowers && <span className="block text-[10px] sm:text-[11px] text-[var(--paper)] font-semibold whitespace-nowrap tabular-nums mt-0.5">{item.newFollowers} new</span>}
+      {/* 2. Right: Meta & Stats Column (lg:col-span-7) */}
+      <div className="lg:col-span-7 flex flex-col gap-3 min-w-0">
+        {/* Client Meta (Location & Instagram Handle) */}
+        {(item.location || item.handle) && (
+          <div className="flex flex-wrap items-center gap-3 pt-1 pb-1 font-mono text-xs">
+            {item.location && (
+              <span className="inline-flex items-center gap-1.5 text-[var(--paper)]">
+                <span className="text-[var(--industry)]">📍</span>
+                {item.location}
+              </span>
+            )}
+            {item.handle && (
+              <span className="text-[var(--industry)] font-semibold">
+                {item.handle}
+              </span>
+            )}
           </div>
-          {item.followersStart && item.followersNow && (
-            <div className="p-2 sm:p-2.5 lg:p-3 rounded bg-[var(--panel-raised)] border border-[var(--line)] min-w-0 flex flex-col justify-between">
-              <span className="block text-[9px] sm:text-[10px] uppercase tracking-wider text-[var(--muted)] whitespace-nowrap overflow-hidden">Trajectory</span>
-              <span className="block text-[11px] sm:text-xs md:text-sm font-bold text-[var(--paper)] mt-0.5 whitespace-nowrap tabular-nums tracking-tight leading-tight">{item.followersStart} → {item.followersNow}</span>
-              <span className="block text-[10px] text-[var(--muted)] whitespace-nowrap mt-0.5">start &gt; now</span>
-            </div>
-          )}
-          {item.topViews && (
-            <div className="p-2 sm:p-2.5 lg:p-3 rounded bg-[var(--panel-raised)] border border-[var(--line)] min-w-0 flex flex-col justify-between">
-              <span className="block text-[9px] sm:text-[10px] uppercase tracking-wider text-[var(--muted)] whitespace-nowrap overflow-hidden">Top Reel Views</span>
-              <span className="block text-base sm:text-lg lg:text-xl font-bold text-[var(--paper)] mt-0.5 whitespace-nowrap tabular-nums leading-tight">{item.topViews}</span>
-              {item.postsCount && <span className="block text-[10px] text-[var(--muted)] whitespace-nowrap tabular-nums mt-0.5">{item.postsCount} posts</span>}
-            </div>
-          )}
-          {item.googleRating && (
-            <div className="p-2 sm:p-2.5 lg:p-3 rounded bg-[var(--panel-raised)] border border-[var(--line)] min-w-0 flex flex-col justify-between">
-              <span className="block text-[9px] sm:text-[10px] uppercase tracking-wider text-[var(--muted)] whitespace-nowrap overflow-hidden">Google Rating</span>
-              <span className="block text-xs sm:text-sm md:text-base font-bold text-[#FFD700] mt-0.5 whitespace-nowrap tabular-nums tracking-tight leading-tight">★ {item.googleRating}</span>
-              {item.googleReviews && <span className="block text-[10px] text-[var(--muted)] whitespace-nowrap mt-0.5">{item.googleReviews}</span>}
-            </div>
-          )}
-        </div>
-      )}
+        )}
 
-      {/* Goal block: rises (y: 12 -> 0, 80ms apart) */}
-      <motion.p
-        initial={
-          shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }
-        }
-        animate={{ opacity: 1, y: 0 }}
-        transition={{
-          duration: 0.4,
-          ease: "easeOut",
-          delay: shouldReduceMotion ? 0 : 0.16,
-        }}
-        className="m-0"
-      >
-        <strong className="text-[var(--paper)] mr-2 font-bold">
-          {siteContent.ui.caseGoalLabel}
-        </strong>
-        <span>{item.goal}</span>
-      </motion.p>
+        {/* Growth Metric Stat Cards */}
+        {item.growthMultiplier && (() => {
+          const match = item.growthMultiplier.match(/^([^\s(]+)(.*)$/);
+          const mainMultiplier = match ? match[1] : item.growthMultiplier;
+          const extraMultiplier = match && match[2] ? match[2].trim() : null;
 
-      {/* What we shot block: rises (y: 12 -> 0, 80ms apart) */}
-      <motion.p
-        initial={
-          shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }
-        }
-        animate={{ opacity: 1, y: 0 }}
-        transition={{
-          duration: 0.4,
-          ease: "easeOut",
-          delay: shouldReduceMotion ? 0 : 0.24,
-        }}
-        className="m-0"
-      >
-        <strong className="text-[var(--paper)] mr-2 font-bold">
-          {siteContent.ui.caseShotLabel}
-        </strong>
-        <span>{item.shot}</span>
-      </motion.p>
+          return (
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5 my-1 font-mono">
+              {/* 1. Follower Growth */}
+              <div className="p-2 sm:p-2.5 lg:p-3 rounded bg-[var(--panel-raised)] border border-[var(--line)] min-w-0 flex flex-col justify-between overflow-hidden">
+                <span className="block text-[9px] sm:text-[10px] uppercase tracking-wider text-[var(--muted)] truncate">Follower Growth</span>
+                <div className="flex items-baseline gap-1 mt-0.5 min-w-0 overflow-hidden">
+                  <span className="block text-base sm:text-lg lg:text-xl font-black text-[var(--industry)] truncate tabular-nums leading-tight">
+                    {mainMultiplier}
+                  </span>
+                  {extraMultiplier && (
+                    <span className="text-[10px] sm:text-xs text-[var(--industry)]/90 font-bold truncate">
+                      {extraMultiplier}
+                    </span>
+                  )}
+                </div>
+                {item.newFollowers && (
+                  <span className="block text-[10px] sm:text-[11px] text-[var(--paper)] font-semibold truncate tabular-nums mt-0.5">
+                    {item.newFollowers} new
+                  </span>
+                )}
+              </div>
 
-      {/* Result block: rises (y: 12 -> 0, 80ms apart) + number count up */}
-      <motion.p
-        initial={
-          shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }
-        }
-        animate={{ opacity: 1, y: 0 }}
-        transition={{
-          duration: 0.4,
-          ease: "easeOut",
-          delay: shouldReduceMotion ? 0 : 0.32,
-        }}
-        className="m-0"
-      >
-        <strong className="text-[var(--paper)] mr-2 font-bold">
-          {siteContent.ui.caseResultLabel}
-        </strong>
-        <ResultTextWithCounter
-          text={item.result || ""}
-          isOpen={isOpen}
-          shouldReduceMotion={shouldReduceMotion}
-        />
-      </motion.p>
+              {/* 2. Trajectory */}
+              {item.followersStart && item.followersNow && (
+                <div className="p-2 sm:p-2.5 lg:p-3 rounded bg-[var(--panel-raised)] border border-[var(--line)] min-w-0 flex flex-col justify-between overflow-hidden">
+                  <span className="block text-[9px] sm:text-[10px] uppercase tracking-wider text-[var(--muted)] truncate">Trajectory</span>
+                  <span className="block text-[11px] sm:text-xs md:text-sm font-bold text-[var(--paper)] mt-0.5 truncate tabular-nums tracking-tight leading-tight">
+                    {item.followersStart} → {item.followersNow}
+                  </span>
+                  <span className="block text-[10px] text-[var(--muted)] truncate mt-0.5">start &gt; now</span>
+                </div>
+              )}
+
+              {/* 3. Top Reel Views */}
+              {item.topViews && (
+                <div className="p-2 sm:p-2.5 lg:p-3 rounded bg-[var(--panel-raised)] border border-[var(--line)] min-w-0 flex flex-col justify-between overflow-hidden">
+                  <span className="block text-[9px] sm:text-[10px] uppercase tracking-wider text-[var(--muted)] truncate">Top Reel Views</span>
+                  <span className="block text-sm sm:text-base lg:text-lg font-bold text-[var(--paper)] mt-0.5 truncate tabular-nums leading-tight">
+                    {item.topViews}
+                  </span>
+                  {item.postsCount && (
+                    <span className="block text-[10px] text-[var(--muted)] truncate tabular-nums mt-0.5">
+                      {item.postsCount} posts
+                    </span>
+                  )}
+                </div>
+              )}
+
+              {/* 4. Google Rating */}
+              {item.googleRating && (
+                <div className="p-2 sm:p-2.5 lg:p-3 rounded bg-[var(--panel-raised)] border border-[var(--line)] min-w-0 flex flex-col justify-between overflow-hidden">
+                  <span className="block text-[9px] sm:text-[10px] uppercase tracking-wider text-[var(--muted)] truncate">Google Rating</span>
+                  <span className="block text-xs sm:text-sm md:text-base font-bold text-[#FFD700] mt-0.5 truncate tabular-nums tracking-tight leading-tight">
+                    ★ {item.googleRating}
+                  </span>
+                  {item.googleReviews && (
+                    <span className="block text-[10px] text-[var(--muted)] truncate mt-0.5">
+                      {item.googleReviews}
+                    </span>
+                  )}
+                </div>
+              )}
+            </div>
+          );
+        })()}
+
+        {/* Goal block */}
+        <motion.p
+          initial={
+            shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }
+          }
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.4,
+            ease: "easeOut",
+            delay: shouldReduceMotion ? 0 : 0.16,
+          }}
+          className="m-0 text-sm leading-relaxed"
+        >
+          <strong className="text-[var(--paper)] mr-2 font-bold">
+            {siteContent.ui.caseGoalLabel}
+          </strong>
+          <span>{item.goal}</span>
+        </motion.p>
+
+        {/* What we shot block */}
+        <motion.p
+          initial={
+            shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }
+          }
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.4,
+            ease: "easeOut",
+            delay: shouldReduceMotion ? 0 : 0.24,
+          }}
+          className="m-0 text-sm leading-relaxed"
+        >
+          <strong className="text-[var(--paper)] mr-2 font-bold">
+            {siteContent.ui.caseShotLabel}
+          </strong>
+          <span>{item.shot}</span>
+        </motion.p>
+
+        {/* Result block */}
+        <motion.p
+          initial={
+            shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }
+          }
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.4,
+            ease: "easeOut",
+            delay: shouldReduceMotion ? 0 : 0.32,
+          }}
+          className="m-0 text-sm leading-relaxed"
+        >
+          <strong className="text-[var(--paper)] mr-2 font-bold">
+            {siteContent.ui.caseResultLabel}
+          </strong>
+          <ResultTextWithCounter
+            text={item.result || ""}
+            isOpen={isOpen}
+            shouldReduceMotion={shouldReduceMotion}
+          />
+        </motion.p>
+      </div>
     </div>
   );
 }

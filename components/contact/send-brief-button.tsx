@@ -58,11 +58,11 @@ export function SendBriefButton({
       {isLoading ? (
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-[#FF3B30] shadow-[0_0_8px_#FF3B30] animate-pulse" />
-          <span style={{ color: "#0B0B0F" }}>Recording...</span>
+          <span style={{ color: "#0B0B0F" }}>RECORDING…</span>
         </div>
       ) : (
         <>
-          <span style={{ color: "#0B0B0F" }}>Send brief</span>
+          <span style={{ color: "#0B0B0F" }}>SEND BRIEF</span>
           <ArrowUpRight
             size={16}
             className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"

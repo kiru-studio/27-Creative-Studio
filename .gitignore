@@ -22,5 +22,6 @@ __pycache__/
 *.zip
 # gstack (global install)
 .amazonq/rules/gstack.md
+.agents/
 
 /*_n.jpg

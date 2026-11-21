@@ -15,7 +15,7 @@ export default function TermsOfServicePage() {
   const lastUpdated = 'November 12, 2026';
 
   return (
-    <main className="min-h-screen bg-[#0B0B0F] text-[#F4F1EA] select-none p-6 sm:p-10 lg:p-16 relative overflow-hidden">
+    <main className="min-h-screen bg-[#0B0B0F] text-[#F4F1EA] p-6 sm:p-10 lg:p-16 relative overflow-hidden">
       {/* Background overlay */}
       <div className="faq-grain-overlay pointer-events-none" aria-hidden="true" />
 

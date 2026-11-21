@@ -1,4 +1,4 @@
-import { createHash, createHmac, randomBytes, timingSafeEqual } from "node:crypto";
+import { createHmac, randomBytes, timingSafeEqual } from "node:crypto";
 import type { NextResponse } from "next/server";
 
 const sessionCookie = "rec-admin-session";
@@ -51,22 +51,7 @@ export function isAllowedGoogleEmail(email: string): boolean {
 }
 
 export function adminAuthConfigured() {
-  const hasPassword = Boolean(
-    process.env.ADMIN_PASSWORD && process.env.ADMIN_PASSWORD.length >= 8,
-  );
-  const hasGoogle = googleAuthConfigured();
-  return Boolean(hasPassword || hasGoogle);
-}
-
-export function adminPasswordMatches(password: string) {
-  const configuredPassword = process.env.ADMIN_PASSWORD;
-  if (!configuredPassword || !adminAuthConfigured()) return false;
-
-  const submittedHash = createHash("sha256").update(password).digest();
-  const configuredHash = createHash("sha256")
-    .update(configuredPassword)
-    .digest();
-  return timingSafeEqual(submittedHash, configuredHash);
+  return true;
 }
 
 function getSecret(): string {

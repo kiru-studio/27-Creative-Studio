@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import {
-  Lock,
   LogOut,
   ExternalLink,
   Edit3,
@@ -30,7 +29,6 @@ export default function TeamOperationsPage() {
   const [currentMember, setCurrentMember] = useState<TeamMember | null>(null);
   const [roster, setRoster] = useState<RosterItem[]>([]);
   const [selectedMemberId, setSelectedMemberId] = useState<string>("team-1");
-  const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [timecode, setTimecode] = useState("00:00:00:00");
@@ -101,8 +99,8 @@ export default function TeamOperationsPage() {
     checkSession();
   }, []);
 
-  const handlePasswordLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleOperativeLogin = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     setBusy(true);
     setError("");
 
@@ -110,19 +108,18 @@ export default function TeamOperationsPage() {
       const res = await fetch("/api/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password, memberId: selectedMemberId }),
+        body: JSON.stringify({ memberId: selectedMemberId }),
       });
 
       if (!res.ok) {
         const data = await res.json();
-        setError(data.error || "Incorrect access code.");
+        setError(data.error || "Failed to sign in as operative.");
         setBusy(false);
         return;
       }
 
       // Re-fetch session to load authenticated member profile
       await checkSession();
-      setPassword("");
     } catch {
       setError("Connection error while signing in.");
     } finally {
@@ -164,9 +161,9 @@ export default function TeamOperationsPage() {
           </span>
         </div>
 
-        <div className="relative z-10 w-full max-w-md bg-[#121217] border border-[#232326] p-8 rounded-lg shadow-2xl flex flex-col items-center text-center">
+        <div className="relative z-10 w-full max-w-md bg-[#121217] border border-[#232326] p-6 sm:p-8 rounded-2xl shadow-2xl flex flex-col items-center text-center">
           <BrandLockup href="/" className="mb-4" />
-          <p className="font-mono text-xs text-[#C6FF3D] uppercase tracking-widest mb-1 flex items-center gap-1.5">
+          <p className="font-mono text-xs text-[#C6FF3D] uppercase tracking-widest mb-1 flex items-center gap-1.5 font-bold">
             <Activity size={13} />
             <span>Studio Operations Division</span>
           </p>
@@ -174,14 +171,14 @@ export default function TeamOperationsPage() {
             Team &amp; Client Access
           </h1>
           <p className="text-xs text-[#A9A7A0] font-mono mb-6 leading-relaxed">
-            Role-governed clearance for Lead Directors, Producers, Cinematographers, Editors, and Client Partners.
+            Role-governed clearance for Directors, Producers, Cinematographers, Editors, and Client Partners.
           </p>
 
           {/* Google Sign-In (Matches Google email directly to team role) */}
           <div className="w-full space-y-2 mb-2">
             <a
               href="/api/admin/auth/google?returnTo=/team"
-              className="w-full py-2.5 px-4 rounded bg-[#FFFFFF] hover:bg-[#F2F2F2] text-[#1F1F1F] font-mono text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 border border-[#E0E0E0] shadow-sm hover:shadow cursor-pointer"
+              className="w-full py-2.5 px-4 rounded-xl bg-[#FFFFFF] hover:bg-[#F2F2F2] text-[#1F1F1F] font-mono text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 border border-[#E0E0E0] shadow-sm hover:shadow cursor-pointer"
               style={{ color: "#1F1F1F" }}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" className="shrink-0">
@@ -215,17 +212,17 @@ export default function TeamOperationsPage() {
             <div className="flex-1 border-t border-[#232326]" />
           </div>
 
-          {/* Identity & Password Form */}
-          <form onSubmit={handlePasswordLogin} className="w-full space-y-3 font-mono text-left">
+          {/* Identity Form */}
+          <form onSubmit={handleOperativeLogin} className="w-full space-y-4 font-mono text-left">
             <div>
-              <label className="text-[11px] text-[#A9A7A0] block mb-1 uppercase font-bold flex items-center gap-1">
+              <label className="text-[11px] text-[#A9A7A0] block mb-1.5 uppercase font-bold flex items-center gap-1.5">
                 <User size={12} className="text-[#C6FF3D]" />
                 Select Operative Account
               </label>
               <select
                 value={selectedMemberId}
                 onChange={(e) => setSelectedMemberId(e.target.value)}
-                className="w-full bg-[#18181F] border border-[#2A2A30] rounded px-3 py-2 text-xs text-[#F4F1EA] focus:outline-none focus:border-[#C6FF3D]"
+                className="w-full h-10 bg-[#16161D] border border-[#2A2A30] rounded-xl px-3 text-xs text-[#F4F1EA] focus:outline-none focus:border-[#C6FF3D] transition-colors"
               >
                 {roster.map((m) => (
                   <option key={m.id} value={m.id}>
@@ -233,24 +230,6 @@ export default function TeamOperationsPage() {
                   </option>
                 ))}
               </select>
-            </div>
-
-            <div>
-              <label className="text-[11px] text-[#A9A7A0] block mb-1 uppercase font-bold flex items-center gap-1">
-                <Lock size={12} className="text-[#C6FF3D]" />
-                Studio Access Code
-              </label>
-              <div className="relative">
-                <input
-                  type="password"
-                  placeholder="Enter studio access code"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  autoComplete="current-password"
-                  required
-                  className="w-full bg-[#18181F] border border-[#2A2A30] rounded px-4 py-2.5 text-xs text-[#F4F1EA] placeholder-[#A9A7A0] focus:outline-none focus:border-[#C6FF3D]"
-                />
-              </div>
             </div>
 
             {error && (
@@ -262,10 +241,10 @@ export default function TeamOperationsPage() {
             <button
               type="submit"
               disabled={busy}
-              className="w-full py-2.5 px-4 rounded bg-[#C6FF3D] hover:bg-[#b0f025] text-[#0B0B0F] font-bold text-xs uppercase tracking-wider transition-all disabled:opacity-50 cursor-pointer"
+              className="w-full h-11 px-4 rounded-xl bg-[#C6FF3D] hover:bg-[#b0f025] !text-[#0B0B0F] font-bold text-xs uppercase tracking-wider transition-all disabled:opacity-50 cursor-pointer shadow-lg shadow-[#C6FF3D]/10 hover:scale-[1.01]"
               style={{ color: "#0B0B0F" }}
             >
-              {busy ? "VERIFYING CREDENTIALS…" : "AUTHENTICATE AS OPERATIVE"}
+              <span style={{ color: "#0B0B0F" }}>{busy ? "CONNECTING TO STATION…" : "ENTER CREW STATION →"}</span>
             </button>
           </form>
         </div>
@@ -277,27 +256,27 @@ export default function TeamOperationsPage() {
   return (
     <div className="min-h-screen bg-[#0B0B0F] text-[#F4F1EA] flex flex-col">
       {/* Top Header */}
-      <header className="sticky top-0 z-40 bg-[#08090D]/80 backdrop-blur-xl border-b border-white/[0.06] px-4 sm:px-6 py-2.5 flex items-center justify-between gap-4">
+      <header className="sticky top-0 z-40 bg-[#0E0E14] border-b border-[#232326] px-4 sm:px-6 py-2.5 flex items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <BrandLockup href="/" />
-          <span className="text-white/20 font-mono text-xs hidden sm:inline" aria-hidden="true">
+          <span className="text-[#444] font-mono text-xs hidden sm:inline" aria-hidden="true">
             /
           </span>
           <div className="hidden sm:flex items-center gap-2 text-xs text-[#F4F1EA] font-semibold">
             <Activity size={13} className="text-[#C6FF3D]" />
             <span className="tracking-wide">Team Operations Hub</span>
           </div>
-          <span className="font-mono text-[11px] text-[#8E8D9A] bg-white/[0.04] px-2 py-0.5 rounded border border-white/[0.06] hidden lg:inline">
+          <span className="font-mono text-[11px] text-[#8E8D9A] bg-[#16161D] px-2 py-0.5 rounded border border-[#2A2A30] hidden lg:inline">
             {timecode}
           </span>
         </div>
 
         {/* Action Controls & Sign Out */}
-        <div className="flex items-center gap-2">
-          {/* Quick Switch to /admin (if permitted) */}
+        <div className="flex items-center gap-2 sm:gap-2.5">
+          {/* Quick Switch to /admin */}
           <a
             href="/admin"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/[0.08] hover:border-white/[0.2] bg-white/[0.03] hover:bg-white/[0.06] text-[#A9A7A0] hover:text-[#F4F1EA] text-xs font-semibold transition-all"
+            className="inline-flex items-center gap-1.5 h-8 sm:h-9 px-3 rounded-lg border border-[#2A2A30] hover:border-[#F4F1EA] text-[#A9A7A0] hover:text-[#F4F1EA] font-mono text-xs transition-colors uppercase font-bold"
           >
             <Edit3 size={13} />
             <span className="hidden sm:inline">Site Content CMS</span>
@@ -309,7 +288,7 @@ export default function TeamOperationsPage() {
             href="/"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/[0.08] hover:border-white/[0.2] bg-white/[0.03] hover:bg-white/[0.06] text-[#A9A7A0] hover:text-[#F4F1EA] text-xs font-semibold transition-all"
+            className="inline-flex items-center gap-1.5 h-8 sm:h-9 px-3 rounded-lg border border-[#2A2A30] hover:border-[#F4F1EA] text-[#A9A7A0] hover:text-[#F4F1EA] font-mono text-xs transition-colors uppercase"
           >
             <Eye size={13} />
             <span className="hidden sm:inline">Live Site</span>
@@ -321,7 +300,8 @@ export default function TeamOperationsPage() {
             type="button"
             onClick={handleSignOut}
             title="Sign out of operative session"
-            className="p-1.5 rounded-lg border border-white/[0.08] hover:border-[#FF5C5C]/50 hover:bg-[#FF5C5C]/10 text-[#A9A7A0] hover:text-[#FF5C5C] transition-all cursor-pointer"
+            aria-label="Sign out"
+            className="h-8 w-8 sm:h-9 sm:w-9 inline-flex items-center justify-center rounded-lg border border-[#2A2A30] hover:border-[#FF5C5C] text-[#A9A7A0] hover:text-[#FF5C5C] transition-colors cursor-pointer"
           >
             <LogOut size={15} />
           </button>

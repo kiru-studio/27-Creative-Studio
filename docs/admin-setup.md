@@ -4,11 +4,10 @@ The editor lives at `/admin`. Content is stored in `content/site-content.json`. 
 
 ## Configure authentication
 
-Create a strong, unique admin password with a password manager. Create a separate random session secret with at least 32 characters. Never commit either value or send it in chat.
+Create a random session secret with at least 32 characters (`ADMIN_SESSION_SECRET`).
 
 Add these environment variables in Vercel under **Project Settings → Environment Variables**:
 
-- `ADMIN_PASSWORD`: the admin password.
 - `ADMIN_SESSION_SECRET`: the random session-signing secret.
 - `GITHUB_OWNER`: the GitHub account or organization that owns the site repository.
 - `GITHUB_REPO`: the repository name.
