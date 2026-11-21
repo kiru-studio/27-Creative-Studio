@@ -162,6 +162,9 @@ export function MainPlayer({
             src={item.src}
             poster={item.posterSrc}
             controls
+            controlsList="nodownload nofullscreen noremoteplayback"
+            disablePictureInPicture
+            onContextMenu={(e) => e.preventDefault()}
             muted={muted}
             playsInline
             preload="none"
@@ -342,6 +345,9 @@ export function VideoCard({
             className="film-video"
             src={item.src}
             poster={item.posterSrc}
+            controlsList="nodownload nofullscreen noremoteplayback"
+            disablePictureInPicture
+            onContextMenu={(e) => e.preventDefault()}
             muted
             loop
             playsInline

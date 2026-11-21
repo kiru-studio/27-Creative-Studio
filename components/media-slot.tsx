@@ -39,6 +39,9 @@ export function MediaSlot({
           className="media-video"
           src={getMediaStreamUrl(src)}
           controls
+          controlsList="nodownload nofullscreen noremoteplayback"
+          disablePictureInPicture
+          onContextMenu={(e) => e.preventDefault()}
           muted
           loop={loop}
           playsInline

@@ -18,6 +18,7 @@ import {
 import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 import { siteContent } from "@/lib/site-content";
 import { getMediaStreamUrl, parseMediaUrl } from "@/lib/media-utils";
+import { VideoPlayer } from "@/components/ui/video-player";
 
 // ==========================================
 // 0. TYPES & DATA ARRAY
@@ -464,15 +465,14 @@ export function CasePanel({
             </div>
           )}
 
-          {/* Video element with standard 16:9 dimension & responsive fit */}
+          {/* Video element with standard 16:9 dimension & custom non-downloadable player */}
           {item.videoSrc ? (
-            <video
+            <VideoPlayer
               ref={videoRef}
               src={getMediaStreamUrl(item.videoSrc)}
               poster={effectivePoster}
-              className="w-full h-full object-contain bg-black"
-              controls
-              playsInline
+              className="w-full h-full"
+              objectFit="contain"
               preload={isOpen ? "auto" : "none"}
               onTimeUpdate={(e) => setVideoTime(e.currentTarget.currentTime)}
               onPlay={() => {
@@ -482,7 +482,6 @@ export function CasePanel({
               onPause={() => setIsPlaying(false)}
               onWaiting={() => setIsBuffering(true)}
               onPlaying={() => setIsBuffering(false)}
-              onSeeked={(e) => setVideoTime(e.currentTarget.currentTime)}
               aria-label={item.title}
             />
           ) : effectivePoster ? (

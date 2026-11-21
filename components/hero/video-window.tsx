@@ -114,6 +114,9 @@ export function VideoWindow({
             muted={isMuted}
             playsInline
             preload="metadata"
+            controlsList="nodownload nofullscreen noremoteplayback"
+            disablePictureInPicture
+            onContextMenu={(e) => e.preventDefault()}
             className="w-full h-full object-cover"
           />
         ) : (

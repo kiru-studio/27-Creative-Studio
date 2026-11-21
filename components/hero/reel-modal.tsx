@@ -119,6 +119,9 @@ export function ReelModal({
                   autoPlay
                   playsInline
                   controls={false}
+                  controlsList="nodownload nofullscreen noremoteplayback"
+                  disablePictureInPicture
+                  onContextMenu={(e) => e.preventDefault()}
                   muted={isMuted}
                   loop
                   onClick={togglePlay}

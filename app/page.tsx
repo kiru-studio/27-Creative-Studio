@@ -236,6 +236,9 @@ function ReelViewer({
               src={item.videoSrc}
               poster={item.posterSrc}
               controls
+              controlsList="nodownload nofullscreen noremoteplayback"
+              disablePictureInPicture
+              onContextMenu={(e) => e.preventDefault()}
               muted={!soundOn}
               playsInline
               preload="none"

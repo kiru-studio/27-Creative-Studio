@@ -125,6 +125,9 @@ export function SmartMediaInput({
               <video
                 src={parsed.streamUrl}
                 controls
+                controlsList="nodownload nofullscreen noremoteplayback"
+                disablePictureInPicture
+                onContextMenu={(e) => e.preventDefault()}
                 playsInline
                 preload="metadata"
                 className="w-full max-h-56 rounded bg-black object-contain"

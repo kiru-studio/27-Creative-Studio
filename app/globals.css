@@ -21,10 +21,12 @@ nextjs-portal,
   --color-primary: var(--primary);
   --color-ring: var(--industry);
   --color-ink: var(--ink);
+  --radius-card: var(--card-radius, 1rem);
 }
 
 :root {
   color-scheme: dark;
+  --card-radius: 1rem;
   --ink: #0B0B0F;
   --paper: #F4F1EA;
   --muted: #A9A7A0;
