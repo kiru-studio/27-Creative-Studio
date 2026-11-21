@@ -3,7 +3,14 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
-import { Play, Pause } from "lucide-react";
+import {
+  Play,
+  Pause,
+  Volume2,
+  VolumeX,
+  Maximize,
+  Minimize,
+} from "lucide-react";
 
 const videoPlayerVariants = cva(
   "relative w-full bg-black rounded-card overflow-hidden group select-none",
@@ -278,29 +285,81 @@ const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
         />
 
         {showControls && (
-          <div
-            className={cn(
-              "absolute inset-0 flex items-center justify-center pointer-events-none transition-opacity duration-300 z-20",
-              !isPlaying || showControlsState ? "opacity-100" : "opacity-0",
-            )}
-          >
-            {/* Pure Play / Pause Icon Only (No circles, no background, no glass overlays) */}
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                togglePlay();
-              }}
-              className="p-4 text-white hover:text-[#C6FF3D] transition-all duration-200 pointer-events-auto hover:scale-115 active:scale-90 cursor-pointer drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)] filter outline-none"
-              aria-label={isPlaying ? "Pause video" : "Play video"}
-            >
-              {isPlaying ? (
-                <Pause className="w-16 h-16 sm:w-20 sm:h-20" fill="currentColor" />
-              ) : (
-                <Play className="w-16 h-16 sm:w-20 sm:h-20 ml-1.5" fill="currentColor" />
+          <>
+            {/* Center: Pure Play / Pause Icon Only (Sleek, smaller size, brand lime green #C6FF3D) */}
+            <div
+              className={cn(
+                "absolute inset-0 flex items-center justify-center pointer-events-none transition-opacity duration-300 z-20",
+                !isPlaying || showControlsState ? "opacity-100" : "opacity-0",
               )}
-            </button>
-          </div>
+            >
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  togglePlay();
+                }}
+                className="p-3 text-[#C6FF3D] transition-all duration-200 pointer-events-auto hover:scale-115 active:scale-90 cursor-pointer drop-shadow-[0_3px_14px_rgba(0,0,0,0.95)] hover:drop-shadow-[0_0_20px_rgba(198,255,61,0.7)] filter outline-none"
+                aria-label={isPlaying ? "Pause video" : "Play video"}
+              >
+                {isPlaying ? (
+                  <Pause
+                    className="w-11 h-11 sm:w-13 sm:h-13"
+                    style={{ color: "#C6FF3D", fill: "#C6FF3D" }}
+                  />
+                ) : (
+                  <Play
+                    className="w-11 h-11 sm:w-13 sm:h-13 ml-1"
+                    style={{ color: "#C6FF3D", fill: "#C6FF3D" }}
+                  />
+                )}
+              </button>
+            </div>
+
+            {/* Bottom HUD Bar: Mute (Left) and Fullscreen (Right) — clean transparent icons */}
+            <div
+              className={cn(
+                "absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none z-30 transition-opacity duration-300",
+                !isPlaying || showControlsState ? "opacity-100" : "opacity-0",
+              )}
+            >
+              {/* Mute / Unmute Button (Icon only) */}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleMute();
+                }}
+                className="p-2 text-white/90 hover:text-[#C6FF3D] hover:scale-110 active:scale-95 transition-all duration-200 cursor-pointer pointer-events-auto drop-shadow-md outline-none"
+                title={isMuted || volume === 0 ? "Unmute audio (M)" : "Mute audio (M)"}
+                aria-label={isMuted || volume === 0 ? "Unmute" : "Mute"}
+              >
+                {isMuted || volume === 0 ? (
+                  <VolumeX className="w-5 h-5 text-[#FF5C5C]" />
+                ) : (
+                  <Volume2 className="w-5 h-5" />
+                )}
+              </button>
+
+              {/* Fullscreen Button (Icon only) */}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleFullscreen();
+                }}
+                className="p-2 text-white/90 hover:text-[#C6FF3D] hover:scale-110 active:scale-95 transition-all duration-200 cursor-pointer pointer-events-auto drop-shadow-md outline-none"
+                title={isFullscreen ? "Exit Fullscreen (F)" : "Enter Fullscreen (F)"}
+                aria-label={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
+              >
+                {isFullscreen ? (
+                  <Minimize className="w-5 h-5 text-[#C6FF3D]" />
+                ) : (
+                  <Maximize className="w-5 h-5" />
+                )}
+              </button>
+            </div>
+          </>
         )}
       </div>
     );
