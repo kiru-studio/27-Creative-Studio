@@ -245,6 +245,21 @@ const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
     }, []);
 
     React.useEffect(() => {
+      if (props.autoPlay && videoRef.current) {
+        const playPromise = videoRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            if (videoRef.current) {
+              videoRef.current.muted = true;
+              setIsMuted(true);
+              videoRef.current.play().catch(() => {});
+            }
+          });
+        }
+      }
+    }, [props.autoPlay]);
+
+    React.useEffect(() => {
       const handleKeyDown = (e: KeyboardEvent) => {
         if (!containerRef.current?.contains(document.activeElement)) return;
 

@@ -377,13 +377,41 @@ export function CasePanel({
     item.posterSrc ||
     (item.videoSrc ? parseMediaUrl(item.videoSrc).posterSuggestionUrl : undefined);
 
-  // When accordion closes, pause video and reset states
+  // When accordion opens: auto play video; when closes: pause video
   useEffect(() => {
-    if (!isOpen && videoRef.current) {
-      videoRef.current.pause();
-      setIsPlaying(false);
-      setIsBuffering(false);
+    let playTimer: NodeJS.Timeout;
+
+    if (isOpen) {
+      const attemptPlay = () => {
+        if (!videoRef.current) return;
+        const playPromise = videoRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            // If browser blocks unmuted autoplay, mute and retry to guarantee playback
+            if (videoRef.current) {
+              videoRef.current.muted = true;
+              videoRef.current.play().catch(() => {});
+            }
+          });
+        }
+      };
+
+      attemptPlay();
+      playTimer = setTimeout(attemptPlay, 120);
+    } else {
+      if (videoRef.current) {
+        videoRef.current.pause();
+        setIsPlaying(false);
+        setIsBuffering(false);
+      }
     }
+
+    return () => {
+      clearTimeout(playTimer);
+      if (videoRef.current) {
+        videoRef.current.pause();
+      }
+    };
   }, [isOpen]);
 
   return (
@@ -417,6 +445,7 @@ export function CasePanel({
               ref={videoRef}
               src={getMediaStreamUrl(item.videoSrc)}
               poster={effectivePoster}
+              autoPlay
               className="w-full h-full"
               objectFit="contain"
               preload={isOpen ? "auto" : "none"}
