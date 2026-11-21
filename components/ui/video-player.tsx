@@ -340,6 +340,15 @@ const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
                     }}
                   />
 
+                  {/* Multi-layered Physical Liquid Glass Inset Shadow */}
+                  <div className="absolute inset-0 rounded-full z-0 pointer-events-none transition-all shadow-[0_0_8px_rgba(0,0,0,0.03),0_2px_6px_rgba(0,0,0,0.08),inset_3px_3px_0.5px_-3.5px_rgba(255,255,255,0.15),inset_-3px_-3px_0.5px_-3.5px_rgba(255,255,255,0.9),inset_1px_1px_1px_-0.5px_rgba(255,255,255,0.6),inset_-1px_-1px_1px_-0.5px_rgba(255,255,255,0.6),inset_0_0_6px_6px_rgba(255,255,255,0.15),inset_0_0_2px_2px_rgba(255,255,255,0.08)]" />
+
+                  {/* Optical Liquid Distortion Filter (SVG Displacement) */}
+                  <div
+                    className="absolute inset-0 isolate -z-10 h-full w-full overflow-hidden rounded-full pointer-events-none"
+                    style={{ backdropFilter: 'url("#video-liquid-glass")' }}
+                  />
+
                   {/* Perimeter Glass Lens Refraction Rim (fresnel edge) */}
                   <div className="absolute inset-0 rounded-full border border-white/20 pointer-events-none" />
 
@@ -349,6 +358,7 @@ const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
                   ) : (
                     <Play className="w-8 h-8 sm:w-9 sm:h-9 ml-1 text-white fill-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)] group-hover/glass:text-[#C6FF3D] group-hover/glass:fill-[#C6FF3D] transition-colors duration-200 relative z-10" />
                   )}
+                  <VideoGlassFilter />
                 </button>
               </div>
             </div>
@@ -402,6 +412,42 @@ const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
     );
   },
 );
+
+function VideoGlassFilter() {
+  return (
+    <svg className="hidden pointer-events-none" aria-hidden="true">
+      <defs>
+        <filter
+          id="video-liquid-glass"
+          x="0%"
+          y="0%"
+          width="100%"
+          height="100%"
+          colorInterpolationFilters="sRGB"
+        >
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.04 0.04"
+            numOctaves="1"
+            seed="2"
+            result="turbulence"
+          />
+          <feGaussianBlur in="turbulence" stdDeviation="2" result="blurredNoise" />
+          <feDisplacementMap
+            in="SourceGraphic"
+            in2="blurredNoise"
+            scale="40"
+            xChannelSelector="R"
+            yChannelSelector="B"
+            result="displaced"
+          />
+          <feGaussianBlur in="displaced" stdDeviation="2" result="finalBlur" />
+          <feComposite in="finalBlur" in2="finalBlur" operator="over" />
+        </filter>
+      </defs>
+    </svg>
+  );
+}
 
 VideoPlayer.displayName = "VideoPlayer";
 
