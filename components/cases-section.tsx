@@ -455,15 +455,6 @@ export function CasePanel({
             </div>
           </div>
 
-          {/* Buffering Stream Overlay */}
-          {isBuffering && (
-            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 bg-black/60 backdrop-blur-[2px] pointer-events-none">
-              <div className="w-8 h-8 border-2 border-[#C6FF3D]/20 border-t-[#C6FF3D] rounded-full animate-spin" />
-              <span className="font-mono text-[10px] text-[#C6FF3D] tracking-widest uppercase">
-                BUFFERING STREAM // 24FPS
-              </span>
-            </div>
-          )}
 
           {/* Video element with standard 16:9 dimension & custom non-downloadable player */}
           {item.videoSrc ? (

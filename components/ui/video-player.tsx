@@ -310,58 +310,47 @@ const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
               </button>
             </div>
 
-            {/* Bottom HUD Bar: ONLY Mute (Left) and Fullscreen (Right) */}
+            {/* Bottom HUD Bar: ONLY Mute (Left) and Fullscreen (Right) — pure icon buttons, no background overlay, no text */}
             <div
               className={cn(
                 "absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none z-30 transition-opacity duration-300",
                 !isPlaying || showControlsState ? "opacity-100" : "opacity-0",
               )}
             >
-              {/* Mute / Unmute Button */}
+              {/* Mute / Unmute Button (Icon only) */}
               <button
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
                   toggleMute();
                 }}
-                className={cn(
-                  "px-3 py-2 rounded-lg bg-black/75 backdrop-blur-md border transition-all duration-200 cursor-pointer pointer-events-auto flex items-center gap-2 text-white shadow-xl hover:scale-105 active:scale-95",
-                  isMuted || volume === 0
-                    ? "border-[#FF5C5C]/60 text-[#FF5C5C] hover:bg-[#FF5C5C]/20"
-                    : "border-white/20 hover:border-[#C6FF3D]/70 hover:text-[#C6FF3D] hover:bg-black/90",
-                )}
+                className="p-2 text-white/90 hover:text-[#C6FF3D] hover:scale-110 active:scale-95 transition-all duration-200 cursor-pointer pointer-events-auto drop-shadow-md"
                 title={isMuted || volume === 0 ? "Unmute audio (M)" : "Mute audio (M)"}
                 aria-label={isMuted || volume === 0 ? "Unmute" : "Mute"}
               >
                 {isMuted || volume === 0 ? (
-                  <VolumeX className="w-4 h-4 text-[#FF5C5C]" />
+                  <VolumeX className="w-5 h-5 text-[#FF5C5C]" />
                 ) : (
-                  <Volume2 className="w-4 h-4 text-[#C6FF3D]" />
+                  <Volume2 className="w-5 h-5" />
                 )}
-                <span className="font-mono text-[10px] tracking-wider uppercase font-bold text-[#F4F1EA]">
-                  {isMuted || volume === 0 ? "MUTED" : "SOUND ON"}
-                </span>
               </button>
 
-              {/* Fullscreen Button */}
+              {/* Fullscreen Button (Icon only) */}
               <button
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
                   toggleFullscreen();
                 }}
-                className="px-3 py-2 rounded-lg bg-black/75 backdrop-blur-md border border-white/20 text-[#F4F1EA] hover:text-[#C6FF3D] hover:border-[#C6FF3D]/70 hover:bg-black/90 transition-all duration-200 cursor-pointer pointer-events-auto shadow-xl flex items-center gap-2 hover:scale-105 active:scale-95"
+                className="p-2 text-white/90 hover:text-[#C6FF3D] hover:scale-110 active:scale-95 transition-all duration-200 cursor-pointer pointer-events-auto drop-shadow-md"
                 title={isFullscreen ? "Exit Fullscreen (F)" : "Enter Fullscreen (F)"}
                 aria-label={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
               >
                 {isFullscreen ? (
-                  <Minimize className="w-4 h-4 text-[#C6FF3D]" />
+                  <Minimize className="w-5 h-5 text-[#C6FF3D]" />
                 ) : (
-                  <Maximize className="w-4 h-4 text-[#C6FF3D]" />
+                  <Maximize className="w-5 h-5" />
                 )}
-                <span className="font-mono text-[10px] tracking-wider uppercase font-bold text-[#F4F1EA]">
-                  {isFullscreen ? "MINIMIZE" : "FULLSCREEN"}
-                </span>
               </button>
             </div>
           </>
