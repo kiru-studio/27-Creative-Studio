@@ -293,21 +293,51 @@ const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
                 !isPlaying || showControlsState ? "opacity-100" : "opacity-0",
               )}
             >
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  togglePlay();
-                }}
-                className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-black/70 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-[#C6FF3D] hover:text-black hover:border-[#C6FF3D] transition-all duration-200 pointer-events-auto shadow-2xl hover:scale-110 active:scale-95 cursor-pointer"
-                aria-label={isPlaying ? "Pause video" : "Play video"}
-              >
-                {isPlaying ? (
-                  <Pause className="w-7 h-7 sm:w-8 sm:h-8" />
-                ) : (
-                  <Play className="w-7 h-7 sm:w-8 sm:h-8 ml-1" />
-                )}
-              </button>
+              {/* Liquid Glass Play/Pause Container */}
+              <div className="relative group/liquid flex items-center justify-center pointer-events-auto">
+                {/* Ambient liquid lighting glow with vibrant color accents */}
+                <div
+                  className={cn(
+                    "absolute -inset-3 rounded-[32px] blur-xl transition-all duration-500 pointer-events-none",
+                    "bg-gradient-to-tr from-[#C6FF3D]/30 via-cyan-400/20 to-purple-500/25",
+                    "opacity-70 group-hover/liquid:opacity-100 group-hover/liquid:scale-115",
+                  )}
+                />
+
+                {/* Main Liquid Glass Button: Frosted translucent surface, glossy specular reflections, 3D beveled rim */}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    togglePlay();
+                  }}
+                  className={cn(
+                    "relative w-16 h-16 sm:w-20 sm:h-20 rounded-[24px] sm:rounded-[28px]",
+                    "bg-gradient-to-b from-white/30 via-white/10 to-white/5",
+                    "backdrop-blur-2xl backdrop-saturate-150",
+                    "border border-white/40 hover:border-white/70",
+                    "shadow-[inset_0_1.5px_2px_rgba(255,255,255,0.7),inset_0_-2px_4px_rgba(0,0,0,0.35),0_12px_32px_rgba(0,0,0,0.45),0_0_24px_rgba(198,255,61,0.2)]",
+                    "hover:shadow-[inset_0_2px_4px_rgba(255,255,255,0.95),inset_0_-2px_6px_rgba(198,255,61,0.35),0_16px_40px_rgba(0,0,0,0.55),0_0_36px_rgba(198,255,61,0.45)]",
+                    "flex items-center justify-center",
+                    "transition-all duration-300 ease-out",
+                    "hover:scale-105 active:scale-95 cursor-pointer overflow-hidden",
+                  )}
+                  aria-label={isPlaying ? "Pause video" : "Play video"}
+                >
+                  {/* Glossy liquid specular reflection arc across the top */}
+                  <div className="absolute inset-x-2 top-1.5 h-[44%] rounded-t-[20px] bg-gradient-to-b from-white/50 via-white/15 to-transparent pointer-events-none" />
+
+                  {/* Internal liquid color refraction pill */}
+                  <div className="absolute inset-x-3 bottom-1.5 h-2 rounded-full bg-gradient-to-r from-cyan-400/20 via-[#C6FF3D]/40 to-fuchsia-400/20 blur-[2px] pointer-events-none" />
+
+                  {/* Play / Pause Icon with energetic luminous contrast */}
+                  {isPlaying ? (
+                    <Pause className="w-7 h-7 sm:w-8 sm:h-8 text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] group-hover/liquid:text-[#C6FF3D] group-hover/liquid:drop-shadow-[0_0_12px_rgba(198,255,61,0.9)] transition-all duration-200 relative z-10" />
+                  ) : (
+                    <Play className="w-7 h-7 sm:w-8 sm:h-8 ml-1 text-white fill-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] group-hover/liquid:text-[#C6FF3D] group-hover/liquid:fill-[#C6FF3D] group-hover/liquid:drop-shadow-[0_0_12px_rgba(198,255,61,0.9)] transition-all duration-200 relative z-10" />
+                  )}
+                </button>
+              </div>
             </div>
 
             {/* Bottom HUD Bar: ONLY Mute (Left) and Fullscreen (Right) — pure icon buttons, no background overlay, no text */}
