@@ -3,14 +3,7 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
-import {
-  Play,
-  Pause,
-  Volume2,
-  VolumeX,
-  Maximize,
-  Minimize,
-} from "lucide-react";
+import { Play, Pause } from "lucide-react";
 
 const videoPlayerVariants = cva(
   "relative w-full bg-black rounded-card overflow-hidden group select-none",
@@ -285,169 +278,34 @@ const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
         />
 
         {showControls && (
-          <>
-            {/* Play/Pause Center Overlay (Hover to reveal when playing, visible when paused) */}
-            <div
-              className={cn(
-                "absolute inset-0 flex items-center justify-center pointer-events-none transition-opacity duration-300 z-20",
-                !isPlaying || showControlsState ? "opacity-100" : "opacity-0",
-              )}
+          <div
+            className={cn(
+              "absolute inset-0 flex items-center justify-center pointer-events-none transition-opacity duration-300 z-20",
+              !isPlaying || showControlsState ? "opacity-100" : "opacity-0",
+            )}
+          >
+            {/* Pure Play / Pause Icon Only (No circles, no background, no glass overlays) */}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                togglePlay();
+              }}
+              className="p-4 text-white hover:text-[#C6FF3D] transition-all duration-200 pointer-events-auto hover:scale-115 active:scale-90 cursor-pointer drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)] filter outline-none"
+              aria-label={isPlaying ? "Pause video" : "Play video"}
             >
-              {/* Real Glass Sphere Play/Pause Orb */}
-              <div className="relative group/glass flex items-center justify-center pointer-events-auto">
-                {/* 3D Glass Sphere Ambient Shadow */}
-                <div className="absolute inset-0 rounded-full bg-black/50 blur-xl scale-90 translate-y-3 pointer-events-none transition-transform duration-300 group-hover/glass:scale-100 group-hover/glass:translate-y-4" />
-
-                {/* Main Physical Glass Orb Button */}
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    togglePlay();
-                  }}
-                  className={cn(
-                    "relative w-18 h-18 sm:w-22 sm:h-22 rounded-full",
-                    // Real glass transparency and refraction
-                    "bg-gradient-to-b from-white/25 via-white/5 to-white/10",
-                    "backdrop-blur-md backdrop-saturate-200",
-                    // Physical razor-thin glass boundary & inner spherical refraction rings
-                    "border border-white/60",
-                    "shadow-[0_14px_32px_-4px_rgba(0,0,0,0.5),inset_0_2.5px_4px_0_rgba(255,255,255,0.95),inset_0_-3px_8px_0_rgba(0,0,0,0.35),inset_0_0_14px_2px_rgba(255,255,255,0.35)]",
-                    // Hover states
-                    "hover:shadow-[0_18px_40px_-4px_rgba(0,0,0,0.6),inset_0_3px_5px_0_rgba(255,255,255,1),inset_0_-4px_10px_0_rgba(0,0,0,0.4),inset_0_0_20px_4px_rgba(198,255,61,0.4)]",
-                    "hover:border-white/90",
-                    "flex items-center justify-center",
-                    "transition-all duration-300 ease-out",
-                    "hover:scale-105 active:scale-95 cursor-pointer overflow-hidden",
-                  )}
-                  aria-label={isPlaying ? "Pause video" : "Play video"}
-                >
-                  {/* Primary Top Specular Arc Highlight (characteristic of real glass spheres) */}
-                  <div
-                    className="absolute top-1 inset-x-2.5 h-[48%] rounded-t-full pointer-events-none"
-                    style={{
-                      background:
-                        "radial-gradient(ellipse at 50% 12%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.35) 45%, rgba(255,255,255,0) 80%)",
-                    }}
-                  />
-
-                  {/* Secondary Bottom Caustic / Rim Bounce Highlight */}
-                  <div
-                    className="absolute bottom-1 inset-x-4 h-[22%] rounded-b-full pointer-events-none"
-                    style={{
-                      background:
-                        "radial-gradient(ellipse at 50% 88%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 80%)",
-                    }}
-                  />
-
-                  {/* Multi-layered Physical Liquid Glass Inset Shadow */}
-                  <div className="absolute inset-0 rounded-full z-0 pointer-events-none transition-all shadow-[0_0_8px_rgba(0,0,0,0.03),0_2px_6px_rgba(0,0,0,0.08),inset_3px_3px_0.5px_-3.5px_rgba(255,255,255,0.15),inset_-3px_-3px_0.5px_-3.5px_rgba(255,255,255,0.9),inset_1px_1px_1px_-0.5px_rgba(255,255,255,0.6),inset_-1px_-1px_1px_-0.5px_rgba(255,255,255,0.6),inset_0_0_6px_6px_rgba(255,255,255,0.15),inset_0_0_2px_2px_rgba(255,255,255,0.08)]" />
-
-                  {/* Optical Liquid Distortion Filter (SVG Displacement) */}
-                  <div
-                    className="absolute inset-0 isolate -z-10 h-full w-full overflow-hidden rounded-full pointer-events-none"
-                    style={{ backdropFilter: 'url("#video-liquid-glass")' }}
-                  />
-
-                  {/* Perimeter Glass Lens Refraction Rim (fresnel edge) */}
-                  <div className="absolute inset-0 rounded-full border border-white/20 pointer-events-none" />
-
-                  {/* Clean Solid White Icon (like the reference image icon) */}
-                  {isPlaying ? (
-                    <Pause className="w-8 h-8 sm:w-9 sm:h-9 text-white fill-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)] group-hover/glass:text-[#C6FF3D] group-hover/glass:fill-[#C6FF3D] transition-colors duration-200 relative z-10" />
-                  ) : (
-                    <Play className="w-8 h-8 sm:w-9 sm:h-9 ml-1 text-white fill-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)] group-hover/glass:text-[#C6FF3D] group-hover/glass:fill-[#C6FF3D] transition-colors duration-200 relative z-10" />
-                  )}
-                  <VideoGlassFilter />
-                </button>
-              </div>
-            </div>
-
-            {/* Bottom HUD Bar: ONLY Mute (Left) and Fullscreen (Right) — pure icon buttons, no background overlay, no text */}
-            <div
-              className={cn(
-                "absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none z-30 transition-opacity duration-300",
-                !isPlaying || showControlsState ? "opacity-100" : "opacity-0",
+              {isPlaying ? (
+                <Pause className="w-16 h-16 sm:w-20 sm:h-20" fill="currentColor" />
+              ) : (
+                <Play className="w-16 h-16 sm:w-20 sm:h-20 ml-1.5" fill="currentColor" />
               )}
-            >
-              {/* Mute / Unmute Button (Icon only) */}
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleMute();
-                }}
-                className="p-2 text-white/90 hover:text-[#C6FF3D] hover:scale-110 active:scale-95 transition-all duration-200 cursor-pointer pointer-events-auto drop-shadow-md"
-                title={isMuted || volume === 0 ? "Unmute audio (M)" : "Mute audio (M)"}
-                aria-label={isMuted || volume === 0 ? "Unmute" : "Mute"}
-              >
-                {isMuted || volume === 0 ? (
-                  <VolumeX className="w-5 h-5 text-[#FF5C5C]" />
-                ) : (
-                  <Volume2 className="w-5 h-5" />
-                )}
-              </button>
-
-              {/* Fullscreen Button (Icon only) */}
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleFullscreen();
-                }}
-                className="p-2 text-white/90 hover:text-[#C6FF3D] hover:scale-110 active:scale-95 transition-all duration-200 cursor-pointer pointer-events-auto drop-shadow-md"
-                title={isFullscreen ? "Exit Fullscreen (F)" : "Enter Fullscreen (F)"}
-                aria-label={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
-              >
-                {isFullscreen ? (
-                  <Minimize className="w-5 h-5 text-[#C6FF3D]" />
-                ) : (
-                  <Maximize className="w-5 h-5" />
-                )}
-              </button>
-            </div>
-          </>
+            </button>
+          </div>
         )}
       </div>
     );
   },
 );
-
-function VideoGlassFilter() {
-  return (
-    <svg className="hidden pointer-events-none" aria-hidden="true">
-      <defs>
-        <filter
-          id="video-liquid-glass"
-          x="0%"
-          y="0%"
-          width="100%"
-          height="100%"
-          colorInterpolationFilters="sRGB"
-        >
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.04 0.04"
-            numOctaves="1"
-            seed="2"
-            result="turbulence"
-          />
-          <feGaussianBlur in="turbulence" stdDeviation="2" result="blurredNoise" />
-          <feDisplacementMap
-            in="SourceGraphic"
-            in2="blurredNoise"
-            scale="40"
-            xChannelSelector="R"
-            yChannelSelector="B"
-            result="displaced"
-          />
-          <feGaussianBlur in="displaced" stdDeviation="2" result="finalBlur" />
-          <feComposite in="finalBlur" in2="finalBlur" operator="over" />
-        </filter>
-      </defs>
-    </svg>
-  );
-}
 
 VideoPlayer.displayName = "VideoPlayer";
 
