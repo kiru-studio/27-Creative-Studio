@@ -293,18 +293,12 @@ const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
                 !isPlaying || showControlsState ? "opacity-100" : "opacity-0",
               )}
             >
-              {/* Liquid Glass Play/Pause Container */}
-              <div className="relative group/liquid flex items-center justify-center pointer-events-auto">
-                {/* Ambient liquid lighting glow with vibrant color accents */}
-                <div
-                  className={cn(
-                    "absolute -inset-3 rounded-[32px] blur-xl transition-all duration-500 pointer-events-none",
-                    "bg-gradient-to-tr from-[#C6FF3D]/30 via-cyan-400/20 to-purple-500/25",
-                    "opacity-70 group-hover/liquid:opacity-100 group-hover/liquid:scale-115",
-                  )}
-                />
+              {/* Real Glass Sphere Play/Pause Orb */}
+              <div className="relative group/glass flex items-center justify-center pointer-events-auto">
+                {/* 3D Glass Sphere Ambient Shadow */}
+                <div className="absolute inset-0 rounded-full bg-black/50 blur-xl scale-90 translate-y-3 pointer-events-none transition-transform duration-300 group-hover/glass:scale-100 group-hover/glass:translate-y-4" />
 
-                {/* Main Liquid Glass Button: Frosted translucent surface, glossy specular reflections, 3D beveled rim */}
+                {/* Main Physical Glass Orb Button */}
                 <button
                   type="button"
                   onClick={(e) => {
@@ -312,29 +306,48 @@ const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
                     togglePlay();
                   }}
                   className={cn(
-                    "relative w-16 h-16 sm:w-20 sm:h-20 rounded-[24px] sm:rounded-[28px]",
-                    "bg-gradient-to-b from-white/30 via-white/10 to-white/5",
-                    "backdrop-blur-2xl backdrop-saturate-150",
-                    "border border-white/40 hover:border-white/70",
-                    "shadow-[inset_0_1.5px_2px_rgba(255,255,255,0.7),inset_0_-2px_4px_rgba(0,0,0,0.35),0_12px_32px_rgba(0,0,0,0.45),0_0_24px_rgba(198,255,61,0.2)]",
-                    "hover:shadow-[inset_0_2px_4px_rgba(255,255,255,0.95),inset_0_-2px_6px_rgba(198,255,61,0.35),0_16px_40px_rgba(0,0,0,0.55),0_0_36px_rgba(198,255,61,0.45)]",
+                    "relative w-18 h-18 sm:w-22 sm:h-22 rounded-full",
+                    // Real glass transparency and refraction
+                    "bg-gradient-to-b from-white/25 via-white/5 to-white/10",
+                    "backdrop-blur-md backdrop-saturate-200",
+                    // Physical razor-thin glass boundary & inner spherical refraction rings
+                    "border border-white/60",
+                    "shadow-[0_14px_32px_-4px_rgba(0,0,0,0.5),inset_0_2.5px_4px_0_rgba(255,255,255,0.95),inset_0_-3px_8px_0_rgba(0,0,0,0.35),inset_0_0_14px_2px_rgba(255,255,255,0.35)]",
+                    // Hover states
+                    "hover:shadow-[0_18px_40px_-4px_rgba(0,0,0,0.6),inset_0_3px_5px_0_rgba(255,255,255,1),inset_0_-4px_10px_0_rgba(0,0,0,0.4),inset_0_0_20px_4px_rgba(198,255,61,0.4)]",
+                    "hover:border-white/90",
                     "flex items-center justify-center",
                     "transition-all duration-300 ease-out",
                     "hover:scale-105 active:scale-95 cursor-pointer overflow-hidden",
                   )}
                   aria-label={isPlaying ? "Pause video" : "Play video"}
                 >
-                  {/* Glossy liquid specular reflection arc across the top */}
-                  <div className="absolute inset-x-2 top-1.5 h-[44%] rounded-t-[20px] bg-gradient-to-b from-white/50 via-white/15 to-transparent pointer-events-none" />
+                  {/* Primary Top Specular Arc Highlight (characteristic of real glass spheres) */}
+                  <div
+                    className="absolute top-1 inset-x-2.5 h-[48%] rounded-t-full pointer-events-none"
+                    style={{
+                      background:
+                        "radial-gradient(ellipse at 50% 12%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.35) 45%, rgba(255,255,255,0) 80%)",
+                    }}
+                  />
 
-                  {/* Internal liquid color refraction pill */}
-                  <div className="absolute inset-x-3 bottom-1.5 h-2 rounded-full bg-gradient-to-r from-cyan-400/20 via-[#C6FF3D]/40 to-fuchsia-400/20 blur-[2px] pointer-events-none" />
+                  {/* Secondary Bottom Caustic / Rim Bounce Highlight */}
+                  <div
+                    className="absolute bottom-1 inset-x-4 h-[22%] rounded-b-full pointer-events-none"
+                    style={{
+                      background:
+                        "radial-gradient(ellipse at 50% 88%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 80%)",
+                    }}
+                  />
 
-                  {/* Play / Pause Icon with energetic luminous contrast */}
+                  {/* Perimeter Glass Lens Refraction Rim (fresnel edge) */}
+                  <div className="absolute inset-0 rounded-full border border-white/20 pointer-events-none" />
+
+                  {/* Clean Solid White Icon (like the reference image icon) */}
                   {isPlaying ? (
-                    <Pause className="w-7 h-7 sm:w-8 sm:h-8 text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] group-hover/liquid:text-[#C6FF3D] group-hover/liquid:drop-shadow-[0_0_12px_rgba(198,255,61,0.9)] transition-all duration-200 relative z-10" />
+                    <Pause className="w-8 h-8 sm:w-9 sm:h-9 text-white fill-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)] group-hover/glass:text-[#C6FF3D] group-hover/glass:fill-[#C6FF3D] transition-colors duration-200 relative z-10" />
                   ) : (
-                    <Play className="w-7 h-7 sm:w-8 sm:h-8 ml-1 text-white fill-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] group-hover/liquid:text-[#C6FF3D] group-hover/liquid:fill-[#C6FF3D] group-hover/liquid:drop-shadow-[0_0_12px_rgba(198,255,61,0.9)] transition-all duration-200 relative z-10" />
+                    <Play className="w-8 h-8 sm:w-9 sm:h-9 ml-1 text-white fill-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)] group-hover/glass:text-[#C6FF3D] group-hover/glass:fill-[#C6FF3D] transition-colors duration-200 relative z-10" />
                   )}
                 </button>
               </div>
