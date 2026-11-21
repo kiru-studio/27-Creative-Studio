@@ -69,7 +69,8 @@ const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
     const [volume, setVolume] = React.useState(1);
     const [isMuted, setIsMuted] = React.useState(false);
     const [isFullscreen, setIsFullscreen] = React.useState(false);
-    const [showControlsState, setShowControlsState] = React.useState(true);
+    const [isHovered, setIsHovered] = React.useState(false);
+    const [showControlsState, setShowControlsState] = React.useState(false);
 
     const videoRef = React.useRef<HTMLVideoElement>(null);
     const containerRef = React.useRef<HTMLDivElement>(null);
@@ -113,7 +114,7 @@ const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
       }
     };
 
-    const resetHideControlsTimeout = () => {
+    const resetHideControlsTimeout = React.useCallback(() => {
       if (hideControlsTimeoutRef.current) {
         clearTimeout(hideControlsTimeoutRef.current);
       }
@@ -121,13 +122,42 @@ const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
       if (autoHide && isPlaying) {
         hideControlsTimeoutRef.current = setTimeout(() => {
           setShowControlsState(false);
-        }, 2800);
+        }, 2500);
+      }
+    }, [autoHide, isPlaying]);
+
+    const handleMouseMove = () => {
+      setIsHovered(true);
+      setShowControlsState(true);
+      resetHideControlsTimeout();
+    };
+
+    const handleMouseEnter = () => {
+      setIsHovered(true);
+      setShowControlsState(true);
+      resetHideControlsTimeout();
+    };
+
+    const handleMouseLeave = () => {
+      setIsHovered(false);
+      setShowControlsState(false);
+      if (hideControlsTimeoutRef.current) {
+        clearTimeout(hideControlsTimeoutRef.current);
       }
     };
 
-    const handleMouseMove = () => {
+    const handleTouchStart = () => {
+      setIsHovered(true);
       setShowControlsState(true);
-      resetHideControlsTimeout();
+      if (hideControlsTimeoutRef.current) {
+        clearTimeout(hideControlsTimeoutRef.current);
+      }
+      if (autoHide) {
+        hideControlsTimeoutRef.current = setTimeout(() => {
+          setShowControlsState(false);
+          setIsHovered(false);
+        }, 3000);
+      }
     };
 
     React.useEffect(() => {
@@ -258,12 +288,29 @@ const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
       return () => document.removeEventListener("keydown", handleKeyDown);
     }, [currentTime, duration]);
 
+    const isControlsVisible = Boolean(showControls && isHovered && showControlsState);
+
     return (
       <div
         ref={containerRef}
-        className={cn(videoPlayerVariants({ size }), "outline-none", className)}
+        className={cn(
+          videoPlayerVariants({ size }),
+          "outline-none",
+          isPlaying && !isControlsVisible && "cursor-none",
+          className,
+        )}
+        onMouseEnter={handleMouseEnter}
         onMouseMove={handleMouseMove}
-        onMouseLeave={() => autoHide && isPlaying && setShowControlsState(false)}
+        onMouseLeave={handleMouseLeave}
+        onTouchStart={handleTouchStart}
+        onFocus={() => {
+          setIsHovered(true);
+          setShowControlsState(true);
+        }}
+        onBlur={() => {
+          setIsHovered(false);
+          setShowControlsState(false);
+        }}
         onContextMenu={(e) => e.preventDefault()}
         tabIndex={0}
       >
@@ -290,7 +337,7 @@ const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
             <div
               className={cn(
                 "absolute inset-0 flex items-center justify-center pointer-events-none transition-opacity duration-300 z-20",
-                !isPlaying || showControlsState ? "opacity-100" : "opacity-0",
+                isControlsVisible ? "opacity-100" : "opacity-0",
               )}
             >
               <button
@@ -299,8 +346,12 @@ const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
                   e.stopPropagation();
                   togglePlay();
                 }}
-                className="p-3 text-[#C6FF3D] transition-all duration-200 pointer-events-auto hover:scale-115 active:scale-90 cursor-pointer drop-shadow-[0_3px_14px_rgba(0,0,0,0.95)] hover:drop-shadow-[0_0_20px_rgba(198,255,61,0.7)] filter outline-none"
+                className={cn(
+                  "p-3 text-[#C6FF3D] transition-all duration-200 cursor-pointer drop-shadow-[0_3px_14px_rgba(0,0,0,0.95)] hover:drop-shadow-[0_0_20px_rgba(198,255,61,0.7)] hover:scale-115 active:scale-90 filter outline-none",
+                  isControlsVisible ? "pointer-events-auto" : "pointer-events-none",
+                )}
                 aria-label={isPlaying ? "Pause video" : "Play video"}
+                tabIndex={isControlsVisible ? 0 : -1}
               >
                 {isPlaying ? (
                   <Pause
@@ -320,7 +371,7 @@ const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
             <div
               className={cn(
                 "absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none z-30 transition-opacity duration-300",
-                !isPlaying || showControlsState ? "opacity-100" : "opacity-0",
+                isControlsVisible ? "opacity-100" : "opacity-0",
               )}
             >
               {/* Mute / Unmute Button (Icon only) */}
@@ -330,9 +381,13 @@ const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
                   e.stopPropagation();
                   toggleMute();
                 }}
-                className="p-2 text-white/90 hover:text-[#C6FF3D] hover:scale-110 active:scale-95 transition-all duration-200 cursor-pointer pointer-events-auto drop-shadow-md outline-none"
+                className={cn(
+                  "p-2 text-white/90 hover:text-[#C6FF3D] hover:scale-110 active:scale-95 transition-all duration-200 cursor-pointer drop-shadow-md outline-none",
+                  isControlsVisible ? "pointer-events-auto" : "pointer-events-none",
+                )}
                 title={isMuted || volume === 0 ? "Unmute audio (M)" : "Mute audio (M)"}
                 aria-label={isMuted || volume === 0 ? "Unmute" : "Mute"}
+                tabIndex={isControlsVisible ? 0 : -1}
               >
                 {isMuted || volume === 0 ? (
                   <VolumeX className="w-5 h-5 text-[#FF5C5C]" />
@@ -348,9 +403,13 @@ const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
                   e.stopPropagation();
                   toggleFullscreen();
                 }}
-                className="p-2 text-white/90 hover:text-[#C6FF3D] hover:scale-110 active:scale-95 transition-all duration-200 cursor-pointer pointer-events-auto drop-shadow-md outline-none"
+                className={cn(
+                  "p-2 text-white/90 hover:text-[#C6FF3D] hover:scale-110 active:scale-95 transition-all duration-200 cursor-pointer drop-shadow-md outline-none",
+                  isControlsVisible ? "pointer-events-auto" : "pointer-events-none",
+                )}
                 title={isFullscreen ? "Exit Fullscreen (F)" : "Enter Fullscreen (F)"}
                 aria-label={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
+                tabIndex={isControlsVisible ? 0 : -1}
               >
                 {isFullscreen ? (
                   <Minimize className="w-5 h-5 text-[#C6FF3D]" />
