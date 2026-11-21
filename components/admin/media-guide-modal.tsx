@@ -94,17 +94,6 @@ export function MediaGuideModal({ isOpen, onClose }: MediaGuideModalProps) {
               </ul>
             </div>
           </div>
-
-          {/* Method 3: Local Uploads */}
-          <div className="p-4 rounded border border-[#2A2A30] bg-[#14141A]">
-            <div className="flex items-center gap-2 text-[#C6FF3D] font-bold text-sm mb-2">
-              <FolderPlus size={16} />
-              <span>Method 3: Direct Upload Button (Local &amp; Repository Files)</span>
-            </div>
-            <p className="text-[#A9A7A0] mb-2">
-              Click the <strong>Upload</strong> button next to any field to pick a file directly from your computer. It saves to <code>/public/uploads/</code> and can be committed to GitHub to be served directly by Vercel CDN at zero cost.
-            </p>
-          </div>
         </div>
 
         {/* Footer */}

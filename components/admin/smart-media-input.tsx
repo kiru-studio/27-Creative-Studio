@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Upload, Eye, X, Check, AlertCircle, Film, Image as ImageIcon, Sparkles, ExternalLink } from "lucide-react";
+import { Eye, X, Check, Film, Image as ImageIcon, Sparkles, ExternalLink } from "lucide-react";
 import { parseMediaUrl, normalizeMediaInput } from "@/lib/media-utils";
 
 interface SmartMediaInputProps {
@@ -23,8 +23,6 @@ export function SmartMediaInput({
   helpText,
   onGeneratePoster,
 }: SmartMediaInputProps) {
-  const [uploading, setUploading] = useState(false);
-  const [uploadError, setUploadError] = useState("");
   const [showPreview, setShowPreview] = useState(true);
 
   const parsed = parseMediaUrl(value, mediaType);
@@ -34,39 +32,6 @@ export function SmartMediaInput({
     // Auto-normalize if it's a Google Drive share link
     const normalized = normalizeMediaInput(raw, mediaType);
     onChange(normalized);
-  };
-
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    setUploading(true);
-    setUploadError("");
-
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      const res = await fetch("/api/admin/media", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || "Upload failed.");
-      }
-
-      const data = await res.json();
-      if (data.url) {
-        onChange(data.url);
-      }
-    } catch (err) {
-      setUploadError(err instanceof Error ? err.message : "Failed to upload file.");
-    } finally {
-      setUploading(false);
-      e.target.value = "";
-    }
   };
 
   return (
@@ -102,29 +67,14 @@ export function SmartMediaInput({
           type="text"
           value={value}
           onChange={handleInputChange}
-          placeholder={placeholder || (mediaType === "video" ? "Paste video link or URL..." : "Paste image link or URL...")}
-          className="w-full bg-[#141418] border border-[#2A2A30] focus:border-[#C6FF3D] rounded px-3 py-2 text-xs font-mono text-[#F4F1EA] placeholder-[#666] outline-none transition-colors pr-24"
+          placeholder={
+            placeholder ||
+            (mediaType === "video"
+              ? "Paste Google Drive or video URL (e.g. drive.google.com/file/d/...)"
+              : "Paste Google Drive or image URL (e.g. drive.google.com/file/d/...)")
+          }
+          className="w-full bg-[#141418] border border-[#2A2A30] focus:border-[#C6FF3D] rounded px-3 py-2 text-xs font-mono text-[#F4F1EA] placeholder-[#666] outline-none transition-colors"
         />
-
-        {/* Local File Upload Button embedded inside the right side */}
-        <label
-          className={`absolute right-1 px-2.5 py-1 text-[11px] font-mono rounded cursor-pointer transition-all flex items-center gap-1 ${
-            uploading
-              ? "bg-[#2A2A30] text-[#A9A7A0] cursor-wait"
-              : "bg-[#1E1E24] hover:bg-[#2A2A30] text-[#C6FF3D] border border-[#333]"
-          }`}
-          title="Upload file directly from computer (saves to /public/uploads/)"
-        >
-          <Upload size={12} />
-          <span>{uploading ? "Uploading…" : "Upload"}</span>
-          <input
-            type="file"
-            accept={mediaType === "video" ? "video/mp4,video/webm,video/quicktime" : "image/jpeg,image/png,image/webp,image/avif"}
-            disabled={uploading}
-            onChange={handleFileUpload}
-            className="hidden"
-          />
-        </label>
       </div>
 
       {/* Smart Status Badges & Quick Actions */}
@@ -159,12 +109,6 @@ export function SmartMediaInput({
           </a>
         )}
       </div>
-
-      {uploadError && (
-        <p className="text-[11px] font-mono text-[#FF5C5C] flex items-center gap-1 mt-0.5">
-          <AlertCircle size={12} /> {uploadError}
-        </p>
-      )}
 
       {/* Help text */}
       {helpText && !parsed.isGoogleDrive && (
