@@ -361,8 +361,8 @@ export function PackagesSection({
                           <span
                             className={`font-mono text-xs tracking-widest uppercase transition-colors ${
                               isActiveMobile
-                                ? "text-[#C6FF3D] lg:text-[#8E8D88] lg:group-hover:text-[#C6FF3D]"
-                                : "text-[#8E8D88] group-hover:text-[#C6FF3D]"
+                                ? "text-[#C6FF3D] lg:text-[#A9A7A0] lg:group-hover:text-[#C6FF3D]"
+                                : "text-[#A9A7A0] group-hover:text-[#C6FF3D]"
                             }`}
                           >
                             {pkg.tierNumber}
@@ -377,18 +377,12 @@ export function PackagesSection({
                         </div>
 
                         {/* Service Name */}
-                        <h3
-                          className={`font-display font-black uppercase text-2xl sm:text-3xl md:text-[22px] lg:text-3xl xl:text-4xl text-[var(--paper)] m-0 leading-[1.08] tracking-tight transition-colors break-words ${
-                            isActiveMobile
-                              ? "text-[#C6FF3D] lg:text-[var(--paper)] lg:group-hover:text-[#C6FF3D]"
-                              : "group-hover:text-[#C6FF3D]"
-                          }`}
-                        >
+                        <h3 className="font-display font-black uppercase text-2xl sm:text-3xl md:text-[22px] lg:text-3xl xl:text-4xl text-[var(--paper)] group-hover:text-[#C6FF3D] m-0 leading-[1.08] tracking-tight transition-colors break-words">
                           {pkg.name}
                         </h3>
 
                         {/* Positioning / Outcome Subtitle */}
-                        <p className="text-sm sm:text-base text-[var(--paper)]/75 font-body mt-2.5 mb-5 leading-relaxed min-h-[2.75rem]">
+                        <p className="text-sm sm:text-base text-[var(--paper)]/80 font-body mt-2.5 mb-5 leading-relaxed min-h-[2.75rem]">
                           {pkg.tagline}
                         </p>
 
@@ -402,7 +396,7 @@ export function PackagesSection({
                         />
 
                         {/* Deliverables Section: SCOPE */}
-                        <div className="font-mono text-[10px] uppercase tracking-widest text-[#7E7D78] font-bold mb-3 select-none">
+                        <div className="font-mono text-[10px] uppercase tracking-widest text-[#A9A7A0] font-bold mb-3 select-none">
                           SCOPE
                         </div>
 

@@ -1507,15 +1507,18 @@ input[type='range'] { accent-color: var(--industry); }
   }
 }
 
-/* Contrast Safety: Enforce pure dark ink text on all solid neon lime surfaces */
-[class~="bg-[#C6FF3D]"],
-[class*="bg-[#C6FF3D]"]:not([class*="bg-[#C6FF3D]/"]),
+/* Contrast Safety: Enforce pure dark ink text on solid neon lime buttons, links, and badges only */
+button[class~="bg-[#C6FF3D]"],
 button[class*="bg-[#C6FF3D]"]:not([class*="bg-[#C6FF3D]/"]),
+a[class~="bg-[#C6FF3D]"],
+a[class*="bg-[#C6FF3D]"]:not([class*="bg-[#C6FF3D]/"]),
 .button-primary {
   color: #0B0B0F !important;
 }
-[class~="bg-[#C6FF3D]"] *,
-[class*="bg-[#C6FF3D]"]:not([class*="bg-[#C6FF3D]/"]) *,
-button[class*="bg-[#C6FF3D]"]:not([class*="bg-[#C6FF3D]/"]) * {
+button[class~="bg-[#C6FF3D]"] *,
+button[class*="bg-[#C6FF3D]"]:not([class*="bg-[#C6FF3D]/"]) *,
+a[class~="bg-[#C6FF3D]"] *,
+a[class*="bg-[#C6FF3D]"]:not([class*="bg-[#C6FF3D]/"]) *,
+.button-primary * {
   color: #0B0B0F !important;
 }
