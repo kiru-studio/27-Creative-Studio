@@ -294,7 +294,20 @@ button { min-height: var(--control-height); }
 .toggle-group button[aria-pressed='true'] { border-color: var(--industry); background: var(--industry); color: var(--ink); }
 
 .reels-section, .films-section, .speed-section, .cases-section, .packages-section, .about-section, .testimonials-section, .faq-section, .contact-section, .footer { width: 100%; max-width: none; margin: 0; padding: var(--section-space) max(var(--page-gutter), calc((100% - var(--content-width)) / 2 + var(--page-gutter))); }
-.reels-section, .films-section, .speed-section, .cases-section, .packages-section, .about-section, .testimonials-section, .faq-section, .contact-section { min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
+.reels-section, .films-section, .speed-section, .cases-section, .packages-section, .about-section, .testimonials-section, .faq-section, .contact-section {
+  min-height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+@media (min-width: 64rem) and (orientation: landscape) and (max-height: 1080px) {
+  .reels-section {
+    min-height: 100vh;
+    min-height: 100svh;
+    justify-content: center;
+  }
+}
 .work-heading { display: flex; align-items: end; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-8); }
 .work-heading h2, .section-intro h2, .contact-copy h2 { margin: 0; font: 800 var(--display-section)/var(--leading-tight) var(--font-display); }
 .section-intro { max-width: var(--copy-width); margin-bottom: var(--space-10); }
