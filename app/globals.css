@@ -349,6 +349,9 @@ button { min-height: var(--control-height); }
 .film-caption { margin: var(--space-3) 0 0; color: var(--muted); font-size: var(--text-sm); }
 .film-caption strong { color: var(--paper); }
 .film-list { display: grid; gap: var(--space-6); }
+@media (max-width: 767px) {
+  .film-list { display: none !important; }
+}
 .film-small { border: 0; padding: 0; background: transparent; color: var(--paper); text-align: left; cursor: pointer; display: block; width: 100%; }
 .film-small-poster { position: relative; display: flex; overflow: hidden; aspect-ratio: 16 / 9; align-items: flex-end; justify-content: space-between; padding: var(--space-3); border-bottom: var(--space-1) solid var(--line); background: var(--panel); color: var(--paper); font: var(--text-xs) var(--font-mono); }
 .film-small-poster > span, .film-small-poster > b { position: relative; z-index: 1; }
