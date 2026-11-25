@@ -228,6 +228,23 @@ export function ContactForm({
         return;
       }
 
+      // Fire analytics conversion event when GA4 or Meta Pixel is active
+      try {
+        const w = window as unknown as {
+          gtag?: (...args: unknown[]) => void;
+          fbq?: (...args: unknown[]) => void;
+        };
+        w.gtag?.("event", "generate_lead", {
+          event_category: "engagement",
+          event_label: selectedPackage?.name || "Website Brief",
+        });
+        w.fbq?.("track", "Lead", {
+          content_name: selectedPackage?.name || "Website Brief",
+        });
+      } catch {
+        // ignore analytics dispatch errors
+      }
+
       // Success!
       onSubmitSuccess(currentTimecode);
     } catch (err) {

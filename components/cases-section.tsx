@@ -6,6 +6,8 @@ import React, {
   useRef,
   useState,
 } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import {
   AnimatePresence,
   animate,
@@ -17,7 +19,12 @@ import {
 } from "framer-motion";
 import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 import { siteContent } from "@/lib/site-content";
-import { getMediaStreamUrl, parseMediaUrl } from "@/lib/media-utils";
+import {
+  getMediaStreamUrl,
+  parseMediaUrl,
+  resolveRenderImage,
+} from "@/lib/media-utils";
+import { slugifyText } from "@/lib/seo-pages";
 import { VideoPlayer } from "@/components/ui/video-player";
 
 // ==========================================
@@ -328,14 +335,22 @@ export function CursorPreview({ item, x, y }: CursorPreviewProps) {
     >
       <div className="relative w-full h-full p-3 flex flex-col justify-end overflow-hidden bg-[#0B0B0F]">
         {effectivePoster ? (
-          <>
-            <img
-              src={effectivePoster}
-              alt={item.title}
-              className="absolute inset-0 w-full h-full object-cover opacity-60"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-          </>
+          (() => {
+            const resolved = resolveRenderImage(effectivePoster, 480);
+            return (
+              <>
+                <Image
+                  src={resolved.src}
+                  alt={item.title}
+                  fill
+                  sizes="240px"
+                  unoptimized={resolved.unoptimized}
+                  className="object-cover opacity-60"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+              </>
+            );
+          })()
         ) : (
           <div className="absolute inset-0 bg-[#121217] flex items-center justify-center">
             <span className="text-[#2A2A30] text-2xl font-mono select-none">
@@ -456,11 +471,19 @@ export function CasePanel({
               aria-label={item.title}
             />
           ) : effectivePoster ? (
-            <img
-              className="w-full h-full object-cover"
-              src={effectivePoster}
-              alt={`${item.client || "Case study"} media — ${item.title}`}
-            />
+            (() => {
+              const resolved = resolveRenderImage(effectivePoster, 800);
+              return (
+                <Image
+                  className="object-cover"
+                  src={resolved.src}
+                  alt={`${item.client || "Case study"} media — ${item.title}`}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 480px"
+                  unoptimized={resolved.unoptimized}
+                />
+              );
+            })()
           ) : (
             <div className="w-full h-full flex flex-col items-center justify-center font-mono text-[var(--text-xs)] text-[var(--muted)] select-none bg-[#141419] p-4 text-center">
               <span className="text-[#C6FF3D] text-xl mb-1">⌖</span>
@@ -613,6 +636,17 @@ export function CasePanel({
             shouldReduceMotion={shouldReduceMotion}
           />
         </motion.p>
+
+        <div className="pt-1">
+          <Link
+            href={`/work/${slugifyText(item.client || item.title)}`}
+            tabIndex={isOpen ? undefined : -1}
+            className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-[var(--industry)] hover:underline"
+          >
+            <span>Open Full {item.client || item.title} Case Study</span>
+            <span aria-hidden="true">↗</span>
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -1,7 +1,8 @@
 'use client'
 
+import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
-import { getMediaStreamUrl } from '@/lib/media-utils'
+import { getMediaStreamUrl, resolveRenderImage } from '@/lib/media-utils'
 
 type MediaSlotProps = {
   label: string
@@ -51,13 +52,19 @@ export function MediaSlot({
       ) : (
         <>
           {posterSrc ? (
-            <img
-              className="media-poster"
-              src={posterSrc}
-              alt={label || "27 Studio production media"}
-              loading="lazy"
-              decoding="async"
-            />
+            (() => {
+              const resolved = resolveRenderImage(posterSrc, 800)
+              return (
+                <Image
+                  className="media-poster"
+                  src={resolved.src}
+                  alt={label || '27 Studio production media'}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 480px"
+                  unoptimized={resolved.unoptimized}
+                />
+              )
+            })()
           ) : (
             <div className="poster-grid" aria-hidden="true" />
           )}

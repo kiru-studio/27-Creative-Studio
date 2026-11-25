@@ -179,6 +179,33 @@ export default function Page() {
     });
   }
 
+  // Auto-emit VideoObject schema for any reels, films, or case studies that have videoSrc set
+  const portfolioItems = [
+    ...(siteContent.reels || []),
+    ...(siteContent.films || []),
+    ...(siteContent.caseStudies || []),
+  ];
+  portfolioItems.forEach((item, idx) => {
+    if (!item.videoSrc) return;
+    const rawStream = getMediaStreamUrl(item.videoSrc);
+    const fullUrl = rawStream.startsWith("http")
+      ? rawStream
+      : `${siteUrl}${rawStream}`;
+    graph.push({
+      "@type": "VideoObject",
+      "@id": `${siteUrl}/#portfolio-video-${idx}`,
+      name: `${item.client ? `${item.client} — ` : ""}${item.title}`,
+      description:
+        item.goal || item.result || `${item.type} produced by 27 Creative Studio`,
+      thumbnailUrl: [item.posterSrc || `${siteUrl}/images/og-preview.png`],
+      contentUrl: fullUrl,
+      uploadDate: "2026-11-19T06:00:00+05:30",
+      publisher: {
+        "@id": `${siteUrl}/#organization`,
+      },
+    });
+  });
+
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": graph,

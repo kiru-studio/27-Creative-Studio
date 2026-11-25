@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, CheckCircle2, MapPin } from "lucide-react";
 import { BrandLockup } from "@/components/brand-lockup";
+import { SERVICE_LANDING_PAGES } from "@/lib/seo-pages";
 import { siteContent, getSiteBaseUrl, whatsappHref } from "@/lib/site-content";
 
 const siteUrl = getSiteBaseUrl();
@@ -198,6 +199,40 @@ export default function ServicesPage() {
                   <ArrowUpRight size={14} />
                 </Link>
               </article>
+            ))}
+          </div>
+        </section>
+
+        <section aria-labelledby="specialized-services-heading" className="border-t border-[#2A2A30] pt-12">
+          <h2
+            id="specialized-services-heading"
+            className="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight text-[#F4F1EA] mb-6"
+          >
+            Specialized Regional &amp; Platform Services
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            {SERVICE_LANDING_PAGES.map((svc) => (
+              <Link
+                key={svc.slug}
+                href={`/services/${svc.slug}`}
+                className="p-5 rounded-xl border border-[#2A2A30] bg-[#141419] hover:border-[#C6FF3D] transition-colors flex flex-col justify-between gap-3 group"
+              >
+                <div>
+                  <span className="font-mono text-[10px] text-[#C6FF3D] uppercase tracking-wider">
+                    {svc.locationFocus}
+                  </span>
+                  <h3 className="mt-1 font-display font-bold text-xl uppercase text-[#F4F1EA] group-hover:text-[#C6FF3D] transition-colors">
+                    {svc.title}
+                  </h3>
+                  <p className="mt-1.5 text-sm text-[#A9A7A0] leading-relaxed">
+                    {svc.intro}
+                  </p>
+                </div>
+                <span className="font-mono text-xs text-[#C6FF3D] inline-flex items-center gap-1">
+                  <span>Explore Service Details</span>
+                  <ArrowUpRight size={13} />
+                </span>
+              </Link>
             ))}
           </div>
         </section>

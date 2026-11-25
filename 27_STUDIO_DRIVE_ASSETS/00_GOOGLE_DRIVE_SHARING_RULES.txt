@@ -9,7 +9,7 @@ You can upload this entire "27_STUDIO_DRIVE_ASSETS" folder directly to your Goog
 HOW TO SHARE FILES SO THEY PLAY ON YOUR WEBSITE:
 ------------------------------------------------------------------------
 Whenever you upload a video or image to Google Drive and want to use it
-in your Admin panel (https://27-creative-studio.vercel.app/admin):
+in your Admin panel (https://27creativestudio.vercel.app/admin):
 
 1. Right-click the file in Google Drive.
 2. Click "Share" -> "Share".

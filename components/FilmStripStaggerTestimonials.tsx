@@ -149,12 +149,21 @@ export function FilmStripStaggerTestimonials({
 
                         <div className="filmstrip-exposure">
                           <header className="filmstrip-stamp">
-                            <MediaSlot
-                              label={`${siteContent.brand.name} ${siteContent.brand.descriptor}`}
-                              posterSrc={siteContent.brand.logoMark}
-                              className="filmstrip-logo"
-                              hideLabel
-                            />
+                            {columnIndex === 0 && copyIndex === 0 ? (
+                              <MediaSlot
+                                label={`${siteContent.brand.name} ${siteContent.brand.descriptor}`}
+                                posterSrc={siteContent.brand.logoMark}
+                                className="filmstrip-logo"
+                                hideLabel
+                              />
+                            ) : (
+                              <span
+                                className="filmstrip-logo inline-flex items-center justify-center font-mono text-[11px] font-black text-[#C6FF3D]"
+                                aria-hidden="true"
+                              >
+                                27
+                              </span>
+                            )}
                             <span>{item.frameId}</span>
                             <span>{item.iso}</span>
                           </header>

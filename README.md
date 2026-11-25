@@ -6,7 +6,7 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38bdf8?style=flat&logo=tailwind-css)](https://tailwindcss.com/)
 [![Framer Motion](https://img.shields.io/badge/Framer_Motion-14.0-ff0055?style=flat&logo=framer)](https://www.framer.com/motion/)
 [![Google OAuth 2.0](https://img.shields.io/badge/Google_Auth-OAuth_2.0-4285F4?style=flat&logo=google)](https://cloud.google.com/)
-[![Deployment: Vercel](https://img.shields.io/badge/Deploy-Vercel-black?style=flat&logo=vercel)](https://27-creative-studio.vercel.app)
+[![Deployment: Vercel](https://img.shields.io/badge/Deploy-Vercel-black?style=flat&logo=vercel)](https://27creativestudio.vercel.app)
 
 > **Real Growth. Real Results.**  
 > A high-performance, footage-led marketing engine and Cyber-Industrial Content Management System (CMS) built for **27 Creative Studio** — a premier video production and Instagram growth agency based in **Thoothukudi, Tamil Nadu, India**.
@@ -15,8 +15,8 @@
 
 ## 🌐 Live Deployments & Key Links
 
-- **Production Website:** [https://27-creative-studio.vercel.app](https://27-creative-studio.vercel.app)
-- **Cyber-Industrial Admin CMS:** [https://27-creative-studio.vercel.app/admin](https://27-creative-studio.vercel.app/admin)
+- **Production Website:** [https://27creativestudio.vercel.app](https://27creativestudio.vercel.app)
+- **Cyber-Industrial Admin CMS:** [https://27creativestudio.vercel.app/admin](https://27creativestudio.vercel.app/admin)
 - **GitHub Repository:** [https://github.com/kiru-studio/27-Creative-Studio](https://github.com/kiru-studio/27-Creative-Studio)
 
 ---
@@ -236,7 +236,7 @@ Create a `.env.local` file for local development, and configure these variables 
 > [!TIP]
 > In Google Cloud Console, ensure your **Authorized Redirect URIs** include:
 > - Localhost: `http://localhost:3000/api/admin/auth/google/callback`
-> - Production: `https://27-creative-studio.vercel.app/api/admin/auth/google/callback`
+> - Production: `https://27creativestudio.vercel.app/api/admin/auth/google/callback`
 
 ---
 

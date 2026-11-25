@@ -116,3 +116,43 @@ export function normalizeMediaInput(rawUrl: string, mediaType: "video" | "image"
   // Direct video stream format
   return `https://drive.google.com/uc?export=download&id=${driveId}`;
 }
+
+/**
+ * Resolves an image URL cleanly for Next.js `<Image>` while resizing Google
+ * Drive CDN links (`lh3.googleusercontent.com/d/{id}=w{size}`) directly to the
+ * target display width and safely falling back to `unoptimized` for unconfigured hosts.
+ */
+export function resolveRenderImage(
+  rawUrl?: string,
+  maxWidth = 960,
+): { src: string; unoptimized: boolean } {
+  if (!rawUrl || typeof rawUrl !== "string") {
+    return { src: "", unoptimized: true };
+  }
+  const trimmed = rawUrl.trim();
+  if (!trimmed) return { src: "", unoptimized: true };
+
+  // Local relative image paths are optimized natively by next/image
+  if (trimmed.startsWith("/")) {
+    return { src: trimmed, unoptimized: false };
+  }
+
+  // Google Photos / Drive image CDN supports direct `=w{width}` resizing; keep unoptimized so Google doesn't 403 server proxy requests
+  if (/^https:\/\/lh3\.googleusercontent\.com\//i.test(trimmed)) {
+    const resized = trimmed.replace(/=w\d+$/i, `=w${maxWidth}`);
+    return { src: resized, unoptimized: true };
+  }
+
+  // Configured fast CDNs allowed via next.config.mjs remotePatterns
+  if (
+    /^https:\/\/([^/]+\.public\.blob\.vercel-storage\.com|res\.cloudinary\.com)\//i.test(
+      trimmed,
+    )
+  ) {
+    return { src: trimmed, unoptimized: false };
+  }
+
+  // Any other external admin URL falls back safely to unoptimized
+  return { src: trimmed, unoptimized: true };
+}
+

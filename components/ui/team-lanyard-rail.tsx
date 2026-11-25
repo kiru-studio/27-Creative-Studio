@@ -1,7 +1,9 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import { siteContent } from "@/lib/site-content";
+import { resolveRenderImage } from "@/lib/media-utils";
 
 export interface LanyardLink {
   label: string;
@@ -952,22 +954,28 @@ const BadgeFaces = React.memo(function BadgeFaces({
               zIndex: 15,
             }}
           >
-            <img
-              src={portraitSrc}
-              alt={`${item.name} — ${item.role}, 27 Creative Studio Thoothukudi`}
-              loading="lazy"
-              decoding="async"
-              draggable={false}
-              onDragStart={(e) => e.preventDefault()}
-              className="pointer-events-none select-none w-full h-full"
-              style={{
-                objectFit: "contain",
-                objectPosition: "bottom center",
-                transform: "scale(1.12)",
-                transformOrigin: "bottom center",
-                filter: "contrast(1.08) brightness(1.02)",
-              }}
-            />
+            {(() => {
+              const resolved = resolveRenderImage(portraitSrc, 640);
+              return (
+                <Image
+                  src={resolved.src}
+                  alt={`${item.name} — ${item.role}, 27 Creative Studio Thoothukudi`}
+                  fill
+                  sizes="(max-width: 768px) 220px, 320px"
+                  unoptimized={resolved.unoptimized}
+                  draggable={false}
+                  onDragStart={(e) => e.preventDefault()}
+                  className="pointer-events-none select-none w-full h-full"
+                  style={{
+                    objectFit: "contain",
+                    objectPosition: "bottom center",
+                    transform: "scale(1.12)",
+                    transformOrigin: "bottom center",
+                    filter: "contrast(1.08) brightness(1.02)",
+                  }}
+                />
+              );
+            })()}
           </div>
         ) : null}
 

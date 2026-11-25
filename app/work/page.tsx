@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, MapPin } from "lucide-react";
 import { BrandLockup } from "@/components/brand-lockup";
+import { slugifyText } from "@/lib/seo-pages";
 import { siteContent, getSiteBaseUrl } from "@/lib/site-content";
 
 const siteUrl = getSiteBaseUrl();
@@ -202,6 +203,14 @@ export default function WorkPage() {
                     </p>
                   )}
                 </div>
+
+                <Link
+                  href={`/work/${slugifyText(cs.client || cs.title)}`}
+                  className="pt-3 border-t border-[#232326] font-mono text-xs text-[#C6FF3D] hover:underline inline-flex items-center gap-1.5"
+                >
+                  <span>Read Full {cs.client || cs.title} Breakdown</span>
+                  <ArrowUpRight size={13} />
+                </Link>
               </article>
             ))}
           </div>

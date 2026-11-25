@@ -1,9 +1,11 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
+import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 import { siteContent, type WorkItem } from "@/lib/site-content";
+import { resolveRenderImage } from "@/lib/media-utils";
 
 interface ReelsSectionProps {
   kicker?: string;
@@ -115,12 +117,19 @@ export function ReelsSection({
               >
                 {/* 1. Poster Image / Art */}
                 {item.posterSrc ? (
-                  <img
-                    className="reel-card-image"
-                    src={item.posterSrc}
-                    alt={`${item.client || "Client"} — ${item.title}`}
-                    loading="lazy"
-                  />
+                  (() => {
+                    const resolved = resolveRenderImage(item.posterSrc, 720);
+                    return (
+                      <Image
+                        className="reel-card-image"
+                        src={resolved.src}
+                        alt={`${item.client || "Client"} — ${item.title}`}
+                        fill
+                        sizes="(max-width: 768px) 80vw, 360px"
+                        unoptimized={resolved.unoptimized}
+                      />
+                    );
+                  })()
                 ) : (
                   <span
                     className={`reel-card-art reel-card-art-${index % 4}`}

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import {
   AnimatePresence,
   LayoutGroup,
@@ -17,7 +18,11 @@ import {
 } from "lucide-react";
 import { useHydratedReducedMotion } from "@/lib/use-hydrated-reduced-motion";
 import { siteContent } from "@/lib/site-content";
-import { getMediaStreamUrl, parseMediaUrl } from "@/lib/media-utils";
+import {
+  getMediaStreamUrl,
+  parseMediaUrl,
+  resolveRenderImage,
+} from "@/lib/media-utils";
 import { VideoPlayer } from "@/components/ui/video-player";
 
 export type FilmVideoItem = {
@@ -263,11 +268,19 @@ export function MainPlayer({
 
           {/* Background: Poster or Cinema Film Slate Gradient */}
           {item.posterSrc ? (
-            <img
-              className="absolute inset-0 w-full h-full object-cover"
-              src={item.posterSrc}
-              alt={`${item.client} — ${item.title}`}
-            />
+            (() => {
+              const resolved = resolveRenderImage(item.posterSrc, 1280);
+              return (
+                <Image
+                  className="object-cover"
+                  src={resolved.src}
+                  alt={`${item.client} — ${item.title}`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 720px"
+                  unoptimized={resolved.unoptimized}
+                />
+              );
+            })()
           ) : (
             <div className="absolute inset-0 bg-gradient-to-br from-[#121217] via-[#09090D] to-[#15151C] flex flex-col items-center justify-center overflow-hidden">
               {/* Subtle Film Grain / Grid Lines */}
@@ -478,12 +491,19 @@ export function VideoCard({
             aria-hidden="true"
           />
         ) : item.posterSrc ? (
-          <img
-            className="poster-image"
-            src={item.posterSrc}
-            alt={`${item.client || "Film"} thumbnail — ${item.title}`}
-            loading="lazy"
-          />
+          (() => {
+            const resolved = resolveRenderImage(item.posterSrc, 640);
+            return (
+              <Image
+                className="poster-image object-cover"
+                src={resolved.src}
+                alt={`${item.client || "Film"} thumbnail — ${item.title}`}
+                fill
+                sizes="(max-width: 768px) 100vw, 320px"
+                unoptimized={resolved.unoptimized}
+              />
+            );
+          })()
         ) : null}
 
         <span>{item.label}</span>
