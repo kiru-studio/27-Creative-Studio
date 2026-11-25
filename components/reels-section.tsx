@@ -82,9 +82,9 @@ export function ReelsSection({
       {/* Section Header */}
       <motion.div
         className="work-heading"
-        initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        initial={false}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       >
         <div>
           <p className="kicker">{kicker}</p>

@@ -7,6 +7,7 @@ import {
   type ContactFormValues,
 } from "@/data/contact";
 import { siteConfig } from "@/data/siteConfig";
+import { getSiteEntranceTime } from "@/lib/site-entrance";
 import { FieldWithBrackets } from "./field-with-brackets";
 import { ChipGroup } from "./chip-group";
 import { SendBriefButton } from "./send-brief-button";
@@ -192,6 +193,9 @@ export function ContactForm({
     setIsSubmitting(true);
 
     try {
+      const entranceTime = getSiteEntranceTime() ?? formRenderTimeRef.current;
+      const timeOnSiteMs = Math.max(0, Date.now() - entranceTime);
+
       const payload = {
         name,
         phone,
@@ -199,6 +203,8 @@ export function ContactForm({
         story,
         website,
         formRenderTime: formRenderTimeRef.current,
+        siteEntranceTime: entranceTime,
+        timeOnSiteMs,
       };
 
       const res = await fetch("/api/contact", {

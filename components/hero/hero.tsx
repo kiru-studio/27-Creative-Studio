@@ -96,25 +96,14 @@ export function Hero({ enableViewfinderCursor = false }: HeroProps) {
         <div className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-14 my-auto py-6 sm:py-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Left Column: Eyebrow, Headline, Subline, CTAs (lg:col-span-7) */}
           <div className="lg:col-span-7 flex flex-col items-start z-10 w-full">
-            {/* Mono Eyebrow */}
-            <motion.p
-              initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.5,
-                ease: "easeOut",
-                delay: shouldReduceMotion ? 0 : 0.55,
-              }}
-              className="font-mono text-xs uppercase tracking-widest text-[var(--industry)] m-0 mb-4 sm:mb-5"
-            >
-              {eyebrow}
-            </motion.p>
-
-            {/* 3. FOCUS-PULL INTRO: Masked Headline lines + Lens Focus Blur Pull */}
+            {/* 3. FOCUS-PULL INTRO: Unified Semantic H1 with Brand + Geo + Display Headlines */}
             <h1
               id="hero-heading"
               className="m-0 font-extrabold font-display leading-[0.92] tracking-tight uppercase flex flex-col items-start text-[2.25rem] sm:text-5xl md:text-6xl lg:text-[5.25rem] xl:text-[6rem] w-full"
             >
+              <span className="font-mono text-xs sm:text-sm font-semibold uppercase tracking-widest text-[var(--industry)] m-0 mb-4 sm:mb-5 block leading-normal">
+                {eyebrow} — Video Production &amp; Instagram Reels{" "}
+              </span>
               {titleLines.map((line, idx) => (
                 <span
                   key={idx}
@@ -122,27 +111,18 @@ export function Hero({ enableViewfinderCursor = false }: HeroProps) {
                 >
                   <motion.span
                     className="block text-[var(--paper)]"
-                    initial={
-                      shouldReduceMotion
-                        ? false
-                        : {
-                            y: "100%",
-                            filter: "blur(10px)",
-                            scale: 1.03,
-                          }
-                    }
+                    initial={false}
                     animate={{
                       y: 0,
                       filter: "blur(0px)",
                       scale: 1,
                     }}
                     transition={{
-                      duration: 0.9,
+                      duration: 0.7,
                       ease: [0.16, 1, 0.3, 1],
-                      delay: shouldReduceMotion ? 0 : 0.15 + idx * 0.1,
                     }}
                   >
-                    {line}
+                    {line}{idx < titleLines.length - 1 ? " " : ""}
                   </motion.span>
                 </span>
               ))}
@@ -150,12 +130,11 @@ export function Hero({ enableViewfinderCursor = false }: HeroProps) {
 
             {/* Subline */}
             <motion.p
-              initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{
-                duration: 0.6,
+                duration: 0.4,
                 ease: "easeOut",
-                delay: shouldReduceMotion ? 0 : 0.63,
               }}
               className="text-base sm:text-lg md:text-xl text-[var(--muted,#999)] mt-5 sm:mt-6 mb-8 sm:mb-10 max-w-xl font-normal leading-relaxed"
             >
@@ -164,12 +143,11 @@ export function Hero({ enableViewfinderCursor = false }: HeroProps) {
 
             {/* CTA Buttons */}
             <motion.div
-              initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{
-                duration: 0.6,
+                duration: 0.4,
                 ease: "easeOut",
-                delay: shouldReduceMotion ? 0 : 0.71,
               }}
               className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto"
             >

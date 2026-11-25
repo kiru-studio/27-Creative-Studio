@@ -21,6 +21,10 @@ import {
   CheckCircle2,
   AlertTriangle,
   Activity,
+  Search,
+  Globe,
+  ExternalLink,
+  RefreshCw,
 } from "lucide-react";
 import { BrandLockup } from "@/components/brand-lockup";
 import { SmartMediaInput } from "@/components/admin/smart-media-input";
@@ -1934,54 +1938,256 @@ export default function AdminPage() {
               </div>
 
               {/* SEO & Meta */}
-              <div className="p-5 sm:p-6 rounded-xl border border-[#232326] bg-[#121217] space-y-4 hover:border-[#2F2F38] transition-colors">
-                <h3 className="font-mono text-xs uppercase text-[#C6FF3D] font-bold tracking-wider">Metadata &amp; Indexing Engine</h3>
+              <div className="p-5 sm:p-6 rounded-xl border border-[#232326] bg-[#121217] space-y-6 hover:border-[#2F2F38] transition-colors">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#232326] pb-4">
+                  <div>
+                    <h3 className="font-mono text-xs uppercase text-[#C6FF3D] font-bold tracking-wider">
+                      Google Search &amp; Indexing Engine
+                    </h3>
+                    <p className="font-mono text-[11px] text-[#A9A7A0] mt-0.5">
+                      Configure your official Google Search snippet, Site Name, and custom domain.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const heroTitle = content.hero?.title
+                        ? `27 Creative Studio — ${content.hero.title}`
+                        : "27 Creative Studio — Real Growth. Real Results.";
+                      const heroDesc = content.hero?.body || content.seo?.description || "";
+                      update((p) => ({
+                        ...p,
+                        seo: {
+                          ...p.seo,
+                          title: heroTitle,
+                          ogTitle: heroTitle,
+                          twitterTitle: heroTitle,
+                          description: heroDesc,
+                          ogDescription: heroDesc,
+                          twitterDescription: heroDesc,
+                        },
+                      }));
+                    }}
+                    className="self-start sm:self-auto flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#16161D] border border-[#2A2A30] hover:border-[#C6FF3D] font-mono text-[11px] text-[#C6FF3D] transition-colors"
+                  >
+                    <RefreshCw size={12} />
+                    <span>Sync from Hero Section</span>
+                  </button>
+                </div>
+
+                {/* Google SERP Live Simulation */}
+                <div className="p-4 sm:p-5 rounded-xl border border-[#2A2A35] bg-[#0E0E12] space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Search size={14} className="text-[#C6FF3D]" />
+                      <span className="font-mono text-xs uppercase text-[#F4F1EA] font-semibold tracking-wider">
+                        Google Search Snippet Preview
+                      </span>
+                    </div>
+                    <span className="font-mono text-[10px] text-[#A9A7A0] px-2 py-0.5 rounded bg-[#16161D] border border-[#232326]">
+                      Live Simulation
+                    </span>
+                  </div>
+
+                  {/* Simulated Google Search Result */}
+                  <div className="p-4 rounded-lg bg-[#1F1F24]/70 border border-[#2A2A30] space-y-1.5 font-sans">
+                    {/* Site name & Favicon */}
+                    <div className="flex items-center gap-2 text-xs text-[#BDC1C6]">
+                      <div className="w-5 h-5 rounded-full bg-[#121217] border border-[#303134] flex items-center justify-center overflow-hidden shrink-0">
+                        <span className="font-mono text-[9px] font-bold text-[#C6FF3D]">27</span>
+                      </div>
+                      <div className="flex flex-col min-w-0">
+                        <span className="text-xs text-[#E8EAED] font-medium leading-none">
+                          {content.seo?.siteName || "27 Creative Studio"}
+                        </span>
+                        <span className="text-[11px] text-[#9AA0A6] font-mono leading-tight truncate">
+                          {content.seo?.url || "https://27creativestudio.vercel.app"}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Title link */}
+                    <div className="text-[#8AB4F8] text-base sm:text-lg font-normal leading-snug pt-0.5 truncate">
+                      {content.seo?.title || "27 Creative Studio — Real Growth. Real Results."}
+                    </div>
+
+                    {/* Snippet / Description */}
+                    <div className="text-xs sm:text-sm text-[#BDC1C6] leading-relaxed line-clamp-2">
+                      {content.seo?.description ||
+                        "Instagram growth and local visibility for Thoothukudi businesses. Handled by 27 Creative Studio."}
+                    </div>
+                  </div>
+
+                  <p className="font-mono text-[10px] text-[#707078] leading-normal">
+                    Matches your live Google Search result. The Site Name comes from your WebSite schema, the blue link from Meta Title, and the snippet from Meta Description.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Site Name */}
+                  <div>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label className="font-mono text-[11px] text-[#A9A7A0] uppercase tracking-wider font-semibold">
+                        Site Brand Name
+                      </label>
+                      <span className="font-mono text-[10px] text-[#707078]">
+                        Google Site Name header
+                      </span>
+                    </div>
+                    <input
+                      type="text"
+                      value={content.seo?.siteName || "27 Creative Studio"}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        update((p) => ({
+                          ...p,
+                          seo: {
+                            ...p.seo,
+                            siteName: val,
+                            business: { ...p.seo.business, name: val },
+                          },
+                        }));
+                      }}
+                      placeholder="27 Creative Studio"
+                      className="w-full h-9 bg-[#16161D] border border-[#2A2A30] focus:border-[#C6FF3D] focus:ring-1 focus:ring-[#C6FF3D] rounded-lg px-3 text-xs font-mono text-[#F4F1EA] outline-none transition-colors"
+                    />
+                    <p className="font-mono text-[10px] text-[#707078] mt-1">
+                      Target site name for Google. (Connect a custom domain in Vercel to guarantee Google uses this instead of &quot;Vercel&quot;).
+                    </p>
+                  </div>
+
+                  {/* Canonical URL */}
+                  <div>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label className="font-mono text-[11px] text-[#A9A7A0] uppercase tracking-wider font-semibold">
+                        Site Canonical URL / Custom Domain
+                      </label>
+                      <span className="font-mono text-[10px] text-[#707078]">
+                        Indexed domain
+                      </span>
+                    </div>
+                    <input
+                      type="url"
+                      value={content.seo?.url || "https://27creativestudio.vercel.app"}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        update((p) => ({
+                          ...p,
+                          seo: {
+                            ...p.seo,
+                            url: val,
+                            business: { ...p.seo.business, url: val },
+                          },
+                        }));
+                      }}
+                      placeholder="https://27creativestudio.vercel.app"
+                      className="w-full h-9 bg-[#16161D] border border-[#2A2A30] focus:border-[#C6FF3D] focus:ring-1 focus:ring-[#C6FF3D] rounded-lg px-3 text-xs font-mono text-[#F4F1EA] outline-none transition-colors"
+                    />
+                    <p className="font-mono text-[10px] text-[#707078] mt-1">
+                      If you connect a custom domain in Vercel (e.g. https://yourdomain.com), enter it here.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Meta Title */}
                 <div>
-                  <label className="block font-mono text-[11px] text-[#A9A7A0] uppercase tracking-wider mb-1.5 font-semibold">Site Canonical URL</label>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="font-mono text-[11px] text-[#A9A7A0] uppercase tracking-wider font-semibold">
+                      Meta Title (Google Blue Link)
+                    </label>
+                    <span
+                      className={`font-mono text-[10px] ${
+                        (content.seo?.title || "").length > 65 ? "text-amber-400" : "text-[#707078]"
+                      }`}
+                    >
+                      {(content.seo?.title || "").length} / 60 chars recommended
+                    </span>
+                  </div>
                   <input
-                    type="url"
-                    value={content.seo?.url || "https://27-creative-studio.vercel.app"}
+                    type="text"
+                    value={content.seo?.title || ""}
                     onChange={(e) => {
                       const val = e.target.value;
                       update((p) => ({
                         ...p,
                         seo: {
                           ...p.seo,
-                          url: val,
-                          business: { ...p.seo.business, url: val },
+                          title: val,
+                          ogTitle: val,
+                          twitterTitle: val,
                         },
                       }));
                     }}
-                    placeholder="https://27-creative-studio.vercel.app"
-                    className="w-full h-9 bg-[#16161D] border border-[#2A2A30] focus:border-[#C6FF3D] focus:ring-1 focus:ring-[#C6FF3D] rounded-lg px-3 text-xs font-mono text-[#F4F1EA] outline-none transition-colors"
-                  />
-                  <p className="font-mono text-[10px] text-[#707078] mt-1.5">
-                    Canonical domain used by Googlebot, XML sitemaps, and social share cards.
-                  </p>
-                </div>
-                <div>
-                  <label className="block font-mono text-[11px] text-[#A9A7A0] uppercase tracking-wider mb-1.5 font-semibold">Meta Title</label>
-                  <input
-                    type="text"
-                    value={content.seo?.title || ""}
-                    onChange={(e) => {
-                      const val = e.target.value;
-                      update((p) => ({ ...p, seo: { ...p.seo, title: val, ogTitle: val } }));
-                    }}
+                    placeholder="27 Creative Studio — Real Growth. Real Results."
                     className="w-full h-9 bg-[#16161D] border border-[#2A2A30] focus:border-[#C6FF3D] focus:ring-1 focus:ring-[#C6FF3D] rounded-lg px-3 text-xs font-mono text-[#F4F1EA] outline-none transition-colors"
                   />
                 </div>
+
+                {/* Meta Description */}
                 <div>
-                  <label className="block font-mono text-[11px] text-[#A9A7A0] uppercase tracking-wider mb-1.5 font-semibold">Meta Description</label>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="font-mono text-[11px] text-[#A9A7A0] uppercase tracking-wider font-semibold">
+                      Meta Description (Google Snippet Line)
+                    </label>
+                    <span
+                      className={`font-mono text-[10px] ${
+                        (content.seo?.description || "").length > 160 ? "text-amber-400" : "text-[#707078]"
+                      }`}
+                    >
+                      {(content.seo?.description || "").length} / 155 chars recommended
+                    </span>
+                  </div>
                   <textarea
                     rows={2}
                     value={content.seo?.description || ""}
                     onChange={(e) => {
                       const val = e.target.value;
-                      update((p) => ({ ...p, seo: { ...p.seo, description: val, ogDescription: val } }));
+                      update((p) => ({
+                        ...p,
+                        seo: {
+                          ...p.seo,
+                          description: val,
+                          ogDescription: val,
+                          twitterDescription: val,
+                        },
+                      }));
                     }}
+                    placeholder="Instagram growth and local visibility for Thoothukudi businesses. Handled by 27 Creative Studio."
                     className="w-full bg-[#16161D] border border-[#2A2A30] focus:border-[#C6FF3D] focus:ring-1 focus:ring-[#C6FF3D] rounded-lg p-3 text-xs font-mono text-[#F4F1EA] outline-none transition-colors"
                   />
+                  <p className="font-mono text-[10px] text-[#707078] mt-1">
+                    This is the exact line shown under your title on Google Search.
+                  </p>
+                </div>
+
+                {/* Diagnostic Guide */}
+                <div className="p-4 rounded-xl border border-[#232326] bg-[#101015] space-y-3">
+                  <div className="flex items-center gap-2 text-xs font-mono text-[#A9A7A0]">
+                    <Info size={14} className="text-[#C6FF3D]" />
+                    <span className="font-semibold uppercase tracking-wider text-[#F4F1EA]">
+                      Google Search Diagnostic Guide
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-[11px] font-mono text-[#A9A7A0]">
+                    <div className="p-3 rounded-lg bg-[#16161D] border border-[#232326] space-y-1">
+                      <div className="text-[#F4F1EA] font-semibold flex items-center gap-1.5">
+                        <Globe size={12} className="text-[#C6FF3D]" />
+                        Why does Google show &quot;Vercel&quot;?
+                      </div>
+                      <p className="text-[#888890] leading-relaxed">
+                        Google automatically assigns the platform name (&quot;Vercel&quot;) to all free <code className="text-[#C6FF3D]">*.vercel.app</code> subdomains. We injected server-side WebSite schema to enforce &quot;27 Creative Studio&quot;, and connecting a custom domain (e.g. 27creativestudio.com) in Vercel Settings &rarr; Domains guarantees Google displays your actual business name.
+                      </p>
+                    </div>
+                    <div className="p-3 rounded-lg bg-[#16161D] border border-[#232326] space-y-1">
+                      <div className="text-[#F4F1EA] font-semibold flex items-center gap-1.5">
+                        <ExternalLink size={12} className="text-[#C6FF3D]" />
+                        Why changes don&apos;t show immediately in Google?
+                      </div>
+                      <p className="text-[#888890] leading-relaxed">
+                        When you click &quot;Publish changes&quot;, your site deploys to Vercel within 1 minute. However, Google crawls sites on its own schedule (days to weeks). To force Google to update right away, open Google Search Console, inspect your URL, and click <strong className="text-[#F4F1EA]">&quot;Request Indexing&quot;</strong>.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

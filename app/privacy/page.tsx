@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { BrandLockup } from '@/components/brand-lockup';
+import { getSiteBaseUrl } from '@/lib/site-content';
+
+const siteUrl = getSiteBaseUrl();
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
@@ -9,13 +12,60 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/privacy',
   },
+  openGraph: {
+    title: 'Privacy Policy | 27 Creative Studio',
+    description: 'Privacy Policy of 27 Creative Studio, Thoothukudi. How we handle client inquiries, communications, and media.',
+    url: `${siteUrl}/privacy`,
+    siteName: '27 Creative Studio',
+    locale: 'en_IN',
+    type: 'website',
+    images: [
+      {
+        url: '/images/og-preview.png',
+        width: 2400,
+        height: 1260,
+        alt: '27 Creative Studio — Privacy Policy',
+        type: 'image/png',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Privacy Policy | 27 Creative Studio',
+    description: 'Privacy Policy of 27 Creative Studio, Thoothukudi. How we handle client inquiries, communications, and media.',
+    images: ['/images/og-preview.png'],
+  },
 };
 
 export default function PrivacyPolicyPage() {
   const lastUpdated = 'November 12, 2026';
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: siteUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Privacy Policy',
+        item: `${siteUrl}/privacy`,
+      },
+    ],
+  };
 
   return (
     <main className="min-h-screen bg-[#0B0B0F] text-[#F4F1EA] p-6 sm:p-10 lg:p-16 relative overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c'),
+        }}
+      />
       {/* Background overlay */}
       <div className="faq-grain-overlay pointer-events-none" aria-hidden="true" />
 
@@ -51,7 +101,7 @@ export default function PrivacyPolicyPage() {
               1. Overview
             </h2>
             <p>
-              At <strong>27 Creative Studio</strong> (&ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;), registered in Thoothukudi, Tamil Nadu, India, we respect your privacy and are committed to protecting the personal information you share with us through our website (<strong>27creativestudio.com</strong>), WhatsApp communications, phone calls, and direct on-location production engagements.
+              At <strong>27 Creative Studio</strong> (&ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;), operating in Thoothukudi, Tamil Nadu, India, we respect your privacy and are committed to protecting the personal information you share with us through our website (<strong>27creativestudio.vercel.app</strong>), WhatsApp communications, phone calls, and direct on-location production engagements.
             </p>
           </section>
 

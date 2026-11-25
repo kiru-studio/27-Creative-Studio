@@ -158,22 +158,20 @@ export function ContactSection({
 
           {/* Clapperboard Slate Body */}
           <motion.div
-            initial={reducedMotion ? false : { y: 20, opacity: 0 }}
+            initial={false}
             animate={
-              isInView
-                ? isShaking && !reducedMotion
-                  ? { y: [0, -2, 2, -1, 1, 0], opacity: 1 }
-                  : { y: 0, opacity: 1 }
-                : { y: 20, opacity: 0 }
+              isShaking && !reducedMotion
+                ? { y: [0, -2, 2, -1, 1, 0], opacity: 1 }
+                : { y: 0, opacity: 1 }
             }
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
             className="relative w-full rounded-b-xl border border-[#2A2A30] bg-[#141419] p-8 md:p-10 shadow-[0_24px_64px_rgba(0,0,0,0.85)] overflow-hidden"
           >
             {/* L-shaped Lime Corner Brackets */}
             <motion.div
-              initial={reducedMotion ? false : { scale: 1.15, opacity: 0 }}
-              animate={isInView ? { scale: 1, opacity: 1 } : { scale: 1.15, opacity: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              initial={false}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.4 }}
               className="absolute inset-0 pointer-events-none select-none z-10"
               aria-hidden="true"
             >
@@ -292,15 +290,13 @@ export function ContactSection({
             />
 
             <motion.div
-              initial={reducedMotion ? false : { y: 20, opacity: 0 }}
+              initial={false}
               animate={
-                isInView
-                  ? isShaking && !reducedMotion
-                    ? { y: [0, -2, 2, -1, 1, 0], opacity: 1 }
-                    : { y: 0, opacity: 1 }
-                  : { y: 20, opacity: 0 }
+                isShaking && !reducedMotion
+                  ? { y: [0, -2, 2, -1, 1, 0], opacity: 1 }
+                  : { y: 0, opacity: 1 }
               }
-              transition={{ duration: 0.6, ease: "easeOut" }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
               className="relative w-full rounded-b-xl border border-[#2A2A30] bg-[#141419] p-5 sm:p-7 shadow-[0_24px_64px_rgba(0,0,0,0.85)] overflow-hidden"
             >
               {/* L-shaped Lime Corner Brackets */}
@@ -349,12 +345,11 @@ export function ContactSection({
                     <p className="font-mono text-xs text-[#C6FF3D] uppercase tracking-widest">
                       {kicker}
                     </p>
-                    <h2
-                      id="contact-heading-mobile"
-                      className="mt-1.5 text-3xl font-black uppercase tracking-tight text-[#F4F1EA] font-display leading-[0.95]"
+                    <p
+                      className="mt-1.5 text-3xl font-black uppercase tracking-tight text-[#F4F1EA] font-display leading-[0.95] m-0"
                     >
                       {heading}
-                    </h2>
+                    </p>
                   </div>
 
                   {/* Channels List */}

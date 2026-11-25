@@ -61,6 +61,7 @@ import {
   TeamMember,
   ROLE_PERMISSIONS,
 } from "@/lib/crm-types";
+import { extractTimeOnSiteFromNotes } from "@/lib/site-entrance";
 
 function InstagramIcon({ size = 13, className = "" }: { size?: number; className?: string }) {
   return (
@@ -1113,9 +1114,20 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                                   9:16 REEL
                                 </span>
                               </div>
-                              <span className="font-mono text-[9px] px-1.5 py-0.5 rounded bg-[#16161D] text-[#A9A7A0] border border-[#2A2A30] uppercase font-semibold">
-                                SONY FX3
-                              </span>
+                              <div className="flex items-center gap-1.5">
+                                {extractTimeOnSiteFromNotes(inq.notes) && (
+                                  <span
+                                    className="font-mono text-[9px] px-1.5 py-0.5 rounded bg-[#C6FF3D]/10 text-[#C6FF3D] border border-[#C6FF3D]/30 font-semibold inline-flex items-center gap-1"
+                                    title="Time spent on site before submitting"
+                                  >
+                                    <Clock size={9} />
+                                    {extractTimeOnSiteFromNotes(inq.notes)}
+                                  </span>
+                                )}
+                                <span className="font-mono text-[9px] px-1.5 py-0.5 rounded bg-[#16161D] text-[#A9A7A0] border border-[#2A2A30] uppercase font-semibold">
+                                  SONY FX3
+                                </span>
+                              </div>
                             </div>
 
                             {/* Client & Business + Deal Value */}
@@ -2259,6 +2271,28 @@ export function StudioOperationsHub({ currentMember }: { currentMember?: TeamMem
                     {selectedInquiry.story || "No concept notes logged yet."}
                   </div>
                 </div>
+
+                {/* Submission Telemetry & Notes */}
+                {(selectedInquiry.notes || extractTimeOnSiteFromNotes(selectedInquiry.notes)) && (
+                  <div className="p-3.5 rounded-xl bg-[#0E0E14] border border-[#232326] font-mono text-xs space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[11px] text-[#A9A7A0] uppercase font-bold">
+                        SUBMISSION TELEMETRY &amp; NOTES
+                      </span>
+                      {extractTimeOnSiteFromNotes(selectedInquiry.notes) && (
+                        <span className="px-2 py-0.5 rounded bg-[#C6FF3D]/15 text-[#C6FF3D] border border-[#C6FF3D]/30 font-bold text-[11px] inline-flex items-center gap-1">
+                          <Clock size={11} />
+                          Time on site: {extractTimeOnSiteFromNotes(selectedInquiry.notes)}
+                        </span>
+                      )}
+                    </div>
+                    {selectedInquiry.notes && (
+                      <p className="text-[11px] text-[#A9A7A0] leading-relaxed">
+                        {selectedInquiry.notes}
+                      </p>
+                    )}
+                  </div>
+                )}
 
                 {/* Deliverables */}
                 <div>

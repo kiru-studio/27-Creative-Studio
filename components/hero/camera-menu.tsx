@@ -1,6 +1,7 @@
 "use client";
 
 import { heroConfig } from "@/data/hero";
+import { siteContent } from "@/lib/site-content";
 
 interface CameraMenuProps {
   className?: string;
@@ -8,7 +9,7 @@ interface CameraMenuProps {
 }
 
 export function CameraMenu({ className = "" }: CameraMenuProps) {
-  const { cameraReadout } = heroConfig;
+  const cameraReadout = siteContent.hero?.cameraReadout || heroConfig.cameraReadout;
   const readoutText = `${cameraReadout.resolution} · ${cameraReadout.fps} · ${cameraReadout.aperture} · ${cameraReadout.iso}`;
 
   return (

@@ -703,8 +703,8 @@ const BadgeFaces = React.memo(function BadgeFaces({
     "--grey": "#9CA3AF",
     "--name-grey": "#FFFFFF",
     "--accent": "#C6FF3D",
-    "--display": '"Bebas Neue", Impact, sans-serif',
-    "--sans": '"Poppins", "Helvetica Neue", Arial, sans-serif',
+    "--display": 'var(--font-bebas-neue), "Bebas Neue", Impact, sans-serif',
+    "--sans": 'var(--font-poppins), "Poppins", "Helvetica Neue", Arial, sans-serif',
   } as React.CSSProperties;
 
   return (
@@ -954,7 +954,9 @@ const BadgeFaces = React.memo(function BadgeFaces({
           >
             <img
               src={portraitSrc}
-              alt={item.name}
+              alt={`${item.name} — ${item.role}, 27 Creative Studio Thoothukudi`}
+              loading="lazy"
+              decoding="async"
               draggable={false}
               onDragStart={(e) => e.preventDefault()}
               className="pointer-events-none select-none w-full h-full"
@@ -1020,42 +1022,46 @@ const BadgeFaces = React.memo(function BadgeFaces({
           }}
         >
           <h3
-            className="w-full font-display leading-none tracking-[0.02em] text-white truncate"
-            style={{
-              fontFamily: "var(--display)",
-              fontSize:
-                canva.firstName.length > 14
-                  ? "calc(64 * var(--p))"
-                  : canva.firstName.length > 10
-                  ? "calc(80 * var(--p))"
-                  : canva.firstName.length > 7
-                  ? "calc(96 * var(--p))"
-                  : "calc(112 * var(--p))",
-              lineHeight: 0.95,
-            }}
-            title={canva.firstName}
+            className="w-full font-display leading-none tracking-[0.02em] text-white m-0"
+            title={canva.lastName ? `${canva.firstName} ${canva.lastName}` : canva.firstName}
           >
-            {canva.firstName}
-          </h3>
-          {canva.lastName ? (
-            <p
-              className="w-full font-bold italic text-[#9CA3AF] truncate"
+            <span
+              className="block w-full truncate"
               style={{
-                marginTop: "calc(6 * var(--p))",
-                fontFamily: "var(--sans)",
+                fontFamily: "var(--display)",
                 fontSize:
-                  canva.lastName.length > 16
-                    ? "calc(28 * var(--p))"
-                    : canva.lastName.length > 12
-                    ? "calc(36 * var(--p))"
-                    : "calc(44 * var(--p))",
-                lineHeight: 1,
+                  canva.firstName.length > 14
+                    ? "calc(64 * var(--p))"
+                    : canva.firstName.length > 10
+                    ? "calc(80 * var(--p))"
+                    : canva.firstName.length > 7
+                    ? "calc(96 * var(--p))"
+                    : "calc(112 * var(--p))",
+                lineHeight: 0.95,
               }}
-              title={canva.lastName}
             >
-              {canva.lastName}
-            </p>
-          ) : null}
+              {canva.firstName}
+            </span>
+            {canva.lastName ? (
+              <span
+                className="block w-full font-bold italic text-[#9CA3AF] truncate"
+                style={{
+                  marginTop: "calc(6 * var(--p))",
+                  fontFamily: "var(--sans)",
+                  fontSize:
+                    canva.lastName.length > 16
+                      ? "calc(28 * var(--p))"
+                      : canva.lastName.length > 12
+                      ? "calc(36 * var(--p))"
+                      : "calc(44 * var(--p))",
+                  lineHeight: 1,
+                }}
+              >
+                {" "}
+                {canva.lastName}
+              </span>
+            ) : null}
+          </h3>
         </div>
 
         {/* Tally Indicator Ticks */}
@@ -1431,7 +1437,7 @@ const BadgeFaces = React.memo(function BadgeFaces({
 
           {/* Bio text area */}
           <div className="w-full flex-1 min-h-0 overflow-hidden flex flex-col justify-start">
-            <h2
+            <p
               className="shrink-0 tracking-[0.04em] text-[#C6FF3D]"
               style={{
                 margin: 0,
@@ -1441,7 +1447,7 @@ const BadgeFaces = React.memo(function BadgeFaces({
               }}
             >
               WHAT I DO
-            </h2>
+            </p>
             <p
               className="w-full text-[#E5E7EB]"
               style={{
@@ -1598,8 +1604,8 @@ const BadgeFaces = React.memo(function BadgeFaces({
         </div>
 
         {/* Instagram Header on Lower Panel */}
-        <h2
-          className="pointer-events-none absolute whitespace-nowrap text-[#9CA3AF] tracking-[0.04em]"
+        <p
+          className="pointer-events-none absolute whitespace-nowrap text-[#9CA3AF] tracking-[0.04em] m-0"
           style={{
             left: "calc(64 * var(--p))",
             top: "calc(748 * var(--p))",
@@ -1611,7 +1617,7 @@ const BadgeFaces = React.memo(function BadgeFaces({
           }}
         >
           FIND ME ON INSTAGRAM
-        </h2>
+        </p>
 
         {/* Instagram Button (Optimized sizing: fits handle cleanly, never overlaps Pass ID) */}
         <a

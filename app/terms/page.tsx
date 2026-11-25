@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { BrandLockup } from '@/components/brand-lockup';
+import { getSiteBaseUrl } from '@/lib/site-content';
+
+const siteUrl = getSiteBaseUrl();
 
 export const metadata: Metadata = {
   title: 'Terms of Service',
@@ -9,13 +12,60 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/terms',
   },
+  openGraph: {
+    title: 'Terms of Service | 27 Creative Studio',
+    description: 'Terms of Service & Video Production Agreement for 27 Creative Studio, Thoothukudi.',
+    url: `${siteUrl}/terms`,
+    siteName: '27 Creative Studio',
+    locale: 'en_IN',
+    type: 'website',
+    images: [
+      {
+        url: '/images/og-preview.png',
+        width: 2400,
+        height: 1260,
+        alt: '27 Creative Studio — Terms of Service',
+        type: 'image/png',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Terms of Service | 27 Creative Studio',
+    description: 'Terms of Service & Video Production Agreement for 27 Creative Studio, Thoothukudi.',
+    images: ['/images/og-preview.png'],
+  },
 };
 
 export default function TermsOfServicePage() {
   const lastUpdated = 'November 12, 2026';
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: siteUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Terms of Service',
+        item: `${siteUrl}/terms`,
+      },
+    ],
+  };
 
   return (
     <main className="min-h-screen bg-[#0B0B0F] text-[#F4F1EA] p-6 sm:p-10 lg:p-16 relative overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c'),
+        }}
+      />
       {/* Background overlay */}
       <div className="faq-grain-overlay pointer-events-none" aria-hidden="true" />
 

@@ -418,14 +418,11 @@ export function CasePanel({
     <div className="case-detail pt-2 pb-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start lg:items-center">
       {/* 1. Standard 16:9 Cinema Widescreen Viewport (lg:col-span-5) - Vertically Centered */}
       <motion.div
-        initial={
-          shouldReduceMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -16 }
-        }
+        initial={false}
         animate={{ opacity: 1, x: 0 }}
         transition={{
-          duration: 0.45,
+          duration: 0.4,
           ease: [0.16, 1, 0.3, 1],
-          delay: shouldReduceMotion ? 0 : 0.08,
         }}
         className="lg:col-span-5 w-full self-center my-auto"
       >
@@ -477,6 +474,14 @@ export function CasePanel({
 
       {/* 2. Right: Meta & Stats Column (lg:col-span-7) */}
       <div className="lg:col-span-7 flex flex-col gap-3 min-w-0">
+        <h3 className="m-0 font-display font-bold text-lg sm:text-xl text-[var(--paper)] tracking-tight">
+          {item.client &&
+          item.title &&
+          item.client.toLowerCase() !== item.title.toLowerCase()
+            ? `${item.client} — ${item.title}`
+            : item.title}
+        </h3>
+
         {/* Client Meta (Location & Instagram Handle) */}
         {(item.location || item.handle) && (
           <div className="flex flex-wrap items-center gap-3 pt-1 pb-1 font-mono text-xs">
@@ -568,15 +573,9 @@ export function CasePanel({
 
         {/* Goal block */}
         <motion.p
-          initial={
-            shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }
-          }
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.4,
-            ease: "easeOut",
-            delay: shouldReduceMotion ? 0 : 0.16,
-          }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
           className="m-0 text-sm leading-relaxed"
         >
           <strong className="text-[var(--paper)] mr-2 font-bold">
@@ -587,15 +586,9 @@ export function CasePanel({
 
         {/* What we shot block */}
         <motion.p
-          initial={
-            shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }
-          }
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.4,
-            ease: "easeOut",
-            delay: shouldReduceMotion ? 0 : 0.24,
-          }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
           className="m-0 text-sm leading-relaxed"
         >
           <strong className="text-[var(--paper)] mr-2 font-bold">
@@ -606,15 +599,9 @@ export function CasePanel({
 
         {/* Result block */}
         <motion.p
-          initial={
-            shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }
-          }
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.4,
-            ease: "easeOut",
-            delay: shouldReduceMotion ? 0 : 0.32,
-          }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
           className="m-0 text-sm leading-relaxed"
         >
           <strong className="text-[var(--paper)] mr-2 font-bold">
@@ -673,28 +660,20 @@ export function CaseRow({
       onMouseEnter={onHoverStart}
       onMouseLeave={onHoverEnd}
       onPointerMove={onPointerMove}
-      // Section entrance: case rows rise 20px and fade in, 100ms apart
-      initial={
-        shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
-      }
-      animate={
-        isInView ? { opacity: rowOpacity, y: 0 } : { opacity: 0, y: 20 }
-      }
+      // Keep case rows visible in SSR DOM while dimming inactive rows on hover
+      initial={false}
+      animate={{
+        opacity: isInView ? rowOpacity : 1,
+        y: 0,
+      }}
       transition={{
         y: {
-          duration: 0.5,
+          duration: 0.4,
           ease: [0.16, 1, 0.3, 1],
-          delay: shouldReduceMotion ? 0 : 0.3 + index * 0.1,
         },
         opacity: {
-          duration: isHovered || isOtherHovered ? 0.25 : 0.5,
+          duration: isHovered || isOtherHovered ? 0.25 : 0.4,
           ease: "easeOut",
-          delay:
-            isHovered || isOtherHovered
-              ? 0
-              : shouldReduceMotion
-                ? 0
-                : 0.3 + index * 0.1,
         },
       }}
       style={{ willChange: "transform, opacity" }}
@@ -767,31 +746,30 @@ export function CaseRow({
         aria-hidden="true"
       />
 
-      {/* Accordion Panel Container with AnimatePresence & Height: 0 -> auto */}
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            id={`case-panel-${item.id}`}
-            role="region"
-            aria-labelledby={`case-header-${item.id}`}
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={
-              shouldReduceMotion
-                ? { duration: 0 }
-                : { duration: 0.45, ease: [0.16, 1, 0.3, 1] }
-            }
-            style={{ overflow: "hidden" }}
-          >
-            <CasePanel
-              item={item}
-              isOpen={isOpen}
-              shouldReduceMotion={shouldReduceMotion}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Accordion Panel Container kept mounted in SSR DOM for full crawler visibility */}
+      <motion.div
+        id={`case-panel-${item.id}`}
+        role="region"
+        aria-labelledby={`case-header-${item.id}`}
+        aria-hidden={!isOpen}
+        initial={false}
+        animate={isOpen ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
+        transition={
+          shouldReduceMotion
+            ? { duration: 0 }
+            : { duration: 0.45, ease: [0.16, 1, 0.3, 1] }
+        }
+        style={{
+          overflow: "hidden",
+          pointerEvents: isOpen ? "auto" : "none",
+        }}
+      >
+        <CasePanel
+          item={item}
+          isOpen={isOpen}
+          shouldReduceMotion={shouldReduceMotion}
+        />
+      </motion.div>
     </motion.article>
   );
 }
@@ -895,16 +873,14 @@ export function CasesSection() {
       </AnimatePresence>
 
       <div className="relative z-10 flex flex-col justify-start w-full">
-        {/* 5. SCROLL REVEAL: Header Entrance */}
+        {/* 5. SCROLL REVEAL: Header Entrance (SSR visible) */}
         <div className="section-intro mb-8">
           <div className="overflow-mask-inline">
             <motion.p
               className="kicker"
-              initial={
-                shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }
-              }
-              animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
+              initial={false}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
             >
               {siteContent.ui.casesKicker}
             </motion.p>
@@ -917,42 +893,24 @@ export function CasesSection() {
             <span className="overflow-mask block">
               <motion.span
                 className="block"
-                initial={
-                  shouldReduceMotion
-                    ? { y: 0, opacity: 1 }
-                    : { y: "100%", opacity: 0 }
-                }
-                animate={
-                  isInView
-                    ? { y: 0, opacity: 1 }
-                    : { y: "100%", opacity: 0 }
-                }
+                initial={false}
+                animate={{ y: 0, opacity: 1 }}
                 transition={{
-                  duration: 0.6,
+                  duration: 0.5,
                   ease: [0.16, 1, 0.3, 1],
-                  delay: 0.08,
                 }}
               >
-                A few things
+                A few things{" "}
               </motion.span>
             </span>
             <span className="overflow-mask block">
               <motion.span
                 className="block"
-                initial={
-                  shouldReduceMotion
-                    ? { y: 0, opacity: 1 }
-                    : { y: "100%", opacity: 0 }
-                }
-                animate={
-                  isInView
-                    ? { y: 0, opacity: 1 }
-                    : { y: "100%", opacity: 0 }
-                }
+                initial={false}
+                animate={{ y: 0, opacity: 1 }}
                 transition={{
-                  duration: 0.6,
+                  duration: 0.5,
                   ease: [0.16, 1, 0.3, 1],
-                  delay: 0.18,
                 }}
               >
                 we made move.
@@ -963,9 +921,9 @@ export function CasesSection() {
 
         {/* Results at a Glance — Studio KPI Metrics Strip */}
         <motion.div
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-          transition={{ duration: 0.5, delay: 0.25 }}
+          initial={false}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
           className="mb-10 sm:mb-12 py-6 sm:py-7 border-y border-[var(--line,#2A2A30)] bg-[var(--panel,#141419)]/30 relative"
           onMouseLeave={() => setHoveredKpiIndex(null)}
         >

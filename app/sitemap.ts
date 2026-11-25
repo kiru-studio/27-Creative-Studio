@@ -3,24 +3,36 @@ import { getSiteBaseUrl } from '@/lib/site-content';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = getSiteBaseUrl();
-  const now = new Date();
+  const lastModified = new Date('2026-11-25T00:00:00Z');
 
   return [
     {
       url: `${baseUrl}/`,
-      lastModified: now,
+      lastModified,
       changeFrequency: 'weekly',
       priority: 1.0,
     },
     {
+      url: `${baseUrl}/services`,
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/work`,
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/privacy`,
-      lastModified: now,
+      lastModified,
       changeFrequency: 'monthly',
       priority: 0.3,
     },
     {
       url: `${baseUrl}/terms`,
-      lastModified: now,
+      lastModified,
       changeFrequency: 'monthly',
       priority: 0.3,
     },

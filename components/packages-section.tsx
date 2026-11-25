@@ -193,15 +193,9 @@ export function PackagesSection({
           {/* Tag / Kicker with REC Indicator */}
           <motion.div
             className="mb-3 select-none"
-            initial={shouldReduceMotion ? false : { opacity: 0 }}
-            animate={
-              isInView
-                ? { opacity: 1 }
-                : shouldReduceMotion
-                ? { opacity: 1 }
-                : { opacity: 0 }
-            }
-            transition={{ duration: 0.5, ease: "easeOut" }}
+            initial={false}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
           >
             <p className="kicker m-0">{siteContent.ui.packagesKicker}</p>
           </motion.div>
@@ -212,21 +206,14 @@ export function PackagesSection({
               <span key={idx} className="overflow-hidden block leading-none">
                 <motion.span
                   className="block font-display font-black text-5xl sm:text-6xl lg:text-7xl uppercase tracking-tight text-[var(--paper)]"
-                  initial={shouldReduceMotion ? false : { y: "100%" }}
-                  animate={
-                    isInView
-                      ? { y: 0 }
-                      : shouldReduceMotion
-                      ? { y: 0 }
-                      : { y: "100%" }
-                  }
+                  initial={false}
+                  animate={{ y: 0 }}
                   transition={{
-                    duration: 0.6,
+                    duration: 0.5,
                     ease: [0.16, 1, 0.3, 1] as const,
-                    delay: shouldReduceMotion ? 0 : 0.1 + idx * 0.1,
                   }}
                 >
-                  {line}
+                  {line}{idx < headingLines.length - 1 ? " " : ""}
                 </motion.span>
               </span>
             ))}
@@ -235,15 +222,9 @@ export function PackagesSection({
           {/* Supporting Subtitle */}
           <motion.p
             className="text-base sm:text-lg text-[var(--paper)]/80 mt-4 max-w-2xl leading-relaxed m-0 font-body"
-            initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
-            animate={
-              isInView
-                ? { opacity: 1, y: 0 }
-                : shouldReduceMotion
-                ? { opacity: 1, y: 0 }
-                : { opacity: 0, y: 10 }
-            }
-            transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
+            initial={false}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
           >
             Three ways to build your brand, create high-velocity reels, and dominate locally.
           </motion.p>
@@ -292,7 +273,7 @@ export function PackagesSection({
                     setHoveredId((curr) => (curr === pkg.id ? null : curr));
                   }
                 }}
-                initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+                initial={false}
                 animate={{
                   opacity: isOtherHovered && !shouldReduceMotion ? 0.65 : 1,
                   y: isHovered && !shouldReduceMotion ? -8 : 0,
@@ -528,22 +509,25 @@ export function PackagesSection({
             </span>
           </button>
 
-          <AnimatePresence>
-            {showComparison && (
-              <motion.div
-                id="packages-comparison-table"
-                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, height: 0 }}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
-                className="overflow-hidden mt-8 text-left"
-              >
-                <div className="rounded-2xl border border-[var(--line)] bg-[#101015] p-5 sm:p-7 lg:p-9 shadow-2xl overflow-x-auto">
-                  <div className="mb-5 pb-3 border-b border-[var(--line)] flex items-center justify-between">
-                    <div>
-                      <h4 className="font-display font-black text-2xl uppercase tracking-tight text-[var(--paper)] m-0">
-                        Detailed Deliverable Matrix
-                      </h4>
+          <motion.div
+            id="packages-comparison-table"
+            aria-hidden={!showComparison}
+            initial={false}
+            animate={
+              showComparison
+                ? { opacity: 1, height: "auto" }
+                : { opacity: 0, height: 0 }
+            }
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            style={{ pointerEvents: showComparison ? "auto" : "none" }}
+            className="overflow-hidden mt-8 text-left"
+          >
+            <div className="rounded-2xl border border-[var(--line)] bg-[#101015] p-5 sm:p-7 lg:p-9 shadow-2xl overflow-x-auto">
+              <div className="mb-5 pb-3 border-b border-[var(--line)] flex items-center justify-between">
+                <div>
+                  <h3 className="font-display font-black text-2xl uppercase tracking-tight text-[var(--paper)] m-0">
+                    Detailed Deliverable Matrix
+                  </h3>
                       <p className="font-mono text-xs text-[var(--muted)] mt-1 m-0">
                         Side-by-side comparison across all three studio engagement tiers.
                       </p>
@@ -660,10 +644,8 @@ export function PackagesSection({
                       </tr>
                     </tfoot>
                   </table>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

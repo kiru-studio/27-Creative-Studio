@@ -25,7 +25,8 @@ export function BrandLockup({
         className="brand-mark"
         hideLabel
       />
-      <span className="brand-descriptor" aria-hidden="true">
+      <span className="brand-descriptor">
+        <span className="sr-only">{siteContent.brand.name} </span>
         {siteContent.brand.descriptor}
       </span>
     </a>

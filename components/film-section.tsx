@@ -552,20 +552,14 @@ export function FilmSection() {
       aria-labelledby="films-heading"
     >
       <LayoutGroup id="longer-cut-films-group">
-        {/* SCROLL REVEAL: Staggered heading lines sliding from behind overflow-hidden mask */}
+        {/* Header visible immediately on SSR */}
         <div className="section-intro">
           <div className="overflow-mask-inline">
             <motion.p
               className="kicker"
-              initial={
-                shouldReduceMotion
-                  ? { y: 0, opacity: 1 }
-                  : { y: "100%", opacity: 0 }
-              }
-              animate={
-                isInView ? { y: 0, opacity: 1 } : { y: "100%", opacity: 0 }
-              }
-              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+              initial={false}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             >
               {siteContent.ui.filmsKicker}
             </motion.p>
@@ -574,18 +568,11 @@ export function FilmSection() {
           <div className="overflow-mask">
             <motion.h2
               id="films-heading"
-              initial={
-                shouldReduceMotion
-                  ? { y: 0, opacity: 1 }
-                  : { y: "100%", opacity: 0 }
-              }
-              animate={
-                isInView ? { y: 0, opacity: 1 } : { y: "100%", opacity: 0 }
-              }
+              initial={false}
+              animate={{ y: 0, opacity: 1 }}
               transition={{
-                duration: 0.6,
+                duration: 0.5,
                 ease: [0.16, 1, 0.3, 1],
-                delay: 0.08,
               }}
             >
               {siteContent.ui.filmsHeading}
@@ -594,18 +581,11 @@ export function FilmSection() {
 
           <div className="overflow-mask">
             <motion.p
-              initial={
-                shouldReduceMotion
-                  ? { y: 0, opacity: 1 }
-                  : { y: "100%", opacity: 0 }
-              }
-              animate={
-                isInView ? { y: 0, opacity: 1 } : { y: "100%", opacity: 0 }
-              }
+              initial={false}
+              animate={{ y: 0, opacity: 1 }}
               transition={{
-                duration: 0.6,
+                duration: 0.5,
                 ease: [0.16, 1, 0.3, 1],
-                delay: 0.16,
               }}
             >
               {siteContent.ui.filmSubtitle}
@@ -617,18 +597,11 @@ export function FilmSection() {
         <div className="films-layout">
           {/* MAIN PLAYER COLUMN */}
           <motion.div
-            initial={
-              shouldReduceMotion
-                ? { opacity: 1, y: 0 }
-                : { opacity: 0, y: 24 }
-            }
-            animate={
-              isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }
-            }
+            initial={false}
+            animate={{ opacity: 1, y: 0 }}
             transition={{
-              duration: 0.6,
+              duration: 0.5,
               ease: [0.16, 1, 0.3, 1],
-              delay: 0.25,
             }}
           >
             {/* Mobile Multi-Cam Switcher Bar (fits all phone widths perfectly, zero cut-off) */}
@@ -699,17 +672,9 @@ export function FilmSection() {
               <motion.div
                 key={activeItem.id}
                 className="mt-3 p-3.5 sm:p-4 rounded-xl bg-[#141419] border border-[#2A2A30] shadow-lg"
-                initial={
-                  shouldReduceMotion
-                    ? { opacity: 1 }
-                    : { opacity: 0, y: 6 }
-                }
+                initial={false}
                 animate={{ opacity: 1, y: 0 }}
-                exit={
-                  shouldReduceMotion
-                    ? { opacity: 0 }
-                    : { opacity: 0, y: -6 }
-                }
+                exit={{ opacity: 0 }}
                 transition={{ duration: 0.2, ease: "easeOut" }}
               >
                 {/* Header Row: Client Name + Format Badge */}
@@ -746,21 +711,14 @@ export function FilmSection() {
 
           {/* SIDEBAR THUMBNAILS (Visible as 2-column sidebar on desktop md:grid, hidden on mobile) */}
           <div className="film-list hidden md:grid">
-            {sideItems.map((item, index) => (
+            {sideItems.map((item) => (
               <motion.div
                 key={item.id}
-                initial={
-                  shouldReduceMotion
-                    ? { opacity: 1, y: 0 }
-                    : { opacity: 0, y: 24 }
-                }
-                animate={
-                  isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }
-                }
+                initial={false}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{
-                  duration: 0.5,
+                  duration: 0.4,
                   ease: [0.16, 1, 0.3, 1],
-                  delay: 0.35 + index * 0.1, // Staggered 100ms apart
                 }}
               >
                 <motion.div

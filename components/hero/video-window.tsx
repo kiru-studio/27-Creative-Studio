@@ -80,9 +80,9 @@ export function VideoWindow({
         x: canHover && !shouldReduceMotion ? parallaxX : 0,
         y: canHover && !shouldReduceMotion ? parallaxY : 0,
       }}
-      initial={shouldReduceMotion ? false : { x: "8%", opacity: 0 }}
+      initial={false}
       animate={{ x: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className={`relative select-none ${className}`}
       onClick={onOpenReelModal}
       role="button"

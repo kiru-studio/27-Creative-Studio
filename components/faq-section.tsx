@@ -93,6 +93,7 @@ export interface FaqItemProps {
   item: FaqItemType;
   resolvedAnswer: string;
   isOpen: boolean;
+  isCollapsedByPagination?: boolean;
   onToggle: () => void;
   index: number;
   shouldReduceMotion?: boolean;
@@ -104,6 +105,7 @@ export function FaqItem({
   item,
   resolvedAnswer,
   isOpen,
+  isCollapsedByPagination = false,
   onToggle,
   index,
   shouldReduceMotion = false,
@@ -114,13 +116,22 @@ export function FaqItem({
   const panelId = `faq-panel-${item.id}`;
 
   return (
-    <div className="faq-row-item border-b border-[var(--line)]">
+    <div
+      className={`faq-row-item ${isCollapsedByPagination ? "border-b-0 overflow-hidden" : "border-b border-[var(--line)]"}`}
+      style={
+        isCollapsedByPagination
+          ? { height: 0, overflow: "hidden", opacity: 0, pointerEvents: "none" }
+          : undefined
+      }
+      aria-hidden={isCollapsedByPagination || undefined}
+    >
       {/* Accordion Header Button */}
       <h3>
         <button
           ref={buttonRef}
           id={headerId}
           type="button"
+          tabIndex={isCollapsedByPagination ? -1 : undefined}
           aria-expanded={isOpen}
           aria-controls={panelId}
           onClick={onToggle}
@@ -153,56 +164,41 @@ export function FaqItem({
         </button>
       </h3>
 
-      {/* Accordion Panel (Height auto + opacity) */}
-      <AnimatePresence initial={false}>
-        {isOpen && (
+      {/* Accordion Panel kept mounted in SSR DOM so all FAQPage answers are indexable */}
+      <motion.div
+        id={panelId}
+        role="region"
+        aria-labelledby={headerId}
+        aria-hidden={!isOpen}
+        initial={false}
+        animate={isOpen ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
+        transition={
+          shouldReduceMotion
+            ? { duration: 0 }
+            : { duration: 0.35, ease: [0.16, 1, 0.3, 1] as const }
+        }
+        style={{ overflow: "hidden", pointerEvents: isOpen ? "auto" : "none" }}
+      >
+        <div className="relative pl-5 sm:pl-7 pr-4 pb-6 pt-1">
+          {/* 2px Lime Bar on left edge drawing top to bottom */}
           <motion.div
-            id={panelId}
-            role="region"
-            aria-labelledby={headerId}
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
+            className="absolute left-0 top-0 bottom-6 w-[2px] bg-[var(--industry)] origin-top pointer-events-none"
+            initial={false}
+            animate={{ scaleY: isOpen ? 1 : 0 }}
             transition={
               shouldReduceMotion
                 ? { duration: 0 }
                 : { duration: 0.35, ease: [0.16, 1, 0.3, 1] as const }
             }
-            style={{ overflow: "hidden" }}
-          >
-            <div className="relative pl-5 sm:pl-7 pr-4 pb-6 pt-1">
-              {/* 2px Lime Bar on left edge drawing top to bottom */}
-              <motion.div
-                className="absolute left-0 top-0 bottom-6 w-[2px] bg-[var(--industry)] origin-top pointer-events-none"
-                initial={shouldReduceMotion ? false : { scaleY: 0 }}
-                animate={{ scaleY: 1 }}
-                exit={{ scaleY: 0 }}
-                transition={
-                  shouldReduceMotion
-                    ? { duration: 0 }
-                    : { duration: 0.35, ease: [0.16, 1, 0.3, 1] as const }
-                }
-                aria-hidden="true"
-              />
+            aria-hidden="true"
+          />
 
-              {/* Rising Answer Text (y: 8 -> 0) */}
-              <motion.p
-                initial={shouldReduceMotion ? false : { y: 8, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={shouldReduceMotion ? undefined : { y: 8, opacity: 0 }}
-                transition={
-                  shouldReduceMotion
-                    ? { duration: 0 }
-                    : { duration: 0.3, delay: 0.05, ease: "easeOut" }
-                }
-                className="text-sm sm:text-base text-[var(--muted)] leading-relaxed max-w-3xl m-0"
-              >
-                {resolvedAnswer}
-              </motion.p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          {/* Answer Text */}
+          <p className="text-sm sm:text-base text-[var(--muted)] leading-relaxed max-w-3xl m-0">
+            {resolvedAnswer}
+          </p>
+        </div>
+      </motion.div>
     </div>
   );
 }
@@ -324,7 +320,9 @@ export function FaqSection() {
       {/* Schema.org FAQPage Structured Data for SEO */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLdSchema).replace(/</g, "\\u003c"),
+        }}
       />
 
       <section
@@ -341,46 +339,33 @@ export function FaqSection() {
 
         <div className="relative z-10 w-full">
           {/* ------------------------------------------ */}
-          {/* SECTION HEADER (Scroll entrance)           */}
+          {/* SECTION HEADER                             */}
           {/* ------------------------------------------ */}
           <div className="section-intro mb-10 sm:mb-14">
             {/* Tag / Kicker */}
             <motion.p
               className="kicker"
-              initial={shouldReduceMotion ? false : { opacity: 0 }}
-              animate={
-                isInView
-                  ? { opacity: 1 }
-                  : shouldReduceMotion
-                  ? { opacity: 1 }
-                  : { opacity: 0 }
-              }
-              transition={{ duration: 0.5, ease: "easeOut" }}
+              initial={false}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
             >
               {siteContent.ui?.faqKicker || "The Fine Print"}
             </motion.p>
 
-            {/* Masked Heading Lines (y: 100% -> 0, 0.1s stagger) */}
+            {/* Masked Heading Lines */}
             <h2 id="faq-heading" className="flex flex-col items-start m-0">
               {headingLines.map((line, idx) => (
                 <span key={idx} className="overflow-hidden block leading-none">
                   <motion.span
                     className="block"
-                    initial={shouldReduceMotion ? false : { y: "100%" }}
-                    animate={
-                      isInView
-                        ? { y: 0 }
-                        : shouldReduceMotion
-                        ? { y: 0 }
-                        : { y: "100%" }
-                    }
+                    initial={false}
+                    animate={{ y: 0 }}
                     transition={{
-                      duration: 0.6,
+                      duration: 0.5,
                       ease: [0.16, 1, 0.3, 1] as const,
-                      delay: shouldReduceMotion ? 0 : 0.1 + idx * 0.1,
                     }}
                   >
-                    {line}
+                    {line}{idx < headingLines.length - 1 ? " " : ""}
                   </motion.span>
                 </span>
               ))}
@@ -413,12 +398,13 @@ export function FaqSection() {
                 transition={{ duration: 0.2, ease: "easeOut" }}
                 className="w-full flex flex-col"
               >
-                {visibleItems.map((item, index) => (
+                {filteredItems.map((item, index) => (
                   <FaqItem
                     key={item.id}
                     item={item}
                     resolvedAnswer={item.resolvedAnswer}
                     isOpen={openId === item.id}
+                    isCollapsedByPagination={!isExpanded && index >= 8}
                     onToggle={() =>
                       setOpenId((curr) => (curr === item.id ? null : item.id))
                     }

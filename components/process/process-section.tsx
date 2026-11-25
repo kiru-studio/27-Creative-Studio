@@ -130,15 +130,9 @@ export function ProcessSection({
               <div className="overflow-mask-inline">
                 <motion.p
                   className="font-mono text-xs text-[#C6FF3D] uppercase tracking-widest block"
-                  initial={
-                    shouldReduceMotion
-                      ? { y: 0, opacity: 1 }
-                      : { y: "100%", opacity: 0 }
-                  }
-                  whileInView={{ y: 0, opacity: 1 }}
-                  animate={isSectionInView ? { y: 0, opacity: 1 } : undefined}
-                  viewport={{ once: true, amount: 0.05 }}
-                  transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                  initial={false}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 >
                   {kicker}
                 </motion.p>
@@ -148,18 +142,11 @@ export function ProcessSection({
                 <motion.h2
                   id="speed-heading"
                   className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#F4F1EA] font-display block"
-                  initial={
-                    shouldReduceMotion
-                      ? { y: 0, opacity: 1 }
-                      : { y: "100%", opacity: 0 }
-                  }
-                  whileInView={{ y: 0, opacity: 1 }}
-                  animate={isSectionInView ? { y: 0, opacity: 1 } : undefined}
-                  viewport={{ once: true, amount: 0.05 }}
+                  initial={false}
+                  animate={{ y: 0, opacity: 1 }}
                   transition={{
-                    duration: 0.65,
+                    duration: 0.5,
                     ease: [0.16, 1, 0.3, 1],
-                    delay: 0.08,
                   }}
                 >
                   {heading}

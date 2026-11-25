@@ -165,13 +165,17 @@ export function getSiteBaseUrl(): string {
   if (process.env.NEXT_PUBLIC_SITE_URL) {
     return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
   }
+  if (
+    siteContent.seo?.url &&
+    !siteContent.seo.url.includes("localhost") &&
+    !siteContent.seo.url.includes("27-creative-studio.vercel.app")
+  ) {
+    return siteContent.seo.url.replace(/\/$/, "");
+  }
   if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
     return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
   }
-  if (siteContent.seo.url && !siteContent.seo.url.includes("localhost") && !siteContent.seo.url.includes("27creativestudio.com")) {
-    return siteContent.seo.url.replace(/\/$/, "");
-  }
-  return "https://27-creative-studio.vercel.app";
+  return "https://27creativestudio.vercel.app";
 }
 
 export const whatsappHref = `https://wa.me/${siteContent.contact.whatsappNumber}?text=${encodeURIComponent(siteContent.contact.whatsappMessage)}`;

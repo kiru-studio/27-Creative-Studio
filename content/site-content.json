@@ -122,7 +122,7 @@
       "type": "Automotive reel",
       "label": "REEL / MM CARS",
       "meta": "13.6K views",
-      "client": "MM Carsx",
+      "client": "MM Cars",
       "delivered": "96 posts",
       "industries": [
         "everything",
@@ -465,17 +465,17 @@
       "bio": "Digital Marketing & Creative Professional passionate about building brands through creative content and strategic marketing. Experienced in video production, video editing, social media management, creative design, and digital marketing. Focused on helping businesses grow their online presence through engaging visuals and effective digital strategies.",
       "workLabel": "shoots + directs",
       "photoSrc": "https://lh3.googleusercontent.com/d/1uIYiCy9KuXQENCZanlZ61_JcCCeC6O26=w1920",
-      "gear": "\tTurning Ideas into Digital Experiences.",
+      "gear": "Turning Ideas into Digital Experiences.",
       "focalLength": "Creative Visuals + Digital Growth",
       "passId": "27-DIR-01",
       "access": "ALL ACCESS // VIP",
       "stats": "Video Production · Video Editing · SEO · Social Media Marketing · Branding",
-      "tagline": "Curious by Nature. Analytical by Mind. Engineer by Passion.",
-      "instagram": "@pravinkumar.cinema",
+      "tagline": "Creative Visuals. Strategic Digital Growth.",
+      "instagram": "@ramkumar.27",
       "tags": [
         "shoots + directs",
-        "Python & SQL",
-        "ETL Pipelines"
+        "Video Production",
+        "SEO & Branding"
       ]
     },
     {
@@ -813,7 +813,7 @@
     "body": "Your business could be our next success story.",
     "email": "hello@27creativestudio.com",
     "instagram": "@27creativestudio",
-    "serviceArea": "",
+    "serviceArea": "Serving restaurants, showrooms, retail stores & institutes across Thoothukudi (Tuticorin), Tirunelveli, and Southern Tamil Nadu.",
     "whatsappLabel": "Call or WhatsApp: 83004 78244",
     "whatsappMessage": "Hi 27 Creative Studio, I want to grow my brand in Thoothukudi.",
     "whatsappNumber": "918300478244"
@@ -839,7 +839,7 @@
       },
       {
         "label": "Instagram",
-        "href": "https://instagram.com/"
+        "href": "https://instagram.com/27creativestudio"
       },
       {
         "label": "Email",
@@ -848,17 +848,17 @@
     ]
   },
   "seo": {
-    "title": "27 Creative Studio — Real Growth. Real Results.",
-    "description": "27 Creative Studio is a Thoothukudi digital marketing agency directing and shooting high-engagement Reels, brand videos, and content for real business growth.",
+    "title": "27 Creative Studio — Reels, Ad Films & Growth | Thoothukudi",
+    "description": "27 Creative Studio in Thoothukudi: 4K commercial video, Instagram reels & digital marketing across Tuticorin & Tirunelveli. 6,300+ followers.",
     "siteName": "27 Creative Studio",
-    "url": "https://27-creative-studio.vercel.app",
-    "locale": "en_IN",
-    "ogTitle": "27 Creative Studio — Real Growth. Real Results.",
-    "ogDescription": "27 Creative Studio is a Thoothukudi digital marketing agency directing and shooting high-engagement Reels, brand videos, and content for real business growth.",
+    "url": "https://27creativestudio.vercel.app",
+    "locale": "en-IN",
+    "ogTitle": "27 Creative Studio — Reels, Ad Films & Growth | Thoothukudi",
+    "ogDescription": "27 Creative Studio in Thoothukudi: 4K commercial video, Instagram reels & digital marketing across Tuticorin & Tirunelveli. 6,300+ followers.",
     "ogImage": "/images/og-preview.png",
     "twitterCard": "summary_large_image",
-    "twitterTitle": "27 Creative Studio — Real Growth. Real Results.",
-    "twitterDescription": "Instagram growth and local visibility for Thoothukudi businesses. Handled by 27 Creative Studio.",
+    "twitterTitle": "27 Creative Studio — Reels, Ad Films & Growth | Thoothukudi",
+    "twitterDescription": "27 Creative Studio in Thoothukudi: 4K commercial video, Instagram reels & digital marketing across Tuticorin & Tirunelveli. 6,300+ followers.",
     "twitterImage": "/images/og-preview.png",
     "favicon": "/favicon.ico",
     "robots": "index,follow",
@@ -868,7 +868,7 @@
       "description": "Creative studio providing Instagram page handling, viral reels, event coverage, and Google Business Profile setup for businesses in Thoothukudi.",
       "telephone": "+91 83004 78244",
       "email": "hello@27creativestudio.com",
-      "url": "https://27-creative-studio.vercel.app",
+      "url": "https://27creativestudio.vercel.app",
       "areaServed": [
         "Thoothukudi",
         "Tuticorin",
@@ -884,8 +884,7 @@
         "addressCountry": "IN"
       },
       "sameAs": [
-        "https://instagram.com/27creativestudio",
-        "https://wa.me/918300478244"
+        "https://instagram.com/27creativestudio"
       ]
     }
   }

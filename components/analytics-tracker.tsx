@@ -1,10 +1,16 @@
 "use client";
 
+import { useEffect } from "react";
 import Script from "next/script";
+import { recordSiteEntrance } from "@/lib/site-entrance";
 
 export function AnalyticsTracker() {
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
   const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
+
+  useEffect(() => {
+    recordSiteEntrance();
+  }, []);
 
   return (
     <>

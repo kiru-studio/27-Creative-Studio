@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { siteConfig } from "@/data/siteConfig";
 import { createInquiry } from "@/lib/studio-db";
+import { formatTimeOnSite } from "@/lib/site-entrance";
 
 // In-memory rate limiting: IP -> timestamps
 const rateLimitMap = new Map<string, number[]>();
@@ -53,6 +54,8 @@ const contactSchema = z.object({
   referenceLink: z.string().trim().optional(),
   website: z.string().max(0, "Bot detected").optional(), // Honeypot
   formRenderTime: z.number().optional(), // Anti-bot time check
+  siteEntranceTime: z.number().optional(), // First-entrance timestamp on site
+  timeOnSiteMs: z.number().optional(), // Fallback duration computed on client
 });
 
 export async function POST(req: NextRequest) {
@@ -98,6 +101,20 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const resolvedTimeOnSiteMs =
+      typeof data.siteEntranceTime === "number" && data.siteEntranceTime > 0
+        ? Math.max(0, Date.now() - data.siteEntranceTime)
+        : typeof data.timeOnSiteMs === "number" && data.timeOnSiteMs >= 0
+        ? data.timeOnSiteMs
+        : typeof data.formRenderTime === "number"
+        ? Math.max(0, Date.now() - data.formRenderTime)
+        : undefined;
+
+    const durationLabel =
+      typeof resolvedTimeOnSiteMs === "number"
+        ? formatTimeOnSite(resolvedTimeOnSiteMs)
+        : undefined;
+
     const recipient = siteConfig.recipientEmail || siteConfig.contactEmail;
     const resolvedBusiness =
       data.businessType === "other"
@@ -114,6 +131,7 @@ export async function POST(req: NextRequest) {
       `ROLL (Deliverables): ${data.needs.join(", ")}`,
       `DATE (Timeline): ${data.preferredDate || data.dateShortcut || "Flexible"}`,
       `REFERENCE: ${data.referenceLink || "None provided"}`,
+      ...(durationLabel ? [`TIME ON SITE: ${durationLabel}`] : []),
       ``,
       `THE STORY:`,
       data.story,
@@ -130,7 +148,7 @@ export async function POST(req: NextRequest) {
         story: data.story,
         deal_value: 20000,
         source: "web_brief",
-        notes: `Submitted via website brief form. Timeline preference: ${data.preferredDate || data.dateShortcut || "Flexible"}.`,
+        notes: `Submitted via website brief form.${durationLabel ? ` Time on site: ${durationLabel}.` : ""} Timeline preference: ${data.preferredDate || data.dateShortcut || "Flexible"}.`,
         status: "new",
       });
     } catch (dbErr) {
@@ -148,7 +166,9 @@ export async function POST(req: NextRequest) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            from: "27 Creative Studio <briefs@recmodestudio.com>",
+            from:
+              process.env.RESEND_FROM_EMAIL ||
+              "27 Creative Studio <onboarding@resend.dev>",
             to: [recipient],
             subject: emailSubject,
             text: emailBody,

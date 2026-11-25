@@ -1,6 +1,13 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Big_Shoulders, Figtree, Martian_Mono, Cinzel } from 'next/font/google'
+import {
+  Big_Shoulders,
+  Figtree,
+  Martian_Mono,
+  Cinzel,
+  Bebas_Neue,
+  Poppins,
+} from 'next/font/google'
 import { siteContent, getSiteBaseUrl } from '@/lib/site-content'
 import { CookieBanner } from '@/components/ui/cookie-banner'
 import { AnalyticsTracker } from '@/components/analytics-tracker'
@@ -29,6 +36,21 @@ const cinzelFont = Cinzel({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-cinzel',
+})
+
+const bebasFont = Bebas_Neue({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-bebas-neue',
+})
+
+const poppinsFont = Poppins({
+  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-poppins',
 })
 
 const siteUrl = getSiteBaseUrl()
@@ -66,21 +88,18 @@ export const metadata: Metadata = {
   generator: 'Next.js',
   applicationName: siteContent.seo.siteName,
   manifest: '/manifest.webmanifest',
-  alternates: {
-    canonical: '/',
-  },
   openGraph: {
     title: siteContent.seo.ogTitle,
     description: siteContent.seo.ogDescription,
     url: siteUrl,
     siteName: siteContent.seo.siteName,
-    locale: siteContent.seo.locale,
+    locale: 'en_IN',
     type: 'website',
     images: [
       {
         url: '/images/og-preview.png',
-        width: 1200,
-        height: 630,
+        width: 2400,
+        height: 1260,
         alt: siteContent.seo.ogTitle,
         type: 'image/png',
       },
@@ -137,16 +156,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable} ${cinzelFont.variable} antialiased`}>
+    <html lang="en-IN">
+      <body
+        className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable} ${cinzelFont.variable} ${bebasFont.variable} ${poppinsFont.variable} antialiased`}
+      >
         {children}
         <CookieBanner />
         <AnalyticsTracker />
